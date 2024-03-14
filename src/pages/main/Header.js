@@ -1,10 +1,10 @@
 function Header() {
     return (
-        <div className="mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto px-4 sm:px-6 lg:px-8 border-b-4 pb-11">
             <nav className="relative z-50 flex justify-between">
                 <div className="flex items-center md:gap-x-12">
                     <a href="/">
-                        svg
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..."/>
                     </a>
                     <div className="hidden md:flex md:gap-x-6">
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
