@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
+import StoreMap from './pages/store/StoreMap';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <div className='py-4'>
             <Routes>
               <Route path='/' element={<Home />} />
+              <Route path='/store' element={<StoreMap />} />
             </Routes>
           </div>
         </main>
