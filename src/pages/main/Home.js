@@ -1,6 +1,8 @@
+import Guideandsc from "./Guideandsc.js";
 import Newproduct from "./Newproduct.js";
 import Promotion from "./Promotion.js";
 import Promproduct from "./Promproduct.js";
+import Searchproduct from "./Searchproduct.js";
 
 const Home = () => {
 
@@ -13,14 +15,18 @@ const Home = () => {
             <div className='container mx-auto' style={{width: 1400}}>
                 <Promotion />
             </div>
-            <div>
+            <div className='container mx-auto' style={{width: 1400}}>
                 <Promproduct />
             </div>
             <div className='container mx-auto' style={{width: 1400}}>
                 <Newproduct />
             </div>
-            <h1>Home</h1>
-            <p>Welcome To My Home</p>
+            <div className='container mx-auto' style={{width: 1400}}>
+                <Searchproduct />
+            </div>
+            <div className='container mx-auto' style={{width: 1400}}>
+                <Guideandsc />
+            </div>
         </div>
     )
 }

@@ -2,7 +2,7 @@ const Promproduct = () => {
 
     return (
         <div className="" >
-            <div className="bg-white" style={{ width: 1400,margin: "auto" ,borderRadius: 5, boxShadow:"2px 2px 4px 2px", marginBottom: 30}}>
+            <div className="bg-white shadow-2xl rounded-2xl m-auto mb-11">
                 <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
                     <div className="flex justify-between">
                         <h2 className="text-2xl font-bold tracking-tight text-gray-900">이달의 행사 상품</h2>
