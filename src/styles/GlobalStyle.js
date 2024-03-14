@@ -1,5 +1,5 @@
-import { createGlobalStyle } from "styled-components";
 
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     
@@ -25,4 +25,8 @@ const GlobalStyle = createGlobalStyle`
     --gray-10: rgba(66, 66, 66, 1);
     /* 검정 */
     --black: rgba(0, 8, 20, 1);
+
+    /* font */
 `;
+
+export default GlobalStyle;
