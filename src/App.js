@@ -8,13 +8,13 @@ import Polist from './pages/ceo/Polist';
 
 function App() {
   return (
-    <div>
-      <header className='py-10'>
+    <>
+      <header>
         <Header />
       </header>
 
       <BrowserRouter>
-        <nav className='navbar navbar-expand-md navbar-dark bg-info sticky-top'>
+        {/* <nav className='navbar navbar-expand-md navbar-dark bg-info sticky-top'>
           <div className='container'>
             <div className="collapse navbar-collapse" id="navbar-content">
               <ul className="navbar-nav mr-auto">
@@ -24,7 +24,7 @@ function App() {
               </ul>
             </div>
           </div>
-        </nav>
+        </nav> */}
 
         <main>
           <div className='py-4'>
@@ -41,7 +41,7 @@ function App() {
       <footer className='py-4 bg-info text-light'>
         <Footer />
       </footer>
-    </div>
+    </>
   );
 }
 

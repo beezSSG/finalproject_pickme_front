@@ -1,6 +1,6 @@
 function Header() {
     return (
-        <div className="mx-auto px-4 sm:px-6 lg:px-8 border-b-4 pb-11">
+        <div className="mx-auto min-h-2 pt-4 sm:px-6 lg:px-8 border-b-2 border-slate-300 w-full sticky top-0 z-50">
             <nav className="relative z-50 flex justify-between">
                 <div className="flex items-center md:gap-x-12">
                     <a href="/">
