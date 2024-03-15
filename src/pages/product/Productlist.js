@@ -16,7 +16,7 @@ function Productlist() {
     /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
     
     function getProductlist(s, pn){
-        axios.get("http://localhost:8080/productlist", 
+        axios.get("http://localhost:8080/api/v1/product/productlist", 
                     {params:{ search:s, pageNumber:pn}})
              .then(function(resp){  // success:function
                 console.log(resp.data.productlist);
