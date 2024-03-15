@@ -62,26 +62,36 @@ function Faq() {
                                  dark:focus:ring-yellow-900"
                 onClick={() => handleCategoryClick('영수증')}>영수증</button>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Title</th>
-                        <th>Content</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {faqlist.map((faq) => (
-                        <tr key={faq.id}>
-                            <td>{faq.id}</td>
-                            <td>{faq.title}</td>
-                            <td>{faq.content}</td>
-                        </tr>
+            <div className="bg-white grid place-items-center h-[100vh] flex items-start">
+                <div className="wrapper w-5/6">
+                    {faqlist.map((faq, index) => (
+                    <div key={faq.id} className={`tab px-5 py-2 bg-white shadow-lg relative mb-2 rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 ${index === 0 ? 'mt-10' : ''}`}>
+                        <input type="checkbox" name="faq" id={`faq${faq.id}`} className="appearance-none peer"/>
+                        <label htmlFor={`faq${faq.id}`}
+                            className="flex items-center cursor-pointer font-semibold text-lg after:content-['+'] after:absolute after:right-5 after:text-2xl after:text-gray-400 hover:after:text-gray-950 peer-checked:after:transform peer-checked:after:rotate-45">
+                            <h2 className="w-8 h-8 bg-yellow-400 text-white flex justify-center items-center rounded-sm mr-3">{index + 1}</h2>
+                            <h3>
+                                {faq.title.split(category).map((part, i) => (
+                                    i === 0 ?
+                                        <span>{part}</span> :
+                                        <span><span className="text-yellow-500">{category}</span>{part}</span>
+                                ))}
+                            </h3>
+                        </label>
+                        <div className="answer content mt-5 h-0 transition-all ease-in-out duration-500 overflow-hidden peer-checked:h-full">
+                            <p>
+                                {faq.content.split(category).map((part, i) => (
+                                    i === 0 ?
+                                        <span>{part}</span> :
+                                        <span><span className="text-yellow-500">{category}</span>{part}</span>
+                                ))}
+                            </p>
+                        </div>
+                    </div>
                     ))}
-                </tbody>
-            </table>
+                </div>
+            </div>
             <br/>
-
             {/* 이 버튼은 로그인이 구현되면 관리자일시에만 뜨게 할꺼임 */}
             <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
                                focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
