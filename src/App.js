@@ -4,6 +4,7 @@ import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
 import StoreMap from './pages/store/StoreMap';
+import Polist from './pages/ceo/Polist';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/store' element={<StoreMap />} />
+              <Route path='/ceo' element={<Polist />} />
             </Routes>
           </div>
         </main>
