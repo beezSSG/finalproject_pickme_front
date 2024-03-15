@@ -5,7 +5,6 @@ import Home from './pages/main/Home';
 import Login from './pages/login/Login';
 import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
-
 import StoreMap from './pages/store/StoreMap';
 import Polist from './pages/ceo/Polist';
 
@@ -15,11 +14,11 @@ import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
 import Newproduct from './pages/manager/Newproduct';
-
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
+
 
 function App() {
   return (
@@ -46,7 +45,6 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
-
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
