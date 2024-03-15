@@ -4,6 +4,10 @@ import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
 import Polist from './pages/ceo/Polist';
+import ManagerMain from './pages/manager/ManagerMain';
+import Event from './pages/manager/Event';
+import EventDetail from './pages/manager/EventDetail';
+import EventCreate from './pages/manager/EventCreate';
 
 function App() {
   return (
@@ -31,6 +35,10 @@ function App() {
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
               <Route path='/ceo' element={<Polist />} />
+              <Route path='/manager' element={<ManagerMain />} />
+              <Route path='/event' element={<Event />} />
+              <Route path='/eventdetail/:id' element={<EventDetail />} />
+              <Route path='/eventcreate' element={<EventCreate />} />
             </Routes>
           </div>
         </main>
