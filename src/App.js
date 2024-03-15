@@ -3,6 +3,9 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
+import Productlist from './pages/product/Productlist';
+import Productdetail from './pages/product/Productdetail';
+
 import StoreMap from './pages/store/StoreMap';
 import Polist from './pages/ceo/Polist';
 import ManagerMain from './pages/manager/ManagerMain';
@@ -10,7 +13,7 @@ import Event from './pages/manager/Event';
 import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
-import Newproduct from './pages/manager/Newproduct';
+import Newproduct from './pages/manager/Newproduct;
 
 function App() {
   return (
@@ -37,6 +40,10 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+
+              <Route path='/productlist' element={<Productlist />} />
+              <Route path='/productdetail/:id' element={<Productdetail />} />
+
               <Route path='/store' element={<StoreMap />} />
               <Route path='/ceo' element={<Polist />} />
               <Route path='/manager' element={<ManagerMain />} />
@@ -45,6 +52,7 @@ function App() {
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproduct' element={<Newproduct />} />
+
             </Routes>
           </div>
         </main>
