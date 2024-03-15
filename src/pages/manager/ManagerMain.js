@@ -21,6 +21,9 @@ function ManagerMain() {
             <ul>
                 <li><Link to="/event">매출현황</Link></li>
             </ul>
+            <ul>
+                <li><Link to="/faq">FAQ메뉴로 가기</Link></li>
+            </ul>
         </div>
     )
 }

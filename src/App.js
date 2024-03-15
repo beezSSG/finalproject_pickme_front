@@ -8,12 +8,18 @@ import Productdetail from './pages/product/Productdetail';
 
 import StoreMap from './pages/store/StoreMap';
 import Polist from './pages/ceo/Polist';
+
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
 import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
-import Newproduct from './pages/manager/Newproduct;
+import Newproduct from './pages/manager/Newproduct';
+
+import CustomerCenter from './pages/customerservice/CustomerCenter';
+import ContactUs from './pages/customerservice/ContactUs';
+import Faq from './pages/customerservice/Faq';
+import FaqCreate from './pages/customerservice/FaqCreate';
 
 function App() {
   return (
@@ -46,12 +52,19 @@ function App() {
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/ceo' element={<Polist />} />
+
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproduct' element={<Newproduct />} />
+
+              <Route path='/customercenter' element={<CustomerCenter />} />
+              <Route path='/contactus' element={<ContactUs />} />
+              <Route path='/faq' element={<Faq />} />
+              <Route path='/faqcreate' element={<FaqCreate />} />
+              
 
             </Routes>
           </div>

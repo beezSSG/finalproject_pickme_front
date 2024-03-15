@@ -14,7 +14,7 @@ function Productdetail(){
     const [loading, setLoading] = useState(false); 
 
     async function getProduct(id){
-        await axios.get("http://localhost:8080/productdetail", { params:{"id":id} })
+        await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
             .then(function(resp){
              //   console.log(resp.data);
                 setId(id);
