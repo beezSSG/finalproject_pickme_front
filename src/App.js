@@ -12,13 +12,13 @@ import EventCreate from './pages/manager/EventCreate';
 
 function App() {
   return (
-    <div>
-      <header className='py-10'>
+    <>
+      <header className="w-full sticky top-0 z-50">
         <Header />
       </header>
 
       <BrowserRouter>
-        <nav className='navbar navbar-expand-md navbar-dark bg-info sticky-top'>
+        {/* <nav className='navbar navbar-expand-md navbar-dark bg-info sticky-top'>
           <div className='container'>
             <div className="collapse navbar-collapse" id="navbar-content">
               <ul className="navbar-nav mr-auto">
@@ -28,9 +28,9 @@ function App() {
               </ul>
             </div>
           </div>
-        </nav>
+        </nav> */}
 
-        <main>
+        <main className="relative">
           <div className='py-4'>
             <Routes>
               <Route path='/' element={<Home />} />
@@ -49,7 +49,7 @@ function App() {
       <footer className='py-4 bg-info text-light'>
         <Footer />
       </footer>
-    </div>
+    </>
   );
 }
 
