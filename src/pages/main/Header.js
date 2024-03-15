@@ -1,19 +1,23 @@
+
+import logoImg from '../../assets/imgs/logo/logo.svg';
+import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
+
 function Header() {
     return (
         <div className="mx-auto px-4 sm:px-6 lg:px-8 border-b-4 pb-11">
             <nav className="relative z-50 flex justify-between">
                 <div className="flex items-center md:gap-x-12">
                     <a href="/">
-                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..."/>
+                        <img src={FullLogoImg} alt="pickme logo"/>
                     </a>
                     <div className="hidden md:flex md:gap-x-6">
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#testimonials">상품</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#pricing">서비스</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#pricing">이벤트</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#pricing">창업안내</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#testimonials">상품</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#pricing">서비스</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#pricing">이벤트</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#pricing">창업안내</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a>
                     </div>
                 </div>
                 <div className="flex items-center gap-x-5 md:gap-x-8">
