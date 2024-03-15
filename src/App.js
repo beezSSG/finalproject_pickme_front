@@ -9,7 +9,7 @@ import Polist from './pages/ceo/Polist';
 function App() {
   return (
     <>
-      <header>
+      <header className="w-full sticky top-0 z-50">
         <Header />
       </header>
 
@@ -26,7 +26,7 @@ function App() {
           </div>
         </nav> */}
 
-        <main>
+        <main className="relative">
           <div className='py-4'>
             <Routes>
               <Route path='/' element={<Home />} />
