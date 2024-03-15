@@ -1,28 +1,22 @@
 import Carousel from "react-material-ui-carousel";
-import { Paper } from '@mui/material';
-// import { Paper, Button } from '@mui/material';
-import cat1 from  "../../assets/imgs/main/1.PNG";
-import cat2 from  "../../assets/imgs/main/2.PNG";
-import cat3 from  "../../assets/imgs/main/3.PNG";
-
-//npm install tw-elements
+import { Paper } from "@mui/material";
+// npm install tw-elements
 
 const Promotion = () => {
-
-    return (
-        <div style={{textAlign:"center", marginBottom:40}}>
-        <Carousel>
-            <Paper>
-                <img src={ cat1 } alt="..."/>
-            </Paper>
-            <Paper>
-                <img src={ cat2 } alt="..."/>
-            </Paper>
-            <Paper>
-                <img src={ cat3 } alt="..."/>
-            </Paper>
-        </Carousel>
-        </div>
-    )
-}
+  return (
+    <>
+      <Carousel>
+        <Paper className="flex-wrap flex justify-center items-center drop-shadow-2xl" sx={{ boxShadow: 0 }}>
+          <img src="https://www.emart24.co.kr/image/NzM2NzY=" alt="이벤트1" />
+        </Paper>
+        <Paper className="flex-wrap flex justify-center items-center drop-shadow-2xl" sx={{ boxShadow: 0 }}>
+          <img src="https://www.emart24.co.kr/image/NzM2NDc=" alt="이벤트2" />
+        </Paper>
+        <Paper className="flex-wrap flex justify-center items-center drop-shadow-2xl" sx={{ boxShadow: 0 }}>
+          <img src="https://www.emart24.co.kr/image/NzM1OTU=" alt="이벤트3" />
+        </Paper>
+      </Carousel>
+    </>
+  );
+};
 export default Promotion;
