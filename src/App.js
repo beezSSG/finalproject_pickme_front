@@ -3,6 +3,8 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
+import Productlist from './pages/product/Productlist';
+import Productdetail from './pages/product/Productdetail';
 
 function App() {
   return (
@@ -29,6 +31,8 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/productlist' element={<Productlist />} />
+              <Route path='/productdetail/:id' element={<Productdetail />} />
             </Routes>
           </div>
         </main>

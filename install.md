@@ -60,4 +60,7 @@ npm install react-hook-geolocation
 네이버지도
 npm install react-naver-maps
 
+페이지네이션
+npm i react-js-pagination
+
 ```
