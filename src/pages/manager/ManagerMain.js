@@ -13,10 +13,13 @@ function ManagerMain() {
                 <li><Link to="/event">발주</Link></li>
             </ul>
             <ul>
-                <li><Link to="/event">신제품</Link></li>
+                <li><Link to="/newproduct">신제품</Link></li>
             </ul>
             <ul>
-                <li><Link to="/event">쿠폰</Link></li>
+                <li><Link to="/coupon">쿠폰</Link></li>
+            </ul>
+            <ul>
+                <li><Link to="/event">매출현황</Link></li>
             </ul>
         </div>
     )
