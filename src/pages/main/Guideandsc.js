@@ -1,4 +1,4 @@
-const Guideandsc = () => {
+const GuideAndSc = () => {
     return (
         <div>
             <div className="" >
@@ -32,4 +32,4 @@ const Guideandsc = () => {
         </div>
     )
 }
-export default Guideandsc;
+export default GuideAndSc;

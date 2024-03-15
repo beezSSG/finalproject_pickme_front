@@ -1,8 +1,8 @@
-import Guideandsc from "./Guideandsc.js";
-import Newproduct from "./Newproduct.js";
+import GuideAndSc from "./GuideAndSc.js";
+import NewProducts from "./NewProducts.js";
 import Promotion from "./Promotion.js";
-import Promproduct from "./Promproduct.js";
-import Searchproduct from "./Searchproduct.js";
+import AdProductSet from "./AdProductSet.js";
+import SearchProduct from "./SearchProduct.js";
 
 const Home = () => {
 
@@ -16,16 +16,16 @@ const Home = () => {
                 <Promotion />
             </div>
             <div className='container mx-auto' style={{width: 1400}}>
-                <Promproduct />
+                <AdProductSet />
             </div>
             <div className='container mx-auto' style={{width: 1400}}>
-                <Newproduct />
+                <NewProducts />
             </div>
             <div className='container mx-auto' style={{width: 1400}}>
-                <Searchproduct />
+                <SearchProduct />
             </div>
             <div className='container mx-auto' style={{width: 1400}}>
-                <Guideandsc />
+                <GuideAndSc />
             </div>
         </div>
     )

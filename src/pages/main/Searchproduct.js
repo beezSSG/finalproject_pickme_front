@@ -1,4 +1,4 @@
-const Searchproduct = () => {
+const SearchProduct = () => {
 
     return (
         <div>
@@ -36,4 +36,4 @@ const Searchproduct = () => {
         </div>
     )
 }
-export default Searchproduct;
+export default SearchProduct;

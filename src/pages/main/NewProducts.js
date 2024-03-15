@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 
 //npm install react-hook-geolocation
 //npm install react-naver-maps
-const Newproduct = () => {
+const NewProducts = () => {
 
     const navermaps = useNavermaps();
 
@@ -74,4 +74,4 @@ const Newproduct = () => {
        
     )
 }
-export default Newproduct;
+export default NewProducts;
