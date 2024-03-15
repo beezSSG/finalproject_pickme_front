@@ -1,3 +1,4 @@
+
 import GuideAndSc from "./GuideAndSc.js";
 import NewProducts from "./NewProducts.js";
 import Promotion from "./Promotion.js";
@@ -12,21 +13,22 @@ const Home = () => {
 
     return (
         <div>
-            <div className='container mx-auto' style={{width: 1400}}>
+            {/* style={{width: 1400}} */}
+            <section className="container mx-auto w-screen mb-4">
                 <Promotion />
-            </div>
-            <div className='container mx-auto' style={{width: 1400}}>
+            </section>
+            <section className='container mx-auto w-screen mb-4'>
                 <AdProductSet />
-            </div>
-            <div className='container mx-auto' style={{width: 1400}}>
+            </section>
+            <section className='container mx-auto w-screen mb-4'>
                 <NewProducts />
-            </div>
-            <div className='container mx-auto' style={{width: 1400}}>
+            </section>
+            <section className='container mx-auto w-screen mb-4'>
                 <SearchProduct />
-            </div>
-            <div className='container mx-auto' style={{width: 1400}}>
+            </section>
+            <section className='container mx-auto w-screen mb-4'>
                 <GuideAndSc />
-            </div>
+            </section>
         </div>
     )
 }
