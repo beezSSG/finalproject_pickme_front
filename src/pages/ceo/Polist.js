@@ -28,6 +28,10 @@ function Polist(){
              })
     }
 
+    function getPowrite(name) {
+        
+    }
+
     useEffect(function(){
         getPolist('', '', 0);
     }, []);
@@ -73,12 +77,12 @@ function Polist(){
 
             <table className='table table-hover'>
             <colgroup>
-                <col width="70"/><col width="500"/><col width="100"/><col width="150"/>
+                <col width="70"/><col width="500"/><col width="100"/><col width="150"/><col width="150"/><col width="150"/><col width="150"/>
             </colgroup>
 
             <thead>
             <tr>
-                <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th></th>
+                <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>승인</th>
             </tr>
             </thead>
 
@@ -129,19 +133,21 @@ function Polist(){
     );
 }
 
-function TableRow(props){
+function TableRow(props){   // 상위 컴포넌트에서 하위 컴포넌트로 데이터를 넘겨받기 위해서
     return(
         <tr>
-            <th>{ props.rownum }</th>
-            <td className='underline'>
-                <Link to={`/bbsdetail/${props.bbs.seq}`}>{ props.bbs.title }</Link>
-            </td>           
-            <td>{ props.bbs.readcount }</td>
-            <td>{ props.bbs.id }</td>
+            <td>{ props.po.id }</td>
+            <td>
+                <img src={props.po.url} alt='' style={{width:140}}></img>   {/* alt를 넣어줘야 에러가 안뜸 */}
+            </td>
+            <td>{ props.po.name }</td>
+            <td>{ props.po.quantity }</td> 
+            <td>{ props.po.wdate }</td>
+            <td>{ props.po.poYn }</td>  
+            <td>
+                <button>승인</button>    
+            </td> 
         </tr>
     )
 }
-
-
-
 export default Polist;
