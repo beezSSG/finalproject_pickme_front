@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Newproduct() {
+function NewproductInsert() {
 
     let navigate = useNavigate();
     
@@ -63,4 +63,4 @@ function Newproduct() {
     )
 }
 
-export default Newproduct;
+export default NewproductInsert;
