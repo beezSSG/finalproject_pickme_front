@@ -77,9 +77,11 @@ function Productlist() {
                   const product = productlist[i];
                   rows.push(
                     <tr key={product.id}>
+                      <td>
                       <Link to={`/productdetail/${product.id}`}>
                         <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
                       </Link>
+                      </td>
                       <td>{product.name}</td>
                       <td>{product.price}</td>
                       </tr>

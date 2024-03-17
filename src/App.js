@@ -13,7 +13,7 @@ import Event from './pages/manager/Event';
 import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
-import Newproduct from './pages/manager/Newproduct';
+import NewproductInsert from './pages/manager/NewproductInsert';
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
 import Faq from './pages/customerservice/Faq';
@@ -56,7 +56,7 @@ function App() {
               <Route path='/eventdetail/:id' element={<EventDetail />} />
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
-              <Route path='/newproduct' element={<Newproduct />} />
+              <Route path='/newproductinsert' element={<NewproductInsert />} />
 
               <Route path='/customercenter' element={<CustomerCenter />} />
               <Route path='/contactus' element={<ContactUs />} />
