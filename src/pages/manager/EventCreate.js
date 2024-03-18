@@ -1,6 +1,8 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import ManagerMain from "./ManagerMain";
+import { PiConfettiBold } from "react-icons/pi";
 
 function EventCreate() {
     let navigate = useNavigate();
@@ -55,43 +57,39 @@ function EventCreate() {
 
     return(
         <>
-            <div className="w-[700px] flex flex-col items-center mx-auto mt-28 mb-28 shadow-2xl rounded-lg overflow-hidden">
-                <div className='text-3xl mt-10 font-medium'>이벤트 등록</div>
-                <br/><br/>
-                <form name="frm" onSubmit={onSubmit} encType="multipart/form-data">
-                    <table className='w-full'>
-                        <tbody>
-                            <tr>
-                                <td className='px-6 py-3 text-xl text-black'>시작일자</td>
-                                <td className='px-6 py-3 '>
+         <div className="flex flex-row">
+            <ManagerMain />
+            <div className="w-[850px] h-[700px] flex flex-col items-center mx-auto shadow-2xl rounded-lg overflow-hidden my-28">
+            <div className="font-bold text-3xl flex items-center mt-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
+                <div className='h-[500px]'>
+                    <div className='h-[500px]'>
+                        <div>
+                                <div className="mb-6">
+                                    <label className="block mb-2 text-xl font-bold">시작일자:</label>
                                     <input type='date' 
                                         value={startDate} 
                                         onChange={(e)=>setStartDate(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[180px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type='time' 
                                         value={startTime} 
                                         onChange={(e)=>setStartTime(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[180px]'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className='px-6 py-3 text-xl text-black'>종료일자</td>
-                                <td className='px-6 py-3'>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                </div>
+                                <div className="mb-6">
+                                    <label className="block mb-2 text-xl font-bold">종료일자:</label>
                                     <input type='date' 
                                         value={endDate} 
                                         onChange={(e)=>setEndDate(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[180px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type='time' 
                                         value={endTime} 
                                         onChange={(e)=>setEndTime(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[180px]'/>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className='px-6 py-3 text-xl text-black'>배너사진</td>
-                                <td className='px-6 py-3'>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                </div>
+                                <div className="mb-6">
+                                    <label className="block mb-2 text-xl font-bold">배너사진:</label>
                                     <input type='file' 
                                         name='uploadfile1' 
                                         onChange={handleFile1Change}
@@ -103,13 +101,11 @@ function EventCreate() {
                                         bg-gradient-to-br from-gray-400 to-gray-400
                                         text-white/80
                                         rounded-xl
-                                        w-[380px]
+                                        w-[625px]
                                         ' />
-                                </td>
-                            </tr>
-                            <tr>
-                                <td className='px-6 py-3 text-xl text-black'>상세사진</td>
-                                <td className='px-6 py-3'>
+                                </div>
+                                <div className="mb-6">
+                                    <label className="block mb-2 text-xl font-bold">상세사진:</label>
                                     <input type='file' 
                                         name='uploadfile2' 
                                         onChange={handleFile2Change}
@@ -121,21 +117,21 @@ function EventCreate() {
                                         bg-gradient-to-br from-gray-400 to-gray-400
                                         text-white/80
                                         rounded-xl
-                                        w-[380px]' />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <br/>
-                    <div className="flex flex-col items-center">
-                        <button type="submit" 
-                            className="text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                            style={{ backgroundColor: "#ffc300" }}>
-                            이벤트 등록
-                        </button>
+                                        w-[625px]' />
+                                </div>
+                        </div>
                     </div>
-                </form>
+                </div>
+                <br/>
+                <div className="flex flex-col items-center">
+                    <button type="submit" 
+                        className="text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                        style={{ backgroundColor: "#ffc300" }}>
+                        이벤트 등록
+                    </button>
+                </div>
             </div>
+        </div>
         </>
     )
 }

@@ -38,10 +38,10 @@ function Faq() {
             <br/><br/>
             <div className='text-center mb-7'>
                 <input type='text' placeholder='궁금하신 내용을 검색해주세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
-                className='rounded-2xl focus:border border-[#ffc300] p-5 w-[1000px] shadow-xl '/>&nbsp;&nbsp;&nbsp;
+                className='rounded-2xl p-5 w-[1000px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
                 <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                               focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[80px] py-5 me-2 mb-2
-                             dark:focus:ring-yellow-900" onClick={()=>handleCategoryClick(category)}>검색</button>
+                                focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[80px] py-5 me-2 mb-2
+                                dark:focus:ring-yellow-900" onClick={()=>handleCategoryClick(category)}>검색</button>
             </div>
             <div className='flex items-center justify-center mb-11'>
                 {/* 각 카테고리에 해당하는 버튼 */}
