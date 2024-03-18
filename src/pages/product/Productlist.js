@@ -99,11 +99,11 @@ function Productlist() {
                 for (let i = 0; i < productlist.length; i++) {
                   const product = productlist[i];
                   rows.push(
-                    <tr key={product.id} style={{textAlign:'center'}}>
+                    <tr key={product.id}>
                       <td>
-                        <Link to={`/productdetail/${product.id}`}>
-                          <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
-                        </Link>
+                      <Link to={`/productdetail/${product.id}`}>
+                        <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
+                      </Link>
                       </td>
                       <td>{product.name}</td>
                       <td>{product.price}</td>
