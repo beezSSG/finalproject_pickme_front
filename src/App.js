@@ -18,11 +18,13 @@ import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
+import { AuthProvider } from './utils/AuthProvider';
 
 
 function App() {
   return (
     <>
+      <AuthProvider>
       <header className="w-full sticky top-0 z-50">
         <Header />
       </header>
@@ -72,6 +74,7 @@ function App() {
       <footer className='py-4 bg-info text-light'>
         <Footer />
       </footer>
+      </AuthProvider>
     </>
   );
 }
