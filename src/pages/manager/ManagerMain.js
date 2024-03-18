@@ -25,7 +25,7 @@ function ManagerMain() {
         <div>
             <div className='flex'>
                 <div className={`bg-gray-800 h-screen p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300 relative`}>
-                    <BsArrowLeftShort className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-dark cursor-pointer ${!open && "rotate-180"}`} onClick={() => setOpen(!open)} />
+                    <BsArrowLeftShort className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer ${!open && "rotate-180"}`} onClick={() => setOpen(!open)} />
                     <div className='inline-flex'>
                         <FaDiceD6 className={`bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2 duration-500 ${open && "rotate-[360deg]"}`} />
                         <h1 className={`text-white origin-left font-medium text-2xl duration-300 ${!open && "scale-0"}`}>Manager</h1>
