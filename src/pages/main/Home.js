@@ -1,6 +1,6 @@
 
 import GuideAndSc from "./GuideAndSc.js";
-import NewProducts from "./NewProducts.js";
+import MyStoreProducts from "./MyStoreProducts.js";
 import Promotion from "./Promotion.js";
 import AdProductSet from "./AdProductSet.js";
 import SearchProduct from "./SearchProduct.js";
@@ -21,7 +21,7 @@ const Home = () => {
                 <AdProductSet />
             </section>
             <section className='container mx-auto w-screen mb-4'>
-                <NewProducts />
+                <MyStoreProducts />
             </section>
             <section className='container mx-auto w-screen mb-4'>
                 <SearchProduct />
