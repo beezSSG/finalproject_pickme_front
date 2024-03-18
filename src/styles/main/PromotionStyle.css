@@ -11,6 +11,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  height: 50%;
+  width: 50%;
 }
 
 .swipper-wrapper {
@@ -36,7 +38,7 @@
 .swiper-button-prev {
   background-color: #ffffff;
   /* background-color: var(--white); */
-  padding: 1em 1.4em;
+  padding: 6px 20px;
   border-radius: 100%;
   /* color: var(--gray-08); */
   color: #000000;
@@ -65,7 +67,20 @@
   transition: all 0.4s;
 }
 
+.AdProductSet__Slider .swiper-pagination {
+    bottom: -0.3em !important;
+}
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+}
+
 .swiper-pagination-bullet-active {
   /* background-color: var(--main-yellow); */
   background-color: orange;
+}
+
+.AdrProductSet__Slide img {
+    width: 300px;
 }
