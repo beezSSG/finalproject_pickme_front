@@ -7,16 +7,24 @@ import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import Polist from './pages/ceo/Polist';
+
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
 import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
-import Newproduct from './pages/manager/Newproduct';
+import NewproductInsert from './pages/manager/NewproductInsert';
+import CustomerCenter from './pages/customerservice/CustomerCenter';
+import ContactUs from './pages/customerservice/ContactUs';
+import Faq from './pages/customerservice/Faq';
+import FaqCreate from './pages/customerservice/FaqCreate';
+import { AuthProvider } from './utils/AuthProvider';
+
 
 function App() {
   return (
     <>
+      <AuthProvider>
       <header className="w-full sticky top-0 z-50">
         <Header />
       </header>
@@ -44,12 +52,20 @@ function App() {
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/ceo' element={<Polist />} />
+
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
-              <Route path='/newproduct' element={<Newproduct />} />
+              <Route path='/newproductinsert' element={<NewproductInsert />} />
+
+              <Route path='/customercenter' element={<CustomerCenter />} />
+              <Route path='/contactus' element={<ContactUs />} />
+              <Route path='/faq' element={<Faq />} />
+              <Route path='/faqcreate' element={<FaqCreate />} />
+              
+
             </Routes>
           </div>
         </main>
@@ -58,6 +74,7 @@ function App() {
       <footer className='py-4 bg-info text-light'>
         <Footer />
       </footer>
+      </AuthProvider>
     </>
   );
 }
