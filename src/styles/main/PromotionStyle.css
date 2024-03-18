@@ -42,6 +42,23 @@
   color: #000000;
 }
 
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: none;
+  text-align: center;
+  padding-bottom: 0.3em;
+}
+
+.swiper-button-prev::after {
+  padding-right: 0.05em;
+  content: url("../../assets/icon/arrowLeft.svg");
+}
+
+.swiper-button-next::after {
+  padding-left: 0.05em;
+  content: url("../../assets/icon/arrowRight.svg");
+}
+
 .swiper-button-next:hover,
 .swiper-button-prev:hover {
   opacity: 0.5;
