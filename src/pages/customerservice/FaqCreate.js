@@ -30,7 +30,7 @@ function FaqCreate() {
 
     return(
         <>
-        <div>자주 묻는 질문 생성 창입니다</div>
+        <div className="text-3xl">자주 묻는 질문 생성 창입니다</div>
         <table>
             <tr>
                 <td>제목</td>
