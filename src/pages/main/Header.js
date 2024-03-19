@@ -11,7 +11,7 @@ function Header() {
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/productlist">상품</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#pricing">서비스</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#pricing">이벤트</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/event">이벤트</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a>
                     </div>
                     

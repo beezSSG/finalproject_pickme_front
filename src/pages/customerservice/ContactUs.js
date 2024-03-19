@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function ContactUs() {
+
+    let navigate = useNavigate();
 
     const [ccblist, setCcblist] = useState([])
 
@@ -25,7 +28,7 @@ function ContactUs() {
         <>
         <div className="flex justify-center items-center">
             <div>
-                <div className='text-3xl mt-10 font-medium text-center'>1:1문의하기 창입니다.</div>
+            <div className='text-3xl mt-10 font-medium text-center'>1:1문의하기 창입니다.</div>
                 <table className="mt-4">
                     <colgroup>
                         <col width="50px"/><col width="100px"/><col width="500px"/><col width="150px"/><col width="150px"/>
@@ -39,10 +42,15 @@ function ContactUs() {
                         {
                             ccblist.map((ccb, index) => {
                                 return (
-                                    <tr key={ccb.id}>
-                                        <td>{index+1}</td>
+                                    <tr key={ccb.id} className="text-center">
+                                        <th>{index+1}</th>
                                         <td>{ccb.category}</td>
-                                        <td>{ccb.title}</td>
+                                       
+                                        <td className="text-left">
+                                            <Link to={`/contactusdetail/${ccb.id}`}>
+                                                {ccb.title}
+                                            </Link>
+                                        </td>
                                         <td>{ccb.customerId}</td>
                                         <td>{ccb.createAt}</td>
                                     </tr>
@@ -51,6 +59,8 @@ function ContactUs() {
                         }
                     </tbody>
                 </table>
+
+                <button onClick={()=>navigate("/contactuswrite")}>문의작성</button>
             </div>
         </div>
        </>

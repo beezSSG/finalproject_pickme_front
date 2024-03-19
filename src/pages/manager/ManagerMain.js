@@ -13,7 +13,7 @@ function ManagerMain() {
     const Menus = [
         { title: "관리자 홈", path: "/manager" },
         { title: "이벤트", path: "/event" },
-        { title: "발주", path: "/order" },
+        { title: "발주", path: "/managerpurchaseorder" },
         { title: "신제품", path: "/newproductinsert" },
         { title: "쿠폰", path: "/coupon" },
         { title: "매출현황", path: "/sales" },
@@ -25,7 +25,7 @@ function ManagerMain() {
         <>
         <div>
             <div className='flex'>
-                <div className={`bg-gray-800 h-screen p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300 relative`}>
+                <div className={`bg-gray-800 h-[1000px] p-5 pt-8 ${open ? "w-72" : "w-20"} duration-300 relative`}>
                     <BsArrowLeftShort className={`bg-white text-dark-purple text-3xl rounded-full absolute -right-3 top-9 border border-black cursor-pointer ${!open && "rotate-180"}`} onClick={() => setOpen(!open)} />
                     <div className='inline-flex'>
                         <FaDiceD6 className={`bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2 duration-500 ${open && "rotate-[360deg]"}`} />
