@@ -7,7 +7,7 @@ const Logingoogle = (props) => {
     useEffect(() => {
         const googleLogin = async () =>{
             await axios
-                .get( "http://localhost:8081/login/oauth2/code/google?code="+code)
+                .get( "http://localhost:8080/login/oauth2/code/google?code="+code)
                 .then((res) => {
                     console.log(res.data);
                     localStorage.setItem("id", res.data.id);
@@ -32,4 +32,3 @@ const Logingoogle = (props) => {
         </div>
     )
 }
-export default Logingoogle;

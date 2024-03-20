@@ -6,7 +6,7 @@ const Loginnaver = (props) => {
     useEffect(() => {
         const naverLogin = async () =>{
             await axios
-                .get( "http://localhost:8081/login/oauth2/code/naver?code="+code)
+                .get( "http://localhost:8080/login/oauth2/code/naver?code="+code)
                 .then((res) => {
                     localStorage.setItem("id", res.data.id);
                     localStorage.setItem("name", res.data.name);
