@@ -1,3 +1,8 @@
+
+import AppDownload from "../../assets/imgs/login/image.png";
+import LogoImg from '../../assets/imgs/logo/fullLogo.svg';
+
+
 import React, { useEffect, useState } from 'react'
 import logo from "../../assets/image.png";
 import axios from 'axios';
@@ -128,7 +133,7 @@ const Login = () => {
                 <main className="mx-auto w-full max-w-md sm:px-4 md:w-96 md:max-w-sm md:px-0">
                     <div className="flex">
                         <a aria-label="Home" href="/">
-                            <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..." />
+                            <img src={LogoImg} alt="..." />
                         </a>
                     </div>
                     <h2 className="mt-20 text-lg font-semibold text-gray-900">Sign in to your account</h2>
@@ -167,7 +172,7 @@ const Login = () => {
                 </main>
             </div>
             <div className="hidden sm:contents lg:relative lg:block lg:flex-1">
-                <img alt="" loading="lazy" width="1664" height="1866" decoding="async" data-nimg="1" className="absolute inset-0 h-full w-full object-cover" src={logo} style={{ color: "transparent" }} />
+                <img alt="" loading="lazy" width="1664" height="1866" decoding="async" data-nimg="1" className="absolute inset-0 h-full w-full object-cover" src={AppDownload} style={{ color: "transparent" }} />
             </div>
         </div>
     )
