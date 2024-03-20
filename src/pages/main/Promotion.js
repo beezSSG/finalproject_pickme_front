@@ -32,10 +32,10 @@ const Promotion = () => {
         spaceBetween={30}
         loop={true}
         centeredSlides={true}
-        // autoplay={{
-        //   delay: 3500,
-        //   disableOnInteraction: false,
-        // }}
+        autoplay={{
+          delay: 3500,
+          disableOnInteraction: false,
+        }}
         keyboard={{
           enabled: true,
         }}
