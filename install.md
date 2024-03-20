@@ -51,9 +51,6 @@ function App() {
 프로모션 베너에 필요
 npm install react-material-ui-carousel
 
-이것도?
-npm install tw-elements
-
 지도이벤트에 필요
 npm install react-hook-geolocation
 
