@@ -1,10 +1,31 @@
 function Header() {
+
+    const Logincom = () => {
+        if (localStorage.getItem("name") === null) {
+            return (
+                <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Login</a>
+            )
+        } else {
+            return (
+                <div>
+                    <span className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900">안녕하세요 { localStorage.getItem("name") } 님</span>
+                    <button className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" onClick={()=>(logout())}>Logout</button>
+                </div>
+            )
+        }
+    }
+
+    const logout = () => {
+        localStorage.clear();
+        window.location.replace("http://localhost:3000/");
+    }
+    
     return (
         <div className="mx-auto min-h-2 pt-8 px-10 pb-6 sm:px-6 lg:px-8 backdrop-blur-md transition-colors duration-400 ease-in-out hover:bg-slate-100">
             <nav className="relative z-50 flex justify-between">
                 <div className="flex items-center md:gap-x-12 ">
                     <a href="/">
-                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..."/>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..." />
                     </a>
                     <div className="hidden md:flex md:gap-x-6">
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
@@ -18,6 +39,7 @@ function Header() {
                 </div>
                 <div className="flex items-center gap-x-5 md:gap-x-8">
                     <div className="hidden md:block">
+                        <Logincom />
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/manager">관리자</a>

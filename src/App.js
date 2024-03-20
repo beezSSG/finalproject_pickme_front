@@ -3,6 +3,10 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
+import Logingoogle from './pages/login/Logingoogle';
+import Loginkakao from './pages/login/Loginkakao';
+import Loginnaver from './pages/login/Loginnaver';
+
 import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
@@ -20,8 +24,8 @@ import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 
-
 function App() {
+
   return (
     <>
       <AuthProvider>
@@ -47,6 +51,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/logingoogle' element={<Logingoogle />} />
+              <Route path='/loginkakao' element={<Loginkakao />} />
+              <Route path='/loginnaver' element={<Loginnaver />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
@@ -65,7 +72,6 @@ function App() {
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
               
-
             </Routes>
           </div>
         </main>

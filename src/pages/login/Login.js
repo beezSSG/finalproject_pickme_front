@@ -8,6 +8,46 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [pw, setPw] = useState('');
 
+    //임시 로컬스토리지 삭제.
+    //localStorage.clear();
+
+    const goGoogleLogin = () => {
+        let base_url = process.env.REACT_APP_GOOGLE_LOGIN_API_BASE_URL;
+        let client_id = process.env.REACT_APP_GOOGLE_LOGIN_API_CLIENT_ID;
+        let redirect_uri = process.env.REACT_APP_GOOGLE_LOGIN_API_REDIRECT_URI;
+        let response_type = process.env.REACT_APP_GOOGLE_LOGIN_API_RESPONSE_TYPE;
+        let scope = process.env.REACT_APP_GOOGLE_LOGIN_API_SCOPE;
+
+        let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type + "&scope=" + scope;
+
+        console.log(url);
+        window.location.href = url;
+    }
+
+    const goNaverLogin = () => {
+        let base_url = process.env.REACT_APP_NAVER_LOGIN_API_BASE_URL;
+        let client_id = process.env.REACT_APP_NAVER_LOGIN_API_CLIENT_ID;
+        let redirect_uri = process.env.REACT_APP_NAVER_LOGIN_API_REDIRECT_URI;
+        let response_type = process.env.REACT_APP_NAVER_LOGIN_API_RESPONSE_TYPE;
+
+        let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type;
+
+        console.log(url);
+        window.location.href = url;
+    }
+
+    const goKakaoLogin = () => {
+        let base_url = process.env.REACT_APP_KAKAO_LOGIN_API_BASE_URL;
+        let client_id = process.env.REACT_APP_KAKAO_LOGIN_API_CLIENT_ID;
+        let redirect_uri = process.env.REACT_APP_KAKAO_LOGIN_API_REDIRECT_URI;
+        let response_type = process.env.REACT_APP_KAKAO_LOGIN_API_RESPONSE_TYPE;
+
+        let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type;
+
+        console.log(url);
+        window.location.href = url;
+    }
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -112,15 +152,15 @@ const Login = () => {
                     </form>
                     <div className="grid grid-cols-1 gap-y-2">
                         <div>
-                            <button className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-gray-600 text-white hover:text-slate-100 hover:bg-gray-500 active:bg-gray-800 active:text-gray-100 focus-visible:outline-gray-600 w-full" type="submit" variant="solid" color="gray"><span>Google <span aria-hidden="true">→</span></span>
+                            <button onClick={() => goGoogleLogin()} className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-gray-600 text-white hover:text-slate-100 hover:bg-gray-500 active:bg-gray-800 active:text-gray-100 focus-visible:outline-gray-600 w-full" type="submit" variant="solid" color="gray"><span>Google <span aria-hidden="true">→</span></span>
                             </button>
                         </div>
                         <div>
-                            <button className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-yellow-600 text-white hover:text-slate-100 hover:bg-yellow-500 active:bg-yellow-800 active:text-yellow-100 focus-visible:outline-yellow-600 w-full" type="submit" variant="solid" color="yellow"><span>KaKao <span aria-hidden="true">→</span></span>
+                            <button onClick={() => goKakaoLogin()} className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-yellow-600 text-white hover:text-slate-100 hover:bg-yellow-500 active:bg-yellow-800 active:text-yellow-100 focus-visible:outline-yellow-600 w-full" type="submit" variant="solid" color="yellow"><span>KaKao <span aria-hidden="true">→</span></span>
                             </button>
                         </div>
                         <div>
-                            <button className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white hover:text-slate-100 hover:bg-green-500 active:bg-green-800 active:text-green-100 focus-visible:outline-green-600 w-full" type="submit" variant="solid" color="green"><span>Naver <span aria-hidden="true">→</span></span>
+                            <button onClick={() => goNaverLogin()} className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white hover:text-slate-100 hover:bg-green-500 active:bg-green-800 active:text-green-100 focus-visible:outline-green-600 w-full" type="submit" variant="solid" color="green"><span>Naver <span aria-hidden="true">→</span></span>
                             </button>
                         </div>
                     </div>
