@@ -11,6 +11,7 @@ import {
 
 import MapData from "../../assets/data/store/emart24_busan.json";
 import MarkerImg from '../../assets/imgs/store/marker.svg';
+import { Link } from "react-router-dom";
 
 
 export default function StoreMap(prop) {
@@ -77,6 +78,14 @@ export default function StoreMap(prop) {
           <MyMap />
         </MapDiv>
       </NavermapsProvider>
+      <br/><br/>
+
+      근처 매장 리스트
+      <br/>
+      <Link to={`/storeproductlist/${6}`}>
+        id: 6 매장 상품 리스트 바로가기
+      </Link>
+
     </>
   );
 }
