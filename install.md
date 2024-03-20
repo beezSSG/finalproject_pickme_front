@@ -66,4 +66,7 @@ npm i react-js-pagination
 리엑트 아이콘
 npm install react-icons --save
 
+pretendard 폰트 (기본 폰트로 사용할 것임)
+npm i pretendard
+
 ```
