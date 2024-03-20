@@ -33,7 +33,7 @@ function FaqCreate() {
     return(
         <>
             <div className="flex flex-row">
-                <ManagerMain />
+                <ManagerMain height="h-[1100px]" />
                 <div className="w-[1000px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
                 <div className="font-bold text-3xl flex items-center"><FaPen className="mr-2" />&nbsp;&nbsp;FAQ 생성</div><br/>
                     <div className="mb-6">

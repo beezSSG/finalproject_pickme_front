@@ -59,7 +59,7 @@ function EventCreate() {
     return(
         <>
          <div className="flex flex-row">
-            <ManagerMain />
+            <ManagerMain height="h-[1000px]" />
             <div className="w-[850px] h-[700px] flex flex-col items-center mx-auto shadow-2xl rounded-lg overflow-hidden my-28">
             <div className="font-bold text-3xl flex items-center mt-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
                 <div className='h-[500px]'>
@@ -121,9 +121,12 @@ function EventCreate() {
                                         w-[625px]' />
                                 </div>
                                 <div className="flex flex-col items-center">
+                                    <br/><br/>
                                     <button type="submit"
-                                        className="text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                                        style={{ backgroundColor: "#ffc300" }}>
+                                        className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                        focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[15px] py-3 me-2 mb-2
+                                        dark:focus:ring-yellow-900"
+                                        >
                                         이벤트 등록
                                     </button>
                                 </div>
