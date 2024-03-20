@@ -34,7 +34,7 @@ function FaqCreate() {
         <>
             <div className="flex flex-row">
                 <ManagerMain />
-                <div className="w-[1000px] flex flex-col items-center mx-auto mt-28 mb-28 shadow-2xl rounded-lg overflow-hidden py-16">
+                <div className="w-[1000px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
                 <div className="font-bold text-3xl flex items-center"><FaPen className="mr-2" />&nbsp;&nbsp;FAQ 생성</div><br/>
                     <div className="mb-6">
                         <label className="block mb-2 text-xl font-bold">제목:</label>

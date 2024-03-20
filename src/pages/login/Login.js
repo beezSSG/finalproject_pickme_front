@@ -3,7 +3,10 @@ import AppDownload from "../../assets/imgs/login/image.png";
 import LogoImg from '../../assets/imgs/logo/fullLogo.svg';
 
 
-import React, { useEffect, useState } from 'react';
+
+import React, { useEffect, useState } from 'react'
+import logo from "../../assets/imgs/login/image.png";
+
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../utils/AuthProvider";

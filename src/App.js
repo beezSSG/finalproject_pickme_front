@@ -19,8 +19,13 @@ import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
 import NewproductInsert from './pages/manager/NewproductInsert';
+import ManagerPurchaseOrder from './pages/manager/ManagerPurchaseOrder';
+
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
+import ContactUsDetail from './pages/customerservice/ContactUsDetail';
+import ContactUsWrite from './pages/customerservice/ContactUsWrite';
+
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
@@ -68,9 +73,12 @@ function App() {
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproductinsert' element={<NewproductInsert />} />
+              <Route path='/managerpurchaseorder' element={<ManagerPurchaseOrder />} />
 
               <Route path='/customercenter' element={<CustomerCenter />} />
               <Route path='/contactus' element={<ContactUs />} />
+              <Route path='/contactusdetail/:id' element={<ContactUsDetail />} />
+              <Route path='/contactuswrite' element={<ContactUsWrite />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
               
