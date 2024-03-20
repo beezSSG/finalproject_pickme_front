@@ -3,9 +3,9 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
-import Logingoogle from './pages/login/Logingoogle';
-import Loginkakao from './pages/login/Loginkakao';
-import Loginnaver from './pages/login/Loginnaver';
+import LoginGoogle from './pages/login/LoginGoogle';
+import LoginKakao from './pages/login/LoginKakao';
+import LoginNaver from './pages/login/LoginNaver';
 
 import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
@@ -57,9 +57,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/logingoogle' element={<Logingoogle />} />
-              <Route path='/loginkakao' element={<Loginkakao />} />
-              <Route path='/loginnaver' element={<Loginnaver />} />
+              <Route path='/LoginGoogle' element={<LoginGoogle />} />
+              <Route path='/LoginKakao' element={<LoginKakao />} />
+              <Route path='/LoginNaver' element={<LoginNaver />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
