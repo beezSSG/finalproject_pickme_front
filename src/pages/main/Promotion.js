@@ -1,9 +1,9 @@
 import Carousel from "react-material-ui-carousel";
 import { Paper } from '@mui/material';
 // import { Paper, Button } from '@mui/material';
-import cat1 from  "../../assets/1.PNG";
-import cat2 from  "../../assets/3.PNG";
-import cat3 from  "../../assets/2.PNG";
+import cat1 from  "../../assets/imgs/main/1.PNG";
+import cat2 from  "../../assets/imgs/main/2.PNG";
+import cat3 from  "../../assets/imgs/main/3.PNG";
 
 
 
