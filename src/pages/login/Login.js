@@ -113,9 +113,9 @@ const Login = () => {
             setToken(response.data.token); // 상태에 토큰 저장
             setIsLoggedIn(true);
 
-            setTimeout(() => {
-                navigate('/');
-            }, 2000);
+            // setTimeout(() => {
+            //     navigate('/');
+            // }, 2000);
         } else {
             alert('로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요');
         }

@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
+
 import "./page.css";
 
-function Productlist() {
-    const [productlist, setProductlist] = useState([]);
+function StoreProductlist() {
+    const [storeproductlist, setStoreProductlist] = useState([]);
+
+    let params = useParams();
+    let id = params.id;
     
     // 정렬
-    const [choice, setChoice] = useState("");
+    const [choice, setChoice] = useState(" ");
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
     // 검색  
     const [search, setSearch] = useState("");
@@ -20,37 +24,39 @@ function Productlist() {
 
     /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
     
-    function getProductlist(c, s, pn, switching){
-        axios.get("http://localhost:8080/api/v1/product/productlist", 
-                    {params:{ choice:c, search:s, pageNumber:pn, "switching":switching}})
+    function getStoreProductlist(c, s, pn, id, switching){
+        axios.get("http://localhost:8080/api/v1/store/storeproductlist", 
+                    {params:{ choice:c, search:s, pageNumber:pn,"store_id":id, "switching":switching}})
              .then(function(resp){  // success:function
                 console.log(resp.data);
-                setProductlist(resp.data.productlist);
+                setStoreProductlist(resp.data.storeproductlist);
                 setTotalCnt(resp.data.cnt); // 글의 총수
              })
-             .catch(function(err){     // error:function
+             .catch(function(err){     // error:funcztion
                 alert('error');
              })
     }
 
+    // 첫 시작 시 작동
     useEffect(function(){
-        getProductlist('', '', 0, switching);
+        getStoreProductlist('', '', 0, id, switching);
     }, []);
 
 
     function choiceBtn(choice){
-      getProductlist(choice, search, 0, switching);
+      getStoreProductlist(choice, search, 0, id, switching);
       setSwitching(!switching);
       setPage(0);
     }
 
     function searchBtn(){        
-        getProductlist('select', search, 0, switching);
+        getStoreProductlist('select', search, 0, id, switching);
     }
     
+
     function handlePageChange(page){
         setPage(page);
-        getProductlist('select', search, page-1, switching);
+        getStoreProductlist('select', search, page-1, id, switching);
     }
 
 
@@ -76,27 +82,26 @@ function Productlist() {
             </tr>                
         </tbody>    
       </table>
+      <br/>
+      <h3><b>전체 상품 목록</b></h3>
+      <br/> 
       
-      <h3>전체 상품 목록</h3>
-
-      {<table border="1">
-      <colgroup>
-                <col width="70"/><col width="500"/><col width="100"/><col width="150"/>
-      </colgroup>
-
+      <table>
+        <colgroup>
+                  <col width="70"/><col width="500"/><col width="100"/><col width="150"/>
+        </colgroup>
         <thead>
           <tr>
-          <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
+            <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
           </tr>
         </thead>
-
         <tbody>
-            {productlist.length > 0 && (
+            {storeproductlist.length > 0 && (
               // Use a for loop to create table rows
               (() => {
                 const rows = [];
-                for (let i = 0; i < productlist.length; i++) {
-                  const product = productlist[i];
+                for (let i = 0; i < storeproductlist.length; i++) {
+                  const product = storeproductlist[i];
                   //console.log(product);
                   rows.push(
                     <tr key={product.id}>
@@ -119,7 +124,7 @@ function Productlist() {
               })()
             )}
         </tbody>
-      </table>}
+      </table>
 
         <br/>
 
@@ -139,4 +144,4 @@ function Productlist() {
 
 }
 
-export default Productlist;
+export default StoreProductlist;
