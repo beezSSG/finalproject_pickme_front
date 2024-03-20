@@ -8,7 +8,7 @@ import "swiper/css/pagination";
 import "../../styles/main/PromotionStyle.css";
 
 // import required modules
-import { Autoplay, Keyboard, Pagination, Navigation } from "swiper/modules";
+import { Autoplay, Keyboard, Pagination } from "swiper/modules";
 
 const AdProductSet = () => {
   return (
