@@ -17,7 +17,8 @@ function ManagerMain() {
         { title: "신제품", path: "/newproductinsert" },
         { title: "쿠폰", path: "/coupon" },
         { title: "매출현황", path: "/sales" },
-        { title: "FAQ메뉴로 가기", path: "/faq" }
+        { title: "FAQ메뉴로 가기", path: "/faq" },
+        { title: "1:1 문의", path: "/contactus" }
     ];
 
     return(
@@ -48,9 +49,6 @@ function ManagerMain() {
                             </li>
                         ))}
                     </ul>
-                </div>
-                <div className='p-7'>
-                    <h1 className='text-2xl font-semibold'>관리자 페이지</h1>
                 </div>
             </div>
         </div>

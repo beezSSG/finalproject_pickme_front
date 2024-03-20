@@ -60,10 +60,16 @@ npm install react-hook-geolocation
 네이버지도
 npm install react-naver-maps
 
+이미지 슬라이더(Slider.js)
+npm install slider
+
 페이지네이션
 npm i react-js-pagination
 
 리엑트 아이콘
 npm install react-icons --save
+
+pretendard 폰트 (기본 폰트로 사용할 것임)
+npm i pretendard
 
 ```

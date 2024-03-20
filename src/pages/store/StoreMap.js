@@ -9,6 +9,7 @@ import {
 
 // import axios from 'axios';
 
+
 import MapData from "../../assets/data/store/emart24_busan.json";
 import MarkerImg from '../../assets/imgs/store/marker.svg';
 import { Link } from "react-router-dom";
@@ -20,6 +21,7 @@ export default function StoreMap(prop) {
     const navermaps = useNavermaps();
 
     return (
+
       <NaverMap
         // defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
         // defaultCenter={new navermaps.LatLng(prop.location.latitude, prop.location.longitude)}
@@ -30,7 +32,7 @@ export default function StoreMap(prop) {
           position={new navermaps.LatLng(35.16591583, 129.1324683)}
           animation={1}
           icon={{
-            content: `<button class="markerBox" style="font-size: 30px">
+            content: `<button className="markerBox" style="font-size: 30px">
                         🙋‍♂️
                       </button>`,
             // onAnimationChanged: 
