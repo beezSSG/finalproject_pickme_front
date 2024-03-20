@@ -1,0 +1,86 @@
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+
+  /* Center slide text vertically */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50%;
+  width: 50%;
+}
+
+.swipper-wrapper {
+  border-radius: 20px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 20px;
+}
+
+.swiper-slide-prev img,
+.swiper-slide-active img,
+.swiper-slide-next img {
+  border-radius: 20px;
+  list-style: none;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  background-color: #ffffff;
+  /* background-color: var(--white); */
+  padding: 6px 20px;
+  border-radius: 100%;
+  /* color: var(--gray-08); */
+  color: #000000;
+}
+
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  content: none;
+  text-align: center;
+  padding-bottom: 0.3em;
+}
+
+.swiper-button-prev::after {
+  padding-right: 0.05em;
+  content: url("../../assets/icon/arrowLeft.svg");
+}
+
+.swiper-button-next::after {
+  padding-left: 0.05em;
+  content: url("../../assets/icon/arrowRight.svg");
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 0.5;
+  transition: all 0.4s;
+}
+
+.AdProductSet__Slider .swiper-pagination {
+    bottom: -0.3em !important;
+}
+
+.swiper-pagination-bullet {
+    width: 10px;
+    height: 10px;
+}
+
+.swiper-pagination-bullet-active {
+  /* background-color: var(--main-yellow); */
+  background-color: orange;
+}
+
+.AdrProductSet__Slide img {
+    width: 300px;
+}
