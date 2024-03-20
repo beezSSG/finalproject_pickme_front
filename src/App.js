@@ -3,8 +3,12 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
+import Logingoogle from './pages/login/Logingoogle';
+import Loginkakao from './pages/login/Loginkakao';
+import Loginnaver from './pages/login/Loginnaver';
 
 function App() {
+
   return (
     <div>
       <header className='py-10'>
@@ -29,6 +33,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
+              <Route path='/logingoogle' element={<Logingoogle />} />
+              <Route path='/loginkakao' element={<Loginkakao />} />
+              <Route path='/loginnaver' element={<Loginnaver />} />
             </Routes>
           </div>
         </main>

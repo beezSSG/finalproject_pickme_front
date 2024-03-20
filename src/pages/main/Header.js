@@ -1,10 +1,31 @@
 function Header() {
+
+    const Logincom = () => {
+        if (localStorage.getItem("name") === null) {
+            return (
+                <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Login</a>
+            )
+        } else {
+            return (
+                <div>
+                    <span className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900">안녕하세요 { localStorage.getItem("name") } 님</span>
+                    <button className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" onClick={()=>(logout())}>Logout</button>
+                </div>
+            )
+        }
+    }
+
+    const logout = () => {
+        localStorage.clear();
+        window.location.replace("http://localhost:3000/");
+    }
+    
     return (
         <div className="mx-auto px-4 sm:px-6 lg:px-8 border-b-4 pb-11">
             <nav className="relative z-50 flex justify-between">
                 <div className="flex items-center md:gap-x-12">
                     <a href="/">
-                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..."/>
+                        <img src="https://www.emart24.co.kr/assets/assets/imgs/logo.png" alt="..." />
                     </a>
                     <div className="hidden md:flex md:gap-x-6">
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
@@ -17,9 +38,7 @@ function Header() {
                 </div>
                 <div className="flex items-center gap-x-5 md:gap-x-8">
                     <div className="hidden md:block">
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">sign in1</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in2</a>
+                        <Logincom />
                     </div>
                     {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
                         <span>Get started 

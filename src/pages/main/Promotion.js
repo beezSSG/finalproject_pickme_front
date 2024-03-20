@@ -5,7 +5,7 @@ import cat1 from  "../../assets/1.PNG";
 import cat2 from  "../../assets/3.PNG";
 import cat3 from  "../../assets/2.PNG";
 
-//npm install tw-elements
+
 
 const Promotion = () => {
 
