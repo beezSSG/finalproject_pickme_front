@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ManagerMain from "./ManagerMain";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import Toast from '../public/Toast';
 
 function NewproductInsert() {
 
@@ -15,6 +16,17 @@ function NewproductInsert() {
     const onSubmit = (e) => {
         e.preventDefault(); // 이동하지 않도록 하는 함수
     
+        if(name === "") {
+            Toast.fire({
+                icon: 'error',
+                title: '상품명을 입력하세요!',
+              });
+        }else if(price === "") {
+            Toast.fire({
+                icon: 'error',
+                title: '가격을 입력하세요!',
+              });
+        }
         // 짐을 싼다
         let formData = new FormData();
         formData.append("name", name);
