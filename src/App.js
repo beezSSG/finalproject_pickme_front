@@ -12,6 +12,8 @@ import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
 import Polist from './pages/ceo/Polist';
+import Powrite from './pages/ceo/Powrite';
+
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -66,7 +68,8 @@ function App() {
               <Route path='/store' element={<StoreMap />} />
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
               <Route path='/ceo' element={<Polist />} />
-
+              <Route path='/pow' element={<Powrite />} />
+                
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />
