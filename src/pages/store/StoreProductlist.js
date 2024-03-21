@@ -11,6 +11,7 @@ function StoreProductlist() {
 
     let params = useParams();
     let id = params.id;
+    let name = params.name;
     
     // 정렬
     const [choice, setChoice] = useState(" ");
@@ -36,10 +37,13 @@ function StoreProductlist() {
                 alert('error');
              })
     }
+    
 
     // 첫 시작 시 작동
     useEffect(function(){
         getStoreProductlist('', '', 0, id, switching);
+        console.log(id);
+        console.log(name);
     }, []);
 
 
@@ -83,7 +87,7 @@ function StoreProductlist() {
         </tbody>    
       </table>
       <br/>
-      <h3><b>전체 상품 목록</b></h3>
+      <h3><b>{name} 상품 목록</b></h3>
       <br/> 
       
       <table>
