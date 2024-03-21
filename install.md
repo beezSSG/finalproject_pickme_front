@@ -1,4 +1,3 @@
-
 # Tailwind CSS 설치
 
 콘솔 명령어로 Tailwind CSS 설치
@@ -18,7 +17,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 src/styles/input.css에 Tailwind directives를 추가
@@ -36,6 +35,7 @@ npx tailwindcss -i ./src/styles/tailwindcss/input.css -o ./src/styles/tailwindcs
 ```
 
 Tailwind CSS를 react app에 적용햐보기
+
 ```javascript
 function App() {
   return (
@@ -51,13 +51,22 @@ function App() {
 프로모션 베너에 필요
 npm install react-material-ui-carousel
 
-이것도?
-npm install tw-elements
-
 지도이벤트에 필요
 npm install react-hook-geolocation
 
 네이버지도
 npm install react-naver-maps
+
+이미지 슬라이더(Slider.js)
+npm install slider
+
+페이지네이션
+npm i react-js-pagination
+
+리엑트 아이콘
+npm install react-icons --save
+
+pretendard 폰트 (기본 폰트로 사용할 것임)
+npm i pretendard
 
 ```
