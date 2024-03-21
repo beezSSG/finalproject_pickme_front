@@ -55,6 +55,19 @@ function Productdetail(){
         return <div>loading...</div>;
     }
 
+    function zzimClick() {
+        alert("아구찜♥");
+    }
+
+    function cartClick() {
+        alert("어처구니");
+    }
+
+    function searchMatchStore() {
+        window.location.href = `/matchedstorelist/${product.id}`;
+    }
+
+
     return(
         <div align="center">
             <table className="table table-bordered" style={{textAlign:"center"}}>
@@ -66,6 +79,11 @@ function Productdetail(){
             <tr>
                 <th></th>
                 <td><img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} /></td>
+                <td>                    
+                    <button onClick={()=>(zzimClick())}>❤찜하기❤</button><br/><br/>
+                    <button onClick={()=>(cartClick())}>👜장바구니👜</button><br/><br/>                    
+                    <button onClick={()=>(searchMatchStore())}>🔍상품이 있는 점포 찾기🔍</button>
+                </td>
             </tr>
             <tr>
                 <th>제품명</th>
