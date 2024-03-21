@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
-import ManagerMain from './ManagerMain';
+import { FaGift } from "react-icons/fa6";
 
 function Event() {
 
@@ -45,14 +45,15 @@ function Event() {
     return (
         <div className="flex flex-col items-center">
             {/* 이벤트 목록을 화면에 출력 */}
-            <h2 className='text-3xl font-bold mb-20'>이벤트 목록</h2>
+            <div className='flex items-center justify-center'><FaGift className='text-5xl mr-4' /><div className='text-5xl text-center'>이벤트 목록</div>
+            </div><br/><br/><br/>
             <div className="space-x-4">
                 <button onClick={showOngoingEvents}
-                className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                className="focus:outline-none bg-gray-800 bg-yellow-400 hover:bg-yellow-500 font-bold
                 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-[320px] py-4 me-2 mb-10
               dark:focus:ring-yellow-900">진행중인 이벤트</button>
                 <button onClick={showFinishedEvents}
-                className="focus:outline-none text-yellow-400 bg-black hover:bg-gray-800
+                className="focus:outline-none text-yellow-400 bg-gray-800 hover:bg-gray-600 font-bold
                 focus:ring-4 focus:ring-gray-800 font-medium rounded-lg text-sm px-[320px] py-4 me-2 mb-10
               dark:focus:ring-gray-900">종료된 이벤트</button>
             </div>

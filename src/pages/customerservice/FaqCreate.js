@@ -13,6 +13,13 @@ function FaqCreate() {
 
 
     function faqinsert() {
+        if(title === ""){
+            alert("제목을 입력해주세요!");
+            return;
+        }else if(content === ""){
+            alert("내용을 입력해주세요!");
+            return;
+        }
         axios.get("http://localhost:8080/api/v1/manager/faqcreate", {params:{"title":title,"content":content}})
                 .then(function(resp){
                      console.log(resp.data);

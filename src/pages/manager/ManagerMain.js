@@ -7,14 +7,14 @@ import { FaDiceD6 } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
 
 
-function ManagerMain({ height }) {
+function ManagerMain({height}) {
 
     const [open, setOpen] = useState(true);
 
     const Menus = [
         { title: "관리자 홈", path: "/manager" },
         { title: "이벤트", path: "/event" },
-        { title: "발주", path: "/managerpurchaseorder" },
+        { title: "발주 목록", path: "/managerpurchaseorder" },
         { title: "신제품", path: "/newproductinsert" },
         { title: "쿠폰", path: "/coupon" },
         { title: "매출현황", path: "/sales" },
