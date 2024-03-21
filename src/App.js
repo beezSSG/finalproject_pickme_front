@@ -5,6 +5,8 @@ import Home from './pages/main/Home';
 import Login from './pages/login/Login';
 import StoreMap from './pages/store/StoreMap';
 import Polist from './pages/ceo/Polist';
+import Powrite from './pages/ceo/Powrite';
+
 
 function App() {
   return (
@@ -33,6 +35,7 @@ function App() {
               <Route path='/login' element={<Login />} />
               <Route path='/store' element={<StoreMap />} />
               <Route path='/ceo' element={<Polist />} />
+              <Route path='/pow' element={<Powrite />} />
             </Routes>
           </div>
         </main>
