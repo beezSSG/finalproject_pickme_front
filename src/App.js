@@ -11,6 +11,7 @@ import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
+import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
 
 import ManagerMain from './pages/manager/ManagerMain';
@@ -60,6 +61,7 @@ function App() {
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
+              <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} />
               <Route path='/ceo' element={<Polist />} />
 
               <Route path='/manager' element={<ManagerMain />} />
