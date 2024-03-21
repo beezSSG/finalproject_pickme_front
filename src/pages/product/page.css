@@ -97,7 +97,7 @@ ul.pagination li a.active {
 }
 
 .pagination li.active {
-    background-color: rgba(189, 158, 17, 0.502);
+    background-color: rgba(234, 179, 8, 1);
     color: white;
 }
 

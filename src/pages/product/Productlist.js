@@ -13,7 +13,7 @@ function Productlist() {
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
     // 검색  
     const [search, setSearch] = useState("");
-    // 페이징
+    // 페이징 
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
     

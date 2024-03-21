@@ -3,9 +3,9 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
-import Logingoogle from './pages/login/Logingoogle';
-import Loginkakao from './pages/login/Loginkakao';
-import Loginnaver from './pages/login/Loginnaver';
+import LoginGoogle from './pages/login/LoginGoogle';
+import LoginKakao from './pages/login/LoginKakao';
+import LoginNaver from './pages/login/LoginNaver';
 
 import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
@@ -13,6 +13,8 @@ import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
 import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
+import Powrite from './pages/ceo/Powrite';
+
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -20,8 +22,13 @@ import EventDetail from './pages/manager/EventDetail';
 import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
 import NewproductInsert from './pages/manager/NewproductInsert';
+import ManagerPurchaseOrder from './pages/manager/ManagerPurchaseOrder';
+
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
+import ContactUsDetail from './pages/customerservice/ContactUsDetail';
+import ContactUsWrite from './pages/customerservice/ContactUsWrite';
+
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
@@ -53,9 +60,9 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/logingoogle' element={<Logingoogle />} />
-              <Route path='/loginkakao' element={<Loginkakao />} />
-              <Route path='/loginnaver' element={<Loginnaver />} />
+              <Route path='/LoginGoogle' element={<LoginGoogle />} />
+              <Route path='/LoginKakao' element={<LoginKakao />} />
+              <Route path='/LoginNaver' element={<LoginNaver />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
@@ -63,16 +70,20 @@ function App() {
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
               <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} />
               <Route path='/ceo' element={<Polist />} />
-
+              <Route path='/pow' element={<Powrite />} />
+                
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />
               <Route path='/eventcreate' element={<EventCreate />} />
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproductinsert' element={<NewproductInsert />} />
+              <Route path='/managerpurchaseorder' element={<ManagerPurchaseOrder />} />
 
               <Route path='/customercenter' element={<CustomerCenter />} />
               <Route path='/contactus' element={<ContactUs />} />
+              <Route path='/contactusdetail/:id' element={<ContactUsDetail />} />
+              <Route path='/contactuswrite' element={<ContactUsWrite />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
               

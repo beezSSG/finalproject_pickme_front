@@ -13,6 +13,13 @@ function FaqCreate() {
 
 
     function faqinsert() {
+        if(title === ""){
+            alert("제목을 입력해주세요!");
+            return;
+        }else if(content === ""){
+            alert("내용을 입력해주세요!");
+            return;
+        }
         axios.get("http://localhost:8080/api/v1/manager/faqcreate", {params:{"title":title,"content":content}})
                 .then(function(resp){
                      console.log(resp.data);
@@ -33,8 +40,8 @@ function FaqCreate() {
     return(
         <>
             <div className="flex flex-row">
-                <ManagerMain />
-                <div className="w-[1000px] flex flex-col items-center mx-auto mt-28 mb-28 shadow-2xl rounded-lg overflow-hidden py-16">
+                <ManagerMain height="h-[1100px]" />
+                <div className="w-[1000px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
                 <div className="font-bold text-3xl flex items-center"><FaPen className="mr-2" />&nbsp;&nbsp;FAQ 생성</div><br/>
                     <div className="mb-6">
                         <label className="block mb-2 text-xl font-bold">제목:</label>

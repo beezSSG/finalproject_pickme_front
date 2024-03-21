@@ -15,8 +15,9 @@ function EventCreate() {
     const [file2, setFile2] = useState(null);
 
     const onSubmit = (e) => {
-        e.preventDefault(); // 이동하지 않도록 하는 함수
 
+        e.preventDefault(); // 이동하지 않도록 하는 함수
+        
         // 시작 시간과 종료 시간을 합치기
         const startDateTime = startDate.replace(/-/g, '') + startTime.replace(/:/g, '');
         const endDateTime = endDate.replace(/-/g, '') + endTime.replace(/:/g, '');
@@ -58,35 +59,35 @@ function EventCreate() {
     return(
         <>
          <div className="flex flex-row">
-            <ManagerMain />
+            <ManagerMain height="h-[1000px]" />
             <div className="w-[850px] h-[700px] flex flex-col items-center mx-auto shadow-2xl rounded-lg overflow-hidden my-28">
             <div className="font-bold text-3xl flex items-center mt-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
                 <div className='h-[500px]'>
                     <div className='h-[500px]'>
-                        <div>
+                        <form name="frm" onSubmit={onSubmit} encType="multipart/form-data">
                                 <div className="mb-6">
                                     <label className="block mb-2 text-xl font-bold">시작일자:</label>
                                     <input type='date' 
                                         value={startDate} 
                                         onChange={(e)=>setStartDate(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400'/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type='time' 
                                         value={startTime} 
                                         onChange={(e)=>setStartTime(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400'/>
                                 </div>
                                 <div className="mb-6">
                                     <label className="block mb-2 text-xl font-bold">종료일자:</label>
                                     <input type='date' 
                                         value={endDate} 
                                         onChange={(e)=>setEndDate(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400'/>
                                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                     <input type='time' 
                                         value={endTime} 
                                         onChange={(e)=>setEndTime(e.target.value)}
-                                        className='p-3 border border-gray-300 rounded-xl w-[300px]'/>
+                                        className='p-3 border border-gray-300 rounded-xl w-[300px] focus:outline-none focus:ring-2 focus:ring-yellow-400'/>
                                 </div>
                                 <div className="mb-6">
                                     <label className="block mb-2 text-xl font-bold">배너사진:</label>
@@ -119,16 +120,18 @@ function EventCreate() {
                                         rounded-xl
                                         w-[625px]' />
                                 </div>
-                        </div>
+                                <div className="flex flex-col items-center">
+                                    <br/><br/>
+                                    <button type="submit"
+                                        className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                        focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[15px] py-3 me-2 mb-2
+                                        dark:focus:ring-yellow-900"
+                                        >
+                                        이벤트 등록
+                                    </button>
+                                </div>
+                        </form>
                     </div>
-                </div>
-                <br/>
-                <div className="flex flex-col items-center">
-                    <button type="submit" 
-                        className="text-white font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-                        style={{ backgroundColor: "#ffc300" }}>
-                        이벤트 등록
-                    </button>
                 </div>
             </div>
         </div>
