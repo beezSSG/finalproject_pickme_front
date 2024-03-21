@@ -1,7 +1,6 @@
 // import Carousel from "react-material-ui-carousel";
 // import { Paper } from "@mui/material";
 // import { matchPath } from "react-router-dom";
-// npm install tw-elements
 
 // npm install swiper
 import { Swiper, SwiperSlide } from "swiper/react";

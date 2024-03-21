@@ -52,7 +52,7 @@ function ManagerPurchaseOrder() {
     return (
         <>
         <div className="flex flex-row">
-                <ManagerMain />
+                <ManagerMain height="h-[2000px]" />
             <div className="w-[1500px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
             <div className="font-bold text-3xl flex items-center">발주 목록</div><br/>
             <div className='text-center mb-14'>
@@ -97,13 +97,14 @@ function ManagerPurchaseOrder() {
                     ))}
                 </tbody>
             </table>
+            <br/><br/><br/><br/><br/>
         <Pagination
         itemClass='page-item'
         linkClass='page-link' 
         activePage={page}
-        itemsCountPerPage={2}
+        itemsCountPerPage={10}
         totalItemsCount={totalCnt}
-        pageRangeDisplayed={2}
+        pageRangeDisplayed={10}
         prevPageText={"prev"}
         nextPageText={"next"}
         onChange={handlePageChange} />

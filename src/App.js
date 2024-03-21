@@ -3,15 +3,17 @@ import Header from './pages/main/Header';
 import Footer from './pages/main/Footer';
 import Home from './pages/main/Home';
 import Login from './pages/login/Login';
-import Logingoogle from './pages/login/Logingoogle';
-import Loginkakao from './pages/login/Loginkakao';
-import Loginnaver from './pages/login/Loginnaver';
+import LoginGoogle from './pages/login/LoginGoogle';
+import LoginKakao from './pages/login/LoginKakao';
+import LoginNaver from './pages/login/LoginNaver';
 
 import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
 import Polist from './pages/ceo/Polist';
+import Powrite from './pages/ceo/Powrite';
+
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -57,16 +59,17 @@ function App() {
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/login' element={<Login />} />
-              <Route path='/logingoogle' element={<Logingoogle />} />
-              <Route path='/loginkakao' element={<Loginkakao />} />
-              <Route path='/loginnaver' element={<Loginnaver />} />
+              <Route path='/LoginGoogle' element={<LoginGoogle />} />
+              <Route path='/LoginKakao' element={<LoginKakao />} />
+              <Route path='/LoginNaver' element={<LoginNaver />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
               <Route path='/ceo' element={<Polist />} />
-
+              <Route path='/pow' element={<Powrite />} />
+                
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />

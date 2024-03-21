@@ -16,7 +16,7 @@ function Polist(){
     const [totalCnt, setTotalCnt] = useState(0);
 
     function getPolist(c, s, pn){
-        axios.get("http://localhost:8081/polist", 
+        axios.get("http://localhost:8080/polist", 
                     {params:{ choice:c, search:s, pageNumber:pn}})
              .then(function(resp){  // success:function
                 console.log(resp.data.polist);
@@ -43,8 +43,9 @@ function Polist(){
             return;
         }
 
-        getPolist(choice, search, 0);
-    }
+      getPolist(choice, search,0);
+    }  
+
 
     function handlePageChange(page){
         setPage(page);
@@ -124,7 +125,7 @@ function Polist(){
                onChange={handlePageChange} />
 
         <div className='my-5 d-flex justify-content-center'>
-            <Link className='btn btn-primary' to="/powrite">발주신청</Link>
+            <Link className='btn btn-primary' to="/pow">발주신청</Link>
         </div>       
 
         <br/><br/><br/><br/>
