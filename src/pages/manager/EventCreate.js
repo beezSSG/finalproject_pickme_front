@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import ManagerMain from "./ManagerMain";
 import { PiConfettiBold } from "react-icons/pi";
 
+
 function EventCreate() {
     let navigate = useNavigate();
     
