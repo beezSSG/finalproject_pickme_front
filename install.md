@@ -72,4 +72,7 @@ npm install react-icons --save
 pretendard 폰트 (기본 폰트로 사용할 것임)
 npm i pretendard
 
+tailwind css를 활용한 ui component library
+npm install flowbite flowbite-react
+
 ```
