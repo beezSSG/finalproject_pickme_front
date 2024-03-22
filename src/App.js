@@ -68,7 +68,7 @@ function App() {
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
-              <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} />
+              {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
               <Route path='/ceo' element={<Polist />} />
               <Route path='/pow' element={<Powrite />} />
                 

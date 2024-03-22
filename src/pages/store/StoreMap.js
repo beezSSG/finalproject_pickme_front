@@ -33,7 +33,7 @@ export default function StoreMap(prop) {
           animation={1}
           icon={{
             content: `<button className="markerBox" style="font-size: 30px">
-                        🙋‍♂️
+                        🙋🏿‍♂️
                       </button>`,
             // onAnimationChanged: 
           }}
