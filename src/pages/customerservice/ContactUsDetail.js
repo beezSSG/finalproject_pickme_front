@@ -10,6 +10,8 @@ function ContactUsDetail() {
     let managerId = "admin";
     let navigate = useNavigate();
 
+    let adminName = localStorage.getItem('name');
+
     const [ccbdetailS, setCcbdetails] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -135,24 +137,27 @@ function ContactUsDetail() {
         </div> <br/><br/><br/>
 
 
-        {/* 댓글 작성하는 table */}
-        <div className='flex justify-center'>
-            <div className='w-1/2'>
-                <div className="mb-6">
-                    <label className="block mb-2 text-xl font-bold">1:1문의 답변:</label>
-                    <textarea placeholder="내용을 입력하세요." 
-                            value={coContent}
-                            onChange={(e) => setCoContent(e.target.value)} 
-                            className="w-[1057px] h-[200px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"/>
-                </div>
-                <div className='text-center'>
-                    <div>
-                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
-                         onClick={ccbcommentwrite}>작성완료</button>
+        {/* 댓글 작성하는 table -> 하기성(관리자)일때만 뜨게 해뒀음 */}
+        {adminName === "하기성" && (
+            <div className='flex justify-center'>
+                <div className='w-1/2'>
+                    <div className="mb-6">
+                        <label className="block mb-2 text-xl font-bold">1:1문의 답변:</label>
+                        <textarea placeholder="내용을 입력하세요." 
+                                value={coContent}
+                                onChange={(e) => setCoContent(e.target.value)} 
+                                className="w-full h-[200px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"/>
+                    </div>
+                    <div className='text-center'>
+                        <div>
+                            <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                            onClick={ccbcommentwrite}>작성완료</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+)}
+
 
     </>
     );

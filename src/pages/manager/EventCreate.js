@@ -24,16 +24,19 @@ function EventCreate() {
                 icon: 'error',
                 title: '시작일자를 입력해주세요!',
               });
+              return;
         }else if(endDate === "" || endTime === "") {
             Toast.fire({
                 icon: 'error',
                 title: '종료일자를 입력해주세요!',
               });
+              return;
         }else if(file1 === null || file2 === null) {
             Toast.fire({
                 icon: 'error',
                 title: '사진을 모두 업로드해주세요!',
               });
+              return;
         }
         
         // 시작 시간과 종료 시간을 합치기

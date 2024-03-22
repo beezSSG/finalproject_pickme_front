@@ -1,8 +1,12 @@
 
 // import logoImg from '../../assets/imgs/logo/logo.svg';
 import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
+import Toast from '../public/Toast';
 
 function Header() {
+
+
+    let adminName = localStorage.getItem('name');
 
     const Logincom = () => {
         if (localStorage.getItem("name") === null) {
@@ -23,7 +27,7 @@ function Header() {
         localStorage.clear();
         window.location.replace("http://localhost:3000/");
     }
-    
+
     return (
         <div className="mx-auto min-h-2 pt-8 px-10 pb-6 sm:px-6 lg:px-8 backdrop-blur-md transition-colors duration-400 ease-in-out hover:bg-slate-100">
             <nav className="relative z-50 flex justify-between">
@@ -46,8 +50,11 @@ function Header() {
                         <Logincom />
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/manager">관리자</a>
+                        {adminName === "하기성" && (
+                            <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/manager">관리자</a>
+                        )}
                     </div>
+
                     {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
                         <span>Get started 
                             <span class="hidden lg:inline">today</span>
