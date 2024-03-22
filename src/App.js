@@ -15,7 +15,6 @@ import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
 import Powrite from './pages/ceo/Powrite';
 
-
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
 import EventDetail from './pages/manager/EventDetail';
@@ -32,6 +31,7 @@ import ContactUsWrite from './pages/customerservice/ContactUsWrite';
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
+import MyMain from './pages/mypage/MyMain';
 
 function App() {
 
@@ -86,7 +86,8 @@ function App() {
               <Route path='/contactuswrite' element={<ContactUsWrite />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
-              
+
+              <Route path='/mypage/*' element={<MyMain />} />
             </Routes>
           </div>
         </main>
