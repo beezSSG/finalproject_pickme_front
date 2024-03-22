@@ -9,6 +9,23 @@ function ContactUs() {
     let navigate = useNavigate();
 
     const [ccblist, setCcblist] = useState([])
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        let prevScrollPos = window.scrollY;
+    
+        const handleScroll = () => {
+          const currentScrollPos = window.scrollY;
+          setVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+          prevScrollPos = currentScrollPos;
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
 
     function ccblistup() {
         axios.get("http://localhost:8080/api/v1/manager/ccblist")
@@ -27,7 +44,18 @@ function ContactUs() {
 
     return(
         <>
-        <div className="flex justify-center items-center">
+        <ul className={`flex justify-end bg-gray-700 p-7 transition-opacity ${visible ? 'opacity-100' : 'opacity-0'}`}>
+            <li>
+                <Link to="/contactus" className="text-white text-[20px] hover:text-yellow-500 mr-[100px]">1:1 문의하기</Link>
+            </li>
+            <li>
+                <Link to="/faq" className="text-white text-[20px] hover:text-yellow-500 mr-[100px]">자주 묻는 질문</Link>
+            </li>
+            <li>
+                <Link to="/" className="text-white text-[20px] hover:text-yellow-500 mr-[200px]">챗봇</Link>
+            </li>
+        </ul>
+        <div className="flex justify-center items-center mt-[70px]">
             <div>
             <div className="flex flex-col items-center justify-center mt-10 mb-70">
                 <div className="flex items-center">
@@ -83,7 +111,7 @@ function ContactUs() {
             </table>
 
             <div className="text-center">
-            <button className="mt-[50px] bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+            <button className="mt-[50px] bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]" 
                 onClick={()=>navigate("/contactuswrite")}>문의작성</button>
             </div>
             </div>
