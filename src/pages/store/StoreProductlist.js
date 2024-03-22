@@ -70,17 +70,23 @@ function StoreProductlist() {
         <tbody>
             <tr>
                 <td style={{ paddingLeft:"5px"}} className='align-middle'>
-                    <input placeholder='검색어' 
+                    <input className="border-2" placeholder='검색어' 
                         value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                 </td>
                 <td style={{ paddingLeft:"5px" }}>  
-                    <button onClick={()=>searchBtn()}>검색</button>
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </td>
                   <td style={{ paddingLeft:"5px" }}>
-                      <button className='btn btn-secondary' onClick={() => choiceBtn('date')}>등록순</button>
+                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
                   </td>
                   <td style={{ paddingLeft:"5px" }}>
-                      <button className='btn btn-secondary' onClick={() => choiceBtn('rate')}>평점순</button>
+                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
                   </td>
                 
             </tr>                
