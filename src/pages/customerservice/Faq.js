@@ -122,7 +122,7 @@ function Faq() {
                                 ))}
                             </h3>
                         </label>
-                        <div className="answer content mt-5 h-0 transition-all ease-in-out duration-500 overflow-hidden peer-checked:h-full">
+                        <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto">
                             <p>
                                 {faq.content.split(category).map((part, i) => (
                                     i === 0 ?

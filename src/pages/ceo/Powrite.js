@@ -86,7 +86,6 @@ const Powrite = () => {
 }
 
 export default Powrite;
-=======
 // import { Component, useEffect, useState, createContext,useRef } from 'react';
 // import { useNavigate } from 'react-router-dom'; // location.href
 // import axios from 'axios';

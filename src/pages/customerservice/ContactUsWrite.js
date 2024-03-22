@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toast from "../public/Toast";
+import { Listbox } from '@headlessui/react'
 
 function ContactUsWrite() {
 
@@ -63,6 +64,7 @@ function ContactUsWrite() {
                         alert("문의 작성 실패!");
                     })
     }
+
 
     return(
         <>
