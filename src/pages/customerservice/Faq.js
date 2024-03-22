@@ -2,15 +2,38 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
 import { FaBullhorn } from "react-icons/fa";
+import { Link } from 'react-router-dom';
 
 function Faq() {
     const navigate = useNavigate();
     const [faqlist, setFaqlist] = useState([]);
     const [category, setCategory] = useState('');
 
+    let adminName = localStorage.getItem('name');
+    const [visible, setVisible] = useState(true);
+
+    useEffect(() => {
+        let prevScrollPos = window.scrollY;
+    
+        const handleScroll = () => {
+          const currentScrollPos = window.scrollY;
+          setVisible(prevScrollPos > currentScrollPos || currentScrollPos === 0);
+          prevScrollPos = currentScrollPos;
+        };
+    
+        window.addEventListener('scroll', handleScroll);
+    
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+        };
+      }, []);
+
+
+
     useEffect(() => {
         // 초기에는 '카드' 카테고리로 호출
         faqlistup('');
+        console.log(adminName);
     }, []);
 
     function faqlistup(selectedCategory) {
@@ -35,7 +58,18 @@ function Faq() {
 
     return (
         <>
-            <div className='flex items-center justify-center'><FaBullhorn className='text-5xl mr-4' /><div className='text-5xl text-center'>자주 묻는 질문</div>
+            <ul className={`flex justify-end bg-gray-700 p-7 transition-opacity ${visible ? 'opacity-100' : 'opacity-0'}`}>
+                <li>
+                    <Link to="/contactus" className="text-white text-[20px] hover:text-yellow-500 mr-[100px]">1:1 문의하기</Link>
+                </li>
+                <li>
+                    <Link to="/faq" className="text-white text-[20px] hover:text-yellow-500 mr-[100px]">자주 묻는 질문</Link>
+                </li>
+                <li>
+                    <Link to="/" className="text-white text-[20px] hover:text-yellow-500 mr-[200px]">챗봇</Link>
+                </li>
+            </ul>
+            <div className='flex items-center justify-center mt-[100px]'><FaBullhorn className='text-5xl mr-4' /><div className='font-bold text-5xl text-center'>자주 묻는 질문</div>
             </div>
             <br/><br/><br/>
             <div className='text-center mb-7'>
@@ -83,8 +117,8 @@ function Faq() {
                             <h3>
                                 {faq.title.split(category).map((part, i) => (
                                     i === 0 ?
-                                        <span>{part}</span> :
-                                        <span><span className="text-yellow-500">{category}</span>{part}</span>
+                                        <span key={`title-part-${i}`}>{part}</span> :
+                                        <span key={`title-part-${i}`}><span className="text-yellow-500">{category}</span>{part}</span>
                                 ))}
                             </h3>
                         </label>
@@ -92,21 +126,20 @@ function Faq() {
                             <p>
                                 {faq.content.split(category).map((part, i) => (
                                     i === 0 ?
-                                        <span>{part}</span> :
-                                        <span><span className="text-yellow-500">{category}</span>{part}</span>
+                                        <span key={`content-part-${i}`}>{part}</span> :
+                                        <span key={`content-part-${i}`} ><span className="text-yellow-500">{category}</span>{part}</span>
                                 ))}
                             </p>
                         </div>
                     </div>
                     ))}
                 </div>
+                {adminName === "하기성" && (
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+                        onClick={faqcreate}>글 생성하기</button>
+                )}
             </div>
-            <br/>
-            {/* 이 버튼은 로그인이 구현되면 관리자일시에만 뜨게 할꺼임 */}
-            <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                               focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                             dark:focus:ring-yellow-900"
-                    onClick={faqcreate}>글 생성하기</button>
+            {/* 이 버튼은 로그인이 구현되면 관리자일시에만 뜨게 할꺼임(하기성만 뜨게 해뒀음) */} 
         </>
     );
 }

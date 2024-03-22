@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ManagerMain from "./ManagerMain";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
+import Toast from '../public/Toast';
 
 function NewproductInsert() {
 
@@ -15,6 +16,25 @@ function NewproductInsert() {
     const onSubmit = (e) => {
         e.preventDefault(); // 이동하지 않도록 하는 함수
     
+        if(name === "") {
+            Toast.fire({
+                icon: 'error',
+                title: '상품명을 입력하세요!',
+              });
+              return;
+        }else if(price === "") {
+            Toast.fire({
+                icon: 'error',
+                title: '가격을 입력하세요!',
+              });
+              return;
+        }else if(!document.frm.uploadfile.files[0]) {
+            Toast.fire({
+                icon: 'error',
+                title: '파일을 업로드하세요!',
+            });
+            return;
+        }
         // 짐을 싼다
         let formData = new FormData();
         formData.append("name", name);
@@ -75,18 +95,19 @@ function NewproductInsert() {
                                             w-[625px]
                                             ' />
                                     </div>
+                                    <div className="flex flex-col items-center">
+                                        <button type="submit" 
+                                            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                            focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[15px] py-3 me-2 mb-2
+                                            dark:focus:ring-yellow-900"
+                                        >
+                                            상품 등록
+                                        </button>
+                                    </div>
                             </form>
                         </div>
                     </div>
-                    <div className="flex flex-col items-center">
-                        <button type="submit" 
-                            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                            focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[15px] py-3 me-2 mb-2
-                            dark:focus:ring-yellow-900"
-                           >
-                            상품 등록
-                        </button>
-                    </div>
+                    
                 </div>
         </div>
 
