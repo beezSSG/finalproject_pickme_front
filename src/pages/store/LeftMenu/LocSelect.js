@@ -88,12 +88,12 @@ export default function LocSelect(menuOpen) {
       </Listbox>
 
       {/* 검색 select */}
-      <Combobox value={districtsData} onChange={setDistrictsData}>
+      <Combobox value={districtsData} onChange={setDistrictsData}> 
         <div className="relative w-full">
-          <div className="shadow-md sm:text-sm">
+          <div className="shadow-md sm:text-sm rounded-lg">
             <Combobox.Input
               className="w-full border-none py-2.5 pl-3 pr-10 text-base leading-5 text-gray-900 
-              border-0 ring-0 focus:ring-0 focus:border-0 select-none"
+              border-0 ring-0 focus:ring-0 focus:border-0 select-none rounded-lg"
               displayValue={(district) => district.name}
               onChange={(event) => setQuery(event.target.value)}
             />
