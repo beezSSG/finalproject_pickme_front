@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate, Link } from 'react-router-dom';
 import { FaGift } from "react-icons/fa6";
 
+
 function Event() {
 
     const navigate = useNavigate();
@@ -47,7 +48,7 @@ function Event() {
     return (
         <>
             {/* 이벤트 목록을 화면에 출력 */}
-            <div className='flex ml-[300px] mt-[70px]'><FaGift className='text-5xl mr-4' /><div className='text-4xl font-bold'>이벤트 목록</div>
+            <div className='flex ml-[100px] mt-[70px]'><FaGift className='text-5xl mr-4' /><div className='text-4xl font-bold'>이벤트 목록</div>
             </div><br/><br/><br/>
             <div className="flex flex-col items-center">
             <div className="space-x-4">

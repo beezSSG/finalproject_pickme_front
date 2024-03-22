@@ -54,7 +54,7 @@ function ManagerPurchaseOrder() {
         <>
         <div className="flex flex-row">
                 <ManagerMain height="h-[1500px]" />
-            <div className="w-[1500px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
+            <div className="w-[1500px] flex flex-col items-center ml-[50px] my-10 shadow-2xl rounded-lg overflow-hidden py-16">
             <div className="font-bold text-3xl flex items-center"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
                 <input type='text' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
@@ -67,9 +67,9 @@ function ManagerPurchaseOrder() {
                                 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[40px] py-5 me-2 mb-2
                                 dark:focus:ring-yellow-900" onClick={handleCategoryClick}>검색</button>
             </div>
-            <table>
+            <table className='mx-auto'>
                 <colgroup>
-                    <col width="50px" /><col width="400px" /><col width="250px" /><col width="100px" /><col width="140px" /><col width="300px" /><col width="200px" />
+                    <col width="50px" /><col width="400px" /><col width="250px" /><col width="100px" /><col width="140px" /><col width="300px" /><col width="150px" />
                 </colgroup>
                 <thead>
                     <tr>
