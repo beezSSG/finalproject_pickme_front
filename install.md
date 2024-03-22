@@ -52,6 +52,7 @@ function App() {
 npm uninstall react-material-ui-carousel
 npm uninstall tw-elements
 npm uninstall slider
+npm uninstall flowbite flowbite-react
 
 # 지도 이벤트에 필요
 npm install react-hook-geolocation
@@ -71,7 +72,7 @@ npm install react-icons --save
 # pretendard 폰트 (기본 폰트로 사용할 것임)
 npm i pretendard
 
-# tailwind css를 활용한 ui component library
-npm install flowbite flowbite-react
+# tailwind ui lib
+npm install @headlessui/react
 
 ```
