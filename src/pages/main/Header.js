@@ -49,6 +49,10 @@ function Header() {
                     <div className="md:block">
                         <Logincom />
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in</a>
+                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
+                        {adminName === "하기성" && (
+                            <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/manager">관리자</a>
+                        )}
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/mypage">마이페이지</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/manager">관리자</a>
                     </div>
