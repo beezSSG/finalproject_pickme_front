@@ -2,12 +2,26 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Event from './Event';
+import { useNavigate } from 'react-router-dom';
 import { BsArrowLeftShort, BsAppIndicator, BsSearch } from "react-icons/bs";
 import { FaDiceD6 } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
+import Toast from '../public/Toast';
 
 
 function ManagerMain({height}) {
+
+    let adminEmail = localStorage.getItem('email');
+    let navigate = useNavigate();
+    useEffect(() => {
+        if(adminEmail===null){
+            Toast.fire({
+                icon: 'error',
+                title: "당신은 관리자가 아닙니다!!",
+              });
+            navigate("/");
+        }
+    });
 
     const [open, setOpen] = useState(true);
 

@@ -83,82 +83,88 @@ function ContactUsDetail() {
 
     return(
     <>
-        <div className='font-bold text-[40px] ml-[500px]'>글 상세보기</div>
-        <div className='flex justify-center'>
-            <table className="mt-8 w-1/2 border border-spacing-2">
-                <tbody>
-                    <tr className='border-b'>
-                        <th className="py-2 bg-gray-500 text-center text-white">작성자</th>
-                        <td className="px-4 py-2">{ccbdetailS.customerId}</td>
-                        <th className="py-2 bg-gray-500 text-center text-white">분류</th>
-                        <td className="px-4 py-2">{ccbdetailS.category}</td>
-                    </tr>
-                    <tr className='border-b'>
-                        <th className="py-2 bg-gray-500 text-center text-white">제목</th>
-                        <td className="px-4 py-2">{ccbdetailS.title}</td>
-                        <th className="py-2 bg-gray-500 text-center text-white">작성일</th>
-                        <td className="px-4 py-2">{ccbdetailS.createAt}</td>    
-                    </tr>
-                    <tr className='border-b'> 
-                        <th className="py-[250px] bg-gray-500 text-center text-white">내용</th>
-                        <td colSpan={3} className="px-4 py-[250px]">
-                           {ccbdetailS.content}
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <br/><br/>
-
-        {/* 댓글 나타나는 table */}
-        <div className='flex justify-center'>
-            <div className='w-1/2 border border-spacing-2'>
-                {
-                    commentList &&
-                    commentList.map(function(list, i){
-                        return (
-                            <div key={i} className='border-b'>
-                                <div key={i} className='border-b flex justify-between'>
-                                    <div className='py-3 pl-7'>작성자:&nbsp;&nbsp;{list.managerId}</div>
-                                    <div className='py-3 pr-7'>작성일:&nbsp;&nbsp;{list.createAt}</div>
-                                </div>
-                                <div key={i} className='border-b flex justify-between'>
-                                <div className='py-3 pl-7'>{list.content}</div>
-                                <div className='py-3 pr-7'>
-                                    <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
-                                    onClick={()=>ccbcommentdelete(list.id)}>삭제</button>
-                                </div>
-                                </div>
-                            </div>
-                        );
-                    })
-                }  
-            </div>
-        </div> <br/><br/><br/>
-
-
-        {/* 댓글 작성하는 table -> 하기성(관리자)일때만 뜨게 해뒀음 */}
-        {adminName === "하기성" && (
+        <div>
+            <div className='font-bold text-[40px] ml-[400px]'>글 상세보기</div>
             <div className='flex justify-center'>
-                <div className='w-1/2'>
-                    <div className="mb-6">
-                        <label className="block mb-2 text-xl font-bold">1:1문의 답변:</label>
-                        <textarea placeholder="내용을 입력하세요." 
-                                value={coContent}
-                                onChange={(e) => setCoContent(e.target.value)} 
-                                className="w-full h-[200px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"/>
-                    </div>
-                    <div className='text-center'>
-                        <div>
-                            <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
-                            onClick={ccbcommentwrite}>작성완료</button>
+                <table className="mt-8 w-1/2">
+                    <tbody>
+                        <tr className='border-t-2  border-black'>
+                            <td colSpan={4} className="px-4 py-6 bg-[#f7f7f7] font-bold text-xl">{ccbdetailS.title}</td>
+                        </tr>
+                        <tr className='border-b-2 border-t-2'>
+                            <th className="py-3 bg-[#f7f7f7]  text-gray-700">작성자</th>
+                            <td className="px-4 py-3">{ccbdetailS.customerId}</td>
+                            <th className="py-3 bg-[#f7f7f7]  text-gray-700">분류</th>
+                            <td className="px-4 py-3 text-center">{ccbdetailS.category}</td>
+                        </tr>
+                        <tr className='border-b-2'>
+                            <th className="py-3 bg-[#f7f7f7] text-center text-gray-700">작성일</th>
+                            <td colSpan={3} className="px-4 py-3">{ccbdetailS.createAt}</td>    
+                        </tr>
+                        <tr className='border-b-2'>
+                            <td colSpan={4} className="px-4">
+                                <textarea
+                                    readOnly
+                                    value={ccbdetailS.content}
+                                    className="w-full h-[500px] resize-none border-none px-3 py-5 focus:outline-none focus:border-none focus:ring-0"
+                                />
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+            </div>
+            <br/><br/>
+
+            {/* 댓글 나타나는 table */}
+            <div className='flex justify-center'>
+                <div className='w-1/2 border border-spacing-2'>
+                    {
+                        commentList &&
+                        commentList.map(function(list, i){
+                            return (
+                                <div key={i} className='border-b'>
+                                    <div key={i} className='border-b flex justify-between'>
+                                        <div className='py-3 pl-7'>작성자:&nbsp;&nbsp;{list.managerId}</div>
+                                        <div className='py-3 pr-7'>작성일:&nbsp;&nbsp;{list.createAt}</div>
+                                    </div>
+                                    <div key={i} className='border-b flex justify-between'>
+                                    <div className='py-3 pl-7'>{list.content}</div>
+                                    <div className='py-3 pr-7'>
+                                        <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                                        onClick={()=>ccbcommentdelete(list.id)}>삭제</button>
+                                    </div>
+                                    </div>
+                                </div>
+                            );
+                        })
+                    }  
+                </div>
+            </div> <br/><br/><br/>
+
+
+            {/* 댓글 작성하는 table -> 하기성(관리자)일때만 뜨게 해뒀음 */}
+            {adminName === "하기성" && (
+                <div className='flex justify-center'>
+                    <div className='w-1/2'>
+                        <div className="mb-6">
+                            <label className="block mb-2 text-xl font-bold">1:1문의 답변:</label>
+                            <textarea placeholder="내용을 입력하세요." 
+                                    value={coContent}
+                                    onChange={(e) => setCoContent(e.target.value)} 
+                                    className="w-full h-[200px] p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-yellow-400"/>
+                        </div>
+                        <div className='text-center'>
+                            <div>
+                                <button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" 
+                                onClick={ccbcommentwrite}>작성완료</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-)}
-
-
+                )}
+        </div>
     </>
     );
 }
