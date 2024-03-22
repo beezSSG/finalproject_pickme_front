@@ -83,7 +83,7 @@ function ContactUsDetail() {
 
     return(
     <>
-        <div className='text-center font-bold text-[40px]'>글 상세보기</div>
+        <div className='font-bold text-[40px] ml-[500px]'>글 상세보기</div>
         <div className='flex justify-center'>
             <table className="mt-8 w-1/2 border border-spacing-2">
                 <tbody>

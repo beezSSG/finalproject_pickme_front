@@ -89,7 +89,7 @@ function ManagerPurchaseOrder() {
                             <td className='text-center py-4'>{item.productName}</td>
                             <td className='text-center py-4'>{item.storeName}</td>
                             <td className='text-center py-4'>{item.quantity}</td>
-                            <td className='text-center py-4'>{item.price}원</td>
+                            <td className='text-center py-4'>{item.price.toLocaleString()}원</td>
                             <td className='text-center py-4'>{item.wdate}</td>
                             <td className='text-center py-4'><button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" onClick={()=>pohandleChange(item.id)}>승인</button></td>
                         </tr>
