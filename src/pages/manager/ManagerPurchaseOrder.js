@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import ManagerMain from "../manager/ManagerMain";
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
+import { IoReceiptOutline } from "react-icons/io5";
 
 function ManagerPurchaseOrder() {
     const [purchaseorderList, setPurchaseorderList] = useState([]);
@@ -52,9 +53,9 @@ function ManagerPurchaseOrder() {
     return (
         <>
         <div className="flex flex-row">
-                <ManagerMain height="h-[2000px]" />
+                <ManagerMain height="h-[1500px]" />
             <div className="w-[1500px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
-            <div className="font-bold text-3xl flex items-center">발주 목록</div><br/>
+            <div className="font-bold text-3xl flex items-center"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
                 <input type='text' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
                 className='rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
@@ -68,12 +69,11 @@ function ManagerPurchaseOrder() {
             </div>
             <table>
                 <colgroup>
-                    <col width="50px" /><col width="150px" /><col width="200px" /><col width="200px" /><col width="50px" /><col width="100px" /><col width="150px" /><col width="100px" />
+                    <col width="50px" /><col width="400px" /><col width="250px" /><col width="100px" /><col width="140px" /><col width="300px" /><col width="200px" />
                 </colgroup>
                 <thead>
                     <tr>
                         <th>번호</th>
-                        <th>상품 이미지</th>
                         <th>상품명</th>
                         <th>편의점명</th>
                         <th>수량</th>
@@ -84,15 +84,14 @@ function ManagerPurchaseOrder() {
                 </thead>
                 <tbody>
                     {purchaseorderList.map((item, index) => (
-                        <tr key={index}>
+                        <tr key={index} className="text-center border-b hover:bg-gray-200 cursor-pointer">
                             <th>{index + 1}</th>
-                            <td><img src={item.productUrl} alt="상품 이미지" style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} /></td>
-                            <td className='text-center'>{item.productName}</td>
-                            <td className='text-center'>{item.storeName}</td>
-                            <td className='text-center'>{item.quantity}</td>
-                            <td className='text-center'>{item.price}원</td>
-                            <td className='text-center'>{item.wdate}</td>
-                            <td className='text-center '><button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" onClick={()=>pohandleChange(item.id)}>승인</button></td>
+                            <td className='text-center py-4'>{item.productName}</td>
+                            <td className='text-center py-4'>{item.storeName}</td>
+                            <td className='text-center py-4'>{item.quantity}</td>
+                            <td className='text-center py-4'>{item.price}원</td>
+                            <td className='text-center py-4'>{item.wdate}</td>
+                            <td className='text-center py-4'><button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" onClick={()=>pohandleChange(item.id)}>승인</button></td>
                         </tr>
                     ))}
                 </tbody>

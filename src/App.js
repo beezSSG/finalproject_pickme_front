@@ -11,9 +11,9 @@ import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
+import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
 import Powrite from './pages/ceo/Powrite';
-
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -31,6 +31,7 @@ import ContactUsWrite from './pages/customerservice/ContactUsWrite';
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
+import MyMain from './pages/mypage/MyMain';
 
 function App() {
 
@@ -67,6 +68,7 @@ function App() {
 
               <Route path='/store' element={<StoreMap />} />
               <Route path='/storeproductlist/:id' element={<StoreProduct />} />
+              <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} />
               <Route path='/ceo' element={<Polist />} />
               <Route path='/pow' element={<Powrite />} />
                 
@@ -84,7 +86,8 @@ function App() {
               <Route path='/contactuswrite' element={<ContactUsWrite />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
-              
+
+              <Route path='/mypage/*' element={<MyMain />} />
             </Routes>
           </div>
         </main>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router';
+import { FaBullhorn } from "react-icons/fa";
 
 function Faq() {
     const navigate = useNavigate();
@@ -34,8 +35,9 @@ function Faq() {
 
     return (
         <>
-            <div className='text-5xl text-center'>자주 묻는 질문</div>
-            <br/><br/>
+            <div className='flex items-center justify-center'><FaBullhorn className='text-5xl mr-4' /><div className='text-5xl text-center'>자주 묻는 질문</div>
+            </div>
+            <br/><br/><br/>
             <div className='text-center mb-7'>
                 <input type='text' placeholder='궁금하신 내용을 검색해주세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
                 className='rounded-2xl p-5 w-[1000px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;

@@ -48,25 +48,28 @@ function App() {
 
 ```bash
 
-프로모션 베너에 필요
-npm install react-material-ui-carousel
+# 사용하지 않는 모듈 삭제
+npm uninstall react-material-ui-carousel
+npm uninstall tw-elements
+npm uninstall slider
+npm uninstall flowbite flowbite-react
 
-지도이벤트에 필요
+# 지도 이벤트에 필요
 npm install react-hook-geolocation
 
-네이버지도
+# 네이버지도
 npm install react-naver-maps
 
-이미지 슬라이더(Slider.js)
-npm install slider
+# 이미지 슬라이더(swiper.js)
+npm install swiper
 
-페이지네이션
+# 페이지네이션
 npm i react-js-pagination
 
-리엑트 아이콘
+# 리엑트 아이콘
 npm install react-icons --save
 
-pretendard 폰트 (기본 폰트로 사용할 것임)
+# pretendard 폰트 (기본 폰트로 사용할 것임)
 npm i pretendard
 
 ```

@@ -13,7 +13,7 @@ function Productlist() {
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
     // 검색  
     const [search, setSearch] = useState("");
-    // 페이징
+    // 페이징 
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
     
@@ -79,49 +79,48 @@ function Productlist() {
       
       <h3>전체 상품 목록</h3>
 
-      {<table border="1">
-      <colgroup>
-                <col width="70"/><col width="500"/><col width="100"/><col width="150"/>
-      </colgroup>
-
-        <thead>
-          <tr>
-          <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
-          </tr>
-        </thead>
-
-        <tbody>
-            {productlist.length > 0 && (
-              // Use a for loop to create table rows
-              (() => {
-                const rows = [];
-                for (let i = 0; i < productlist.length; i++) {
-                  const product = productlist[i];
-                  //console.log(product);
-                  rows.push(
-                    <tr key={product.id}>
-                      <td>
+      <div className="flex flex-col items-center">
+        {productlist.length > 0 && (
+          // Use a for loop to create table rows
+          (() => {
+            const rows = [];
+            const columns = 3; // Number of columns
+            for (let i = 0; i < productlist.length; i += columns) {
+              const row = [];
+              for (let j = i; j < i + columns && j < productlist.length; j++) {
+                const product = productlist[j];
+                row.push(
+                  <div key={product.id} className="items-center w-[300px] h-[450px] mb-10 rounded-xl border border-spacing-2">
+                    <div className='mt-10'>
                       <Link to={`/productdetail/${product.id}`}>
-                        <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
+                        <img src={product.url} className="w-[250px] h-[250px]" />
                       </Link>
-                      </td>
-                      <td>{product.name}</td>
-                      <td>{product.price}</td>
-                      <td>
+                      <br/>
+                      <hr/>
+                        <p className='mt-5'>{product.name}</p>
+                        <p>{product.price}</p>
+                        <p>
                           {Array.from({ length: product.productRating }, (_, index) => (
-                              <span key={index}>★</span>
+                            <span key={index}>★</span>
                           ))}
-                      </td>
-                      </tr>
-                  );
-                }
-                return rows;
-              })()
-            )}
-        </tbody>
-      </table>}
+                        </p>
+                      </div>
+                  </div>
+                );
+              }
+              rows.push(
+                <div key={i} className='flex space-x-20'> {/* 열 간의 간격을 추가 */}
+                  {row}
+                </div>
+              );
+            }
+            return rows;
+          })()
+        )}
+      </div>
 
-        <br/>
+
+      <br/>
 
     <Pagination className=""
         itemClass='page-item'
