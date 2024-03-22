@@ -2,8 +2,7 @@
 module.exports = {
 
   content: ["./src/**/*.{js,jsx,ts,tsx}",
-          ],
-
+           ],
 
   theme: {
     screens: {
@@ -14,5 +13,6 @@ module.exports = {
     extend: {},
   },
   plugins: [
+    //require('flowbite/plugin')
   ],
 }

@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { Link, useParams, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import MatchedStoreList from '../store/MatchedStoreList';
+
 
 function Productdetail(){
     let params = useParams();
-    let navigate = useNavigate();
 
     const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서  
     const [product, setProduct] = useState();
@@ -13,10 +14,20 @@ function Productdetail(){
     // 댓글 목록, 평균 별점
     const[reviewList, setReviewList] = useState([]);
     const[avgRating, setAvgRating] = useState();
-
+  
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
     const [loading, setLoading] = useState(false); 
 
+    // 모달 창 변수
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    let navigate = useNavigate();
+
+    const searchMatchStore = (id) => {
+        // 모달 열 때 id 값 설정
+        setModalIsOpen(true);
+    };
+
+      
     async function getProduct(id){
         await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
             .then(function(resp){
@@ -63,10 +74,6 @@ function Productdetail(){
         alert("어처구니");
     }
 
-    function searchMatchStore() {
-        window.location.href = `/matchedstorelist/${product.id}`;
-    }
-
 
     return(
         <div align="center">
@@ -80,9 +87,16 @@ function Productdetail(){
                 <th></th>
                 <td><img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} /></td>
                 <td>                    
-                    <button onClick={()=>(zzimClick())}>❤찜하기❤</button><br/><br/>
-                    <button onClick={()=>(cartClick())}>👜장바구니👜</button><br/><br/>                    
-                    <button onClick={()=>(searchMatchStore())}>🔍상품이 있는 점포 찾기🔍</button>
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900"onClick={()=>(zzimClick())}>❤찜하기❤</button><br/><br/>
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900"onClick={()=>(cartClick())}>👜장바구니👜</button><br/><br/>                    
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+//                                                              dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>🔍상품이 있는 점포 찾기🔍</button>
+                    <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
                 </td>
             </tr>
             <tr>
