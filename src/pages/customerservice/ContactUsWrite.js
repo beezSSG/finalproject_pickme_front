@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import Toast from "../public/Toast";
+import SelectedDropdown from "./SelectedDropdown";
 
 function ContactUsWrite() {
 
@@ -27,8 +28,8 @@ function ContactUsWrite() {
 
     
 
-    const handleCategoryChange = (event) => {
-        setCategory(event.target.value);
+    const handleCategorySelect = (selectedCategory) => {
+        setCategory(selectedCategory);
     };
 
     function addCcbList() {
@@ -64,19 +65,15 @@ function ContactUsWrite() {
                     })
     }
 
+
     return(
         <>
             <div className="max-w-[1200px] mx-auto">
                 <div className='text-4xl font-bold mt-[70px]'>1:1 문의하기</div><br/>
-                <hr className=" border-gray-500" /><br/><br/>
-                <div>
-                    <label htmlFor="category" className="font-bold text-2xl mr-10">문의유형 :</label>
-                    <select className="border-2 border-gray-400 p-3 w-[500px] cursor-pointer focus:outline-none focus:border-yellow-400" id="category" value={category} onChange={handleCategoryChange}>
-                        <option value="">전체</option>
-                        <option value="문의">문의</option>
-                        <option value="칭찬">칭찬</option>
-                        <option value="불만">불만</option>
-                    </select>
+                <hr className="border-gray-500" /><br/><br/>
+                <div className="flex">
+                    <label htmlFor="category" className="font-bold text-2xl mr-10 mt-2">문의유형 :</label>
+                    <SelectedDropdown options={["문의", "칭찬", "불만"]} onSelect={handleCategorySelect} />
                 </div> <br/>             
                 <div>
                     <label htmlFor="customerId" className="font-bold text-2xl mr-10">아이디 :</label>
@@ -112,14 +109,11 @@ function ContactUsWrite() {
                     />
                 </div>
                 <div className="text-center my-[70px]">
-                    <button onClick={()=>addCcbList()
-                    } className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                    <button onClick={addCcbList} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
                     focus:ring-4 focus:ring-yellow-300 font-medium text-lg px-[15px] py-3 me-2 mb-2 w-[300px]
                     dark:focus:ring-yellow-900">작성완료</button>
                 </div>
             </div>
-
-            
         </>
     )
 }
