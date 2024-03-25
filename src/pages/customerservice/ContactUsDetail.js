@@ -83,10 +83,10 @@ function ContactUsDetail() {
 
     return(
     <>
-        <div>
-            <div className='font-bold text-[40px] ml-[400px]'>글 상세보기</div>
+        <div className="max-w-[1200px] mx-auto">
+            <div className='font-bold text-[40px]'>글 상세보기</div>
             <div className='flex justify-center'>
-                <table className="mt-8 w-1/2">
+                <table className="mt-8 w-full">
                     <tbody>
                         <tr className='border-t-2  border-black'>
                             <td colSpan={4} className="px-4 py-6 bg-[#f7f7f7] font-bold text-xl">{ccbdetailS.title}</td>
@@ -119,7 +119,7 @@ function ContactUsDetail() {
 
             {/* 댓글 나타나는 table */}
             <div className='flex justify-center'>
-                <div className='w-1/2 border border-spacing-2'>
+                <div className='w-full border border-spacing-2'>
                     {
                         commentList &&
                         commentList.map(function(list, i){
@@ -147,7 +147,7 @@ function ContactUsDetail() {
             {/* 댓글 작성하는 table -> 하기성(관리자)일때만 뜨게 해뒀음 */}
             {adminName === "하기성" && (
                 <div className='flex justify-center'>
-                    <div className='w-1/2'>
+                    <div className='w-full'>
                         <div className="mb-6">
                             <label className="block mb-2 text-xl font-bold">1:1문의 답변:</label>
                             <textarea placeholder="내용을 입력하세요." 
