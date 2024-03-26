@@ -60,7 +60,7 @@ function OrderChart(){
     useEffect(() => {
         orderchart();
         contactusCategory();
-    }, [selectedDistrict, selectedRegion]);
+    }, [selectedDate,selectedDistrict, selectedRegion]);
 
     // 상점별 총 가격을 계산하는 함수
     const calculateTotalPriceByStoreName = () => {
