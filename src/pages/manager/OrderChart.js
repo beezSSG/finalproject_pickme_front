@@ -10,6 +10,14 @@ function OrderChart(){
     const [orderList, setOrderList] = useState([]);
     const [categorycountList, setCategorycountList] = useState([]);
     const [open, setOpen] = useState(false);
+    const [selectedDate, setSelectedDate] = useState('2024-03-15');
+    const [selectedRegion, setSelectedRegion] = useState('부산광역시');
+    const [selectedDistrict, setSelectedDistrict] = useState('해운대구');
+    const districts = {
+        '서울특별시': ['강남구', '강서구', '송파구', '마포구', '서초구', '영등포구', '성동구'],
+        '부산광역시': ['해운대구', '사하구', '동래구', '금정구', '연제구', '수영구', '기장군']
+        // 필요한 만큼 광역시와 구 추가
+    };
 
     const showDropDown = () => {
         setOpen(!open);
@@ -17,15 +25,20 @@ function OrderChart(){
 
     // 주문 목록을 받아오는 함수
     function orderchart() {
-        axios.get("http://localhost:8080/api/v1/manager/orderchart")
+        const address = selectedRegion && selectedDistrict ? `${selectedRegion} ${selectedDistrict}` : selectedRegion || selectedDistrict;
+    
+        if (address) { // 광역시 또는 구 중 하나만 선택된 경우에 요청을 보냄
+            axios.get("http://localhost:8080/api/v1/manager/orderchart", { params: { "date": selectedDate, "address": address } })
                 .then(function(resp) {
                     console.log(resp.data);
                     setOrderList(resp.data);
                 })
                 .catch(function(){
                     console.log("error");
-                })
+                });
+        }
     }
+    
 
     function contactusCategory() {
         axios.get("http://localhost:8080/api/v1/manager/ccbcategorycount")
@@ -47,7 +60,7 @@ function OrderChart(){
     useEffect(() => {
         orderchart();
         contactusCategory();
-    }, []);
+    }, [selectedDistrict, selectedRegion]);
 
     // 상점별 총 가격을 계산하는 함수
     const calculateTotalPriceByStoreName = () => {
@@ -147,13 +160,26 @@ function OrderChart(){
         }
         };
 
+        const handleDateChange = (event) => {
+            setSelectedDate(event.target.value);
+        };
+        const handleRegionChange = (event) => {
+            setSelectedRegion(event.target.value);
+            setSelectedDistrict(''); // 광역시가 변경될 때 구 선택 초기화
+        };
+        
+        const handleDistrictChange = (event) => {
+            setSelectedDistrict(event.target.value);
+        };
+        
+        
+
     return (
             <>
                 <div className="flex">
                 <div>
                     <ManagerMain height={open ? "h-[1400px]" : "h-[500px]"} />
                 </div>
-
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
                             <div className="flex items-center justify-between">
@@ -175,16 +201,41 @@ function OrderChart(){
                             { open &&
                             <div className="flex mt-[22px] w-full gap-[30px]">
                                     <div className="w-[70%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
-                                            <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
-                                                <p className="text-xl font-bold mb-6">편의점 별 매출현황</p>
-                                                <FaEllipsisV color="gray" className="cursor-pointer" />
+                                        <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
+                                            <p className="text-xl font-bold mb-6">편의점 별 매출현황</p>
+                                            {/* 편의점 별 매출 현황 차트의 메뉴 */}
+                                            <div className="relative">
+                                                <FaEllipsisV color="gray" className="cursor-pointer"/>
+                                                
+                                                <div className="absolute top-[35px] right-0 bg-white border border-gray-200 shadow-md rounded-md p-2">
+                                                    {/* 연도와 월 선택 input */}
+                                                    <input type="date" className="w-full p-1 border border-gray-300 rounded-md" value={selectedDate} onChange={handleDateChange} />
+                                                    {/* 광역시 선택 */}
+                                                    <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedRegion} onChange={handleRegionChange}>
+                                                        <option value="">광역시 선택</option>
+                                                        <option value="서울특별시">서울특별시</option>
+                                                        <option value="부산광역시">부산광역시</option>
+                                                        {/* 필요한 만큼 옵션 추가 */}
+                                                    </select>
+
+                                                    {/* 구 선택 */}
+                                                    {selectedRegion && (
+                                                        <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedDistrict} onChange={handleDistrictChange}>
+                                                            <option value="">구 선택</option>
+                                                            {districts[selectedRegion].map((district, index) => (
+                                                                <option key={index} value={district}>{district}</option>
+                                                            ))}
+                                                        </select>
+                                                    )}
+                                                </div>         
                                             </div>
-                                            <div className="w-[80%] h-[570px] mx-auto">
-                                                <Bar
-                                                    data={generateBarChartData()}
-                                                    options={{ maintainAspectRatio: false }}
-                                                />
-                                            </div>
+                                        </div>
+                                        <div className="w-[80%] h-[570px] mx-auto">
+                                            <Bar
+                                                data={generateBarChartData()}
+                                                options={{ maintainAspectRatio: false }}
+                                            />
+                                        </div>
                                     </div>
                                     <div className="w-[30%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
                                         <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
