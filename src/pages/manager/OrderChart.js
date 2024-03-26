@@ -183,8 +183,10 @@ function OrderChart(){
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
                             <div className="flex items-center justify-between">
-                                <h1 className="text-[#5a5c69] text-[28px] leanding-[34px] font-normal cursor-pointer">관리자 메인</h1>
-                                <button className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer " onClick={showDropDown} >펼치기</button>
+                                <h1 className="text-[#5a5c69] text-[28px] leanding-[34px] font-normal cursor-pointer">관리자 홈</h1>
+                                <button className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer " onClick={showDropDown} >
+                                    {open ? "접기" : "펼치기"}
+                                </button>
                             </div>
                             { open &&
                                 <div className="grid grid-cols-4 gatp-[30px] mt-[25px] pb-[15px]">
