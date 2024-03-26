@@ -8,6 +8,7 @@ import { FaEllipsisV } from "react-icons/fa";
 function OrderChart(){
 
     const [orderList, setOrderList] = useState([]);
+    const [categorycountList, setCategorycountList] = useState([]);
     const [open, setOpen] = useState(false);
 
     const showDropDown = () => {
@@ -26,8 +27,26 @@ function OrderChart(){
                 })
     }
 
+    function contactusCategory() {
+        axios.get("http://localhost:8080/api/v1/manager/ccbcategorycount")
+            .then(function (resp) {
+                console.log(resp.data);
+                // 카테고리를 문의, 칭찬, 불만, 기타로 고정
+                const fixedCategories = ["문의", "칭찬", "불만", "기타"];
+                // 받아온 데이터 중에서 고정된 카테고리에 해당하는 것만 필터링
+                const filteredData = fixedCategories.map(category => {
+                    const found = resp.data.find(item => item.category === category);
+                    return found ? found : { category: category, count: 0 };
+                });
+                setCategorycountList(filteredData);
+            })
+            .catch(function () {
+                console.log("error");
+            })
+    }
     useEffect(() => {
         orderchart();
+        contactusCategory();
     }, []);
 
     // 상점별 총 가격을 계산하는 함수
@@ -142,32 +161,16 @@ function OrderChart(){
                                 <button className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer " onClick={showDropDown} >펼치기</button>
                             </div>
                             { open &&
-                            <div className="grid grid-cols-4 gatp-[30px] mt-[25px] pb-[15px]">
-                                <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
-                                    <div>
-                                        <h2 className="text-gray-700 text-[15px] leading-[17px] font-bold">문의</h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] ml-[250px]">1개</h1>
-                                    </div>
+                                <div className="grid grid-cols-4 gatp-[30px] mt-[25px] pb-[15px]">
+                                    {categorycountList.map((item, index) => (
+                                        <div key={index} className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
+                                            <div className="w-full">
+                                                <h2 className="text-gray-700 text-[15px] leading-[17px] font-bold">{item.category}</h2>
+                                                <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">{item.count}개</h1>
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
-                                <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
-                                    <div>
-                                        <h2 className="text-gray-700  text-[15px] leading-[17px] font-bold">문의</h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] ml-[250px]">1개</h1>
-                                    </div>
-                                </div>
-                                <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
-                                    <div>
-                                        <h2 className="text-gray-700  text-[15px] leading-[17px] font-bold">문의</h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] ml-[250px]">1개</h1>
-                                    </div>
-                                </div>
-                                <div className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
-                                    <div>
-                                        <h2 className="text-gray-700  text-[15px] leading-[17px] font-bold">문의</h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] ml-[250px]">1개</h1>
-                                    </div>
-                                </div>
-                            </div>
                             }
                             { open &&
                             <div className="flex mt-[22px] w-full gap-[30px]">
