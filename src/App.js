@@ -22,6 +22,7 @@ import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
 import NewproductInsert from './pages/manager/NewproductInsert';
 import ManagerPurchaseOrder from './pages/manager/ManagerPurchaseOrder';
+import OrderChart from './pages/manager/OrderChart';
 
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
@@ -32,6 +33,7 @@ import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 import MyMain from './pages/mypage/MyMain';
+
 
 function App() {
 
@@ -79,6 +81,7 @@ function App() {
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproductinsert' element={<NewproductInsert />} />
               <Route path='/managerpurchaseorder' element={<ManagerPurchaseOrder />} />
+              <Route path='/orderchart' element={<OrderChart />} />
 
               <Route path='/customercenter' element={<CustomerCenter />} />
               <Route path='/contactus' element={<ContactUs />} />

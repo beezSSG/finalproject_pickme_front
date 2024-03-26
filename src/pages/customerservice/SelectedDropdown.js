@@ -23,7 +23,7 @@ function SelectedDropdown({ options, onSelect }) {
                     <MdKeyboardArrowDown className={`text-base transition-all ${open ? "rotate-180" : "rotate-0"}`} />
                 </div>
                 {open &&
-                    <div className='absolute top-full left-0 w-full max-h-[200px] border-2 border-gray-400 z-30 bg-white overflow-y-scroll'>
+                    <div className='absolute top-full left-0 w-full max-h-[200px] border-2 border-gray-400 z-30 bg-white overflow-y-scroll scroll'>
                         {options.map((option, index) =>
                             <div key={index} className='flex py-2 px-3 cursor-pointer hover:bg-orange-200' onClick={() => handleOptionClick(option)}>
                                 <p className='text-sm text-black py-2 pl-1 cursor-pointer'>{option}</p>

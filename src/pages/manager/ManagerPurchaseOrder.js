@@ -53,9 +53,9 @@ function ManagerPurchaseOrder() {
     return (
         <>
         <div className="flex flex-row">
-                <ManagerMain height="h-[1500px]" />
-            <div className="w-[1500px] flex flex-col items-center ml-[50px] my-10 shadow-2xl rounded-lg overflow-hidden py-16">
-            <div className="font-bold text-3xl flex items-center"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
+                <ManagerMain height="h-[1200px]" />
+            <div className="max-w-[1200px] mx-auto">
+            <div className="font-bold text-3xl flex items-center mt-[50px]"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
                 <input type='text' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
                 className='rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
