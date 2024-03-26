@@ -129,6 +129,23 @@ export default function MyCart() {
     })
   };
 
+  // 결제후 BE 정보전송
+  // function sendOrder() {
+  //   axios.get("http://localhost:8080/api/v1/mypage/getMyInfo", {
+  //     headers : { Authorization: `Bearer ${token}` }
+  //   })
+  //   .then((response)=>{
+  //     //console.log(JSON.stringify(response.data));
+  //     // console.log(Object.values(response.data));
+  //     setInfo(response.data);
+  //     setTopInfo(Object.values(response.data));
+  //   })
+  //   .catch((err)=>{
+  //     alert(err);
+  //   })
+  // }
+
+
   // 결제 핸들러
   const payHandler = async () => {
     
