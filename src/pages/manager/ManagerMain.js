@@ -2,22 +2,35 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Event from './Event';
+import { useNavigate } from 'react-router-dom';
 import { BsArrowLeftShort, BsAppIndicator, BsSearch } from "react-icons/bs";
 import { FaDiceD6 } from "react-icons/fa";
 import { RiDashboardFill } from "react-icons/ri";
+import Toast from '../public/Toast';
 
 
 function ManagerMain({height}) {
 
+    let adminEmail = localStorage.getItem('email');
+    let navigate = useNavigate();
+    useEffect(() => {
+        if(adminEmail===null){
+            Toast.fire({
+                icon: 'error',
+                title: "당신은 관리자가 아닙니다!!",
+              });
+            navigate("/");
+        }
+    });
+
     const [open, setOpen] = useState(true);
 
     const Menus = [
-        { title: "관리자 홈", path: "/manager" },
+        { title: "관리자 홈", path: "/orderchart" },
         { title: "이벤트", path: "/event" },
         { title: "발주 목록", path: "/managerpurchaseorder" },
         { title: "신제품", path: "/newproductinsert" },
         { title: "쿠폰", path: "/coupon" },
-        { title: "매출현황", path: "/sales" },
         { title: "FAQ메뉴로 가기", path: "/faq" },
         { title: "1:1 문의", path: "/contactus" }
     ];

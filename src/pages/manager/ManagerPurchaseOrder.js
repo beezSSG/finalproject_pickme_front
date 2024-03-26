@@ -53,9 +53,9 @@ function ManagerPurchaseOrder() {
     return (
         <>
         <div className="flex flex-row">
-                <ManagerMain height="h-[1500px]" />
-            <div className="w-[1500px] flex flex-col items-center mx-auto my-10 shadow-2xl rounded-lg overflow-hidden py-16">
-            <div className="font-bold text-3xl flex items-center"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
+                <ManagerMain height="h-[1200px]" />
+            <div className="max-w-[1200px] mx-auto">
+            <div className="font-bold text-3xl flex items-center mt-[50px]"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
                 <input type='text' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
                 className='rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
@@ -67,9 +67,9 @@ function ManagerPurchaseOrder() {
                                 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[40px] py-5 me-2 mb-2
                                 dark:focus:ring-yellow-900" onClick={handleCategoryClick}>검색</button>
             </div>
-            <table>
+            <table className='mx-auto'>
                 <colgroup>
-                    <col width="50px" /><col width="400px" /><col width="250px" /><col width="100px" /><col width="140px" /><col width="300px" /><col width="200px" />
+                    <col width="50px" /><col width="400px" /><col width="250px" /><col width="100px" /><col width="140px" /><col width="300px" /><col width="150px" />
                 </colgroup>
                 <thead>
                     <tr>
@@ -89,7 +89,7 @@ function ManagerPurchaseOrder() {
                             <td className='text-center py-4'>{item.productName}</td>
                             <td className='text-center py-4'>{item.storeName}</td>
                             <td className='text-center py-4'>{item.quantity}</td>
-                            <td className='text-center py-4'>{item.price}원</td>
+                            <td className='text-center py-4'>{item.price.toLocaleString()}원</td>
                             <td className='text-center py-4'>{item.wdate}</td>
                             <td className='text-center py-4'><button className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400" onClick={()=>pohandleChange(item.id)}>승인</button></td>
                         </tr>
