@@ -26,12 +26,11 @@ function ManagerMain({height}) {
     const [open, setOpen] = useState(true);
 
     const Menus = [
-        { title: "관리자 홈", path: "/manager" },
+        { title: "관리자 홈", path: "/orderchart" },
         { title: "이벤트", path: "/event" },
         { title: "발주 목록", path: "/managerpurchaseorder" },
         { title: "신제품", path: "/newproductinsert" },
         { title: "쿠폰", path: "/coupon" },
-        { title: "매출현황", path: "/sales" },
         { title: "FAQ메뉴로 가기", path: "/faq" },
         { title: "1:1 문의", path: "/contactus" }
     ];
