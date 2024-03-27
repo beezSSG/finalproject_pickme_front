@@ -166,6 +166,9 @@ function OrderChart(){
                 borderColor: borderColor,
                 borderWidth: 1,
             }],
+            options: {
+                responsive: false,
+            },
         };
     };
 
@@ -204,9 +207,11 @@ function OrderChart(){
                 borderColor: borderColor,
                 borderWidth: 1,
             }],
+            options: {
+                responsive: false,
+            },
         };
     };
-    
     
 
     const handleDateChange = (event) => {
@@ -230,127 +235,114 @@ function OrderChart(){
     }
 
     return (
-        <>
-            <div className="flex">
-            <div>
-                <ManagerMain height={open ? "h-[1100px]" : "h-[700px]"} />
-            </div>
-                <div className="flex-1 p-10">
-                    <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-[#5a5c69] text-[28px] leanding-[34px] font-normal cursor-pointer">관리자 홈</h1>
-                            <button className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer " onClick={showDropDown} >
-                                {open ? "접기" : "펼치기"}
-                            </button>
-                        </div>
-                        { open &&
-                            <div className="grid grid-cols-4 gatp-[30px] mt-[25px] pb-[15px]">
-                                {categorycountList.map((item, index) => (
-                                    <div key={index} className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
-                                        <div className="w-full">
-                                            <h2 className="text-gray-700 text-[20px] leading-[17px] font-bold">{item.category}</h2>
-                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">{item.count}개</h1>
-                                        </div>
-                                    </div>
-                                ))}
+            <>
+                <div className="flex">
+                <div>
+                    <ManagerMain height={open ? "h-[1100px]" : "h-[700px]"} />
+                </div>
+                    <div className="flex-1 p-10">
+                        <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
+                            <div className="flex items-center justify-between">
+                                <h1 className="text-[#5a5c69] text-[28px] leanding-[34px] font-normal cursor-pointer">관리자 홈</h1>
+                                <button className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer " onClick={showDropDown} >
+                                    {open ? "접기" : "펼치기"}
+                                </button>
                             </div>
-                        }
-                        { open &&
-                        <div className="flex mt-[22px] w-full gap-[30px]">
-                                <div className="w-[70%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
-                                    <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
-                                        <p className="text-xl font-bold mb-6">편의점 별 매출현황</p>
-                                        {/* 편의점 별 매출 현황 차트의 메뉴 */}
-                                        <div className="relative">
-                                            <FaEllipsisV color="gray" className="cursor-pointer"/>
-                                            
-                                            <div className="absolute top-[35px] right-0 bg-white border border-gray-200 shadow-md rounded-md p-2">
-                                                {/* 연도와 월 선택 input */}
-                                                <input type="date" className="w-full p-1 border border-gray-300 rounded-md" value={selectedDate} onChange={handleDateChange} />
-                                                {/* 광역시 선택 */}
-                                                <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedRegion} onChange={handleRegionChange}>
-                                                    <option value="">광역시 선택</option>
-                                                    <option value="서울특별시">서울특별시</option>
-                                                    <option value="부산광역시">부산광역시</option>
-                                                    {/* 필요한 만큼 옵션 추가 */}
-                                                </select>
-
-                                                {/* 구 선택 */}
-                                                {selectedRegion && (
-                                                    <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedDistrict} onChange={handleDistrictChange}>
-                                                        <option value="">구 선택</option>
-                                                        {districts[selectedRegion].map((district, index) => (
-                                                            <option key={index} value={district}>{district}</option>
-                                                        ))}
+                            { open &&
+                                <div className="grid grid-cols-4 gatp-[30px] mt-[25px] pb-[15px]">
+                                    {categorycountList.map((item, index) => (
+                                        <div key={index} className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
+                                            <div className="w-full">
+                                                <h2 className="text-gray-700 text-[20px] leading-[17px] font-bold">{item.category}</h2>
+                                                <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">{item.count}개</h1>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            }
+                            { open &&
+                            <div className="flex mt-[22px] w-full gap-[30px]">
+                                    <div className="w-[70%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
+                                        <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
+                                            <p className="text-xl font-bold mb-6">편의점 별 매출현황</p>
+                                            {/* 편의점 별 매출 현황 차트의 메뉴 */}
+                                            <div className="relative">
+                                                <FaEllipsisV color="gray" className="cursor-pointer"/>
+                                                
+                                                <div className="absolute top-[35px] right-0 bg-white border border-gray-200 shadow-md rounded-md p-2">
+                                                    {/* 연도와 월 선택 input */}
+                                                    <input type="date" className="w-full p-1 border border-gray-300 rounded-md" value={selectedDate} onChange={handleDateChange} />
+                                                    {/* 광역시 선택 */}
+                                                    <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedRegion} onChange={handleRegionChange}>
+                                                        <option value="">광역시 선택</option>
+                                                        <option value="서울특별시">서울특별시</option>
+                                                        <option value="부산광역시">부산광역시</option>
+                                                        {/* 필요한 만큼 옵션 추가 */}
                                                     </select>
-                                                )}
-                                            </div>         
+
+                                                    {/* 구 선택 */}
+                                                    {selectedRegion && (
+                                                        <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedDistrict} onChange={handleDistrictChange}>
+                                                            <option value="">구 선택</option>
+                                                            {districts[selectedRegion].map((district, index) => (
+                                                                <option key={index} value={district}>{district}</option>
+                                                            ))}
+                                                        </select>
+                                                    )}
+                                                </div>         
+                                            </div>
+                                        </div>
+                                        <div className="w-[80%] h-[570px] mx-auto">
+                                            <Bar
+                                                data={generateBarChartData()}
+                                                options={{ maintainAspectRatio: false }}
+                                            />
                                         </div>
                                     </div>
-                                    <div className="w-[80%] h-[570px] mx-auto">
-                                        <Bar
-                                            data={generateBarChartData()}
-                                            options={{ maintainAspectRatio: false }}
-                                        />
+                                    <div className="w-[30%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
+                                        <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
+                                            <p className="text-xl font-bold mb-6">오늘의 인기 top 10 상품</p>
+                                            <FaEllipsisV color="gray" className="cursor-pointer" />
+                                        </div>
+                                        <div className="w-[80%] h-[600px] mx-auto">
+                                            <Doughnut
+                                                data={generateDoughnutChartData()}
+                                                options={{ maintainAspectRatio: false }}
+                                            />
+                                        </div>
                                     </div>
-                                </div>
-                                <div className="w-[30%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
-                                    <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
-                                        <p className="text-xl font-bold mb-6">오늘의 인기 top 10 상품</p>
-                                        <FaEllipsisV color="gray" className="cursor-pointer" />
-                                    </div>
-                                    <div className="w-[80%] h-[600px] mx-auto">
-                                    <Doughnut
-                                        data={generateDoughnutChartData()}
-                                        options={{
-                                            maintainAspectRatio: false,
-                                            plugins: {
-                                                legend: {
-                                                    labels: {
-                                                        font: {
-                                                            weight:"bold"
-                                                        },
-                                                        color: 'black' 
-                                                    }
-                                                }
-                                            }
-                                        }}
-                                    />
-
-                                    </div>
-                                </div>
-                        </div>
-                        }
-                        { !open &&
-                            <div className="grid grid-cols-2 gatp-[30px] mt-[25px] pb-[15px]">
-                                <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notanswerCcb === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
-                                            onClick={goContact}>
-                                    <div className="w-full">
-                                        <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notanswerCcb === 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                            {notanswerCcb === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
-                                        </h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                            {notanswerCcb === 0 ? '문의 답변 완료' : `답변하지 않은 글이 ${notanswerCcb}개 있어요`}
-                                        </h1>
-                                    </div>
-                                </div>
-                                <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notPo === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
-                                            onClick={goPo}>
-                                    <div className="w-full">
-                                        <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notPo=== 0 ? 'text-green-600' : 'text-red-600'}`}>
-                                            {notPo === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
-                                        </h2>
-                                        <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                            {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요`}
-                                        </h1>
-                                    </div>
-                                </div>      
                             </div>
-                        }
+                            }
+                            { !open &&
+                                <div className="grid grid-cols-2 gatp-[30px] mt-[25px] pb-[15px]">
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notanswerCcb === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
+                                                onClick={goContact}>
+                                        <div className="w-full">
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notanswerCcb === 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {notanswerCcb === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                {notanswerCcb === 0 ? '문의 답변 완료' : `답변하지 않은 글이 ${notanswerCcb}개 있어요`}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notPo === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
+                                                onClick={goPo}>
+                                        <div className="w-full">
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notPo=== 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {notPo === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요`}
+                                            </h1>
+                                        </div>
+                                    </div>      
+                                </div>
+                            }
+                        </div>
                     </div>
                 </div>
-            </div>
-        </>
+            </>
     );
 }
 
