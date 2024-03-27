@@ -6,6 +6,7 @@ import { FaChevronUp } from "react-icons/fa6";
 // component
 import LocSelect from "./LocSelect";
 import SearchStoreName from './SearchStoreName';
+import StoreCategories from './StoreCategories.js';
 
 const LeftMenuStyle = styled.div`
   /* From https://css.glass */
@@ -20,16 +21,6 @@ const LeftMenuStyle = styled.div`
 export default function LeftMenu() {
   const [menuOpen, setMenuOpen] = useState(true);
   const [filterOpen, setFilterOpen] = useState(true);
-  // const Menus = [
-  //   { title: "관리자 홈", path: "/manager" },
-  //   { title: "이벤트", path: "/event" },
-  //   { title: "발주", path: "/managerpurchaseorder" },
-  //   { title: "신제품", path: "/newproductinsert" },
-  //   { title: "쿠폰", path: "/coupon" },
-  //   { title: "매출현황", path: "/sales" },
-  //   { title: "FAQ메뉴로 가기", path: "/faq" },
-  //   { title: "1:1 문의", path: "/contactus" },
-  // ];
 
   return (
     <>
@@ -77,8 +68,9 @@ export default function LeftMenu() {
           </section>
 
           {/* 편의점 제공 서비스 카테고리 선택 */}
-          <section>
-            <h1 className="font-bold text-lg">제공 서비스 선택</h1>
+          <section className="">
+            <h1 className="font-bold text-lg py-4">제공 서비스 선택</h1>
+            <StoreCategories />
           </section>
 
           {/* 검색필터 접기 버튼 */}
@@ -87,6 +79,7 @@ export default function LeftMenu() {
             <FaChevronUp onClick={() => setFilterOpen(false)} />
           </button>
 
+          {/* 매장 목록; 사용자 위치 연동 -> 추후에 axios.get()으로 가져오기 */}
           <ul className="pt-2"></ul>
         </div>
       </div>
