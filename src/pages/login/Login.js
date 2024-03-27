@@ -3,10 +3,7 @@ import AppDownload from "../../assets/imgs/login/image.png";
 import LogoImg from '../../assets/imgs/logo/fullLogo.svg';
 
 
-
 import React, { useEffect, useState } from 'react'
-import logo from "../../assets/imgs/login/image.png";
-
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from "../../utils/AuthProvider";
@@ -84,7 +81,7 @@ const Login = () => {
   };
 
   const onClickConfirmButton = () => {
-    console.log("Button clicked!");          // 1. 로그 확인
+    // console.log("Button clicked!");          // 1. 로그 확인
     console.log("email:", email, "PW:", pw);      // 2. 상태 값 확인
 
     const endpoint = 'http://localhost:8080/api/v1/user/login';
@@ -109,10 +106,11 @@ const Login = () => {
     .then((response) => {
         console.log(JSON.stringify(response.data));
         // console.log(response.data);
-        if( response.data.token !== null ) {
+        if( response.data !== undefined ) {
             alert('로그인에 성공했습니다.');
             // localStorage.setItem("jwt",  response.data.token);
-            setToken(response.data.token); // 상태에 토큰 저장
+            // alert(response.data);
+            setToken(response.data); // 상태에 토큰 저장
             setIsLoggedIn(true);
 
             // setTimeout(() => {

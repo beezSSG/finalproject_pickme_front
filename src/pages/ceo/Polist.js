@@ -1,154 +1,98 @@
-import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import Pagination from 'react-js-pagination'; // npm i react-js-pagination
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
+import React from 'react';
+import './powrite.css';
+
+const Powrite = () => {
+    const [categoryList, setCategoryList] = useState([]);
+
+     const [categoryName, setCategoryname] = useState([]);
+     const [productName, setProductName] = useState([]);
+     const [checkedList, setCheckedList] = useState([]);
 
 
-function Polist(){
-    const [polist, setPolist] = useState([]);
+     const [modalOpen, setModalOpen] = useState(false);
+     const modalBackground = useRef();
 
-    // 검색
-    const [choice, setChoice] = useState("");
-    const [search, setSearch] = useState("");
+     // 검색
+     const [choice, setChoice] = useState("");
+     const [search, setSearch] = useState("");
 
-    // 페이징
-    const [page, setPage] = useState(1);
-    const [totalCnt, setTotalCnt] = useState(0);
-
-    function getPolist(c, s, pn){
-        axios.get("http://localhost:8080/polist", 
-                    {params:{ choice:c, search:s, pageNumber:pn}})
-             .then(function(resp){  // success:function
-                console.log(resp.data.polist);
-                setPolist(resp.data.polist);
-                setTotalCnt(resp.data.cnt); // 글의 총수
+     const getPowrite = () => {
+         axios.get("http://localhost:8080/powriteCn")
+             .then(function(resp){
+                 console.log(resp.data); // 확인용
+                 setCategoryList(resp.data); // 받아온 데이터로 카테고리 목록 업데이트
+                 setCategoryname(resp.data.categoryName);
              })
-             .catch(function(err){     // error:function
-                alert('error');
+             .catch(function(err){
+                 alert('error');
              })
-    }
+     }
 
-    function getPowrite(name) {
-        
-    }
+     useEffect(() => {
+         getPowrite();
+     }, []);
 
-    useEffect(function(){
-        getPolist('', '', 0);
-    }, []);
+     function searchBtn(){        
+         // choice, search 검사
+         if(choice === ''){
+             alert('카테고리를 선택해 주십시오');
+             return;
+         }   
+       getPowrite(choice, search);
+     }  
 
-    function searchBtn(){        
-        // choice, search 검사
-        if(choice === ''){
-            alert('카테고리를 선택해 주십시오');
-            return;
-        }
+     // Checkbox가 선택되었을 때의 동작
+     const onCheckedElement = (checked, categoryName) => {
+         if (checked) {
+             // alert("체크됨");
+             // 체크된 항목 추가
+             // checkedList 상태를 변경하지 않고 새로운 배열을 반환합니다.
+             categoryList.map((category) => {
+                 console.log(category);
+             });
 
-      getPolist(choice, search,0);
-    }  
+         } else {
+         }
+     };
+     return(
+         <div>
+             <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+                 <tbody>
+                     <tr>
+                         <td style={{ paddingLeft:"3px" }}>
+                             <select className='custom-select' value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
+                                 <option value="name">상품명</option>
+                             </select>
+                         </td>
+                         <td style={{ paddingLeft:"5px"}} className='align-middle'>
+                             <input className='form-control' placeholder='상품명을 입력하세요' 
+                                 value={search} onChange={(e)=>{setSearch(e.target.value)}} />
+                         </td>
+                         <td style={{ paddingLeft:"5px" }}>  z
+                             <button className='btn btn-primary' onClick={searchBtn}>검색</button>
+                         </td>
+                     </tr>                
+                 </tbody>    
+             </table>
+             <h1>카테고리</h1>
+    
+             <div>
+                {categoryList.map((category) => (
+                    <div key={category.id}>
+                        <input
+                            type='checkbox'
+                            onChange={e => onCheckedElement(e.target.checked, category.categoryName)}                     
+                            checked={checkedList.includes(category.categoryName) ? true : false}
+                        />
+                        &nbsp; 
+                        {category.categoryName} 
+                    </div>
+                ))}
+             </div>
+         </div>
+     )
+ }
 
-
-    function handlePageChange(page){
-        setPage(page);
-        getPolist(choice, search, page-1);
-    }
-
-    return(
-        <div>
-            <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-            <tbody>
-                <tr>
-                    <td style={{ paddingLeft:"3px" }}>
-                        <select className='custom-select' value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
-                           <option value="name">상품명</option>
-                           <option value="wdate">발주 일자</option>
-                        </select>
-                    </td>
-                    <td style={{ paddingLeft:"5px"}} className='align-middle'>
-                        <input className='form-control' placeholder='상품명을 입력하세요' 
-                            value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                     </td>
-                    <td style={{ paddingLeft:"5px" }}>  
-                        <button className='btn btn-primary' onClick={searchBtn}>검색</button>
-                    </td>
-                </tr>                
-            </tbody>    
-            </table>
-
-            <br/>
-
-            <table className='table table-hover'>
-            <colgroup>
-                <col width="70"/><col width="500"/><col width="100"/><col width="150"/><col width="150"/><col width="150"/><col width="150"/>
-            </colgroup>
-
-            <thead>
-            <tr>
-                <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>승인</th>
-            </tr>
-            </thead>
-
-            <tbody>
-            {
-                polist.map(function(po, i){
-                   return(
-                        <TableRow po={po} rownum={i+1} key={i} />
-                   );     
-                })
-            }
-            </tbody>
-            </table>
-
-            <br/>
-            {/* https://mui.com/material-ui/react-pagination/ */}
-            {/* 첫번째와 두번째의 경우 */}
-            {/*             
-            <Pagination 
-                activePage={page}
-                itemsCountPerPage={10}
-                totalItemsCount={totalCnt}
-                pageRangeDisplayed={10}
-                prevPageText={"이전"}
-                nextPageText={"다음"}
-                onChange={handlePageChange}/>
-             */}
-
-            {/* 세번째의 경우 */}     
-            <Pagination
-               itemClass='page-item'
-               linkClass='page-link' 
-               activePage={page}
-               itemsCountPerPage={10}
-               totalItemsCount={totalCnt}
-               pageRangeDisplayed={10}
-               prevPageText={"prev"}
-               nextPageText={"next"}
-               onChange={handlePageChange} />
-
-        <div className='my-5 d-flex justify-content-center'>
-            <Link className='btn btn-primary' to="/pow">발주신청</Link>
-        </div>       
-
-        <br/><br/><br/><br/>
-
-        </div>
-    );
-}
-
-function TableRow(props){   // 상위 컴포넌트에서 하위 컴포넌트로 데이터를 넘겨받기 위해서
-    return(
-        <tr>
-            <td>{ props.po.id }</td>
-            <td>
-                <img src={props.po.url} alt='' style={{width:140}}></img>   {/* alt를 넣어줘야 에러가 안뜸 */}
-            </td>
-            <td>{ props.po.name }</td>
-            <td>{ props.po.quantity }</td> 
-            <td>{ props.po.wdate }</td>
-            <td>{ props.po.poYn }</td>  
-            <td>
-                <button>승인</button>    
-            </td> 
-        </tr>
-    )
-}
-export default Polist;
+ export default Powrite;

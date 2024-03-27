@@ -2,24 +2,51 @@ import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Event from './Event';
+import { useNavigate } from 'react-router-dom';
 import { BsArrowLeftShort, BsAppIndicator, BsSearch } from "react-icons/bs";
 import { FaDiceD6 } from "react-icons/fa";
-import { RiDashboardFill } from "react-icons/ri";
+import { RiDashboardFill, RiCoupon3Fill,RiCustomerService2Fill } from "react-icons/ri";
+import { FaGift } from "react-icons/fa6";
+import { IoReceiptSharp } from "react-icons/io5";
+import { MdProductionQuantityLimits } from "react-icons/md";
+import { FaQuestion } from "react-icons/fa";
+import Toast from '../public/Toast';
 
 
-function ManagerMain({ height }) {
+function ManagerMain({height}) {
+
+    let adminEmail = localStorage.getItem('email');
+    let navigate = useNavigate();
+    useEffect(() => {
+        if(adminEmail===null){
+            Toast.fire({
+                icon: 'error',
+                title: "당신은 관리자가 아닙니다!!",
+              });
+            navigate("/");
+        }
+    });
 
     const [open, setOpen] = useState(true);
 
     const Menus = [
-        { title: "관리자 홈", path: "/manager" },
+        { title: "관리자 홈", path: "/orderchart" },
         { title: "이벤트", path: "/event" },
-        { title: "발주", path: "/managerpurchaseorder" },
+        { title: "발주 목록", path: "/managerpurchaseorder" },
         { title: "신제품", path: "/newproductinsert" },
-        { title: "쿠폰", path: "/coupon" },
-        { title: "매출현황", path: "/sales" },
-        { title: "FAQ메뉴로 가기", path: "/faq" },
+        { title: "쿠폰생성", path: "/coupon" },
+        { title: "자주묻는질문", path: "/faq" },
         { title: "1:1 문의", path: "/contactus" }
+    ];
+
+    const iconComponents = [
+        <RiDashboardFill />,
+        <FaGift />,
+        <IoReceiptSharp />,
+        <MdProductionQuantityLimits />,
+        <RiCoupon3Fill />,
+        <FaQuestion />,
+        <RiCustomerService2Fill />
     ];
 
     return(
@@ -40,10 +67,10 @@ function ManagerMain({ height }) {
 
                     <ul className='pt-2'>
                         {Menus.map((menu, index) => (
-                            <li key={index} className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-2 hover:bg-gray-500 rounded-md ${menu} mt-2`}>
+                            <li key={index} className={`text-gray-300 text-sm flex items-center gap-x-4 cursor-pointer p-4 hover:bg-gray-500 rounded-md ${menu} mt-2`}>
                                 <Link to={menu.path}>
-                                    <span className='text-2xl block float-left'>
-                                        <RiDashboardFill />
+                                    <span className='text-2xl block float-left mr-3'>
+                                        {iconComponents[index]}
                                     </span>
                                     <span className={`text-base font-medium flex-1 ${!open && "hidden"}`}>{menu.title}</span>
                                 </Link>

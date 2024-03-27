@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import ManagerMain from "./ManagerMain";
 import { PiConfettiBold } from "react-icons/pi";
+import Toast from '../public/Toast';
+
 
 function EventCreate() {
     let navigate = useNavigate();
@@ -13,10 +15,33 @@ function EventCreate() {
     const [endTime, setEndTime] = useState("");
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
+    const [uploadedFile1Name, setUploadedFile1Name] = useState('');
+    const [uploadedFile2Name, setUploadedFile2Name] = useState('');
+    const [upload1Success, setUpload1Success] = useState(false);
+    const [upload2Success, setUpload2Success] = useState(false);
 
     const onSubmit = (e) => {
 
         e.preventDefault(); // 이동하지 않도록 하는 함수
+        if(startDate === "" || startTime === ""){
+            Toast.fire({
+                icon: 'error',
+                title: '시작일자를 입력해주세요!',
+              });
+              return;
+        }else if(endDate === "" || endTime === "") {
+            Toast.fire({
+                icon: 'error',
+                title: '종료일자를 입력해주세요!',
+              });
+              return;
+        }else if(file1 === null || file2 === null) {
+            Toast.fire({
+                icon: 'error',
+                title: '사진을 모두 업로드해주세요!',
+              });
+              return;
+        }
         
         // 시작 시간과 종료 시간을 합치기
         const startDateTime = startDate.replace(/-/g, '') + startTime.replace(/:/g, '');
@@ -35,7 +60,10 @@ function EventCreate() {
             .then((res) => {
                 console.log(res.data);
                 if (res.data === "YES") {
-                    alert("이벤트 생성이 성공적으로 완료되었습니다.");
+                    Toast.fire({
+                        icon: 'success',
+                        title: "이벤트 생성이 성공적으로 완료되었습니다.",
+                      });
                     navigate("/event");
                 }
                 else {
@@ -60,8 +88,8 @@ function EventCreate() {
         <>
          <div className="flex flex-row">
             <ManagerMain height="h-[1000px]" />
-            <div className="w-[850px] h-[700px] flex flex-col items-center mx-auto shadow-2xl rounded-lg overflow-hidden my-28">
-            <div className="font-bold text-3xl flex items-center mt-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
+            <div className="max-w-[1000px] mx-auto">
+            <div className="font-bold text-3xl flex items-center my-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
                 <div className='h-[500px]'>
                     <div className='h-[500px]'>
                         <form name="frm" onSubmit={onSubmit} encType="multipart/form-data">

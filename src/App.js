@@ -11,9 +11,9 @@ import Productlist from './pages/product/Productlist';
 import Productdetail from './pages/product/Productdetail';
 import StoreMap from './pages/store/StoreMap';
 import StoreProduct from './pages/store/StoreProductlist';
+import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
 import Powrite from './pages/ceo/Powrite';
-
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -22,6 +22,7 @@ import EventCreate from './pages/manager/EventCreate';
 import Coupon from './pages/manager/Coupon';
 import NewproductInsert from './pages/manager/NewproductInsert';
 import ManagerPurchaseOrder from './pages/manager/ManagerPurchaseOrder';
+import OrderChart from './pages/manager/OrderChart';
 
 import CustomerCenter from './pages/customerservice/CustomerCenter';
 import ContactUs from './pages/customerservice/ContactUs';
@@ -31,6 +32,8 @@ import ContactUsWrite from './pages/customerservice/ContactUsWrite';
 import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
+import MyMain from './pages/mypage/MyMain';
+
 
 function App() {
 
@@ -66,7 +69,8 @@ function App() {
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
               <Route path='/store' element={<StoreMap />} />
-              <Route path='/storeproductlist/:id' element={<StoreProduct />} />
+              <Route path='/storeproductlist/:id/:name' element={<StoreProduct />} />
+              {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
               <Route path='/ceo' element={<Polist />} />
               <Route path='/pow' element={<Powrite />} />
                 
@@ -77,6 +81,7 @@ function App() {
               <Route path='/coupon' element={<Coupon />} />
               <Route path='/newproductinsert' element={<NewproductInsert />} />
               <Route path='/managerpurchaseorder' element={<ManagerPurchaseOrder />} />
+              <Route path='/orderchart' element={<OrderChart />} />
 
               <Route path='/customercenter' element={<CustomerCenter />} />
               <Route path='/contactus' element={<ContactUs />} />
@@ -84,7 +89,8 @@ function App() {
               <Route path='/contactuswrite' element={<ContactUsWrite />} />
               <Route path='/faq' element={<Faq />} />
               <Route path='/faqcreate' element={<FaqCreate />} />
-              
+
+              <Route path='/mypage/*' element={<MyMain />} />
             </Routes>
           </div>
         </main>

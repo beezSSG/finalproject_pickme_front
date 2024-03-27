@@ -75,4 +75,3 @@ npm i pretendard
 # tailwind ui lib
 npm install @headlessui/react
 
-```
