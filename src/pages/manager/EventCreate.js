@@ -15,6 +15,10 @@ function EventCreate() {
     const [endTime, setEndTime] = useState("");
     const [file1, setFile1] = useState(null);
     const [file2, setFile2] = useState(null);
+    const [uploadedFile1Name, setUploadedFile1Name] = useState('');
+    const [uploadedFile2Name, setUploadedFile2Name] = useState('');
+    const [upload1Success, setUpload1Success] = useState(false);
+    const [upload2Success, setUpload2Success] = useState(false);
 
     const onSubmit = (e) => {
 
@@ -84,8 +88,8 @@ function EventCreate() {
         <>
          <div className="flex flex-row">
             <ManagerMain height="h-[1000px]" />
-            <div className="w-[850px] h-[700px] flex flex-col items-center mx-auto shadow-2xl rounded-lg overflow-hidden my-28">
-            <div className="font-bold text-3xl flex items-center mt-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
+            <div className="max-w-[1000px] mx-auto">
+            <div className="font-bold text-3xl flex items-center my-8"><PiConfettiBold className="mr-2" />&nbsp;&nbsp;이벤트 생성</div>
                 <div className='h-[500px]'>
                     <div className='h-[500px]'>
                         <form name="frm" onSubmit={onSubmit} encType="multipart/form-data">
