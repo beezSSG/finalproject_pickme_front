@@ -72,4 +72,6 @@ npm install react-icons --save
 # pretendard 폰트 (기본 폰트로 사용할 것임)
 npm i pretendard
 
-```
+# tailwind ui lib
+npm install @headlessui/react
+

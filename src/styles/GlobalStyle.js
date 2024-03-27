@@ -1,13 +1,13 @@
-
 import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
     
-    /* 메인 컬러 테마 */
-    --main-orange: rgba(255, 107, 0, 1);
+   :root {
+     /* 메인 컬러 테마 */
+     --main-orange: rgba(255, 107, 0, 1);
     --sub-orange: rgba(252, 163, 17, 1);
     --main-yellow: rgba(255, 195, 0, 1);
-    --sub-yellow-: rgba(255, 214, 10, 1);
+    --sub-yellow: rgba(255, 214, 10, 1);
     
     /* 무채색 */
     /* 흰색 */
@@ -25,8 +25,7 @@ const GlobalStyle = createGlobalStyle`
     --gray-10: rgba(66, 66, 66, 1);
     /* 검정 */
     --black: rgba(0, 8, 20, 1);
-
-    /* font */
+   }
 `;
 
 export default GlobalStyle;
