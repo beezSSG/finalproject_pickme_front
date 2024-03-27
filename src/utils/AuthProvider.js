@@ -19,9 +19,9 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem('jwt', token);
           setIsLoggedIn(true);
         } else {
-            console.log('jwt저장실패');
-            localStorage.removeItem('jwt');
-            setIsLoggedIn(false);
+          // console.log('jwt저장실패');
+          localStorage.removeItem('jwt');
+          setIsLoggedIn(false);
         }
     }, [token]);
 

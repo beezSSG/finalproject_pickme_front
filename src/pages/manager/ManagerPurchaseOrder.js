@@ -14,7 +14,7 @@ function ManagerPurchaseOrder() {
     const [totalCnt, setTotalCnt] = useState(0);
 
     function purchaseorderlist(storeName, startDate, endDate,page) {
-        axios.get("http://localhost:8080/api/v1/manager/purchaseorderlist", {params: {"storeName": storeName, "startDate": startDate, "endDate": endDate, "pageNumber":page}})
+        axios.get("http://localhofst:8080/api/v1/manager/purchaseorderlist", {params: {"storeName": storeName, "startDate": startDate, "endDate": endDate, "pageNumber":page}})
             .then((resp) => {
                 console.log(resp.data);
                 setPurchaseorderList(resp.data.purchaseorderList);

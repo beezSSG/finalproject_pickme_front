@@ -7,7 +7,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
 
     const goToMatchStore = (id, name) => {
         closeModal();
-        navigate(`/storeproductlist/${id}?name=${name}`);
+        navigate(`/storeproductlist/${id}/${name}`);
     };
 
     let params = useParams();
@@ -95,7 +95,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                                                     <td>{matchedstore.tel}</td>
                                                     <td className='mr-7'>{matchedstore.open_ended === 0 ? 'X' : 'O'}</td>
                                                     <td className='py-3'><button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none"
-                                                        onClick={() => goToMatchStore(matchedstore.id, matchedstore.name)}>
+                                                        onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}>
                                                         선택
                                                     </button></td>
                                                 </tr>

@@ -9,9 +9,8 @@ import "./page.css";
 function StoreProductlist() {
     const [storeproductlist, setStoreProductlist] = useState([]);
 
-    let params = useParams();
-    let id = params.id;
-    let name = params.name;
+    let {id, name} = useParams();
+    
     
     // 정렬
     const [choice, setChoice] = useState(" ");
