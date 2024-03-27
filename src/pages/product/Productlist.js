@@ -97,8 +97,10 @@ function Productlist() {
                       </Link>
                       <br/>
                       <hr/>
-                        <p className='mt-5'>{product.name}</p>
-                        <p>{product.price}</p>
+                        <Link to={`/productdetail/${product.id}`}>
+                          <p className='mt-5' >{product.name}</p>
+                        </Link>                        
+                        <p>{product.price.toLocaleString()}원</p>
                         <p>
                           {Array.from({ length: product.productRating }, (_, index) => (
                             <span key={index}>★</span>
