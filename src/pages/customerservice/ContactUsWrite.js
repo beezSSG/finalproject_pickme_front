@@ -73,7 +73,7 @@ function ContactUsWrite() {
                 <hr className="border-gray-500" /><br/><br/>
                 <div className="flex">
                     <label htmlFor="category" className="font-bold text-2xl mr-10 mt-2">문의유형 :</label>
-                    <SelectedDropdown options={["문의", "칭찬", "불만","기타"]} onSelect={handleCategorySelect} />
+                    <SelectedDropdown options={["문의", "칭찬", "불만","점주"]} onSelect={handleCategorySelect} />
                 </div> <br/>             
                 <div>
                     <label htmlFor="customerId" className="font-bold text-2xl mr-10">아이디 :</label>

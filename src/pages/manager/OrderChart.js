@@ -4,13 +4,29 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
 import ManagerMain from "./ManagerMain";
 import { FaEllipsisV } from "react-icons/fa";
+import { GoAlertFill,GoCheck } from "react-icons/go";
+import { useNavigate } from "react-router-dom";
 
 function OrderChart(){
 
+    let navigate = useNavigate();
+
+
+    // 초기 화면 오늘날짜로 설정되게
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 달이 한 자리면 앞에 0을 붙입니다.
+    const day = String(today.getDate()).padStart(2, '0'); // 날짜가 한 자리면 앞에 0을 붙입니다.
+    const todaydate = year + "-" + month + "-" + day;
+
+    const [notanswerCcb, setNotanswerCcb] = useState();
+    const [notPo, setNotPo] = useState();
+
+    // 차트를 위한 useState들
     const [orderList, setOrderList] = useState([]);
     const [categorycountList, setCategorycountList] = useState([]);
     const [open, setOpen] = useState(false);
-    const [selectedDate, setSelectedDate] = useState('2024-03-15');
+    const [selectedDate, setSelectedDate] = useState(todaydate);
     const [selectedRegion, setSelectedRegion] = useState('부산광역시');
     const [selectedDistrict, setSelectedDistrict] = useState('해운대구');
     const districts = {
@@ -19,6 +35,8 @@ function OrderChart(){
         // 필요한 만큼 광역시와 구 추가
     };
 
+   
+    // 메인화면 펼치기/접기 버튼
     const showDropDown = () => {
         setOpen(!open);
     }
@@ -39,13 +57,13 @@ function OrderChart(){
         }
     }
     
-
+    // 1:1문의 게시글을 카테고리 별로 개수를 세서 가져오기
     function contactusCategory() {
         axios.get("http://localhost:8080/api/v1/manager/ccbcategorycount")
             .then(function (resp) {
                 console.log(resp.data);
-                // 카테고리를 문의, 칭찬, 불만, 기타로 고정
-                const fixedCategories = ["문의", "칭찬", "불만", "기타"];
+                // 카테고리를 문의, 칭찬, 불만, 점주로 고정
+                const fixedCategories = ["문의", "칭찬", "불만", "점주"];
                 // 받아온 데이터 중에서 고정된 카테고리에 해당하는 것만 필터링
                 const filteredData = fixedCategories.map(category => {
                     const found = resp.data.find(item => item.category === category);
@@ -57,9 +75,34 @@ function OrderChart(){
                 console.log("error");
             })
     }
+
+    function notanswercount() {
+        axios.get("http://localhost:8080/api/v1/manager/notanswercount")
+            .then(function (resp) {
+                console.log(resp.data);
+                setNotanswerCcb(resp.data);
+            })
+            .catch(function () {
+                console.log("error");
+            })
+    }
+
+    function notpocount() {
+        axios.get("http://localhost:8080/api/v1/manager/notpocount")
+            .then(function (resp) {
+                console.log(resp.data);
+                setNotPo(resp.data);
+            })
+            .catch(function () {
+                console.log("error");
+            })
+    }
+
     useEffect(() => {
         orderchart();
         contactusCategory();
+        notanswercount();
+        notpocount();
     }, [selectedDate,selectedDistrict, selectedRegion]);
 
     // 상점별 총 가격을 계산하는 함수
@@ -117,7 +160,7 @@ function OrderChart(){
         return {
             labels: labels,
             datasets: [{
-                label: "가격",
+                label: selectedDate,
                 data: data,
                 backgroundColor: backgroundColor,
                 borderColor: borderColor,
@@ -130,14 +173,24 @@ function OrderChart(){
     };
 
     // 도넛 차트 차트 데이터 생성 함수
-    const generateDoughnutChartData = () => {
+    const generateDoughnutChartData = (topN = 10) => {
         const totalPriceByProductName = calculateTotalPriceByProductName();
-        const labels = Object.keys(totalPriceByProductName);
-        const data = Object.values(totalPriceByProductName);
+    
+        // 상품 가격을 기준으로 내림차순으로 정렬
+        const sortedProducts = Object.keys(totalPriceByProductName).sort((a, b) => {
+            return totalPriceByProductName[b] - totalPriceByProductName[a];
+        });
+    
+        // 상위 N개의 상품 선택
+        const topProducts = sortedProducts.slice(0, topN);
+    
+        const labels = topProducts;
+        const data = topProducts.map(product => totalPriceByProductName[product]);
+    
         // 동적으로 색상 할당
         const backgroundColor = [];
         const borderColor = [];
-
+    
         for (let i = 0; i < labels.length; i++) {
             const red = Math.floor(Math.random() * 256);
             const green = Math.floor(Math.random() * 256);
@@ -145,7 +198,7 @@ function OrderChart(){
             backgroundColor.push(`rgba(${red}, ${green}, ${blue}, 0.5)`);
             borderColor.push(`rgba(${red}, ${green}, ${blue}, 1)`);
         }
-
+    
         return {
             labels: labels,
             datasets: [{
@@ -157,28 +210,35 @@ function OrderChart(){
             options: {
                 responsive: false,
             },
-        }
         };
+    };
+    
 
-        const handleDateChange = (event) => {
-            setSelectedDate(event.target.value);
-        };
-        const handleRegionChange = (event) => {
-            setSelectedRegion(event.target.value);
-            setSelectedDistrict(''); // 광역시가 변경될 때 구 선택 초기화
-        };
+    const handleDateChange = (event) => {
+        setSelectedDate(event.target.value);
+    };
+    const handleRegionChange = (event) => {
+        setSelectedRegion(event.target.value);
+        setSelectedDistrict(''); // 광역시가 변경될 때 구 선택 초기화
+    };
         
-        const handleDistrictChange = (event) => {
-            setSelectedDistrict(event.target.value);
-        };
+    const handleDistrictChange = (event) => {
+        setSelectedDistrict(event.target.value);
+    };
         
-        
+    function goPo() {
+        navigate("/managerpurchaseorder");
+    }
+
+    function goContact() {
+        navigate("/contactus");
+    }
 
     return (
             <>
                 <div className="flex">
                 <div>
-                    <ManagerMain height={open ? "h-[1400px]" : "h-[500px]"} />
+                    <ManagerMain height={open ? "h-[1100px]" : "h-[700px]"} />
                 </div>
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
@@ -193,7 +253,7 @@ function OrderChart(){
                                     {categorycountList.map((item, index) => (
                                         <div key={index} className="h-[100px] rounded-[8px] bg-white border-l-[4px] border-yellow-500 flex items-center justify-between px-[30px] cursor-pointer hover:shoadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out">
                                             <div className="w-full">
-                                                <h2 className="text-gray-700 text-[15px] leading-[17px] font-bold">{item.category}</h2>
+                                                <h2 className="text-gray-700 text-[20px] leading-[17px] font-bold">{item.category}</h2>
                                                 <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">{item.count}개</h1>
                                             </div>
                                         </div>
@@ -241,7 +301,7 @@ function OrderChart(){
                                     </div>
                                     <div className="w-[30%] h-[700px] border bg-white shadow-md cursor-pointer rounded-xl">
                                         <div className="bg-[#f8f9fc] flex items-center justify-between py-[15px] px-[20px] border-b-[1px] border-[#ededed] mb-[20px]">
-                                            <p className="text-xl font-bold mb-6">상품 별 매출현황</p>
+                                            <p className="text-xl font-bold mb-6">오늘의 인기 top 10 상품</p>
                                             <FaEllipsisV color="gray" className="cursor-pointer" />
                                         </div>
                                         <div className="w-[80%] h-[600px] mx-auto">
@@ -253,12 +313,32 @@ function OrderChart(){
                                     </div>
                             </div>
                             }
-                            <div className="w-full mt-[25px] pb-[15px] rounded-xl h-[300px] border bg-white shadow-md ">
-                                <div className="p-[40px]">
-                                    <p className="text-[20px] font-bold">메모:</p>
-                                    <textarea className="w-full h-[200px] border-2 border-gray-400 rounded-xl p-[20px]" placeholder="메모를 입력하세요" />
+                            { !open &&
+                                <div className="grid grid-cols-2 gatp-[30px] mt-[25px] pb-[15px]">
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notanswerCcb === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
+                                                onClick={goContact}>
+                                        <div className="w-full">
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notanswerCcb === 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {notanswerCcb === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                {notanswerCcb === 0 ? '문의 답변 완료' : `답변하지 않은 글이 ${notanswerCcb}개 있어요`}
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notPo === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
+                                                onClick={goPo}>
+                                        <div className="w-full">
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notPo=== 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {notPo === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요`}
+                                            </h1>
+                                        </div>
+                                    </div>      
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                 </div>

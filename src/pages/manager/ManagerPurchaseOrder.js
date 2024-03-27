@@ -57,7 +57,7 @@ function ManagerPurchaseOrder() {
             <div className="max-w-[1200px] mx-auto">
             <div className="font-bold text-3xl flex items-center mt-[50px]"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
-                <input type='text' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
+                <input type='search' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}
                 className='rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
                 <input type='date' placeholder='시작일' value={startDate} onChange={(e)=>setStartDate(e.target.value)}
                 className='rounded-2xl p-5 w-[200px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>&nbsp;&nbsp;&nbsp;
