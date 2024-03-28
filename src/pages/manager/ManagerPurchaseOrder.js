@@ -54,7 +54,7 @@ function ManagerPurchaseOrder() {
         <>
         <div className="flex flex-row">
                 <ManagerMain height="h-[1200px]" />
-            <div className="max-w-full mx-auto">
+            <div className="max-w-full mx-[100px]">
             <div className="font-bold text-3xl flex items-center mt-[50px]"><IoReceiptOutline className='mr-4' />발주 목록</div><br/>
             <div className='text-center mb-14'>
                 <input type='search' placeholder='편의점명을 검색하세요.' value={category} onChange={(e)=>setCategory(e.target.value)}

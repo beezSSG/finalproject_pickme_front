@@ -77,12 +77,6 @@ export default function LeftMenu() {
             <StoreCategories />
           </section> */}
 
-          {/* 검색필터 접기 버튼 */}
-          <button className="w-full my-1 py-1 flex justify-center items-center font-semibold text-base border-slate-300 border-2 border-opacity-50 rounded-full">
-            검색필터 접기&nbsp;&nbsp;&nbsp;
-            <FaChevronUp onClick={() => setFilterOpen(false)} />
-          </button>
-
           {/* 매장 목록; 사용자 위치 연동 -> 추후에 axios.get()으로 가져오기 */}
           <ul className="pt-2"></ul>
           <section>
