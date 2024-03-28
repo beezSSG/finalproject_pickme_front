@@ -101,7 +101,7 @@ function ContactUs() {
                         <th className="px-4 py-2 text-white">작성자</th>
                         <th className="px-4 py-2 text-white">작성일</th>
                         {adminName === "하기성" && (
-                            <th className="px-4 py-2 text-white">작성일</th>
+                            <th className="px-4 py-2 text-white">비고</th>
                         )} 
                     </tr>
                 </thead>
