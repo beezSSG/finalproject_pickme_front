@@ -70,10 +70,10 @@ export default function StoreCategories() {
                             className="inline-flex items-center justify-between p-1 text-gray-500 border-2 
                                 border-gray-200 rounded-xl cursor-pointer transition duration-300 ease-in-out 
                                 peer-hover:bg-sub-yellow peer-checked:bg-sub-yellow
-                                peer-checked:text-gray-600 peer-checked:border-main-yellow"
+                                peer-checked:text-gray-800 peer-checked:border-main-yellow"
                         > 
                             <category.icon className="size-8 ml-1 mr-0.5"/>                          
-                            <div className="w-full text-sm font-semibold text-center">{ category.name }</div>
+                            <div className="w-full text-sm font-bold text-center">{ category.name }</div>
                         </label>
                     </li>
                 ))

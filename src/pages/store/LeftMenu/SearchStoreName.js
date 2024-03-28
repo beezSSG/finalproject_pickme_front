@@ -19,7 +19,7 @@ export default function SearchStoreName(menuOpen) {
   }
 
   return (
-    <div className="group flex items-center rounded-lg border-slate-200 border-2 mt-6 
+    <div className="flex items-center rounded-lg border-slate-200 border-2 mt-6 
                     transition duration-500 hover:border-sub-yellow focus:border-sub-yellow">
       <input
         type={"search"}
@@ -27,7 +27,7 @@ export default function SearchStoreName(menuOpen) {
         className={`text-base bg-transparent w-full text-slate-600 pl-4 mr-2
               ${!menuOpen && "scale-0"} focus:outline-none`}
       />
-      <button className="bg-slate-200 py-3 pe-1 pl-3
+      <button className="group bg-slate-200 py-3 pe-1 pl-3
                 transition duration-300 hover:bg-sub-yellow" onClick={searchStore()}>
         <BsSearch
           className={`text-slate-500 text-lg float-left cursor-pointer
