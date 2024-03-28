@@ -8,8 +8,6 @@ import { FaChevronDown } from "react-icons/fa6";
 import LocSelect from "./LocSelect";
 import SearchStoreName from "./SearchStoreName";
 import StoreCategories from "./StoreCategories.js";
-import SearchStoreName from "./SearchStoreName";
-import StoreCategories from "./StoreCategories.js";
 
 const LeftMenuStyle = styled.div`
   /* From https://css.glass */
@@ -79,8 +77,8 @@ export default function LeftMenu() {
           {/* <section className="">
             <h1 className="font-bold text-lg py-4">제공 서비스 선택</h1>
             <StoreCategories />
-          </section>
-        </div>
+          </section> */}
+
 
           {/* 검색필터 접기 버튼 */}
           <button
