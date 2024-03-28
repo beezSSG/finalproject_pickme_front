@@ -86,10 +86,7 @@ export default function StoreMap(prop) {
         // or finClientId, govClientId
       >
         <MapDiv
-          style={{
-            width: "100%",
-            height: "70vh",
-          }}
+          className="h-svh"
         >
           <LeftMenu />
           <MyMap />
