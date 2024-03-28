@@ -5,6 +5,7 @@ import MyCart from "./MyCart";
 import MyPayinfo from "./MyPayinfo";
 import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
+import MySave from "./MySave";
 
 
 export default function MyMain() {
@@ -27,7 +28,7 @@ export default function MyMain() {
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   const getMyInfo = async () => {
     await axios.get("http://localhost:8080/api/v1/mypage/getMyInfo", {
-      headers : { Authorization: `Bearer ${token}` }
+      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
     })
     .then((response)=>{
       //console.log(JSON.stringify(response.data));
@@ -80,8 +81,10 @@ export default function MyMain() {
       <div className="flex w-full">
         <MyMainNav />
         <Routes>
-          <Route path='cart' element={<MyCart />} />
+          <Route path='cart' element={<MyCart point={topInfo[1]} />} />
           <Route path='payinfo' element={<MyPayinfo />} />
+          <Route path='save' element={<MySave />} />
+
         </Routes>
       </div>
     </>
