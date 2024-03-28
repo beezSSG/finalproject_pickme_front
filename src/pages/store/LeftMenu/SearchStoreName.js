@@ -19,17 +19,19 @@ export default function SearchStoreName(menuOpen) {
   }
 
   return (
-    <div className="flex items-center rounded-lg border-slate-200 border-2 mt-6">
+    <div className="flex items-center rounded-lg border-slate-200 border-2 mt-6 
+                    transition duration-500 hover:border-sub-yellow focus:border-sub-yellow">
       <input
         type={"search"}
         placeholder="매장명을 검색하세요"
-        className={`text-base bg-transparent w-full text-slate-600 focus:outline-none pl-4
-              ${!menuOpen && "scale-0"}`}
+        className={`text-base bg-transparent w-full text-slate-600 pl-4 mr-2
+              ${!menuOpen && "scale-0"} focus:outline-none`}
       />
-      <button className="bg-sub-yellow py-3 pe-1 pl-3 rounded-e-lg" onClick={searchStore()}>
+      <button className="group bg-slate-200 py-3 pe-1 pl-3
+                transition duration-300 hover:bg-sub-yellow" onClick={searchStore()}>
         <BsSearch
-          className={`text-slate-600 text-lg float-left cursor-pointer
-                transition hover:scale-125
+          className={`text-slate-500 text-lg float-left cursor-pointer
+                transition duration-300 group-hover:scale-125
                 ${menuOpen && "mr-2"}`}
         />
       </button>
