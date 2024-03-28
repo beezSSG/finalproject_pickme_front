@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../utils/AuthProvider";
 import { Bootpay } from '@bootpay/client-js';
 
-export default function MyCart() {
+export default function MyCart(prop) {
   const {token} = useAuth();
   const [cart, setCart] = useState([]); // 카트(아이템 목록)
   const [checkItems, setCheckItems] = useState([]); // 전체선택기능
@@ -11,6 +11,7 @@ export default function MyCart() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalPoint, setTotalPoint] = useState(0);
   const [fpay, setFpay] = useState(); // 결제 완료시 들어갈것
+  const [point, setPoint] = useState(prop.point);
 
   // 처음실행시
   useEffect(() => {
@@ -25,7 +26,7 @@ export default function MyCart() {
   useEffect(() => {
     if (checkPrice.length !== undefined || checkPrice.length !== 0) {
       let money = 0;
-      console.log(checkPrice);
+      // console.log(checkPrice);
       for (let i = 0; i < checkPrice.length; i++) {
         money = money + checkPrice[i];
       }
@@ -37,10 +38,10 @@ export default function MyCart() {
   // cart 물품 가져오기
   const getMyCart = async () => {
     await axios.get("http://localhost:8080/api/v1/customer/cart/getCart", {
-      headers : { Authorization: `Bearer ${token}` }
+      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
     })
     .then((response)=>{
-      // console.log(response.data);
+      console.log(response.data);
       setCart(response.data);
     })
     .catch((err)=>{
@@ -130,21 +131,16 @@ export default function MyCart() {
   };
 
   // 결제후 BE 정보전송
-  // function sendOrder() {
-  //   axios.get("http://localhost:8080/api/v1/mypage/getMyInfo", {
-  //     headers : { Authorization: `Bearer ${token}` }
-  //   })
-  //   .then((response)=>{
-  //     //console.log(JSON.stringify(response.data));
-  //     // console.log(Object.values(response.data));
-  //     setInfo(response.data);
-  //     setTopInfo(Object.values(response.data));
-  //   })
-  //   .catch((err)=>{
-  //     alert(err);
-  //   })
-  // }
-
+  function sendOrder() {
+    axios.post("http://localhost:8080/api/v1/customer/order", checkItems)
+    .then((response)=>{
+      // console.log(JSON.stringify(response.data));
+      getMyCart();
+    })
+    .catch((err)=>{
+      alert(err);
+    })
+  }
 
   // 결제 핸들러
   const payHandler = async () => {
@@ -182,6 +178,7 @@ export default function MyCart() {
           break
         case 'done':
           console.log(response)
+          sendOrder();
           // 결제 완료 처리
           break
         case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
@@ -234,7 +231,7 @@ export default function MyCart() {
           <thead>
             <tr>
               <td colSpan="2">
-                <input type="checkbox" onClick={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />&nbsp;전체선택
+                <input type="checkbox" onChange={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />&nbsp;전체선택
               </td>
               <td colSpan="3"></td>
               <td colSpan='2' className="text-right"><button>선택삭제</button></td>
@@ -280,7 +277,7 @@ export default function MyCart() {
           <tfoot>
             <tr>
               <td colSpan="7" className="bg-gray-300 text-center">
-                <span className="text-xl">Pick ME 상품 총 금액: <b>{totalPrice}</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;Pick포인트 총 적립액: <b>{totalPoint}</b></span>
+                <span className="text-xl">Pick ME 상품 총 금액: <b>{totalPrice}</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint}</b></span>
               </td>
             </tr>
           </tfoot>
@@ -290,8 +287,9 @@ export default function MyCart() {
       <div className="m-auto w-[1090px] h-[200px] overflow-y-auto text-right">
         <p>적립예정 포인트 금액 : </p>
         <p>총금액 : </p>
-        <p>포인트 사용금액 : </p>
+        <p>포인트 사용금액 : <input type="text" /> {prop.point} </p>
         <p>결제금액 :</p>
+        <button onClick={sendOrder}>결제완료 테스트용</button><br/>
         <button onClick={payHandler}>결제하기</button>
       </div>     
     </div>
