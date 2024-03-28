@@ -21,7 +21,7 @@ const LeftMenuStyle = styled.div`
 
 export default function LeftMenu() {
   const [menuOpen, setMenuOpen] = useState(true);
-  const [filterOpen, setFilterOpen] = useState(true);
+  const [filterOpen, setFilterOpen] = useState(false);
 
   return (
     <>
