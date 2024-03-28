@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
+import star2 from "../../assets/imgs/product/star2.png";
 
 import "./page.css";
 
@@ -123,7 +124,9 @@ function StoreProductlist() {
                       <td>{product.price}</td>
                       <td>
                           {Array.from({ length: product.productRating }, (_, index) => (
-                              <span key={index}>★</span>
+                              <span key={index} style={{ display: 'inline-block' }}>
+                                <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
+                              </span>
                           ))}
                       </td>
                       </tr>
