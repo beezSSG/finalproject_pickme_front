@@ -15,9 +15,13 @@ function OrderChart(){
     // 초기 화면 오늘날짜로 설정되게
     const today = new Date();
     const year = today.getFullYear();
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // 달이 한 자리면 앞에 0을 붙입니다.
-    const day = String(today.getDate()).padStart(2, '0'); // 날짜가 한 자리면 앞에 0을 붙입니다.
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // 달이 한 자리면 앞에 0을 붙임
+    const day = String(today.getDate()).padStart(2, '0'); // 날짜가 한 자리면 앞에 0을 붙임
     const todaydate = year + "-" + month + "-" + day;
+
+    // 종료날짜 이벤트 개수 처리
+    const [endDateStrings, setEndDateStrings] = useState([]);
+    const [threeCount, setThreeCount] = useState(0);
 
     const [notanswerCcb, setNotanswerCcb] = useState();
     const [notPo, setNotPo] = useState();
@@ -41,6 +45,34 @@ function OrderChart(){
         setOpen(!open);
     }
 
+    useEffect(() => {
+        function parseDateString(dateString) {
+          const year = dateString.substr(0, 4);
+          const month = dateString.substr(4, 2) - 1; // 월은 0부터 시작하므로 1을 뺍니다.
+          const day = dateString.substr(6, 2);
+          const hours = dateString.substr(8, 2);
+          const minutes = dateString.substr(10, 2);
+          return new Date(year, month, day, hours, minutes);
+        }
+    
+        const today = new Date();
+        const threeDaysLater = new Date();
+        threeDaysLater.setDate(today.getDate() + 3);
+    
+        let count = 0;
+    
+        endDateStrings.forEach((item) => {
+          const endDate = parseDateString(item.endDate);
+          if (endDate <= threeDaysLater) {
+            count++;
+          }
+        });
+    
+        setThreeCount(count);
+      },[endDateStrings]); 
+
+
+
     // 주문 목록을 받아오는 함수
     function orderchart() {
         const address = selectedRegion && selectedDistrict ? `${selectedRegion} ${selectedDistrict}` : selectedRegion || selectedDistrict;
@@ -48,7 +80,6 @@ function OrderChart(){
         if (address) { // 광역시 또는 구 중 하나만 선택된 경우에 요청을 보냄
             axios.get("http://localhost:8080/api/v1/manager/orderchart", { params: { "date": selectedDate, "address": address } })
                 .then(function(resp) {
-                    console.log(resp.data);
                     setOrderList(resp.data);
                 })
                 .catch(function(){
@@ -76,6 +107,7 @@ function OrderChart(){
             })
     }
 
+    // 답변하지않은 문의글 개수 세기
     function notanswercount() {
         axios.get("http://localhost:8080/api/v1/manager/notanswercount")
             .then(function (resp) {
@@ -86,7 +118,8 @@ function OrderChart(){
                 console.log("error");
             })
     }
-
+    
+    // 승인하지않은 발주 개수 세기
     function notpocount() {
         axios.get("http://localhost:8080/api/v1/manager/notpocount")
             .then(function (resp) {
@@ -98,13 +131,27 @@ function OrderChart(){
             })
     }
 
+    // 이벤트의 종료날짜를 담을꺼임
+    function eventenddate() {
+        axios.get("http://localhost:8080/api/v1/manager/eventenddate")
+            .then(function (resp) {
+                console.log(resp.data);
+                setEndDateStrings(resp.data);
+            })
+            .catch(function () {
+                console.log("error");
+            })
+    }
+
     useEffect(() => {
         orderchart();
         contactusCategory();
         notanswercount();
         notpocount();
+        eventenddate();
     }, [selectedDate,selectedDistrict, selectedRegion]);
 
+    
     // 상점별 총 가격을 계산하는 함수
     const calculateTotalPriceByStoreName = () => {
         const totalPriceByStoreName = {};
@@ -226,19 +273,22 @@ function OrderChart(){
         setSelectedDistrict(event.target.value);
     };
         
+    // 페이지로 이동하는 함수들
     function goPo() {
         navigate("/managerpurchaseorder");
     }
-
     function goContact() {
         navigate("/contactus");
+    }
+    function goEvent() {
+        navigate("/event");
     }
 
     return (
             <>
                 <div className="flex">
                 <div>
-                    <ManagerMain height={open ? "h-[1100px]" : "h-[700px]"} />
+                    <ManagerMain height={open ? "h-[1100px]" : "h-[650px]"} />
                 </div>
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
@@ -274,7 +324,7 @@ function OrderChart(){
                                                     <input type="date" className="w-full p-1 border border-gray-300 rounded-md" value={selectedDate} onChange={handleDateChange} />
                                                     {/* 광역시 선택 */}
                                                     <select className="w-full p-1 mt-2 border border-gray-300 rounded-md" value={selectedRegion} onChange={handleRegionChange}>
-                                                        <option value="">광역시 선택</option>
+                                                        <option value="">도시 선택</option>
                                                         <option value="서울특별시">서울특별시</option>
                                                         <option value="부산광역시">부산광역시</option>
                                                         {/* 필요한 만큼 옵션 추가 */}
@@ -314,7 +364,7 @@ function OrderChart(){
                             </div>
                             }
                             { !open &&
-                                <div className="grid grid-cols-2 gatp-[30px] mt-[25px] pb-[15px]">
+                                <div className="grid grid-cols-2 gap-[30px] mt-[25px] pb-[15px] gap-y-28">
                                     <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notanswerCcb === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
                                                 onClick={goContact}>
                                         <div className="w-full">
@@ -336,7 +386,29 @@ function OrderChart(){
                                                 {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요`}
                                             </h1>
                                         </div>
-                                    </div>      
+                                    </div> 
+                                    <div className="h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out border-l-[6px] border-red-700"
+                                                onClick={goEvent}>
+                                        <div className="w-full">
+                                            <h2 className="text-gray-700 text-[30px] leading-[17px] font-bold">
+                                                <GoAlertFill className="text-red-600" />
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                종료까지 3일 이하로 남은 이벤트가 {threeCount}개 있어요!
+                                            </h1>
+                                        </div>
+                                    </div>
+                                    <div className="h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out border-l-[6px] border-red-700"
+                                                >
+                                        <div className="w-full">
+                                            <h2 className="text-gray-700 text-[30px] leading-[17px] font-bold">
+                                                <GoAlertFill className="text-red-600" />
+                                            </h2>
+                                            <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
+                                                승인되지 않은 사업자 등록이 n개 있어요!
+                                            </h1>
+                                        </div>
+                                    </div>
                                 </div>
                             }
                         </div>
