@@ -24,7 +24,7 @@
         { "subname": "장바구니", "subpath": "cart" },
         { "subname": "선물함", "subpath": "gift" },
         { "subname": "나의 후기", "subpath": "review" },
-        { "subname": "찜목록", "subpath": "" },
+        { "subname": "찜목록", "subpath": "save" },
         { "subname": "포인트", "subpath": "point" }
       ]
     },
