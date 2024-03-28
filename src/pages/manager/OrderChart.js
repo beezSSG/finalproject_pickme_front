@@ -383,7 +383,7 @@ function OrderChart(){
                                                 {notPo === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
                                             </h2>
                                             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                                {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요`}
+                                                {notPo === 0 ? '발주 승인 완료' : `승인되지 않은 발주가 ${notPo}개 있어요!`}
                                             </h1>
                                         </div>
                                     </div> 
