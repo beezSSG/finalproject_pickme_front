@@ -6,6 +6,8 @@ import MyPayinfo from "./MyPayinfo";
 import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import MySave from "./MySave";
+import MyInfo from "./MyInfo";
+import MyReview from "./MyReview";
 
 
 export default function MyMain() {
@@ -84,7 +86,8 @@ export default function MyMain() {
           <Route path='cart' element={<MyCart point={topInfo[1]} />} />
           <Route path='payinfo' element={<MyPayinfo />} />
           <Route path='save' element={<MySave />} />
-
+          <Route path='userinfo' element={<MyInfo />} />
+          <Route path='review' element={<MyReview />} />
         </Routes>
       </div>
     </>
