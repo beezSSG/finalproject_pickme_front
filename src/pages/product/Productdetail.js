@@ -4,8 +4,10 @@ import { Link, useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import MatchedStoreList from '../store/MatchedStoreList';
 import Toast from "../public/Toast";
+
 import emptyHeart from "../../assets/imgs/product/emptyHeart.png";
 import fullHeart from "../../assets/imgs/product/fullHeart.png";
+import star2 from "../../assets/imgs/product/star2.png";
 
 
 function Productdetail(){
@@ -28,9 +30,6 @@ function Productdetail(){
         setModalIsOpen(true);
     };
 
-    // 사용자 이메일 정보 추가
-    const [userEmail, setUserEmail] = useState('');
-
     // 찜 상품인지 아닌지 ~
     const [zzim, setZzim] = useState(false);
       
@@ -50,7 +49,7 @@ function Productdetail(){
 
     // 후기 목록 불러오기
     async function productReviewList(id){
-        await axios.get("http://localhost:8080/api/v1/product/productReviewList", { params:{ "id":id }})
+        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
         .then((resp)=>{
         setReviewList(resp.data);
         })
@@ -63,11 +62,7 @@ function Productdetail(){
         getProduct(params.id);
         productReviewList(params.id);
 
-        // 로그인한 사용자의 이메일 정보 가져오기
-        const userEmail = localStorage.getItem('email');
-        setUserEmail(userEmail);
-
-        zzimCheck(params.id, userEmail);
+        zzimCheck(params.id);
 
 
     }, []);
@@ -78,8 +73,13 @@ function Productdetail(){
     }
 
     // 찜 체크
-    async function zzimCheck(productId, customerEmail){
-        await axios.get("http://localhost:8080/api/v1/customer/checkZZIM", { params:{ "productId":productId, "customerEmail":customerEmail }})
+    async function zzimCheck(productId){
+        if(`${localStorage.getItem('jwt')}` === null){return;}
+        
+        await axios.get("http://localhost:8080/api/v1/customer/checkZZIM",
+         { params:{ "productId":productId },
+         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
+        })
         .then((resp) => {
             if (resp.data == "YES"){
                 setZzim(true);
@@ -94,8 +94,8 @@ function Productdetail(){
     };
 
     // 찜 추가/해제
-    async function zzimClick(productId, customerEmail){
-        if(customerEmail===null){
+    async function zzimClick(productId){
+        if(`${localStorage.getItem('jwt')}` === null){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -104,7 +104,9 @@ function Productdetail(){
         }
 
         if (zzim === false){
-            await axios.post("http://localhost:8080/api/v1/customer/insertZZIM", null, { params:{ "productId":productId, "customerEmail":customerEmail }})
+            await axios.post("http://localhost:8080/api/v1/customer/insertZZIM", null,
+             { params:{ "productId":productId },             
+             headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -116,7 +118,8 @@ function Productdetail(){
             })
         }
         else{
-            await axios.post("http://localhost:8080/api/v1/customer/deleteZZIM", null, { params:{ "productId":productId, "customerEmail":customerEmail }})
+            await axios.post("http://localhost:8080/api/v1/customer/deleteZZIM", null, { params:{ "productId":productId },
+            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -128,12 +131,12 @@ function Productdetail(){
             })
         }
        
-        zzimCheck(productId, customerEmail);
+        zzimCheck(productId);
     };
 
     // 장바구니 담기
     function cartClick() {
-        if(userEmail===null){
+        if(`${localStorage.getItem('jwt')}` === null){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -145,95 +148,114 @@ function Productdetail(){
     }
 
 
-    return(
+    return(        
         <div align="center">
-            <table className="table table-bordered" style={{textAlign:"center"}}>
-            <colgroup>
-                <col style={{ width:'150px' }}/>
-                <col style={{ width:'500px' }}/>
-            </colgroup>
-            <tbody>
-            <tr>
-                <th></th>
-                <td>
-                <div style={{ position: 'relative', width: '400px', height: '400px' }}>
+            <div className="prodDetail rounded-xl border border-spacing-2 p-3" style={{ width: '1060px', height: '450px', display: 'flex' }}>
+                
+                <div class="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
                     <img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} />
-                    <div
-                        style={{
-                            position: 'absolute',
-                            top: '0',
-                            right: '0',
-                            zIndex: '1',
-                            width: '50px',
-                            height: '40px',
-                            margin: '10px',
-                            transition: 'transform 0.5s ease-in-out',
-                        }}
-                        onMouseEnter={(e) => { e.target.style.transform = 'scale(1.2)'; }}
-                        onMouseLeave={(e) => { e.target.style.transform = 'scale(1)'; }}
-                    >
-                        {zzim === false ? (
-                            <img src={emptyHeart} onClick={() => zzimClick(product.id, userEmail)} className='cursor-pointer' />
-                        ) : (
-                            <img src={fullHeart} onClick={() => zzimClick(product.id, userEmail)} className='cursor-pointer' />
-                        )}               
+                    
+                </div>
+
+                <div class="prodDetailText" className='ml-20'>
+                    <p class="tit" className='font-bold mt-20 mb-5 text-3xl '> <td>{product.name}</td> </p>
+                    <hr/><br/>
+                    <div class="prodInfo" >
+                        <dl className="ml-5" style={{ display: 'flex' }}>
+                            <dt  className='font-bold text-xl mb-8'>가격</dt>
+                            <dd className='ml-8 text-xl'>
+                                <p><span>{product.price.toLocaleString()} 원</span></p>
+                            </dd>
+                        </dl>
+                        <dl className="ml-5" style={{ display: 'flex' }}>
+                            <dt  className='font-bold text-xl mb-8'>태그</dt>
+                            <dd className='ml-8 text-xl'>
+                                <p><span>카테고리 들어갈 자리</span></p>
+                            </dd>
+                        </dl>
+                        <hr/><br/>
+                        <dl style={{ display: 'flex' }}>
+                            <dd>
+                                {zzim === false ?
+                                (
+                                    <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
+                                        🤍
+                                    </button>
+                                ) : 
+                                (
+                                    <button className="focus:outline-none bg-red-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
+                                        ❤
+                                    </button>
+                                )}
+                            </dd>
+                            <dd>
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
+                                                    dark:focus:ring-yellow-900"onClick={()=>(cartClick())}>장바구니</button>
+                            </dd>
+                            <dd>
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
+                                                    dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
+                                <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
+                            </dd>
+                        </dl>
                     </div>
                 </div>
-                </td>
-                <td>
-                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-//                                                              dark:focus:ring-yellow-900"onClick={()=>(cartClick())}>👜장바구니👜</button><br/><br/>                    
-                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-//                                                              dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>🔍상품이 있는 점포 찾기🔍</button>
-                    <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
-                </td>
-            </tr>
-            <tr>
-                <th>제품명</th>
-                <td>{product.name}</td>
-            </tr>
-            <tr>
-                <th>가격</th>
-                <td>{product.price}</td>
-            </tr>            
-            </tbody>
-            </table>
-            <br/><hr/><br/>
+            </div>
+
+            <br/><br/><hr/><br/>
 
             {/* 후기 나타나는 table */}
+            <div class="prodReview">
+
+                <div class="prodReviewHeader">
+
+                </div>
+
+                <div class="prodReviewList">
+                {
+                    reviewList &&
+                    reviewList.map(function(list, i){
+                    return (
+                    <tbody key={i}>                    
+                        <tr>
+                            <td>상품 후기</td>
+                            <td>평점</td>
+                        </tr>
+                        <tr>                    
+                        <td>작성자:&nbsp;&nbsp;{list.customerId}</td>
+                        <td>
+                            {Array.from({ length: list.rating }, (_, index) => (
+                                <span key={index} style={{ display: 'inline-block' }}>
+                                    <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '2px' }} />
+                                </span>
+                            ))}
+                        </td>
+                        </tr>
+                        <tr>
+                        <td colSpan='2'>{list.content}</td>
+                        </tr>
+                        <tr>
+                        <td colSpan='2'>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                    );
+                    })
+                }  
+                </div>
+
+            </div>
+
             <table>
             <colgroup>
                 <col width="500"/><col width="500"/>
             </colgroup>
-            {
-                reviewList &&
-                reviewList.map(function(list, i){
-                return (
-                <tbody key={i}>                    
-                    <tr>
-                        <td>상품 후기</td>
-                        <td>평점</td>
-                    </tr>
-                    <tr>                    
-                    <td>작성자:&nbsp;&nbsp;{list.customerId}</td>
-                    <td>
-                        {Array.from({ length: list.rating }, (_, index) => (
-                            <span key={index}>★</span>
-                        ))}
-                    </td>
-                    </tr>
-                    <tr>
-                    <td colSpan='2'>{list.content}</td>
-                    </tr>
-                    <tr>
-                    <td colSpan='2'>&nbsp;</td>
-                    </tr>
-                </tbody>
-                );
-                })
-            }  
+            
             </table>
 
         </div>
