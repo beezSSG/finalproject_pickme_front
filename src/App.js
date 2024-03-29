@@ -33,6 +33,7 @@ import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 import MyMain from './pages/mypage/MyMain';
+import Post from './pages/customerservice/Post';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
               <Route path='/LoginGoogle' element={<LoginGoogle />} />
               <Route path='/LoginKakao' element={<LoginKakao />} />
               <Route path='/LoginNaver' element={<LoginNaver />} />
+              <Route path='/post' element={<Post />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 

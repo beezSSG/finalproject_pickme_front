@@ -4,7 +4,7 @@ import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 import axios from 'axios';
 // import GlobalStyle from './styles/GlobalStyle';
 
-// import "./Polist.css";
+import "./Polist.css";
 
 function Polist(){
     const [polist, setPolist] = useState([]);
@@ -62,6 +62,7 @@ function Polist(){
           axios.post("http://localhost:8080/deleteProduct", null, {params:params})
           .then(response => {
               // 응답을 받았을 때의 처리
+
               if (props.po.poYn === 1) {
                   // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
               }
@@ -104,6 +105,7 @@ function Polist(){
           <p>발주목록</p>
           </div>
           <br/><br/>
+
 
           <table className='mx-auto' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
           <colgroup>
@@ -157,6 +159,7 @@ function Polist(){
         <div className='my-5 d-flex justify-content-center'>
             <Link  style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"to="/pow">발주신청</Link>
         </div>       
+
       </div>
     );
 }

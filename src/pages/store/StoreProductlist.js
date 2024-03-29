@@ -3,6 +3,7 @@ import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
+import star2 from "../../assets/imgs/product/star2.png";
 
 import "./page.css";
 
@@ -74,18 +75,18 @@ function StoreProductlist() {
                 </td>
                 <td style={{ paddingLeft:"5px" }}>  
                     <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-//                                                              dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
+                                                            focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                                              dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </td>
                   <td style={{ paddingLeft:"5px" }}>
                       <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-//                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
+                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
                   </td>
                   <td style={{ paddingLeft:"5px" }}>
                       <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-//                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-//                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
+                                                             focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                                              dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
                   </td>
                 
             </tr>                
@@ -123,7 +124,9 @@ function StoreProductlist() {
                       <td>{product.price}</td>
                       <td>
                           {Array.from({ length: product.productRating }, (_, index) => (
-                              <span key={index}>★</span>
+                              <span key={index} style={{ display: 'inline-block' }}>
+                                <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
+                              </span>
                           ))}
                       </td>
                       </tr>
@@ -141,7 +144,7 @@ function StoreProductlist() {
         itemClass='page-item'
         linkClass='page-link' 
         activePage={page}           // 현재 활성화 된 페이지 번호
-        itemsCountPerPage={5}      // 페이지 당 보여줄 항목의 수
+        itemsCountPerPage={9}      // 페이지 당 보여줄 항목의 수
         totalItemsCount={totalCnt}  // 전체 항목 수
         pageRangeDisplayed={10}     // 한 번에 보여줄 페이지 번호의 범위
         prevPageText={"prev"}

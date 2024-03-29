@@ -51,7 +51,7 @@ function Event() {
             <div className='flex ml-[100px] mt-[70px]'><FaGift className='text-5xl mr-4' /><div className='text-4xl font-bold'>이벤트 목록</div>
             </div><br/><br/><br/>
             <div className="flex flex-col items-center">
-            <div className="space-x-4">
+            <div className="space-x-2">
                 <button onClick={showOngoingEvents}
                 className="focus:outline-none bg-gray-800 bg-yellow-400 hover:bg-yellow-500 font-bold
                 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-[320px] py-4 me-2 mb-10
