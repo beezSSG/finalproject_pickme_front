@@ -128,7 +128,7 @@ function Productlist() {
         itemClass='page-item'
         linkClass='page-link' 
         activePage={page}           // 현재 활성화 된 페이지 번호
-        itemsCountPerPage={5}      // 페이지 당 보여줄 항목의 수
+        itemsCountPerPage={9}      // 페이지 당 보여줄 항목의 수
         totalItemsCount={totalCnt}  // 전체 항목 수
         pageRangeDisplayed={10}     // 한 번에 보여줄 페이지 번호의 범위
         prevPageText={"prev"}
