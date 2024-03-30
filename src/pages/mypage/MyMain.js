@@ -9,7 +9,7 @@ import MySave from "./MySave";
 import MyInfo from "./MyInfo";
 import MyReview from "./MyReview";
 import MyMainContent from "./MyMainContent";
-
+import MyCoupon from "./MyCoupon";
 
 export default function MyMain() {
   // useState 선언
@@ -58,7 +58,7 @@ export default function MyMain() {
 
   return (
     <>
-      <div className="grid grid-cols-6 w-full mb-10">
+      <div className="grid grid-cols-6 w-full mb-10 sm:grid-cols-1 md:grid-cols-2">
         <div className="pl-4 pt-5">
           <div>
             <span className="text-4xl font-bold  text-black-500">{info.name}</span>
@@ -90,6 +90,7 @@ export default function MyMain() {
           <Route path='save' element={<MySave />} />
           <Route path='userinfo' element={<MyInfo />} />
           <Route path='review' element={<MyReview />} />
+          <Route path='coupon' element={<MyCoupon /> } />
         </Routes>
       </div>
     </>

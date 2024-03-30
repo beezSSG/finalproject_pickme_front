@@ -25,7 +25,7 @@ export default function MyMainContent() {
   const getRecentlyProduct = async () => {
     await axios.get("http://localhost:8080/api/v1/mypage/getRecentlyProduct", { params : { "id" : getProduct } })
     .then((response)=>{
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
       // console.log(Object.values(response.data));
       setPdata(response.data);
     })
@@ -35,10 +35,10 @@ export default function MyMainContent() {
   }
 
   return (
-    <div>
+    <div className="w-[60%]">
         <div className="text-center text-2xl font-bold">최근에 구경한 상품</div>
 
-        <div className="w-[70%] mt-5 mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
+        <div className="w-[80%] mt-5 mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
         { pdata && pdata.map((product, i) => {
             return (
               <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
