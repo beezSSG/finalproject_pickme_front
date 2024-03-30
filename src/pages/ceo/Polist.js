@@ -4,7 +4,7 @@ import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 import axios from 'axios';
 // import GlobalStyle from './styles/GlobalStyle';
 
-import "./Polist.css";
+// import "./Polist.css";
 
 function Polist(){
     const [polist, setPolist] = useState([]);
