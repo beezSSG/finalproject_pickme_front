@@ -277,7 +277,7 @@ export default function MyCart(prop) {
           <tfoot>
             <tr>
               <td colSpan="7" className="bg-gray-300 text-center">
-                <span className="text-xl">Pick ME 상품 총 금액: <b>{totalPrice}</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint}</b></span>
+                <span className="text-xl">선택한 상품 금액: <b>{totalPrice.toLocaleString()}원</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint.toLocaleString()}Pick</b></span>
               </td>
             </tr>
           </tfoot>

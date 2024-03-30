@@ -8,6 +8,7 @@ import axios from "axios";
 import MySave from "./MySave";
 import MyInfo from "./MyInfo";
 import MyReview from "./MyReview";
+import MyMainContent from "./MyMainContent";
 
 
 export default function MyMain() {
@@ -83,6 +84,7 @@ export default function MyMain() {
       <div className="flex w-full">
         <MyMainNav />
         <Routes>
+          <Route path='' element={<MyMainContent />} />
           <Route path='cart' element={<MyCart point={topInfo[1]} />} />
           <Route path='payinfo' element={<MyPayinfo />} />
           <Route path='save' element={<MySave />} />

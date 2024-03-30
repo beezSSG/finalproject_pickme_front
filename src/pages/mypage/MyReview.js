@@ -14,7 +14,7 @@ export default function MyReview() {
       headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
     })
     .then((response)=>{
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
       setReview(response.data);
     })
     .catch((err)=>{
@@ -43,9 +43,17 @@ export default function MyReview() {
               <div key={i} className="flex flex-row mt-3 text-2xl text-center align-middle ">
                 <img src={data.url} className="w-[14%]" />
                 <span className="w-[20%]">{data.name}</span>
-                <span className="w-[45%] ml-5 text-left">{data.content}</span>
-                <span className="w-[15%]">{data.rating}점</span>
-                <span className="w-[15%]">{data.productRating}점</span>
+                <span className="w-[45%] pl-5 text-left">{data.content}</span>
+                <span className="w-[15%]">
+                  {Array.from({ length : data.rating }, (_, index) => (
+                    <span key={index}>★</span>
+                  ))}
+                </span>
+                <span className="w-[15%]">
+                  {Array.from({ length : data.productRating }, (_, index) => (
+                    <span key={index}>★</span>
+                  ))}
+                </span>
               </div>
             );
           })
