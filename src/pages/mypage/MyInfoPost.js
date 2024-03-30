@@ -27,9 +27,7 @@ export default function MyInfoPost({updateAddress}) {
   
   return (
     <>
-      <button onClick={onToggleModal}>
-        주소검색
-      </button>
+      <button onClick={onToggleModal} className="border-2 ml-2">주소 검색</button>
       {isOpen && (
         <Modal
           open={true}
