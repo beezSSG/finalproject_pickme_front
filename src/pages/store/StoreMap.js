@@ -15,10 +15,21 @@ import { useEffect, useState } from "react";
 import LeftMenu from "./LeftMenu/LeftMenu";
 
 export default function StoreMap(prop) {
+  const [myLocation, setMyLocation] = useState({});
   const [mapdata, setMapdata] = useState();
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
+    if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition((position) => {
+              setMyLocation({
+                  lat: position.coords.latitude,
+                  lon: position.coords.longitude,
+              });
+          });
+      } else {
+          window.alert("현재위치를 알수 없습니다.");
+      }
     getMapData();
   }, []);
 
@@ -44,11 +55,11 @@ export default function StoreMap(prop) {
         <NaverMap
           // defaultCenter={new navermaps.LatLng(37.3595704, 127.105399)}
           // defaultCenter={new navermaps.LatLng(prop.location.latitude, prop.location.longitude)}
-          defaultCenter={new navermaps.LatLng(35.16591583, 129.1324683)}
+          defaultCenter={new navermaps.LatLng(myLocation.lat, myLocation.lon)}
           defaultZoom={17}
         >
           <Marker
-            position={new navermaps.LatLng(35.16591583, 129.1324683)}
+            position={new navermaps.LatLng(myLocation.lat, myLocation.lon)}
             animation={1}
             icon={{
               content: `<button className="markerBox" style="font-size: 30px">
