@@ -29,7 +29,7 @@ export default function Antdmodal({updateAddress}) {
   
   return (
     <>
-      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-4 me-2 mb-2 dark:focus:ring-yellow-900"
+      <button className="mt-8 p-3 bg-yellow-500 rounded-lg font-bold cursor-pointer hover:bg-yellow-600"
        onClick={onToggleModal}>
         주소찾기
       </button>
@@ -38,6 +38,7 @@ export default function Antdmodal({updateAddress}) {
           open={true}
           onOk={onToggleModal}
           onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+          okButtonProps={{style:{backgroundColor: "rgb(250,204,21)"}}}
         >
           <DaumPostcode onComplete={handleComplete} />
         </Modal>

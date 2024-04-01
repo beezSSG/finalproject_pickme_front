@@ -372,7 +372,7 @@ function OrderChart(){
                                                 {notanswerCcb === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
                                             </h2>
                                             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                                {notanswerCcb === 0 ? '문의 답변 완료' : `답변하지 않은 글이 ${notanswerCcb}개 있어요`}
+                                                {notanswerCcb === 0 ? '문의 답변 완료' : `답변하지 않은 글이 ${notanswerCcb}개 있어요!`}
                                             </h1>
                                         </div>
                                     </div>
@@ -387,14 +387,14 @@ function OrderChart(){
                                             </h1>
                                         </div>
                                     </div> 
-                                    <div className="h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out border-l-[6px] border-red-700"
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${threeCount === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
                                                 onClick={goEvent}>
                                         <div className="w-full">
-                                            <h2 className="text-gray-700 text-[30px] leading-[17px] font-bold">
-                                                <GoAlertFill className="text-red-600" />
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${threeCount === 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {threeCount === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
                                             </h2>
                                             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                                종료까지 3일 이하로 남은 이벤트가 {threeCount}개 있어요!
+                                                {threeCount === 0 ? '이벤트' : `종료까지 3일 이하로 남은 이벤트가 ${threeCount}개 있어요!`}
                                             </h1>
                                         </div>
                                     </div>

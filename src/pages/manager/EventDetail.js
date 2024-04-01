@@ -45,7 +45,6 @@ function EventDetail() {
                                     icon: 'success',
                                     title: '이벤트가 종료되었습니다!',
                                   });
-                                return;
                                  navigate("/event");
                              }
                              else {
