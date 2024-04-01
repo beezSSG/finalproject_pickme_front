@@ -1,87 +1,348 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useState } from "react";
 import Antdmodal from "./Antdmodal";
+import PostModal from "./PostModal";
+import Toast from "../public/Toast";
 
 function Post() {
+
+    let navigate = useNavigate();
+
     const [address, setAddress] = useState({});
     const [toUser, setToUser] = useState("");
-    const [itemPrice, setItemPrice] = useState("");
+    const [toPhone, setToPhone] = useState("");
+    const [itemPrice, setItemPrice] = useState(0);
     const [zonecode, setZonecode] = useState("");
     const [roadAddress, setRoadAddress] = useState("");
+    const [reservationName, setReservationName] = useState("");
+    const [reservationPassword, setReservationPassword] = useState("");
+    const [importantInfo, setImportantInfo] = useState("");
+    const [itemCategory, setItemCategory] = useState("");
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const [showModal, setShowModal] = useState(false);
+    const [selectedOption, setSelectedOption] = useState("");
+
+    const handleConfirmShippingOption = (option) => {
+        setSelectedOption(option);
+    };
 
     function OnSetAddress(data) {
         setAddress(data);
-        // 받아온 address 데이터에서 zonecode와 address를 추출하여 각각의 상태로 설정
         setZonecode(data.zonecode || "");
         setRoadAddress(data.address || "");
     }
 
-    function postreservation() {
+    const handleCategoryChange = (event) => {
+        setItemCategory(event.target.value);
+    };
+
+
+    const addComma = (price) => {
+        let returnString = price?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return returnString;
+    };
+
+    const onChangePoints = (e) => {
+        const { value } = e.target;
+        let str = value.replaceAll(",", "");
+        setItemPrice(str);
+    };
+
+    const Radiovalue = [
+        "무게 : 350g 이하, 동일한 3,200/제주권:6,200",
+        "무게 : 500g 이하, 동일한 3,500/제주권:6,500",
+        "무게 : 700g 이하, 동일한 3,900/제주권:6,900",
+        "무게 : 1kg 이하, 동일한 4,200/제주권:7,200",
+        "무게 : 1.5kg 이하, 동일한 4,700/제주권:7,700",
+        "무게 : 2kg 이하, 동일한 4,900/제주권:7,900",
+        "무게 : 3kg 이하, 동일한 5,100/제주권:8,100",
+        "무게 : 4kg 이하, 동일한 5,400/제주권:8,400",
+        "무게 : 5kg 이하, 동일한 5,700/제주권:8,700",
+        "무게 : 10kg 이하, 동일한 7,100/제주권:10,100",
+        "무게 : 20kg 이하, 동일한 8,800/제주권:11,800"
+    ];
+
+    function postReservation() {
         const toAddress = `${zonecode} ${roadAddress}`;
-        axios.post("http://localhost:8080/api/v1/customer/postreservation", null, {
-            params: { "toAddress": toAddress },
-            headers: { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-        })
-        .then(function (resp) {
-            console.log(resp);
-        })
-        .catch(function () {
-            console.log("error");
-        });
+        axios
+            .post(
+                "http://localhost:8080/api/v1/customer/postreservation",
+                null,
+                {
+                    params: { "toUser":toUser, "toPhone":toPhone, "toAddress": toAddress, "reservationName":reservationName,
+                               "reservationPassword":reservationPassword, "itemCategory":itemCategory,"itemPrice":itemPrice, "itemWeight":selectedOption,
+                               "importantInfo":importantInfo,"totalPrice":totalPrice},
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                    },
+                }
+            )
+            .then(function (resp) {
+                console.log(resp);
+                Toast.fire({
+                    icon: 'success',
+                    title: '성공적으로 예약되었습니다!',
+                  });
+                  navigate("/");
+            })
+            .catch(function () {
+                console.log("error");
+            });
+    }
+
+    function calculateTotalPrice(weight) {
+        let itemPriceNumber = parseInt(itemPrice);
+        let fee = 0;
+        let deliveryPrice = 0;
+
+        if (itemPriceNumber > 500000) {
+            fee = 2500;
+        }
+
+        switch (weight) {
+            case "350g 이하":
+                deliveryPrice = 3200;
+                break;
+            case "500g 이하":
+                deliveryPrice = 3500;
+                break;
+            case "700g 이하":
+                deliveryPrice = 3900;
+                break;
+            case "1kg 이하":
+                deliveryPrice = 4200;
+                break;
+            case "1.5kg 이하":
+                deliveryPrice = 4700;
+                break;
+            case "2kg 이하":
+                deliveryPrice = 4900;
+                break;
+            case "3kg 이하":
+                deliveryPrice = 5100;
+                break;
+            case "4kg 이하":
+                deliveryPrice = 5400;
+                break;
+            case "5kg 이하":
+                deliveryPrice = 5700;
+                break;
+            case "10kg 이하":
+                deliveryPrice = 7100;
+                break;
+            case "20kg 이하":
+                deliveryPrice = 8800;
+                break;
+            default:
+                deliveryPrice = 0;
+                break;
+        }
+
+        if (roadAddress.includes('제주')) {
+            deliveryPrice+=3000;
+        }
+
+        setTotalPrice(fee + deliveryPrice);
     }
 
     return (
         <>
             <div className="max-w-[1200px] mx-auto">
-                <div className='text-4xl font-bold mt-[70px]'>택배 예약 신청</div><br />
-                <hr className="border-gray-500" /><br /><br />
+                <div className="text-4xl font-bold mt-[70px]">
+                    택배 예약 신청
+                </div>
+                <div className="text-red-500 font-bold">
+                ※최대 3일 이내로 해당 편의점으로 가져다주세요!
+                </div>
+                <br />
+                <hr className="border-gray-500" />
+                <br />
+                <br />
                 <div>
-                    <div>
-                        <label htmlFor="toUser" className="font-bold text-2xl mr-6 ml-7">받는분 :</label>
-                        <input
+                    <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
+                        <div>
+                            <label htmlFor="toUser" className="font-bold text-2xl">
+                                받는분 :
+                            </label>
+                            <input
+                                type="text"
+                                id="toUser"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                value={toUser}
+                                onChange={(e) => setToUser(e.target.value)}
+                            />
+                        </div>
+                        <div>
+                            <label htmlFor="toPhone" className="font-bold text-2xl">
+                                전화번호 :
+                            </label>
+                            <input
+                                type="text"
+                                id="toPhone"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                value={toPhone}
+                                onChange={(e) => setToPhone(e.target.value)}
+                            />
+                        </div>
+                    </div>
+                    <br />
+
+                    <div className="flex space-x-5">
+                        <div>
+                            <label className="font-bold text-2xl">
+                                주소 :
+                            </label>
+                            <input
+                                type="text"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                value={zonecode}
+                                onChange={(e) =>
+                                    setZonecode(e.target.value)
+                                }
+                                readOnly
+                            />
+                        </div>
+                        {/* 주소 찾기 모달 */}
+                        <div>
+                            <Antdmodal updateAddress={OnSetAddress} />
+                        </div>
+                    </div>
+                    <br/>
+                    <input
                             type="text"
-                            id="toUser"
-                            className="rounded-xl border-2 border-gray-400 p-3 w-[300px] cursor-pointer ml-8 focus:outline-none focus:border-yellow-400"
-                            value={toUser}
-                            onChange={(e)=>setToUser(e.target.value)}
-                        />
-                    </div><br />
-                    <div>
-                        <label className="font-bold text-2xl ml-[52px]">주소 :</label>
-                        <input
-                            type="text"
-                            className="rounded-xl border-2 border-gray-400 p-3 w-[300px] cursor-pointer ml-14 mb-3 focus:outline-none focus:border-yellow-400"
-                            value={zonecode} 
-                            onChange={(e) => setZonecode(e.target.value)}
+                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                            value={roadAddress}
+                            onChange={(e) =>
+                                setRoadAddress(e.target.value)
+                            }
                             readOnly
-                        /><br/>
+                        />
+                    <br/><br/>
+                    <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
+                        <div>
+                            <label
+                                htmlFor="reservationName"
+                                className="font-bold text-2xl"
+                            >
+                                예약명 :
+                            </label>
+                            <input
+                                type="text"
+                                id="reservationName"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                value={reservationName}
+                                onChange={(e) =>
+                                    setReservationName(e.target.value)
+                                }
+                            />
+                        </div>
+                        <div>
+                            <label
+                                htmlFor="reservationPassword"
+                                className="font-bold text-2xl"
+                            >
+                                비밀번호 :
+                            </label>
+                            <input
+                                type="password"
+                                id="reservationPassword"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                value={reservationPassword}
+                                onChange={(e) =>
+                                    setReservationPassword(e.target.value)
+                                }
+                            />
+                        </div>
+                    </div>
+                    <br />
+                    <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
+                        <div>
+                            <label
+                                className="font-bold text-2xl"
+                            >
+                                물품 정보:
+                            </label>
+                            <select
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                onChange={handleCategoryChange}
+                            >
+                                <option>품목선택</option>
+                                <option value="가전제품류">가전제품류</option>
+                                <option value="의류">의류</option>
+                                <option value="과일류">과일류</option>
+                                <option value="곡물류">곡물류</option>
+                                <option value="한약류">한약류</option>
+                                <option value="식품류">식품류</option>
+                                <option value="잡화/서적류">잡화/서적류</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                className="font-bold text-2xl"
+                            >
+                                물품 가격 :
+                            </label>
+                            <div className="focus:border-yellow-400">
+                                <div className="flex justify-between rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400">
+                                    <input
+                                        type="text"
+                                        onChange={(e) => onChangePoints(e)}
+                                        value={addComma(itemPrice) || ""}
+                                        placeholder="물품가격"
+                                        className="focus:outline-none focus:border-non"
+                                    />
+                                    <span className="font-bold">원</span>
+                                </div>
+                                <p className="text-base text-red-500 text-left">
+                                    ※50만원 초과시 할증료 2,500원 부과됩니다.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div>
+                        <label htmlFor="importantInfo" className="font-bold text-2xl">
+                            요청사항 :
+                        </label>
                         <input
                             type="text"
-                            className="rounded-xl border-2 border-gray-400 p-3 w-[300px] cursor-pointer ml-[168px] mr-4 focus:outline-none focus:border-yellow-400"
-                            value={roadAddress} 
-                            onChange={(e) => setRoadAddress(e.target.value)}
-                            readOnly
+                            id="importantInfo"
+                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                            value={importantInfo}
+                            onChange={(e) => setImportantInfo(e.target.value)}
                         />
-                        <Antdmodal updateAddress={OnSetAddress} />
-                    </div><br />
-                    <div className="flex">
-                        <span className="font-bold text-2xl mr-[50px] text-center pt-1">물품 가격 :</span>
-                        <div className="flex space-x-[74px] rounded-xl border-2 border-gray-400 p-3 w-[300px] cursor-pointer  focus:outline-none focus:border-yellow-400">
-                        <input
-                            type="text"      
-                            value={itemPrice}
-                            onChange={(e)=>setItemPrice(e.target.value)}
-                            placeholder="물품가격"
-                            className="focus:outline-none focus:border-non"
+                    </div><br/>
+                    <div>
+                        <div className="text-center flex flex-col md:flex-row md:items-center md:justify-between">
+                            <span className="font-bold text-2xl mb-4 md:mb-0">
+                                택배운임을 선택해주세요.
+                            </span>
+                            <button className="cursor-pointer bg-yellow-500 rounded-xl font-bold p-2 hover:bg-yellow-600"
+                            onClick={() => setShowModal(true)}>
+                                선택하기
+                            </button>
+                        </div>
+                        <PostModal 
+                            isOpen={showModal}
+                            onClose={() => setShowModal(false)}
+                            onConfirm={handleConfirmShippingOption}
+                            Radiovalue={Radiovalue} // Radiovalue 전달
                         />
-                        <span className="font-bold">원</span>
-                        </div>                                                                                                                                   
-                    </div><br />
-
-
-
-
-                    <div><button onClick={postreservation}>버튼</button></div>
+                    </div><br/><br/>   
+                    <div className="flex justify-between">
+                            <span className="font-bold text-lg">선택한 운임: {selectedOption}</span>
+                        
+                    <button className="bg-gray-700 rounded-xl p-2 font-bold text-white"
+                        onClick={()=>calculateTotalPrice(selectedOption)}>결제금액 계산</button>
+                    </div><br/>
+                    <hr className=" border-gray-500" /><br/><br/>
+                    <p className="text-right">최종 결제 금액: {totalPrice}원</p><br/><br/>
+                    <div className="text-center">
+                        <button className="bg-yellow-500 rounded-xl p-2 font-bold w-[30%]"
+                        onClick={postReservation}>예약 신청</button>
+                    </div>
                 </div>
             </div>
         </>
@@ -89,4 +350,3 @@ function Post() {
 }
 
 export default Post;
-
