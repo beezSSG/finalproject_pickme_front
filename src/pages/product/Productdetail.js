@@ -26,6 +26,43 @@ function Productdetail(){
         setModalIsOpen(true);
     };
 
+//    const[recentlyProduct, RecentlyProduct] = useState(); // 최근본 상품
+
+
+    useEffect(() => {
+      getProduct(params.id);
+      productReviewList(params.id);
+
+      zzimCheck(params.id);
+
+      recentlyProduct(params.id);
+
+    }, []);
+
+    // 최근본 상품 기능
+    function recentlyProduct(id) { 
+      let set_product = localStorage.getItem("recentlyProduct");
+      if (set_product === null) {
+        set_product = [];
+      } else {
+        set_product = JSON.parse(set_product);
+      }
+
+      if (set_product.length === 10 || set_product.length === "10") { // 최근본 상품이 11개 일때
+        set_product.pop();
+        set_product.unshift(id);
+        set_product = new Set(set_product);
+        set_product = [...set_product];
+        localStorage.setItem("recentlyProduct", JSON.stringify(set_product));
+      } else {  // 최근본 상품이 10개 이하
+        set_product.unshift(id);
+        set_product = new Set(set_product);
+        set_product = [...set_product];
+        localStorage.setItem("recentlyProduct", JSON.stringify(set_product));
+      }
+      
+    }
+
     // 찜 상품인지 아닌지 ~
     const [zzim, setZzim] = useState(false);
 

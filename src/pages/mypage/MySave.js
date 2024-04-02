@@ -31,18 +31,8 @@ export default function MySave() {
   return (
     <div className="flex-row w-[82%]">
       <p className="text-center font-bold text-xl">찜목록</p>
-      <div className="w-[70%] mx-auto grid grid-cols-3 gap-11 sm:grid-cols-1 md:grid-cols-2">
+      <div className="w-[70%] mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
       { data && data.map((product, i) => {
-        let changePrice;
-        let cost = product.price.toString();
-        // comma(product.price.toString());
-        if (cost.length === 4 ) {
-          changePrice = cost.slice(0, 1) + ',' + cost.slice(1) + '원';
-        } else if (cost.length === 5 ) {
-          changePrice = cost.slice(0, 2) + ',' + cost.slice(2) + '원';
-        } else if (cost.length === 6 ) {
-          changePrice = cost.slice(0, 3) + ',' + cost.slice(3) + '원';
-        }
         return (
           <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
             <div className='mt-5'>
@@ -50,7 +40,7 @@ export default function MySave() {
                 <img src={product.url} className="mx-auto w-[60%]" />
               </Link>
               <p className='mt-5'>{product.name}</p>
-              <p>{changePrice}</p>
+              <p>{product.price.toLocaleString()}원</p>
               <p>
                 {Array.from({ length: product.productRating }, (_, index) => (
                   <span key={index}>★</span>

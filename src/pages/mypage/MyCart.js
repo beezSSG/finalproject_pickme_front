@@ -242,10 +242,10 @@ export default function MyCart(prop) {
               <th className="w-[150px]">상품 사진</th>
               <th className="w-[650px]">상품명</th>
               {/* 편의점 이름 추가 */}
-              <th className="w-[70px]">가격</th>
-              <th className="w-[80px]">총 가격</th>
-              <th className="w-[90px]">수량</th>
-              <th className="w-[50px]">삭제</th>
+              <th className="w-[7%]">가격</th>
+              <th className="w-[7%]">총 가격</th>
+              <th className="w-[5%]">수량</th>
+              <th className="w-[5%]">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -259,8 +259,8 @@ export default function MyCart(prop) {
                     </td>
                     <td><img src={data.productUrl} className="w-[150px] " /></td>
                     <td className="text-xl font-medium">{data.productName}</td>
-                    <td className="text-right text-lg">{data.productPrice}</td>
-                    <td className="text-right text-lg">{productTotalPrice}</td>
+                    <td className="text-right text-lg">{data.productPrice.toLocaleString()}원</td>
+                    <td className="text-right text-lg">{productTotalPrice.toLocaleString()}원</td>
                     <td className="text-center text-lg">
                       <button onClick={() => {minusQuantity(`${data.quantity}`, `${data.sproductId}`)} }>-</button>
                       &nbsp;{data.quantity}
@@ -277,7 +277,7 @@ export default function MyCart(prop) {
           <tfoot>
             <tr>
               <td colSpan="7" className="bg-gray-300 text-center">
-                <span className="text-xl">Pick ME 상품 총 금액: <b>{totalPrice}</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint}</b></span>
+                <span className="text-xl">선택한 상품 금액: <b>{totalPrice.toLocaleString()}원</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint.toLocaleString()}Pick</b></span>
               </td>
             </tr>
           </tfoot>
