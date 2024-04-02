@@ -34,6 +34,7 @@ import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 import MyMain from './pages/mypage/MyMain';
 import Post from './pages/customerservice/Post';
+import ProductReservation from './pages/customerservice/ProductReservation';
 
 
 function App() {
@@ -80,6 +81,7 @@ function App() {
               <Route path='/LoginKakao' element={<LoginKakao />} />
               <Route path='/LoginNaver' element={<LoginNaver />} />
               <Route path='/post' element={<Post />} />
+              <Route path='/productreservation' element={<ProductReservation />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
