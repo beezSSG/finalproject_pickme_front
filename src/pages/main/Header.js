@@ -1,6 +1,9 @@
 
 // import logoImg from '../../assets/imgs/logo/logo.svg';
 import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
+import Toast from '../public/Toast';
+import { useState } from 'react';
+
 
 function Header() {
 
@@ -28,8 +31,16 @@ function Header() {
         window.location.replace("http://localhost:3000/");
     }
 
+
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    };
+
     const menuLinks = ["/about", "/productlist", "/store", "/post", "/event", "/customercenter"];
     const menuNames = ["서비스소개", "상품", "매장찾기", "서비스", "이벤트", "고객센터"];
+
 
     return (
         <div className="mx-auto pt-6 pb-4 sm:px-4 sm:py-0 lg:px-8 
@@ -50,7 +61,16 @@ function Header() {
                         {/* <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/about">서비스소개</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/productlist">상품</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/post">서비스</a>
+                        <div className="relative inline-block">
+                            <button onClick={toggleDropdown} className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus:outline-none">서비스</button>
+                            {isOpen && (
+                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+                                    <a href="/post" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">택배 예약</a>
+                                    <a href="/productreservation" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">상품 예약</a>
+                                </div>
+                            )}
+                        </div>
+
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/event">이벤트</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
                         <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a> */}

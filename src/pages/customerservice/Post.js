@@ -24,6 +24,8 @@ function Post() {
     const [showModal, setShowModal] = useState(false);
     const [selectedOption, setSelectedOption] = useState("");
 
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+
     const handleConfirmShippingOption = (option) => {
         setSelectedOption(option);
     };
@@ -65,31 +67,40 @@ function Post() {
     ];
 
     function postReservation() {
-        const toAddress = `${zonecode} ${roadAddress}`;
-        axios
-            .post(
-                "http://localhost:8080/api/v1/customer/postreservation",
-                null,
-                {
-                    params: { "toUser":toUser, "toPhone":toPhone, "toAddress": toAddress, "reservationName":reservationName,
-                               "reservationPassword":reservationPassword, "itemCategory":itemCategory,"itemPrice":itemPrice, "itemWeight":selectedOption,
-                               "importantInfo":importantInfo,"totalPrice":totalPrice},
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem("jwt")}`,
-                    },
-                }
-            )
-            .then(function (resp) {
-                console.log(resp);
-                Toast.fire({
-                    icon: 'success',
-                    title: '성공적으로 예약되었습니다!',
-                  });
-                  navigate("/");
-            })
-            .catch(function () {
-                console.log("error");
-            });
+        // 모달을 띄워서 사용자에게 정보 입력 확인
+        setShowConfirmModal(true);
+    }
+
+    function confirmReservation(confirm) {
+        setShowConfirmModal(false);
+        if (confirm) {
+            // 입력된 정보가 정확하다면 예약 요청 보내기
+            const toAddress = `${zonecode} ${roadAddress}`;
+            axios
+                .post(
+                    "http://localhost:8080/api/v1/customer/postreservation",
+                    null,
+                    {
+                        params: { "toUser":toUser, "toPhone":toPhone, "toAddress": toAddress, "reservationName":reservationName,
+                                   "reservationPassword":reservationPassword, "itemCategory":itemCategory,"itemPrice":itemPrice, "itemWeight":selectedOption,
+                                   "importantInfo":importantInfo,"totalPrice":totalPrice},
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem("jwt")}`,
+                        },
+                    }
+                )
+                .then(function (resp) {
+                    console.log(resp);
+                    Toast.fire({
+                        icon: 'success',
+                        title: '성공적으로 예약되었습니다!',
+                      });
+                      navigate("/");
+                })
+                .catch(function () {
+                    console.log("error");
+                });
+        }
     }
 
     function calculateTotalPrice(weight) {
@@ -171,6 +182,7 @@ function Post() {
                                 id="toUser"
                                 className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
                                 value={toUser}
+                                placeholder="이름"
                                 onChange={(e) => setToUser(e.target.value)}
                             />
                         </div>
@@ -183,6 +195,7 @@ function Post() {
                                 id="toPhone"
                                 className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
                                 value={toPhone}
+                                placeholder="전화번호"
                                 onChange={(e) => setToPhone(e.target.value)}
                             />
                         </div>
@@ -201,6 +214,7 @@ function Post() {
                                 onChange={(e) =>
                                     setZonecode(e.target.value)
                                 }
+                                placeholder="우편번호"
                                 readOnly
                             />
                         </div>
@@ -217,6 +231,7 @@ function Post() {
                             onChange={(e) =>
                                 setRoadAddress(e.target.value)
                             }
+                            placeholder="도로명 주소"
                             readOnly
                         />
                     <br/><br/>
@@ -236,6 +251,7 @@ function Post() {
                                 onChange={(e) =>
                                     setReservationName(e.target.value)
                                 }
+                                placeholder="예약명"
                             />
                         </div>
                         <div>
@@ -253,6 +269,7 @@ function Post() {
                                 onChange={(e) =>
                                     setReservationPassword(e.target.value)
                                 }
+                                placeholder="비밀번호"
                             />
                         </div>
                     </div>
@@ -312,6 +329,7 @@ function Post() {
                             className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
                             value={importantInfo}
                             onChange={(e) => setImportantInfo(e.target.value)}
+                            placeholder="요청사항을 입력해주세요."
                         />
                     </div><br/>
                     <div>
@@ -345,8 +363,40 @@ function Post() {
                     </div>
                 </div>
             </div>
+
+            {/* 입력 정보 확인 모달 */}
+            {showConfirmModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65">
+                    <div className="relative w-auto my-6 mx-auto max-w-3xl">
+                        <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white">
+                            {/* 모달 내용 */}
+                            <div className="relative p-6 flex-auto ">
+                                <p className="font-bold">입력된 정보가 정확합니까?</p>
+                            </div>
+                            {/* 모달 푸터 */}
+                            <div className="flex justify-center p-2 rounded-b">
+                                <button
+                                    className="bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-8 py-3 mr-1 mb-1 rounded-xl cursor-pointer"
+                                    type="button"
+                                    onClick={() => confirmReservation(true)}
+                                >
+                                    네
+                                </button>
+                                <button
+                                    className="bg-gray-700 text-white active:bg-gray-900 font-bold text-sm px-6 py-3  mr-1 mb-1 rounded-xl"
+                                    type="button"
+                                    onClick={() => confirmReservation(false)}
+                                >
+                                    아니오
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </>
     );
 }
 
 export default Post;
+
