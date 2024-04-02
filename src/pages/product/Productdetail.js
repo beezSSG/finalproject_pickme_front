@@ -164,10 +164,10 @@ function Productdetail(){
 
     }, []);
 
-
     if(loading === false){
         return <div>loading...</div>;
     }
+  
 
     // 찜 체크
     async function zzimCheck(productId){
