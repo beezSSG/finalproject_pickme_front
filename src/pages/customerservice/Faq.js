@@ -65,7 +65,7 @@ function Faq() {
     function faqcreate() {
         navigate('/faqcreate');
     }
-
+ 
     const handleCheckboxChange = (faqid) => {
         setIsChecked(!isChecked); // 체크 상태를 토글
         faqreadcount(faqid);

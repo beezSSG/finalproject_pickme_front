@@ -1,31 +1,27 @@
 {
   "res": [
     {
-      "title": "주문내역",
+      "title": "Pick pay",
       "subtitle": [
-        { "subname": "결제정보", "subpath": "payinfo" },
-        { "subname": "결제취소", "subpath": "paycancel" },
-        { "subname": "모바일 영수증", "subpath": "receipt " },
-        { "subname": "결제정보저장", "subpath": 1644627600 }
-      ]
-    },
-    {
-      "title": "서비스 이용현황",
-      "subtitle": [
-        { "subname": "편의점 픽업", "subpath": "/pickup" },
-        { "subname": "편의점 배달", "subpath": "/delivery" },
-        { "subname": "편의점 택배예약", "subpath": "/post" },
-        { "subname": "편의점 상품예약", "subpath": "/product" }
-      ]
-    },
-    {
-      "title": "활동정보",
-      "subtitle": [
+        { "subname": "결제내역", "subpath": "payinfo" },
         { "subname": "장바구니", "subpath": "cart" },
         { "subname": "선물함", "subpath": "gift" },
-        { "subname": "나의 후기", "subpath": "review" },
+        { "subname": "포인트", "subpath": "point" },
+        { "subname": "쿠폰함", "subpath": "coupon" }
+      ]
+    },
+    {
+      "title": "내 활동",
+      "subtitle": [
         { "subname": "찜목록", "subpath": "save" },
-        { "subname": "포인트", "subpath": "point" }
+        { "subname": "나의 후기", "subpath": "review" }
+      ]
+    },
+    {
+      "title": "서비스 이용",
+      "subtitle": [
+        { "subname": "편의점택배 예약", "subpath": "/post" },
+        { "subname": "상품예약 구매", "subpath": "/product" }
       ]
     },
     {

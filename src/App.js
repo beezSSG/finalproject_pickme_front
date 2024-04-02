@@ -34,9 +34,23 @@ import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 import MyMain from './pages/mypage/MyMain';
 import Post from './pages/customerservice/Post';
+import ProductReservation from './pages/customerservice/ProductReservation';
 
 
 function App() {
+
+  function requestPermission() {
+    console.log("권한 요청 중...");
+    Notification.requestPermission().then((permission) => {
+      if (permission === "granted") {
+        console.log("알림 권한이 허용됨");
+  
+        // FCM 메세지 처리
+      } else {
+        console.log("알림 권한 허용 안됨");
+      }
+    });
+  }
 
   return (
     <>
@@ -67,6 +81,7 @@ function App() {
               <Route path='/LoginKakao' element={<LoginKakao />} />
               <Route path='/LoginNaver' element={<LoginNaver />} />
               <Route path='/post' element={<Post />} />
+              <Route path='/productreservation' element={<ProductReservation />} />
               <Route path='/productlist' element={<Productlist />} />
               <Route path='/productdetail/:id' element={<Productdetail />} />
 
