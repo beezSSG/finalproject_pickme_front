@@ -56,7 +56,7 @@ jobs:
           git config user.name "rok-won"
           git config user.email "looky1254@naver.com"
           git add .
-          git commit -m "Update file.txt by GitHub Actions"
+          git commit -m "Update pickme by GitHub Actions"
 
       - name: Push finalproject_pickme_front
         run: |
