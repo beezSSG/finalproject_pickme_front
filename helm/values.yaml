@@ -1,0 +1,3 @@
+"replicaCount": "1"
+"image": "709745608741.dkr.ecr.ap-northeast-2.amazonaws.com/pickme_front:7aa64cb426be6ed1e444d1206b5edd3261efcce4"
+"host": "front.pickme-ssg.com"
