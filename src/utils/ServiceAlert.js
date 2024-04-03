@@ -1,13 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import "./firebase-messaging-sw.js";
-import { AuthProvider } from './utils/AuthProvider';
-
-import MainHome from './pages/main/MainHome.js';
-import Manager from './pages/manager/Manager.js';
-
-function App() {
-  
-  /* 알림 서비스
+export function homeAlertHandle() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration) {
       // 서비스 워커 등록 성공
@@ -26,21 +17,4 @@ function App() {
       console.log('ServiceWorker registration failed: ', err);
     });
   }
-  */
-
-
-  return (
-    <>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route path='/*' element={<MainHome />} />
-            <Route path='/manager' element={<Manager/>} />
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
-    </>
-  );
 }
-
-export default App;

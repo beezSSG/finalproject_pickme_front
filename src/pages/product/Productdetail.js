@@ -5,9 +5,8 @@ import axios from 'axios';
 import MatchedStoreList from '../store/MatchedStoreList';
 import Toast from "../public/Toast";
 
-import emptyHeart from "../../assets/imgs/product/emptyHeart.png";
-import fullHeart from "../../assets/imgs/product/fullHeart.png";
 import star2 from "../../assets/imgs/product/star2.png";
+import { CgProfile } from "react-icons/cg";
 
 
 function Productdetail(){
@@ -15,9 +14,6 @@ function Productdetail(){
 
     const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서  
     const [product, setProduct] = useState();
-
-    // 댓글 목록
-    const[reviewList, setReviewList] = useState([]);
   
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
     const [loading, setLoading] = useState(false); 
@@ -69,6 +65,15 @@ function Productdetail(){
 
     // 찜 상품인지 아닌지 ~
     const [zzim, setZzim] = useState(false);
+
+
+    // 후기 변수
+    const[reviewContent, setReviewContent] = useState("");
+    const[reviewRating, setReviewRating] = useState(5);
+    const[reviewCnt, setReviewCnt] = useState(0);
+    const[productRating, setProductRating] = useState(0);
+    // 후기 목록
+    const[reviewList, setReviewList] = useState([]);
       
     async function getProduct(id){
         await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
@@ -84,20 +89,86 @@ function Productdetail(){
             })
     };
 
-    // 후기 목록 불러오기
-    async function productReviewList(id){
-        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
+    // 후기 등록
+    async function reviewInsert(){
+        if(reviewContent === ""){
+            Toast.fire({
+                icon: 'warning',
+                title: "내용을 입력하세요.",
+              });
+              return;
+        }
+
+        if(`${localStorage.getItem('jwt')}` === null){
+            Toast.fire({
+                icon: 'warning',
+                title: "로그인 후 이용 가능합니다",
+              });
+              return;
+        }
+
+        await axios.get("http://localhost:8080/api/v1/review/reviewInsert",
+            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating },
+            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+             .then((resp)=>{
+                Toast.fire({
+                    icon: 'success',
+                    title: "후기 등록 완료!",
+                  });
+                setReviewContent("");
+                productRatingAvg(id);
+                setProductRating(product.productRating);
+                productReviewList(id);
+            })
+            .catch(()=>{
+                alert('error');
+            })
+    };
+
+    // 후기 등록 시 별점 체크
+    const handleRatingChange = (event) => {
+        const selectedRating = parseInt(event.target.value);
+        setReviewRating(selectedRating);
+    };
+
+    // 후기 평점 업데이트 후, 후기 수 반환
+    async function productRatingAvg(id){
+        await axios.get("http://localhost:8080/api/v1/review/productRatingAvg", { params:{ "productId":id }})
         .then((resp)=>{
-        setReviewList(resp.data);
+        setReviewCnt(resp.data);
         })
         .catch(()=>{
         alert('error');
         })
     };
 
+
+    // 후기 목록 불러오기
+    async function productReviewList(id){
+        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
+        .then((resp)=>{
+            setReviewList(resp.data);
+        })
+        .catch(()=>{
+        alert('error');
+        })
+    };
+
+  
+    useEffect(() => {
+        getProduct(params.id);
+        productReviewList(params.id);
+
+        zzimCheck(params.id);
+        productRatingAvg(params.id);
+
+
+    }, []);
+  
     if(loading === false){
         return <div>loading...</div>;
     }
+  
 
     // 찜 체크
     async function zzimCheck(productId){
@@ -177,17 +248,17 @@ function Productdetail(){
 
     return(        
         <div align="center">
-            <div className="prodDetail rounded-xl border border-spacing-2 p-3" style={{ width: '1060px', height: '450px', display: 'flex' }}>
+            <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 sm:m-5 flex sm:flex-wrap ">
                 
-                <div class="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
+                <div name="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
                     <img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} />
                     
                 </div>
 
-                <div class="prodDetailText" className='ml-20'>
-                    <p class="tit" className='font-bold mt-20 mb-5 text-3xl '> <td>{product.name}</td> </p>
+                <div name="prodDetailText" className='ml-20'>
+                    <p name="tit" className='font-bold mt-20 mb-5 text-3xl '> {product.name} </p>
                     <hr/><br/>
-                    <div class="prodInfo" >
+                    <div name="prodInfo" >
                         <dl className="ml-5" style={{ display: 'flex' }}>
                             <dt  className='font-bold text-xl mb-8'>가격</dt>
                             <dd className='ml-8 text-xl'>
@@ -238,52 +309,81 @@ function Productdetail(){
             <br/><br/><hr/><br/>
 
             {/* 후기 나타나는 table */}
-            <div class="prodReview">
+            
+            <div className="prodReview rounded-xl p-3 mx-48 sm:m-5 sm:flex-wrap ">
 
-                <div class="prodReviewHeader">
-
+                <div name="prodReviewHeader " align="left" style={{ width: '750px'}}>
+                    <p className='font-bold text-xl mb-2'>상품평</p>                                    
+                </div>
+                <div name="prodReviewAvg" align="left" style={{ width: '750px', display: 'flex'}}>
+                    {Array.from({ length: product.productRating }, (_, index) => (
+                    <span key={index} style={{ display: 'inline-block' }}>
+                        <img src={star2} style={{ maxWidth: '30px', maxHeight: '30px', margin: '3px' }} />                        
+                    </span>
+                    ))}
+                    <p className='ml-2 text-2xl'>({reviewCnt})</p>
                 </div>
 
-                <div class="prodReviewList">
-                {
-                    reviewList &&
-                    reviewList.map(function(list, i){
-                    return (
-                    <tbody key={i}>                    
-                        <tr>
-                            <td>상품 후기</td>
-                            <td>평점</td>
-                        </tr>
-                        <tr>                    
-                        <td>작성자:&nbsp;&nbsp;{list.customerId}</td>
-                        <td>
-                            {Array.from({ length: list.rating }, (_, index) => (
-                                <span key={index} style={{ display: 'inline-block' }}>
-                                    <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '2px' }} />
-                                </span>
-                            ))}
-                        </td>
-                        </tr>
-                        <tr>
-                        <td colSpan='2'>{list.content}</td>
-                        </tr>
-                        <tr>
-                        <td colSpan='2'>&nbsp;</td>
-                        </tr>
-                    </tbody>
-                    );
-                    })
-                }  
+                {localStorage.getItem('jwt') !== null && !reviewList.some(review => review.userId === parseInt(localStorage.getItem('userId'))) && (
+                <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ width: '800px', height: '110px' }}>
+                    <div name="writerInbox">
+                        <textarea placeholder='후기를 남겨보세요' rows={2}
+                                style={{overflow: 'hidden', overflowWrap: 'break-word', width: '700px', height: '50px', resize: 'none', outline: 'none'}}
+                                value={reviewContent}
+                                onChange={(e) => setReviewContent(e.target.value)} />
+                    </div>
+                    <div name="writerAttach" className="flex justify-between">
+                        <div className="flex items-center me-2 mb-2">
+                        <select className="ml-2 border border-gray-300 rounded-md px-2 py-1 focus:outline-none text-yellow-500"
+                                style={{ maxWidth: '120px' }}
+                                value={reviewRating}
+                                onChange={handleRatingChange}>
+                            <option key="selectStars" value={5}>★★★★★</option>
+                            <option key="selectStars" value={4}>★★★★</option>
+                            <option key="selectStars" value={3}>★★★</option>
+                            <option key="selectStars" value={2}>★★</option>
+                            <option key="selectStars" value={1}>★</option>
+                        </select>
+                        </div>
+                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-2 py-1 me-2 mb-2
+                                                    dark:focus:ring-yellow-900"onClick={()=>(reviewInsert())}>
+                                                    등록
+                        </button>
+                    </div>                    
+                </div>
+                )}
+                
+                <div name="prodReviewList" className='mt-10'>
+                    {reviewList &&
+                        reviewList.map(function(list, i) {
+                            const blindName = list.name.substring(0, 1) + '*' + list.name.substring(list.name.length - 1, list.name.length);
+                            return (
+                                <div key={i} >
+                                    <div name="reviewListProfile" className='flex sm:flex-wrap p-5 bg-orange-100' style={{ maxWidth: '800px' }}>
+                                        <CgProfile size="40" color="#51abf3"/>
+                                        <div className='ml-2 text-left w-[100px]'>
+                                            <p>{blindName}</p>
+                                            <p>
+                                                {Array.from({ length: list.rating }, (_, index) => (
+                                                    <span key={index} style={{ display: 'inline-block' }}>
+                                                        <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '2px' }} />
+                                                    </span>
+                                                ))}
+                                            </p>
+                                        </div>
+                                        <div className='ml-20 text-left'>                                            
+                                            <p>{list.content}</p>
+                                        </div>
+                                    </div>
+                                    
+                                    <p>&nbsp;</p>
+                                </div>
+                            );
+                        })}
                 </div>
 
             </div>
-
-            <table>
-            <colgroup>
-                <col width="500"/><col width="500"/>
-            </colgroup>
-            
-            </table>
 
         </div>
     )
