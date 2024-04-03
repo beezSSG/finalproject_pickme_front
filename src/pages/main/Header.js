@@ -52,28 +52,21 @@ function Header() {
                 </a>
                 <div className="flex items-center">
                     <div className="lg:block hidden">
-                        {
-                        
-                            menuNames.map((menu, i)=>(
-                                <a key={i} className="inline-block rounded-lg px-3 font-medium text-slate-500 text-2xl md:text-base hover:text-slate-900" href={ menuLinks[i] }>{ menu }</a>
-                            ))
-                        }
-                        {/* <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/about">서비스소개</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/productlist">상품</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
-                        <div className="relative inline-block">
-                            <button onClick={toggleDropdown} className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900 focus:outline-none">서비스</button>
-                            {isOpen && (
-                                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
-                                    <a href="/post" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">택배 예약</a>
-                                    <a href="/productreservation" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">상품 예약</a>
+                        {menuNames.map((menu, i) => (
+                            menu === '서비스' ? (
+                                <div key={i} className="relative inline-block">
+                                    <button onClick={toggleDropdown} className="inline-block rounded-lg px-3 font-medium text-slate-500 text-2xl md:text-base hover:text-slate-900 focus:outline-none">{menu}</button>
+                                    {isOpen && (
+                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
+                                            <a href="/post" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">택배 예약</a>
+                                            <a href="/productreservation" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">상품 예약</a>
+                                        </div>
+                                    )}
                                 </div>
-                            )}
-                        </div>
-
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/event">이벤트</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a> */}
+                            ) : (
+                                <a key={i} className="inline-block rounded-lg px-3 font-medium text-slate-500 text-2xl md:text-base hover:text-slate-900" href={menuLinks[i]}>{menu}</a>
+                            )
+                        ))}
                     </div>
                 </div>
 

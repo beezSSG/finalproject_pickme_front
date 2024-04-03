@@ -75,3 +75,7 @@ npm i pretendard
 # tailwind ui lib
 npm install @headlessui/react
 
+# 리엑트 무한 스크롤
+npm install --save react-infinite-scroll-component
+
+```

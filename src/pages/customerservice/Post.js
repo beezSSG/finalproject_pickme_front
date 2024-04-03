@@ -160,7 +160,7 @@ function Post() {
 
     return (
         <>
-            <div className="max-w-[1200px] mx-auto">
+            <div className="max-w-[1200px] mx-auto px-3">
                 <div className="text-4xl font-bold mt-[70px]">
                     택배 예약 신청
                 </div>
@@ -175,12 +175,12 @@ function Post() {
                     <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
                         <div>
                             <label htmlFor="toUser" className="font-bold text-2xl">
-                                받는분 :
+                                받는분
                             </label>
                             <input
                                 type="text"
                                 id="toUser"
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 value={toUser}
                                 placeholder="이름"
                                 onChange={(e) => setToUser(e.target.value)}
@@ -188,12 +188,12 @@ function Post() {
                         </div>
                         <div>
                             <label htmlFor="toPhone" className="font-bold text-2xl">
-                                전화번호 :
+                                전화번호
                             </label>
                             <input
                                 type="text"
                                 id="toPhone"
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 value={toPhone}
                                 placeholder="전화번호"
                                 onChange={(e) => setToPhone(e.target.value)}
@@ -205,11 +205,11 @@ function Post() {
                     <div className="flex space-x-5">
                         <div>
                             <label className="font-bold text-2xl">
-                                주소 :
+                                주소
                             </label>
                             <input
                                 type="text"
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 value={zonecode}
                                 onChange={(e) =>
                                     setZonecode(e.target.value)
@@ -226,7 +226,7 @@ function Post() {
                     <br/>
                     <input
                             type="text"
-                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 "
                             value={roadAddress}
                             onChange={(e) =>
                                 setRoadAddress(e.target.value)
@@ -241,12 +241,12 @@ function Post() {
                                 htmlFor="reservationName"
                                 className="font-bold text-2xl"
                             >
-                                예약명 :
+                                예약명
                             </label>
                             <input
                                 type="text"
                                 id="reservationName"
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 value={reservationName}
                                 onChange={(e) =>
                                     setReservationName(e.target.value)
@@ -259,12 +259,12 @@ function Post() {
                                 htmlFor="reservationPassword"
                                 className="font-bold text-2xl"
                             >
-                                비밀번호 :
+                                비밀번호
                             </label>
                             <input
                                 type="password"
                                 id="reservationPassword"
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 value={reservationPassword}
                                 onChange={(e) =>
                                     setReservationPassword(e.target.value)
@@ -279,10 +279,10 @@ function Post() {
                             <label
                                 className="font-bold text-2xl"
                             >
-                                물품 정보:
+                                물품 정보
                             </label>
                             <select
-                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                                 onChange={handleCategoryChange}
                             >
                                 <option>품목선택</option>
@@ -299,10 +299,10 @@ function Post() {
                             <label
                                 className="font-bold text-2xl"
                             >
-                                물품 가격 :
+                                물품 가격
                             </label>
                             <div className="focus:border-yellow-400">
-                                <div className="flex justify-between rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400">
+                                <div className="flex justify-between rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2">
                                     <input
                                         type="text"
                                         onChange={(e) => onChangePoints(e)}
@@ -321,12 +321,12 @@ function Post() {
                     <br />
                     <div>
                         <label htmlFor="importantInfo" className="font-bold text-2xl">
-                            요청사항 :
+                            요청사항
                         </label>
                         <input
                             type="text"
                             id="importantInfo"
-                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400"
+                            className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
                             value={importantInfo}
                             onChange={(e) => setImportantInfo(e.target.value)}
                             placeholder="요청사항을 입력해주세요."
@@ -369,11 +369,11 @@ function Post() {
                 <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65">
                     <div className="relative w-auto my-6 mx-auto max-w-3xl">
                         <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white">
-                            {/* 모달 내용 */}
+                            {/* 모달 헤더 */}
                             <div className="relative p-6 flex-auto ">
                                 <p className="font-bold">입력된 정보가 정확합니까?</p>
                             </div>
-                            {/* 모달 푸터 */}
+                            {/* 모달 내용 */}
                             <div className="flex justify-center p-2 rounded-b">
                                 <button
                                     className="bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-8 py-3 mr-1 mb-1 rounded-xl cursor-pointer"

@@ -12,7 +12,9 @@ const Home = () => {
     //localStorage.clear();
 
     return (
-        <div>
+      <div>
+        <main className="relative">
+          <div className='py-4'>
             {/* style={{width: 1400}} */}
             <section className="container mx-auto w-screen mb-4">
                 <Promotion />
@@ -29,7 +31,9 @@ const Home = () => {
             <section className='container mx-auto w-screen mb-4'>
                 <GuideAndSc />
             </section>
-        </div>
+          </div>
+        </main>
+      </div>
     )
 }
 
