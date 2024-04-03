@@ -61,7 +61,7 @@ jobs:
       - name: Pull latest changes
         run: |
           cd finalproject_pickme_front
-          git pull origin dev
+          git pull origin dev --rebase
 
       - name: Push finalproject_pickme_front
         run: |
