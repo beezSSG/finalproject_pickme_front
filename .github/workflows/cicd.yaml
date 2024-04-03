@@ -58,8 +58,12 @@ jobs:
           git add .
           git commit -m "Update pickme by GitHub Actions"
 
+      - name: Pull latest changes
+        run: |
+          cd finalproject_pickme_front
+          git pull origin dev
+
       - name: Push finalproject_pickme_front
         run: |
           cd finalproject_pickme_front
-          git pull --rebase
           git push
