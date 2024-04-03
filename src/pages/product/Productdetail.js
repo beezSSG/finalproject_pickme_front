@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
@@ -14,6 +14,7 @@ function Productdetail(){
 
     const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서  
     const [product, setProduct] = useState();
+    const navigate = useNavigate();
   
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
     const [loading, setLoading] = useState(false); 
@@ -38,6 +39,11 @@ function Productdetail(){
       recentlyProduct(params.id);
 
     }, []);
+
+    // 뒤로가기 버튼
+    function backBtn(){
+        navigate(-1); // 바로 이전 페이지로 이동, '/main' 등 직접 지정도 당연히 가능
+    }
 
     // 최근본 상품 기능
     function recentlyProduct(id) { 
@@ -69,11 +75,16 @@ function Productdetail(){
 
     // 후기 변수
     const[reviewContent, setReviewContent] = useState("");
-    const[reviewRating, setReviewRating] = useState(5);
+    const[reviewRating, setReviewRating] = useState(3);
     const[reviewCnt, setReviewCnt] = useState(0);
     const[productRating, setProductRating] = useState(0);
+    const[reviewCheck, setReviewCheck] = useState(0);
+    const[cd, setCd] = useState(0);
+
     // 후기 목록
     const[reviewList, setReviewList] = useState([]);
+    const[visibleReviews, setVisibleReviews] = useState(5); // 처음엔 3개의 후기만 보이도록 설정
+    const[isLoading, setIsLoading] = useState(false);       // 로딩 상태
       
     async function getProduct(id){
         await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
@@ -99,7 +110,7 @@ function Productdetail(){
               return;
         }
 
-        if(`${localStorage.getItem('jwt')}` === null){
+        if(`${localStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -116,6 +127,23 @@ function Productdetail(){
                     title: "후기 등록 완료!",
                   });
                 setReviewContent("");
+                productRatingAvg(id);
+                setProductRating(product.productRating);
+                productReviewList(id);
+            })
+            .catch(()=>{
+                alert('error');
+            })
+    };
+
+    // 후기 삭제
+    async function reviewDelete(listId){
+
+        await axios.get("http://localhost:8080/api/v1/review/reviewDelete",
+            { params:{ "productId":id, "id":listId },
+            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+             .then((resp)=>{
+                alert(resp.data);
                 productRatingAvg(id);
                 setProductRating(product.productRating);
                 productReviewList(id);
@@ -152,19 +180,49 @@ function Productdetail(){
         .catch(()=>{
         alert('error');
         })
+
+        // 이미 후기 작성했는지 체크
+        await axios.get("http://localhost:8080/api/v1/review/productReviewCheck", { params:{ "id":id },
+                                    headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        .then((resp)=>{
+            setReviewCheck(resp.data.cnt);
+            if(resp.data.cnt > 0){
+                setCd(resp.data.cd);
+            }
+        })
+        .catch(()=>{
+        alert('error');
+        })
     };
 
-  
+    // '더보기' 버튼
+    function moreReviews(){
+        setIsLoading(true);
+
+        setTimeout(() =>{
+            setVisibleReviews(prev => prev + 5);
+            setIsLoading(false);
+        }, 500);
+    };
+
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////// useEffect //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     useEffect(() => {
         getProduct(params.id);
+
         productReviewList(params.id);
 
         zzimCheck(params.id);
         productRatingAvg(params.id);
 
-
     }, []);
-  
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////// useEffect //////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
     if(loading === false){
         return <div>loading...</div>;
     }
@@ -172,7 +230,10 @@ function Productdetail(){
 
     // 찜 체크
     async function zzimCheck(productId){
-        if(`${localStorage.getItem('jwt')}` === null){return;}
+        
+        if(`${localStorage.getItem('jwt')}` === "null"){
+            return;
+        }
         
         await axios.get("http://localhost:8080/api/v1/customer/checkZZIM",
          { params:{ "productId":productId },
@@ -193,7 +254,7 @@ function Productdetail(){
 
     // 찜 추가/해제
     async function zzimClick(productId){
-        if(`${localStorage.getItem('jwt')}` === null){
+        if(`${localStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -234,7 +295,7 @@ function Productdetail(){
 
     // 장바구니 담기
     function cartClick() {
-        if(`${localStorage.getItem('jwt')}` === null){
+        if(`${localStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -248,7 +309,7 @@ function Productdetail(){
 
     return(        
         <div align="center">
-            <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 sm:m-5 flex sm:flex-wrap ">
+            <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap ">
                 
                 <div name="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
                     <img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} />
@@ -301,6 +362,11 @@ function Productdetail(){
                                                     dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
                                 <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
                             </dd>
+                            <dd>
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
+                                                    dark:focus:ring-yellow-900" onClick={()=>backBtn()}>목록</button>
+                            </dd>
                         </dl>
                     </div>
                 </div>
@@ -324,7 +390,7 @@ function Productdetail(){
                     <p className='ml-2 text-2xl'>({reviewCnt})</p>
                 </div>
 
-                {localStorage.getItem('jwt') !== null && !reviewList.some(review => review.userId === parseInt(localStorage.getItem('userId'))) && (
+                {localStorage.getItem('jwt') !== null && reviewCheck === 0 &&(
                 <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ width: '800px', height: '110px' }}>
                     <div name="writerInbox">
                         <textarea placeholder='후기를 남겨보세요' rows={2}
@@ -355,33 +421,45 @@ function Productdetail(){
                 )}
                 
                 <div name="prodReviewList" className='mt-10'>
-                    {reviewList &&
-                        reviewList.map(function(list, i) {
-                            const blindName = list.name.substring(0, 1) + '*' + list.name.substring(list.name.length - 1, list.name.length);
-                            return (
-                                <div key={i} >
-                                    <div name="reviewListProfile" className='flex sm:flex-wrap p-5 bg-orange-100' style={{ maxWidth: '800px' }}>
-                                        <CgProfile size="40" color="#51abf3"/>
-                                        <div className='ml-2 text-left w-[100px]'>
-                                            <p>{blindName}</p>
-                                            <p>
-                                                {Array.from({ length: list.rating }, (_, index) => (
-                                                    <span key={index} style={{ display: 'inline-block' }}>
-                                                        <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '2px' }} />
-                                                    </span>
-                                                ))}
-                                            </p>
-                                        </div>
-                                        <div className='ml-20 text-left'>                                            
-                                            <p>{list.content}</p>
-                                        </div>
-                                    </div>
-                                    
-                                    <p>&nbsp;</p>
+                    {reviewList.slice(0, visibleReviews).map((review, index) => (
+                        <div key={index}>
+                            <div className="reviewListProfile flex sm:flex-wrap p-5 bg-orange-100 rounded-md" style={{ maxWidth: '800px' }}>
+                                <CgProfile size="40" color="#51abf3" />
+                                <div className='ml-2 text-left w-[100px]'>
+                                    <p>{review.name.substring(0, 1) + '*' + review.name.substring(review.name.length - 1)}</p>
+                                    <p>
+                                        {Array.from({ length: review.rating }, (_, index) => (
+                                            <span key={index} style={{ display: 'inline-block' }}>
+                                                <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '2px' }} />
+                                            </span>
+                                        ))}
+                                    </p>
                                 </div>
-                            );
-                        })}
+                                <div className="ml-20 text-left">
+                                    <p>{review.content}</p>
+                                </div>
+                                {localStorage.getItem('jwt') !== null && cd === review.customerId && (
+                                    <div className="ml-auto">
+                                        <button className="focus:outline-none text-gray-800 bg-yellow-300 font-bold hover:bg-yellow-500
+                                        focus:ring-4 focus:ring-yellow-300 rounded-lg px-3 py-0.5 me-2 mb-2 dark:focus:ring-yellow-900"
+                                        onClick={() => reviewDelete(review.id)}>X</button>
+                                    </div>
+                                )}
+                            </div>
+                            <p>&nbsp;</p>
+                        </div>
+                    ))}                
                 </div>
+
+                {reviewList.length > visibleReviews &&(
+                    <div className="loadMoreBtn mt-5">
+                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-2 py-1 me-2 mb-2
+                                                    dark:focus:ring-yellow-900" onClick={moreReviews} disabled={isLoading}>
+                            {isLoading? '로딩 중...' : '더보기'}
+                        </button>
+                    </div>
+                )}
 
             </div>
 
