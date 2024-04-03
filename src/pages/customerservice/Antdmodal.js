@@ -29,7 +29,7 @@ export default function Antdmodal({updateAddress}) {
   
   return (
     <>
-      <button className="mt-8 p-3 bg-yellow-500 rounded-lg font-bold cursor-pointer hover:bg-yellow-600"
+      <button className="mt-10 p-3 bg-yellow-500 rounded-lg font-bold cursor-pointer hover:bg-yellow-600"
        onClick={onToggleModal}>
         주소찾기
       </button>

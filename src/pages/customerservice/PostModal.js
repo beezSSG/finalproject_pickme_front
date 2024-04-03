@@ -17,9 +17,11 @@ function PostModal({ isOpen, onClose, onConfirm, Radiovalue }) {
     if (!isOpen || !Radiovalue || Radiovalue.length === 0) return null; // Radiovalue가 없거나 빈 배열인 경우 반환
 
     return (
-        <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65">
-            <div className="relative bg-white p-10 rounded-lg w-[23%] h-[60%] overflow-y-auto sm:w-[80%]">
-                <h2 className="text-center font-bold text-2xl mb-4">택배운임을 선택해주세요.</h2>
+<div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65">
+    <div className="relative bg-white p-10 rounded-lg h-[60%] overflow-y-auto sm:w-[85%]">
+        <h2 className="text-center font-bold text-2xl mb-4 lg:hidden ">택배운임 선택</h2>
+        <h2 className="text-center font-bold text-2xl mb-4 sm:hidden">택배운임을 선택해주세요.</h2>
+
                 <div className="text-left">
                     {Radiovalue.map((item, index) => (
                         <div key={index} className="mx-auto my-0">
