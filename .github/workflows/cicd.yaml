@@ -3,7 +3,7 @@ name: Build and Push Docker Image and Modify EKS Repo
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build-and-push-docker:
