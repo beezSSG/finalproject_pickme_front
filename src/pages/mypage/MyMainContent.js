@@ -17,7 +17,9 @@ export default function MyMainContent() {
 
   // 로그아웃 할때 jwt 및 최근본 상품 제거(?)
   useEffect(() => {
-    getRecentlyProduct();
+    if (getProduct !== null || getProduct !== undefined) {
+      getRecentlyProduct();
+    }
     
   }, []);
 
