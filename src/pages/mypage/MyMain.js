@@ -58,7 +58,7 @@ export default function MyMain() {
 
   return (
     <>
-      <div className="grid grid-cols-6 w-full mb-10 sm:grid-cols-1 md:grid-cols-2">
+      <div className="grid grid-cols-6 w-full mb-10 sm:flex-wrap md:grid-cols-2">
         <div className="pl-4 pt-5">
           <div>
             <span className="text-4xl font-bold  text-black-500">{info.name}</span>
