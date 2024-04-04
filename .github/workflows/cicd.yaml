@@ -10,7 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ECR_REPOSITORY: pickme_front
-      ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
+      #ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
+      ECR_REGISTRY: public.ecr.aws/e3s0f1s6/pickme_front
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
@@ -56,7 +57,7 @@ jobs:
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .
-          git commit -m "Update file.txt by GitHub Actions[kt_cloud_expert]"
+          git commit -m "Update front by GitHub Actions"
 
       - name: Push Changes
         run: |
