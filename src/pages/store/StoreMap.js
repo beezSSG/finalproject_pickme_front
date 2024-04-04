@@ -11,16 +11,43 @@ import axios from "axios";
 
 // import MapData from "../../assets/data/store/emart24_busan.json";  // 프론트에 있던 기존 매장 data
 import MarkerImg from "../../assets/imgs/store/marker.svg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import LeftMenu from "./LeftMenu/LeftMenu";
 
-export default function StoreMap(prop) {
+export default function StoreMap() {
+  // const mapRef = useRef<NaverMap | null>(null);
   const [mapdata, setMapdata] = useState();
   const [loading, setLoading] = useState(false);
-
+  const [createMarkerList, setCreateMarkerList] = useState([]); //마커를 담을 배열
   useEffect(() => {
     getMapData();
+    // createMarker();
+    console.log(createMarkerList);
   }, []);
+
+  // // 지도 줌 인/아웃 시 마커 업데이트 이벤트 핸들러
+  // MyMap.Event.addListener(mapRef.current, "zoom_changed", () => {
+  //   if (mapRef.current !== null) {
+  //     updateMarkers(mapRef.current, Marker);
+  //   }
+  // });
+  // // 지도 드래그 시 마커 업데이트 이벤트 핸들러
+  // MyMap.maps.Event.addListener(mapRef.current, "dragend", () => {
+  //   if (mapRef.current !== null) {
+  //     updateMarkers(mapRef.current, Marker);
+  //   }
+  // });
+
+  //반복문을 통해 데이터 배열 순회하면서 마커 생성 진행!
+  // function createMarker() {
+  //   for (let i = 0; i < Object.keys(mapdata).length; i++) {
+  //     let newmarker = new window.naver.maps.Marker({
+  //       position: new window.naver.maps.LatLng(mapdata[i].lat, mapdata[i].lon),
+  //     })
+
+  //     setCreateMarkerList(prev => [...prev, newmarker]);
+  //   }
+  // }  
 
   function getMapData() {
     axios
@@ -29,6 +56,15 @@ export default function StoreMap(prop) {
         // console.log(resp.data);
         setMapdata(resp.data);
         setLoading(true);
+        let abc = [];
+        for (let i = 0; i < Object.keys(resp.data).length; i++) {
+          let newmarker = new window.naver.maps.Marker({
+            position: new window.naver.maps.LatLng(mapdata[i].lat, mapdata[i].lon),
+          })
+
+          abc.push(newmarker);
+        }
+        setCreateMarkerList(prev => [...prev, abc]);
       })
       .catch((err) => {
         alert(err);
@@ -56,7 +92,7 @@ export default function StoreMap(prop) {
                       </button>`,
             }}
           />
-          {mapdata.map(function (mark, i) {
+          {/* {mapdata.map(function (mark, i) {
             return (
               <Marker
                 position={new navermaps.LatLng(mark.lat, mark.lon)}
@@ -69,7 +105,7 @@ export default function StoreMap(prop) {
                 }}
               />
             );
-          })}
+          })} */}
         </NaverMap>
       </>
     );
@@ -82,24 +118,16 @@ export default function StoreMap(prop) {
   return (
     <>
       <NavermapsProvider
-        ncpClientId="0x88t994ht"
+        ncpClientId="im12jhyvy5"
         // or finClientId, govClientId
       >
-        <MapDiv
-          className="h-svh"
-        >
+        <MapDiv className="h-svh">
           <LeftMenu props={mapdata} />
           <MyMap />
         </MapDiv>
       </NavermapsProvider>
       <br />
       <br />
-
-      {/* 근처 매장 리스트
-      <br/>
-      <Link to={`/storeproductlist/${6}`}>
-        id: 6 매장 상품 리스트 바로가기
-      </Link> */}
     </>
   );
 }
