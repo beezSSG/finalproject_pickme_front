@@ -4,14 +4,15 @@ on:
   push:
     branches:
       - dev
-jobs:
-  env:
-    ECR_REPOSITORY: pickme_front
-    ECR_REGISTRY: public.ecr.aws/e3s0f1s6
-    IMAGE_TAG: ${{ github.sha }}
 
+jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
+
+    env:
+      ECR_REPOSITORY: pickme_front
+      ECR_REGISTRY: public.ecr.aws/e3s0f1s6
+      IMAGE_TAG: ${{ github.sha }}
 
     steps:
       - name: Checkout repository
@@ -37,6 +38,8 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     env:
+      ECR_REPOSITORY: pickme_front
+      ECR_REGISTRY: public.ecr.aws/e3s0f1s6
       EKS_PATH: helm-projects/pickme-front
       IMAGE_TAG: ${{ github.sha }}
     steps:
