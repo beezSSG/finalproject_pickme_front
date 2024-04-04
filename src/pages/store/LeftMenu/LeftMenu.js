@@ -129,7 +129,7 @@ export default function LeftMenu(props) {
                   &nbsp;&nbsp;
                   <span>{store.tel}</span>
                 </p>
-                <Link to={`http://localhost:8080/api/v1/${ store.id }`}></Link>
+                <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고</Link>
               </li>
             ))
           }
