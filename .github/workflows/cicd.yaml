@@ -36,7 +36,7 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     env:
-      EKS_PATH: helm-projects/pickme-back
+      EKS_PATH: helm-projects/pickme-front
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
