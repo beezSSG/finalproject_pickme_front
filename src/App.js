@@ -1,40 +1,44 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "./firebase-messaging-sw.js";
 import { AuthProvider } from './utils/AuthProvider';
+import { homeAlertHandle } from './utils/ServiceAlert.js'
 
 import MainHome from './pages/main/MainHome.js';
 import Manager from './pages/manager/Manager.js';
+import axios from 'axios';
 
 function App() {
   
-  /* 알림 서비스
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('/firebase-messaging-sw.js').then(function(registration) {
-      // 서비스 워커 등록 성공
-      console.log('ServiceWorker registration successful with scope: ', registration.scope);
-  
-      // 알림 표시
-      var title = 'Pickbox 유통기한 알림';
-      var options = {
-        body: '구매하신 초코우유의 유통기한이 하루 남았습니다.',
-        vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500],
-        sound: '/demos/notification-examples/audio/notification-sound.mp3'
-      };
-      registration.showNotification(title, options);
-    }).catch(function(err) {
-      // 등록 실패
-      console.log('ServiceWorker registration failed: ', err);
-    });
-  }
-  */
+  // 기본 axios url 설정
+  axios.defaults.baseURL = 'http://localhost:8080/api/v1';
 
+  // 토큰값을 인터셉터를 통해 모든 axios에 자동으로 넘겨주기
+  axios.interceptors.request.use(
+    config => {
+      // 저장된 토큰을 가져옵니다.
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        // 요청 헤더에 토큰을 추가합니다.
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+  // homeAlertHandle();
+  
   return (
     <>
       <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path='/*' element={<MainHome />} />
-            <Route path='/manager' element={<Manager/>} />
+            <Route path='/manager/*' element={<Manager/>} />
+            {/* <Route path='/ceo/*' element={</>} /> */}
+
           </Routes>
         </BrowserRouter>
       </AuthProvider>

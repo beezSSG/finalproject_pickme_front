@@ -147,9 +147,9 @@ function ProductReservation() {
             <div className="max-w-[1200px] mx-auto sm:px-3">
                 <div className="text-4xl font-bold mt-[70px]">상품 예약하기</div><br/>
                 <hr className="border-gray-500" /><br/><br/>
-                <div className=" font-bold text-3xl text-blue-950">픽업 매장찾기</div><br/>
+                <div className=" font-bold text-3xl text-gray-700">픽업 매장찾기</div><br/>
                 
-                <label className="font-bold text-2xl">매장 명</label>
+                <label className="font-bold text-2xl text-slate-500">매장 명</label>
                 <div className="flex space-x-3 mt-2">
                     <div className="border-2 border-gray-400 w-[20%] sm:w-[50%] text-center p-2 rounded-xl">{storeName}</div>
                     <div className="text-center">
@@ -187,9 +187,9 @@ function ProductReservation() {
                         </div>
                     </div>
                 )}<br/>
-                <div className=" font-bold text-3xl text-blue-950">예약 상품찾기</div><br/>
+                <div className=" font-bold text-3xl text-gray-700">예약 상품찾기</div><br/>
                 
-                <label className="font-bold text-2xl">상품</label>
+                <label className="font-bold text-2xl text-slate-500">상품</label>
                 <div className="text-red-500 font-bold mb-3">※최소 1개 이상의 상품을 담아주세요</div>
                 <div>
                     <div className="text-center">
@@ -198,7 +198,7 @@ function ProductReservation() {
                                 {reservationProduct.map((product, index) => (
                                     <div key={index} className="border border-gray-300 p-4 rounded-md">
                                         <img src={product.url} className="w-32 h-32 object-cover mx-auto" />
-                                        <div className="text-center mt-2 font-bold">{product.name}</div>
+                                        <div className="text-center mt-2 font-bold h-[48px]">{product.name}</div>
                                         <div className="text-center mt-2 font-bold">{product.quantity}개</div>
                                         <div className="text-center mt-2 font-bold">{product.price.toLocaleString()}원</div>
                                     </div>
@@ -244,7 +244,7 @@ function ProductReservation() {
                                                     <div className="flex justify-center">
                                                         <img src={product.url} alt="" className="w-32 h-32 object-cover" />
                                                     </div>
-                                                    <div className="text-center mt-2 font-bold">{product.name}</div>
+                                                    <h4 className="text-center mt-2 font-bold h-11">{product.name}</h4>
                                                     <div className="flex justify-center mt-2">
                                                         <input
                                                             type="number"
@@ -285,8 +285,8 @@ function ProductReservation() {
                     </div>
                 )}
 
-                <div className=" font-bold text-3xl text-blue-950">픽업날짜 찾기</div><br/>
-                <label className="font-bold text-2xl">픽업 날짜 선택</label>
+                <div className=" font-bold text-3xl text-gray-700">픽업날짜 찾기</div><br/>
+                <label className="font-bold text-2xl text-slate-500">픽업 날짜 선택</label>
                 <div className="text-red-500 font-bold mb-3">※당일 기준 최소 3일 이후 부터 예약 가능</div>
                 <div className="border-2 border-gray-400 w-[20%] text-center p-2 rounded-xl sm:w-[45%] "><input type="date" value={pickDate} onChange={(e)=>(setPickDate(e.target.value))} className="focus:outline-none"/></div>
                 <div className="text-right font-bold text-lg">최종 결제 금액: {totalPrice.toLocaleString()}원</div>
