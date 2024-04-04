@@ -77,7 +77,7 @@ function Header() {
                         <Logincom />
                         {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> */}
                         {adminName === "하기성" && (
-                            <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/orderchart">관리자</a>
+                            <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/manager/orderchart">관리자</a>
                         )}
                         <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/mypage">마이페이지</a>
                     </div>

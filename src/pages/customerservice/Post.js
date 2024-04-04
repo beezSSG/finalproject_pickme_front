@@ -220,7 +220,7 @@ function Post() {
                         </div>
                         {/* 주소 찾기 모달 */}
                         <div>
-                            <Antdmodal updateAddress={OnSetAddress} />
+                            <Antdmodal updateAddress={OnSetAddress} height="42px" />
                         </div>
                     </div>
                     <br/>

@@ -38,6 +38,7 @@ function App() {
             <Route path='/*' element={<MainHome />} />
             <Route path='/manager/*' element={<Manager/>} />
             {/* <Route path='/ceo/*' element={</>} /> */}
+
           </Routes>
         </BrowserRouter>
       </AuthProvider>

@@ -30,13 +30,13 @@ function ManagerMain({height}) {
     const [open, setOpen] = useState(true);
 
     const Menus = [
-        { title: "관리자 홈", path: "/orderchart" },
-        { title: "이벤트", path: "/event" },
-        { title: "발주 목록", path: "/managerpurchaseorder" },
-        { title: "신제품", path: "/newproductinsert" },
-        { title: "쿠폰생성", path: "/coupon" },
-        { title: "자주묻는질문", path: "/faq" },
-        { title: "1:1 문의", path: "/contactus" }
+        { title: "관리자 홈", path: "/manager/orderchart" },
+        { title: "이벤트", path: "/manager/event" },
+        { title: "발주 목록", path: "/manager/managerpurchaseorder" },
+        { title: "신제품", path: "/manager/newproductinsert" },
+        { title: "쿠폰생성", path: "/manager/coupon" },
+        { title: "자주묻는질문", path: "/manager/faq" },
+        { title: "1:1 문의", path: "/magnager/contactus" }
     ];
 
     const iconComponents = [
