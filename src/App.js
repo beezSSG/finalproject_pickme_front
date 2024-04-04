@@ -14,6 +14,7 @@ import StoreProduct from './pages/store/StoreProductlist';
 import MatchedStoreList from './pages/store/MatchedStoreList';
 import Polist from './pages/ceo/Polist';
 import Powrite from './pages/ceo/Powrite';
+import PoMainpage from './pages/ceo/PoMainpage';
 
 import ManagerMain from './pages/manager/ManagerMain';
 import Event from './pages/manager/Event';
@@ -33,6 +34,7 @@ import Faq from './pages/customerservice/Faq';
 import FaqCreate from './pages/customerservice/FaqCreate';
 import { AuthProvider } from './utils/AuthProvider';
 import MyMain from './pages/mypage/MyMain';
+import SalesChart from './pages/ceo/SalesChart';
 
 
 function App() {
@@ -73,7 +75,9 @@ function App() {
               {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
               <Route path='/ceo' element={<Polist />} />
               <Route path='/pow' element={<Powrite />} />
-                
+              <Route path='/pomain' element={<PoMainpage />} />
+              <Route path='/saleschart' element={<SalesChart />} />
+  
               <Route path='/manager' element={<ManagerMain />} />
               <Route path='/event' element={<Event />} />
               <Route path='/eventdetail/:id' element={<EventDetail />} />

@@ -74,7 +74,7 @@ function Polist(){
     return(
       <div>
           <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-            <p>발주목록</p>
+            <p className='font-semibold text-center'>발주목록</p>
           </div>
           <br/><br/>
           <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
@@ -111,7 +111,7 @@ function Polist(){
               <col width="70"/><col width="200"/><col width="300"/><col width="100"/><col width="200"/><col width="150"/><col width="150"/>
           </colgroup>
 
-          <thead className='bg-yellow-400'>
+          <thead className='bg-yellow-400 p-15' style={{ marginLeft: "auto", marginRight:"auto", marginTop:"3px", marginBottom:"3px"}}>
           <tr>
               <th>번호</th>
               <th>대표 이미지</th>
@@ -131,7 +131,7 @@ function Polist(){
                       <tr className="text-center border-b hover:bg-gray-200 cursor-pointer">
                       <td>{ po.id }</td>
                       <td>
-                          <img src={po.url} alt='' style={{width:140, padding:10}}></img></td>
+                          <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
                       <td className='text-left py-4'>{ po.name }</td>
                       <td className='text-center py-4'>{ po.quantity }</td> 
                       <td className='text-center py-4'>{ po.wdate }</td>
@@ -148,7 +148,7 @@ function Polist(){
           </table>
           <br/>
 
-          <div className='pobutton'>
+          <div className='text-right '>
           <Link  style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"to="/pow">발주신청</Link>
           </div> 
           <br/>

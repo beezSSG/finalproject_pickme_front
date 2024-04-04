@@ -5,7 +5,6 @@ import Toast from '../public/Toast';
 
 function Header() {
 
-
     let adminName = localStorage.getItem('name');
 
     const Logincom = () => {
