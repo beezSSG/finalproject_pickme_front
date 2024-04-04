@@ -4,6 +4,7 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
 import star2 from "../../assets/imgs/product/star2.png";
+import { BsCart4 } from "react-icons/bs";
 
 import "./page.css";
 
@@ -107,11 +108,11 @@ function StoreProductlist() {
                     <col width="70"/><col width="250"/><col width="100"/><col width="100"/>
           </colgroup>
           <thead>
-            <tr>
-              <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
+            <tr className="bg-slate-200">
+              <th className='h-[40px]'>제품 사진</th><th>제품명</th><th>가격</th><th>장바구니</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className='items-center text-center'>
               {storeproductlist.length > 0 && (
                 // Use a for loop to create table rows
                 (() => {
@@ -120,20 +121,23 @@ function StoreProductlist() {
                     const product = storeproductlist[i];
                     //console.log(product);
                     rows.push(
-                      <tr key={product.id}>
-                        <td>
+                      <tr key={product.id} className="border-b border-slate-200">
+                        <td className='h-[146px]'>
                         <Link to={`/productdetail/${product.id}`}>
                           <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
                         </Link>
-                        </td>
-                        <td>{product.name}</td>
-                        <td>{product.price}</td>
-                        <td>
-                            {Array.from({ length: product.productRating }, (_, index) => (
+                        {Array.from({ length: product.productRating }, (_, index) => (
                                 <span key={index} style={{ display: 'inline-block' }}>
                                   <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
                                 </span>
                             ))}
+                        </td>
+                        <td>{product.name}</td>
+                        <td>{product.price.toLocaleString()}원</td>
+                        <td>
+                          <div className='flex items-center justify-center text-center'>
+                              <BsCart4 className='w-7 h-7' />
+                          </div>
                         </td>
                       </tr>
                     );

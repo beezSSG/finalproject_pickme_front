@@ -4,7 +4,6 @@ import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
 import "./page.css";
-import star from "../../assets/imgs/product/star.png";
 import star2 from "../../assets/imgs/product/star2.png";
 
 function Productlist() {
@@ -13,6 +12,7 @@ function Productlist() {
     // 정렬
     const [choice, setChoice] = useState("");
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
+    const [category, setCategory] = useState(0);
     // 검색  
     const [search, setSearch] = useState("");
     // 페이징 
@@ -22,9 +22,9 @@ function Productlist() {
 
     /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
     
-    function getProductlist(c, s, pn, switching){
+    function getProductlist(c, s, pn, switching, category){
         axios.get("http://localhost:8080/api/v1/product/productlist", 
-                    {params:{ choice:c, search:s, pageNumber:pn, "switching":switching}})
+                    {params:{ choice:c, search:s, pageNumber:pn, "switching":switching, "category":category}})
              .then(function(resp){  // success:function
                 console.log(resp.data);
                 setProductlist(resp.data.productlist);
@@ -36,23 +36,29 @@ function Productlist() {
     }
 
     useEffect(function(){
-        getProductlist('', '', 0, switching);
+        getProductlist('select', search, 0, switching, category);
     }, []);
 
 
     function choiceBtn(choice){
-      getProductlist(choice, search, 0, switching);
+      getProductlist(choice, search, 0, switching, category);
       setSwitching(!switching);
       setPage(0);
     }
 
     function searchBtn(){        
-        getProductlist('select', search, 0, switching);
+        getProductlist('select', search, 0, switching, category);
     }
     
+    function categoryBtn(num){
+      setCategory(num);
+      getProductlist('select', search, 0, switching, num);
+      setPage(0);
+    }
+
     function handlePageChange(page){
         setPage(page);
-        getProductlist('select', search, page-1, switching);
+        getProductlist('select', search, page-1, switching, category);
     }
 
 
@@ -69,39 +75,79 @@ function Productlist() {
                     <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg'
                         value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                     <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
+                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
                                         dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                 </div>
                 <div className='flex items-center'>
                     <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
                                         dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
                     <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
                                         dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
                 </div>
             </div>
 
             <div className='flex items-center'>
-                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>음료</button>
-
-                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>간편식사</button>
-                                    
-                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>즉석조리</button>
-                                    
-                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>과자류</button>
-                                    
-                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('icecream')}>아이스크림</button>
+                <button className="focus:outline-none text-white bg-sky-950 hover:bg-sky-700
+                                    font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
+                                    dark:focus:ring-yellow-900" onClick={()=>categoryBtn(0)}>전체 상품</button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 1 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 1 ? null : () => categoryBtn(1)}>
+                    음료
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 2 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 2 ? null : () => categoryBtn(2)}>
+                    간편식사
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 3 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 3 ? null : () => categoryBtn(3)}>
+                    즉석조리
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 4 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 4 ? null : () => categoryBtn(4)}>
+                    과자류
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 5 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 5 ? null : () => categoryBtn(5)}>
+                    아이스크림
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 6 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 6 ? null : () => categoryBtn(6)}>
+                    식품
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 7 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 7 ? null : () => categoryBtn(7)}>
+                    생활용품
+                </button>
+                <button 
+                    className={`focus:outline-none text-white ${category === 8 ? 'bg-yellow-600' : 'bg-yellow-500'} hover:bg-yellow-600 
+                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                dark:focus:ring-yellow-900`}
+                    onClick={category === 8 ? null : () => categoryBtn(8)}>
+                    기타
+                </button>
             </div>
         </div>
       </div>
