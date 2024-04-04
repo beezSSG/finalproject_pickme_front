@@ -18,5 +18,5 @@ FROM nginx:latest
 COPY --from=build /app/build /usr/share/nginx/html
 
 # Nginx 실행
-EXPOSE 3000
+EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
