@@ -35,7 +35,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route path='/*' element={<MainHome />} />
-            <Route path='/manager' element={<Manager/>} />
+            <Route path='/manager/*' element={<Manager/>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
