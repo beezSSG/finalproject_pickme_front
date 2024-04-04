@@ -25,6 +25,7 @@ function OrderChart(){
 
     const [notanswerCcb, setNotanswerCcb] = useState();
     const [notPo, setNotPo] = useState();
+    const [notocr , setNotocr] = useState();
 
     // 차트를 위한 useState들
     const [orderList, setOrderList] = useState([]);
@@ -143,12 +144,25 @@ function OrderChart(){
             })
     }
 
+    // 승인되지 않은 사업자 등록 개수 담을꺼임
+    function notocrcount() {
+        axios.get("http://localhost:8080/api/v1/user/notocrcount")
+        .then(function (resp) {
+            console.log(resp.data);
+            setNotocr(resp.data);
+        })
+        .catch(function () {
+            console.log("error");
+        })
+    }
+
     useEffect(() => {
         orderchart();
         contactusCategory();
         notanswercount();
         notpocount();
         eventenddate();
+        notocrcount();
     }, [selectedDate,selectedDistrict, selectedRegion]);
 
     
@@ -283,12 +297,15 @@ function OrderChart(){
     function goEvent() {
         navigate("/event");
     }
+    function goOcrlist() {
+        navigate("/manager/ocrlist");
+    }
 
     return (
             <>
                 <div className="flex">
                 <div>
-                    <ManagerMain height={open ? "h-[1100px]" : "h-[650px]"} />
+                    <ManagerMain height={open ? "h-[1100px]" : "h-[920px]"} />
                 </div>
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
@@ -398,14 +415,14 @@ function OrderChart(){
                                             </h1>
                                         </div>
                                     </div>
-                                    <div className="h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out border-l-[6px] border-red-700"
-                                                >
+                                    <div className={`h-[150px] rounded-[8px] bg-white flex items-center justify-between px-[30px] cursor-pointer hover:shadow-lg transform hover:scale-[103%] transition duration-300 ease-in-out ${notocr === 0 ? 'border-l-[6px] border-green-700' : 'border-l-[6px] border-red-700'}`}
+                                                onClick={goOcrlist}>
                                         <div className="w-full">
-                                            <h2 className="text-gray-700 text-[30px] leading-[17px] font-bold">
-                                                <GoAlertFill className="text-red-600" />
+                                            <h2 className={`text-gray-700 text-[30px] leading-[17px] font-bold ${notocr === 0 ? 'text-green-600' : 'text-red-600'}`}>
+                                                {notocr === 0 ? <GoCheck className="text-green-600" /> : <GoAlertFill className="text-red-600" />}
                                             </h2>
                                             <h1 className="text-[20px] leading-[24px] font-bold text-[#5a5c69] mt-[5px] text-right">
-                                                승인되지 않은 사업자 등록이 n개 있어요!
+                                                {notocr === 0 ? '사업자등록 승인 완료' : `승인하지 않은 사업자 등록이 ${notocr}개 있어요!`}
                                             </h1>
                                         </div>
                                     </div>
