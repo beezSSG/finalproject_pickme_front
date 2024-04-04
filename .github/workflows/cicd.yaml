@@ -1,0 +1,65 @@
+name: Build and Push Docker Image and Modify EKS Repo
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  build-and-push-docker:
+    runs-on: ubuntu-latest
+    env:
+      ECR_REPOSITORY: pickme_front
+      ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
+      IMAGE_TAG: ${{ github.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build and push Docker image to Amazon ECR
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}
+
+  modify-eks-repo:
+    needs: build-and-push-docker
+    runs-on: ubuntu-latest
+    env:
+      EKS_PATH: helm
+      IMAGE_TAG: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com/pickme_front:${{ github.sha }}
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          repository: beezSSG/finalproject_pickme_front
+          token: ${{ secrets.REPO_TOKEN }}
+          path: finalproject_pickme_front
+
+      - name: Modify Files and Commit
+        run: |
+          cd finalproject_pickme_front
+          mkdir -p ${{ env.EKS_PATH }}
+          echo '"replicaCount": "1"' > ${{ env.EKS_PATH }}/values.yaml
+          echo '"image": "${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
+          echo '"host": "front.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml
+          git config user.name "rok-won"
+          git config user.email "looky1254@naver.com"
+          git add .
+          git commit -m "Update pickme by GitHub Actions"
+
+      - name: Push finalproject_pickme_front
+        run: |
+          cd finalproject_pickme_front
+          git pull --rebase
+          git push

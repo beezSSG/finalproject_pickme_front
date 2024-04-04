@@ -88,7 +88,7 @@ export default function StoreMap(prop) {
         <MapDiv
           className="h-svh"
         >
-          <LeftMenu />
+          <LeftMenu props={mapdata} />
           <MyMap />
         </MapDiv>
       </NavermapsProvider>

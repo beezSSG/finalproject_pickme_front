@@ -66,6 +66,12 @@ function StoreProductlist() {
 
   return (
     <div align="center">
+      
+      <div className='font-bold mt-5 mb-10 text-2xl'>
+        <p>"{name}" 상품 목록</p>
+      </div>
+
+      <div className='mb-5'> 
       <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
         <tbody>
             <tr>
@@ -91,52 +97,53 @@ function StoreProductlist() {
                 
             </tr>                
         </tbody>    
-      </table>
-      <br/>
-      <h3><b>{name} 상품 목록</b></h3>
-      <br/> 
-      
-      <table>
-        <colgroup>
-                  <col width="70"/><col width="500"/><col width="100"/><col width="150"/>
-        </colgroup>
-        <thead>
-          <tr>
-            <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
-          </tr>
-        </thead>
-        <tbody>
-            {storeproductlist.length > 0 && (
-              // Use a for loop to create table rows
-              (() => {
-                const rows = [];
-                for (let i = 0; i < storeproductlist.length; i++) {
-                  const product = storeproductlist[i];
-                  //console.log(product);
-                  rows.push(
-                    <tr key={product.id}>
-                      <td>
-                      <Link to={`/productdetail/${product.id}`}>
-                        <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
-                      </Link>
-                      </td>
-                      <td>{product.name}</td>
-                      <td>{product.price}</td>
-                      <td>
-                          {Array.from({ length: product.productRating }, (_, index) => (
-                              <span key={index} style={{ display: 'inline-block' }}>
-                                <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
-                              </span>
-                          ))}
-                      </td>
+      </table>      
+      </div>
+      <hr/>
+
+      <div className="mt-7">
+        <table>
+          <colgroup>
+                    <col width="70"/><col width="250"/><col width="100"/><col width="100"/>
+          </colgroup>
+          <thead>
+            <tr>
+              <th>제품 사진</th><th>제품명</th><th>가격</th><th>평점</th>
+            </tr>
+          </thead>
+          <tbody>
+              {storeproductlist.length > 0 && (
+                // Use a for loop to create table rows
+                (() => {
+                  const rows = [];
+                  for (let i = 0; i < storeproductlist.length; i++) {
+                    const product = storeproductlist[i];
+                    //console.log(product);
+                    rows.push(
+                      <tr key={product.id}>
+                        <td>
+                        <Link to={`/productdetail/${product.id}`}>
+                          <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
+                        </Link>
+                        </td>
+                        <td>{product.name}</td>
+                        <td>{product.price}</td>
+                        <td>
+                            {Array.from({ length: product.productRating }, (_, index) => (
+                                <span key={index} style={{ display: 'inline-block' }}>
+                                  <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
+                                </span>
+                            ))}
+                        </td>
                       </tr>
-                  );
-                }
-                return rows;
-              })()
-            )}
-        </tbody>
-      </table>
+                    );
+                  }
+                  return rows;
+                })()
+              )}
+          </tbody>
+        </table>
+      </div>
 
         <br/>
 

@@ -58,37 +58,56 @@ function Productlist() {
 
   return (
     <div align="center">
-      <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-        <tbody>
-            <tr>
-                <td style={{ paddingLeft:"5px"}} className='align-middle'>
+
+      <div className='font-bold mt-5 mb-10 text-3xl'>
+        <p>전체 상품 목록</p>
+      </div>
+      <div className='mb-5'>
+        <div className="flex flex-col items-center mt-7">
+            <div className='flex mb-5'>
+                <div className='flex items-center mr-3'>
                     <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg'
                         value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                </td>
-                <td style={{ paddingLeft:"5px" }}>  
                     <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
                                         focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
-                                        dark:focus:ring-yellow-900"onClick={()=>searchBtn()}>검색</button>
-                  </td>
-                  <td style={{ paddingLeft:"5px" }}>
-                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                        dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
+                </div>
+                <div className='flex items-center'>
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
                                         focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
                                         dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
-                  </td>
-                  <td style={{ paddingLeft:"5px" }}>
-                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
                                         focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
                                         dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
-                  </td>
-                
-            </tr>                
-        </tbody>    
-      </table>
-      
-      <h3>전체 상품 목록</h3>
-      <br/>
+                </div>
+            </div>
 
-      <div className="flex flex-col items-center">
+            <div className='flex items-center'>
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>음료</button>
+
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>간편식사</button>
+                                    
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>즉석조리</button>
+                                    
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('drink')}>과자류</button>
+                                    
+                <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+                                    dark:focus:ring-yellow-900" onClick={() => choiceBtn('icecream')}>아이스크림</button>
+            </div>
+        </div>
+      </div>
+      <hr/>
+
+      <div className="flex flex-col items-center mt-7">
         {productlist.length > 0 && (
           // Use a for loop to create table rows
           (() => {
