@@ -29,6 +29,10 @@ jobs:
         run: |
           aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_VARS }}" > .env
+
       - name: Build and push Docker image to Amazon ECR
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }} .
