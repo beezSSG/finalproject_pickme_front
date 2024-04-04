@@ -2,8 +2,9 @@ name: Build and Push Docker Image and Modify EKS Repo
 
 on:
   pull_request:
-    branches:
-      - dev
+    types: [closed]
+#    branches:
+#      - dev
 
 jobs:
   build-and-push-docker:
