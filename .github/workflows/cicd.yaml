@@ -1,10 +1,9 @@
 name: Build and Push Docker Image and Modify EKS Repo
 
 on:
-  pull_request:
-    types: [closed]
-#    branches:
-#      - dev 
+  push:
+    branches:
+      - dev
 
 jobs:
   build-and-push-docker:
@@ -37,30 +36,30 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     env:
-      EKS_PATH: helm
-      IMAGE_TAG: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com/pickme_front:${{ github.sha }}
+      EKS_PATH: helm-projects
+      IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
         with:
-          repository: beezSSG/finalproject_pickme_front
+          repository: beezSSG/Devops
           token: ${{ secrets.REPO_TOKEN }}
-          path: finalproject_pickme_front
+          path: Devops
 
       - name: Modify Files and Commit
         run: |
-          cd finalproject_pickme_front
-          mkdir -p ${{ env.EKS_PATH }}
+          cd Devops
+          mkdir -p ${{ env.EKS_PATH}}
           echo '"replicaCount": "1"' > ${{ env.EKS_PATH }}/values.yaml
-          echo '"image": "${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
+          echo '"image": "${ECR_REGISTRY}/${ECR_REPOSITORY}:${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
           echo '"host": "front.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml
-          git config user.name "rok-won"
-          git config user.email "looky1254@naver.com"
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
           git add .
-          git commit -m "Update pickme by GitHub Actions"
+          git commit -m "Update file.txt by GitHub Actions[kt_cloud_expert]"
 
-      - name: Push finalproject_pickme_front
+      - name: Push Changes
         run: |
-          cd finalproject_pickme_front
+          cd Devops
           git pull --rebase
           git push
