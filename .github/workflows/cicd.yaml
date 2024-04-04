@@ -10,8 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     env:
       ECR_REPOSITORY: pickme_front
-      #ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
-      ECR_REGISTRY: public.ecr.aws/e3s0f1s6
+      ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
+      #ECR_REGISTRY: public.ecr.aws/e3s0f1s6
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
