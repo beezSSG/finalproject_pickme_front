@@ -10,6 +10,7 @@ import MyInfo from "./MyInfo";
 import MyReview from "./MyReview";
 import MyMainContent from "./MyMainContent";
 import MyCoupon from "./MyCoupon";
+import MyGift from "./MyGift";
 
 export default function MyMain() {
   // useState 선언
@@ -91,6 +92,7 @@ export default function MyMain() {
           <Route path='userinfo' element={<MyInfo />} />
           <Route path='review' element={<MyReview />} />
           <Route path='coupon' element={<MyCoupon /> } />
+          <Route path='gift' element={<MyGift /> } />
         </Routes>
       </div>
     </>
