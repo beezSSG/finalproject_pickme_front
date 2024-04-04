@@ -25,8 +25,7 @@ jobs:
 
       - name: Login to Amazon ECR Public
         run: |
-          AWS_PUBLIC_ECR_LOGIN=$(aws ecr-public get-login-password --region ap-northeast-2 | docker login --username AWS --password-stdin public.ecr.aws)
-          echo $AWS_PUBLIC_ECR_LOGIN
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
 
       - name: Build and push Docker image to Amazon ECR
         run: |
