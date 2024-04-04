@@ -4,7 +4,7 @@ import axios from 'axios';
 import Event from './Event';
 import { useNavigate } from 'react-router-dom';
 import { BsArrowLeftShort, BsAppIndicator, BsSearch } from "react-icons/bs";
-import { FaDiceD6 } from "react-icons/fa";
+import { FaDiceD6, FaClipboardList } from "react-icons/fa";
 import { RiDashboardFill, RiCoupon3Fill,RiCustomerService2Fill } from "react-icons/ri";
 import { FaGift } from "react-icons/fa6";
 import { IoReceiptSharp } from "react-icons/io5";
@@ -36,7 +36,8 @@ function ManagerMain({height}) {
         { title: "신제품", path: "/manager/newproductinsert" },
         { title: "쿠폰생성", path: "/manager/coupon" },
         { title: "자주묻는질문", path: "/manager/faq" },
-        { title: "1:1 문의", path: "/magnager/contactus" }
+        { title: "1:1 문의", path: "/manager/contactus" },
+        { title: "사업자 등록", path: "/manager/ocrlist"}
     ];
 
     const iconComponents = [
@@ -46,7 +47,8 @@ function ManagerMain({height}) {
         <MdProductionQuantityLimits />,
         <RiCoupon3Fill />,
         <FaQuestion />,
-        <RiCustomerService2Fill />
+        <RiCustomerService2Fill />,
+        <FaClipboardList />
     ];
 
     return(

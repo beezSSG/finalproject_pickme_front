@@ -7,11 +7,13 @@ import OrderChart from "./OrderChart";
 import Event from "./Event";
 import EventDetail from "./EventDetail";
 import ContactUs from '../customerservice/ContactUs';
-import ContactUsDetail from '../customerservice/ContactUsDetail';
+import ContactUsDetail from '../customerservice/ContactUsDetail'; 
 import ContactUsWrite from '../customerservice/ContactUsWrite';
 import Faq from '../customerservice/Faq';
 import FaqCreate from '../customerservice/FaqCreate';
 import CustomerCenter from '../customerservice/CustomerCenter';
+import OcrList from './OcrList';
+import OcrListDetail from './OcrListDetail';
 
 export default function Manager() {
   
@@ -31,6 +33,8 @@ export default function Manager() {
         <Route path='contactuswrite' element={<ContactUsWrite />} />
         <Route path='faq' element={<Faq />} />
         <Route path='faqcreate' element={<FaqCreate />} />
+        <Route path='ocrlist' element={<OcrList />} />
+        <Route path='ocrlistdetail/:id' element={<OcrListDetail />} />
       </Routes>
     </>
   );
