@@ -2,8 +2,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
-import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
+// import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
 import { RiUser5Fill } from "react-icons/ri";
+// import { BsCart4 } from "react-icons/bs";
+import { FaShoppingCart } from "react-icons/fa";
 // import { Disclosure } from "@headlessui/react";
 // import Toast from '../public/Toast';
 
@@ -19,15 +21,27 @@ function Header() {
     ) {
       console.log(localStorage.getItem("jwt"));
       return (
-        <Link
-          className="relative w-fit inline-block after:block mx-2
+        <div>
+          <Link
+            className="relative w-fit inline-block after:block mx-2
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                         after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-          to="/login"
-        >
-          로그인
-        </Link>
+            to="/login"
+          >
+            로그인
+          </Link>
+
+          {/* 장바구니 */}
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+          </Link>
+        </div>
       );
     } else {
       return (
@@ -46,11 +60,21 @@ function Header() {
           {/* 마이페이지 */}
           <Link to={ "http://localhost:3000/mypage" } className="group">
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
-                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-11 md:top-6 md:right-1 lg:top-0 lg:right-1"
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
             >
               마이페이지
             </span>
-            <RiUser5Fill className="size-6 ml-1 text-slate-500 rounded-2xl hover:text-main-orange" />
+            <RiUser5Fill className="size-6 mx-1 text-slate-500 rounded-2xl hover:text-main-orange" />
+          </Link>
+
+          {/* 장바구니 */}
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
           </Link>
         </div>
       );
@@ -114,8 +138,9 @@ function Header() {
           className="float-right flex items-center"
           mobileMenuOpen={mobileMenuOpen}
         >
-          <div className="md:block my-1.5">
+          <div className="md:block flex items-center my-1.5">
             <Logincom />
+            
             {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> */}
             {adminName === "하기성" && (
               <Link
