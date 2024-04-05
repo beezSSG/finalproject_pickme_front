@@ -33,7 +33,7 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
@@ -58,7 +58,7 @@ function Header() {
           </Link>
 
           {/* 마이페이지 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
             >
@@ -68,7 +68,7 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
@@ -95,11 +95,13 @@ function Header() {
     { name: "고객센터", to: "/customercenter" },
   ];
 
+
   return (
     <div
-      className="mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
+      className={`mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
                 backdrop-blur-md shadow-md
-                transition duration-700 hover:bg-slate-50"
+                transition duration-700 hover:bg-slate-50
+                ${mobileMenuOpen ? "bg-white" : ""}`}
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
@@ -108,6 +110,7 @@ function Header() {
             src={FullLogoImg}
             alt="pickme full logo"
             className="sm:size-24 md:size-28"
+            onClick={()=>setMobileMenuOpen(false)}
           />
           {/* <img
             src={ShortLogoImg}
@@ -194,8 +197,8 @@ function Header() {
         </div>
       </nav>
 
-      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000 bg-white
-                    ${mobileMenuOpen ? "opacity-1" : "opacity-0"} md:hidden lg:hidden`}
+      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000
+                    ${mobileMenuOpen ? "bg-white opacity-1" : "opacity-0 h-0"} md:hidden lg:hidden`}
       >
         <div className="-my-8 pt-3 flex flex-col items-center">
           {menus.map((menu) => (
