@@ -231,7 +231,7 @@ function Chatbot() {
         <p className="text-center text-md font-bold text-gray-500 mb-10">
           무엇이든 질문하세요!
         </p>
-        <div className="w-full h-screen border-2 border-gray-600 rounded-xl">
+        <div className="w-full h-screen border-2  rounded-xl shadow-xl">
           <div className="h-full rounded-xl">
             <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg">
               <h3 className="welcome">Welcome Pickme</h3>
