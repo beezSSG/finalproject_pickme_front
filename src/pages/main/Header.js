@@ -98,9 +98,10 @@ function Header() {
 
   return (
     <div
-      className="mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
+      className={`mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
                 backdrop-blur-md shadow-md
-                transition duration-700 hover:bg-slate-50"
+                transition duration-700 hover:bg-slate-50
+                ${mobileMenuOpen ? "bg-white" : ""}`}
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
@@ -196,8 +197,8 @@ function Header() {
         </div>
       </nav>
 
-      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000 bg-white
-                    ${mobileMenuOpen ? "opacity-1" : "opacity-0"} md:hidden lg:hidden`}
+      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000
+                    ${mobileMenuOpen ? "bg-white opacity-1" : "opacity-0 h-0"} md:hidden lg:hidden`}
       >
         <div className="-my-8 pt-3 flex flex-col items-center">
           {menus.map((menu) => (
