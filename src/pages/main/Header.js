@@ -54,14 +54,32 @@ function Header() {
     window.location.replace("http://localhost:3000");
   };
 
-    const [isOpen, setIsOpen] = useState(false);
+  // const menuNames = [
+  //   "서비스 소개",
+  //   "상품",
+  //   "매장찾기",
+  //   "서비스",
+  //   "이벤트",
+  //   "고객센터",
+  // ];
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+  // const menuLinks = [
+  //   "/about",
+  //   "/productlist",
+  //   "/store",
+  //   "/post",
+  //   "/event",
+  //   "/customercenter",
+  // ];
 
-    const menuLinks = ["/about", "/productlist", "/store", "/post", "/event", "/customercenter"];
-    const menuNames = ["서비스소개", "상품", "매장찾기", "서비스", "이벤트", "고객센터"];
+  const menus = [
+    { name: "서비스 소개", to: "/about" },
+    { name: "상품", to: "/productlist" },
+    { name: "매장찾기", to: "/store" },
+    { name: "서비스", to: "/post" },
+    { name: "이벤트", to: "/event" },
+    { name: "고객센터", to: "/customercenter" },
+  ];
 
 
     return (
