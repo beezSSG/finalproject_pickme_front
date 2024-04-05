@@ -89,14 +89,19 @@ function Header() {
                 backdrop-blur-md shadow-md
                 transition duration-700 hover:bg-slate-50"
     >
-      <nav className="relative z-10 flex px-6 sm:px-2 items-center justify-between sm:bg-slate-50">
+      <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
-        <Link to="http://localhost:3000" className="mb-3 ml-10 sm:ml-3">
+        <Link to="http://localhost:3000" className="pb-2 ml-10 sm:ml-3">
           <img
             src={FullLogoImg}
-            alt="pickme logo"
+            alt="pickme full logo"
             className="sm:size-24 md:size-28"
           />
+          {/* <img
+            src={ShortLogoImg}
+            alt="pickme short logo"
+            className="sm:size-10 md:hidden lg:hidden"
+          /> */}
         </Link>
         
         {/* 메뉴 links */}
@@ -146,21 +151,67 @@ function Header() {
                         <span>Get started 
                             <span class="hidden lg:inline">today</span>
                         </span></a> */}
-                    <div className="mx-2 lg:hidden">
-                        <div data-headlessui-state="">
-                            <button className="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none" aria-label="Toggle Navigation" type="button" aria-expanded="false" data-headlessui-state="" id="headlessui-popover-button-:Rbpnla:">
-                                <svg aria-hidden="true" className="h-3.5 w-3.5 overflow-visible stroke-slate-500" fill="none" strokeWidth="2" strokeLinecap="round">
-                                    <path d="M0 1H14M0 7H14M0 13H14" className="origin-center transition"></path>
-                                    <path d="M2 2L12 12M12 2L2 12" className="origin-center transition scale-90 opacity-0"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        {/* <div style={{ position: 'fixed', top: 1, left: 1, width: 1, height: 0, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0, display: 'none' }}></div> */}
-                    </div>
-                </div>
-            </nav>
+          <div className="mx-2 my-1 md:hidden lg:hidden z-10">
+            <div data-headlessui-state="">
+              <button
+                type="button"
+                aria-label="Toggle Navigation"
+                aria-expanded="false"
+                data-headlessui-state=""
+                className="relative flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
+                // id="headlessui-popover-button-:Rbpnla:"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 overflow-visible stroke-slate-500 group-hoverfill-slate-900 group-focus:fill-slate-900"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path
+                    d="M0 1H14M0 7H14M0 13H14"
+                    className="origin-center transition"
+                  ></path>
+                  <path
+                    d="M2 2L12 12M12 2L2 12"
+                    className="origin-center transition scale-90 opacity-0"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-    );
+      </nav>
+
+      <div className={`mt-6 z-20 divide-y divide-slate-900
+                    h-screen w-screen transition-all duration-1000 
+                    ${mobileMenuOpen ? "bg-slate-50" : "hidden"} md:hidden lg:hidden`}
+      >
+        <div className="-my-8 space-y-2 py-3f flex flex-col items-center">
+          {menus.map((menu) => (
+            <>
+              <Link
+              key={menu.name}
+              to={menu.to}
+              className="inline-block mx-7 py-2 text-base relative w-fit after:block 
+                      font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                      after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                      after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                {menu.name}
+              </Link>
+            </>
+          ))}
+          {/* &nbsp;
+          <hr className="w-36 border-2 border-slate-200" />
+          &nbsp; */}
+          {/* 마이페이지 */}
+          {/* <Logincom /> */}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Header;
