@@ -3,11 +3,13 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { TbMessageChatbot } from "react-icons/tb";
 import cutechatbot from "../../assets/imgs/chatbot/cutechatbot.png";
+import loading from "../../assets/imgs/chatbot/trueloadingss.png";
 
 function Chatbot() {
   let navigate = useNavigate();
   const [visible, setVisible] = useState(true);
   const [message, setMessage] = useState("");
+  const chatboxRef = useRef(null); // 대화창의 ref 생성
 
   useEffect(() => {
     let prevScrollPos = window.scrollY;
@@ -24,6 +26,10 @@ function Chatbot() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  useEffect(() => {
+    chatboxRef.current.scrollTop = chatboxRef.current.scrollHeight; // 대화창의 스크롤을 항상 아래로 이동
+  }, [message]); // message 상태가 변경될 때마다 실행
 
   function sendBtn() {
     const rootElement = document.createElement("div");
@@ -46,18 +52,33 @@ function Chatbot() {
     const chatboxElement = document.getElementsByClassName("chatbox")[0];
     chatboxElement.appendChild(rootElement);
     rootElement.appendChild(document.createElement("br")); // 개행
+    // 로딩 표시를 위한 요소 생성
+    const loadingElement = document.createElement("img");
+    loadingElement.src = loading;
+    loadingElement.classList.add("animate-spin", "h-21", "w-21", "ml-4");
 
-    axios
-      .post("mypage/chatbot", null, {
-        params: { voiceMessage: message },
-      })
-      .then(function (resp) {
-        console.log(JSON.stringify(resp.data));
-        ChatBotAnswer(resp.data);
-      })
-      .catch(function (err) {
-        alert("error");
-      });
+    // 로딩 표시를 챗박스에 추가
+    chatboxElement.appendChild(loadingElement);
+
+    // axios 호출 전에 0.5초 지연
+    setTimeout(function () {
+      axios
+        .post("mypage/chatbot", null, {
+          params: { voiceMessage: message },
+        })
+        .then(function (resp) {
+          console.log(JSON.stringify(resp.data));
+          ChatBotAnswer(resp.data);
+          // 로딩 표시 숨기기
+          loadingElement.remove();
+        })
+        .catch(function (err) {
+          alert("error");
+          // 에러 발생 시에도 로딩 표시 숨기기
+          loadingElement.remove();
+        });
+    }, 1000); // 1초를 밀리초로 표기
+    setMessage("");
   }
 
   useEffect(function () {
@@ -205,18 +226,21 @@ function Chatbot() {
       <div className="mx-auto px-3 max-w-[800px] ">
         <div className="flex justify-center mt-14">
           <img src={cutechatbot} className="w-10 h-10 mr-3" />
-          <div className="text-4xl font-bold">챗봇</div>
+          <div className="text-4xl font-bold">Pickme 챗봇</div>
         </div>
         <p className="text-center text-md font-bold text-gray-500 mb-10">
           무엇이든 질문하세요!
         </p>
-        <div className="w-full h-screen border-2 border-gray-600">
-          <div className="h-full">
-            <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white">
+        <div className="w-full h-screen border-2 border-gray-600 rounded-xl">
+          <div className="h-full rounded-xl">
+            <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg">
               <h3 className="welcome">Welcome Pickme</h3>
             </div>
             <br />
-            <div className="chatbox w-full h-[80%] overflow-y-auto">
+            <div
+              className="chatbox w-full h-[80%] overflow-y-auto"
+              ref={chatboxRef}
+            >
               {/* chatbox 내용 */}
             </div>
             <br />
