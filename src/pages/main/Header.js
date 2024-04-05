@@ -44,8 +44,12 @@ function Header() {
           </Link>
 
           {/* 마이페이지 */}
-          <Link to={"http://localhost:3000/mypage" }>
-            <RiUser5Line className="size-8 text-slate-600 hover:text-slate-900 hover:bg-main-yellow rounded-2xl p-1" />
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-11 md:top-6 md:right-1 lg:top-0 lg:right-1"
+            >
+              마이페이지
+            </span>
             <RiUser5Fill className="size-6 ml-1 text-slate-500 rounded-2xl hover:text-main-orange" />
           </Link>
         </div>
