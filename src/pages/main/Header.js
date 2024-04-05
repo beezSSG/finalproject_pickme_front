@@ -147,11 +147,6 @@ function Header() {
             )}
             {adminName === "곽두필" && (
                <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
-             )}
-            {adminName === "곽두필" && (
-               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
-             )}
-               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/mypage">마이페이지</Link>
             )}
             {/* <Link
               className="inline-block px-1.5 text-sm font-bold text-slate-500 hover:text-slate-900 
@@ -208,6 +203,7 @@ function Header() {
               <Link
               key={menu.name}
               to={menu.to}
+              onClick={()=>setMobileMenuOpen(false)}
               className="inline-block text-base relative w-fit after:block peer
                       font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                       after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
