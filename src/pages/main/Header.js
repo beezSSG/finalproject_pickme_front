@@ -1,36 +1,58 @@
-
 // import logoImg from '../../assets/imgs/logo/logo.svg';
-import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
-import Toast from '../public/Toast';
-import { useState } from 'react';
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
+import { RiUser5Line } from "react-icons/ri";
+// import { Disclosure } from "@headlessui/react";
+// import Toast from '../public/Toast';
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    let adminName = localStorage.getItem('name');
+  let adminName = localStorage.getItem("name");
 
-    // 로그인 확인
-    const Logincom = () => {
-        if (localStorage.getItem("name") === null) {
-            return (
-                <a className="inline-block rounded-lg px-2 py-1 text-base font-bold text-slate-500 hover:text-slate-900" href="/login">Login</a>
-            )
-        } else {
-            return (
-                <div>
-                    <span className="inline-block rounded-lg px-2 py-1 text-base text-slate-700 hover:bg-slate-100 hover:text-slate-900">안녕하세요 { localStorage.getItem("name") } 님</span>
-                    <button className="inline-block rounded-lg px-2 py-1 text-base text-slate-700 hover:bg-slate-100 hover:text-slate-900" onClick={()=>(logout())}>Logout</button>
-                </div>
-            )
-        }
+  const Logincom = () => {
+    if (
+      localStorage.getItem("name") === null &&
+      localStorage.getItem("jwt") === null
+    ) {
+      console.log(localStorage.getItem("jwt"));
+      return (
+        <Link
+          className="inline-block px-2 text-lg sm:text-sm font-bold text-slate-500 hover:text-slate-900 
+                      border-transparent border-b-4 transition hover:border-sub-yellow"
+          to="/login"
+        >
+          로그인
+        </Link>
+      );
+    } else {
+      return (
+        <div className="flex items-center justify-center">
+          {/* 로그아웃 */}
+          <Link
+            className="relative text-l w-fit inline-block after:block mx-3
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            to={() => logout()}
+          >
+            로그아웃
+          </Link>
+          
+          {/* 마이페이지 */}
+          <Link to={"http://localhost:3000/mypage" }>
+            <RiUser5Line className="size-8 text-slate-600 hover:text-slate-900 hover:bg-main-yellow rounded-2xl p-1" />
+          </Link>
+        </div>
+      );
     }
+  };
 
-    // 로그아웃
-    const logout = () => {
-        localStorage.clear();
-        window.location.replace("http://localhost:3000/");
-    }
-
+  const logout = () => {
+    localStorage.clear();
+    window.location.replace("http://localhost:3000");
+  };
 
     const [isOpen, setIsOpen] = useState(false);
 
