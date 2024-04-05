@@ -43,7 +43,6 @@ function Polist(){
             alert('카테고리를 선택해 주십시오');
             return;
         }
-
       getPolist(choice, search, 0);
     }  
 
@@ -55,7 +54,6 @@ function Polist(){
 
     // 승인확인 버튼을 누르면 발생하는 함수
     function con(po) {
-      alert("con");
       alert(po.poYn);
         // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
         const params = {"id": po.id};
