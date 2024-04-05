@@ -206,6 +206,7 @@ function Header() {
               <Link
               key={menu.name}
               to={menu.to}
+              onClick={()=>setMobileMenuOpen(false)}
               className="inline-block text-base relative w-fit after:block peer
                       font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                       after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
