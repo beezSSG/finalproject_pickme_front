@@ -197,28 +197,27 @@ function Header() {
         </div>
       </nav>
 
-      <div className={`mt-6 z-20 divide-y divide-slate-900
-                    h-screen w-screen transition-all duration-1000 
-                    ${mobileMenuOpen ? "bg-slate-50" : "hidden"} md:hidden lg:hidden`}
+      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000 bg-white
+                    ${mobileMenuOpen ? "opacity-1" : "opacity-0"} md:hidden lg:hidden`}
       >
-        <div className="-my-8 space-y-2 py-3f flex flex-col items-center">
+        <div className="-my-8 pt-3 flex flex-col items-center">
           {menus.map((menu) => (
-            <>
+            <div className="flex flex-col items-center">
               <Link
               key={menu.name}
               to={menu.to}
-              className="inline-block mx-7 py-2 text-base relative w-fit after:block 
+              className="inline-block text-base relative w-fit after:block peer
                       font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                      after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                      after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
                       after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
               >
-                {menu.name}
+                <p className="my-4">
+                  {menu.name}
+                </p>
               </Link>
-            </>
+              <hr className="w-28 border-2 border-slate-200" />
+            </div>
           ))}
-          {/* &nbsp;
-          <hr className="w-36 border-2 border-slate-200" />
-          &nbsp; */}
           {/* 마이페이지 */}
           {/* <Logincom /> */}
         </div>
