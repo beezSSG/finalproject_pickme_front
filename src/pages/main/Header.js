@@ -33,7 +33,7 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
@@ -58,7 +58,7 @@ function Header() {
           </Link>
 
           {/* 마이페이지 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
             >
@@ -68,7 +68,7 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link to={ "http://localhost:3000/mypage" } className="group">
+          <Link to={ "http://localhost:3000/mypage" } className="group" onClick={()=>setMobileMenuOpen(false)}>
             <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
                             text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
@@ -95,6 +95,7 @@ function Header() {
     { name: "고객센터", to: "/customercenter" },
   ];
 
+
   return (
     <div
       className="mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
@@ -108,6 +109,7 @@ function Header() {
             src={FullLogoImg}
             alt="pickme full logo"
             className="sm:size-24 md:size-28"
+            onClick={()=>setMobileMenuOpen(false)}
           />
           {/* <img
             src={ShortLogoImg}
