@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
 import { RiUser5Line } from "react-icons/ri";
+import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
 // import { Disclosure } from "@headlessui/react";
 // import Toast from '../public/Toast';
 
@@ -19,7 +20,7 @@ function Header() {
       console.log(localStorage.getItem("jwt"));
       return (
         <Link
-          className="relative text-l w-fit inline-block after:block mx-2
+          className="relative w-fit inline-block after:block mx-2
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                         after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
@@ -33,7 +34,7 @@ function Header() {
         <div className="flex items-center justify-center">
           {/* 로그아웃 */}
           <Link
-            className="relative text-l w-fit inline-block after:block mx-3
+            className="relative w-fit inline-block after:block mx-1
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                         after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
@@ -41,7 +42,7 @@ function Header() {
           >
             로그아웃
           </Link>
-          
+
           {/* 마이페이지 */}
           <Link to={"http://localhost:3000/mypage" }>
             <RiUser5Line className="size-8 text-slate-600 hover:text-slate-900 hover:bg-main-yellow rounded-2xl p-1" />
@@ -56,24 +57,6 @@ function Header() {
     window.location.replace("http://localhost:3000");
   };
 
-  // const menuNames = [
-  //   "서비스 소개",
-  //   "상품",
-  //   "매장찾기",
-  //   "서비스",
-  //   "이벤트",
-  //   "고객센터",
-  // ];
-
-  // const menuLinks = [
-  //   "/about",
-  //   "/productlist",
-  //   "/store",
-  //   "/post",
-  //   "/event",
-  //   "/customercenter",
-  // ];
-
   const menus = [
     { name: "서비스 소개", to: "/about" },
     { name: "상품", to: "/productlist" },
@@ -85,7 +68,7 @@ function Header() {
 
   return (
     <div
-      className="mx-auto pt-6 pb-4 sm:px-4 sm:py-0 lg:px-8 
+      className="mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
                 backdrop-blur-md shadow-md
                 transition duration-700 hover:bg-slate-50"
     >
