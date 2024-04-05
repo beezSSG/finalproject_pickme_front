@@ -1,112 +1,231 @@
-
 // import logoImg from '../../assets/imgs/logo/logo.svg';
-import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
-import Toast from '../public/Toast';
-import { useState } from 'react';
-
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
+// import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
+import { RiUser5Fill } from "react-icons/ri";
+// import { BsCart4 } from "react-icons/bs";
+import { FaShoppingCart } from "react-icons/fa";
+// import { Disclosure } from "@headlessui/react";
+// import Toast from '../public/Toast';
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    let adminName = localStorage.getItem('name');
+  let adminName = localStorage.getItem("name");
 
-    // 로그인 확인
-    const Logincom = () => {
-        if (localStorage.getItem("name") === null) {
-            return (
-                <a className="inline-block rounded-lg px-2 py-1 text-base font-bold text-slate-500 hover:text-slate-900" href="/login">Login</a>
-            )
-        } else {
-            return (
-                <div>
-                    <span className="inline-block rounded-lg px-2 py-1 text-base text-slate-700 hover:bg-slate-100 hover:text-slate-900">안녕하세요 { localStorage.getItem("name") } 님</span>
-                    <button className="inline-block rounded-lg px-2 py-1 text-base text-slate-700 hover:bg-slate-100 hover:text-slate-900" onClick={()=>(logout())}>Logout</button>
-                </div>
-            )
-        }
+  const Logincom = () => {
+    if (
+      localStorage.getItem("name") === null &&
+      localStorage.getItem("jwt") === null
+    ) {
+      console.log(localStorage.getItem("jwt"));
+      return (
+        <div>
+          <Link
+            className="relative w-fit inline-block after:block mx-2
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            to="/login"
+          >
+            로그인
+          </Link>
+
+          {/* 장바구니 */}
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+          </Link>
+        </div>
+      );
+    } else {
+      return (
+        <div className="flex items-center justify-center">
+          {/* 로그아웃 */}
+          <Link
+            className="relative w-fit inline-block after:block mx-1
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            to={() => logout()}
+          >
+            로그아웃
+          </Link>
+
+          {/* 마이페이지 */}
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
+            >
+              마이페이지
+            </span>
+            <RiUser5Fill className="size-6 mx-1 text-slate-500 rounded-2xl hover:text-main-orange" />
+          </Link>
+
+          {/* 장바구니 */}
+          <Link to={ "http://localhost:3000/mypage" } className="group">
+            <span className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+          </Link>
+        </div>
+      );
     }
+  };
 
-    // 로그아웃
-    const logout = () => {
-        localStorage.clear();
-        window.location.replace("http://localhost:3000/");
-    }
+  const logout = () => {
+    localStorage.clear();
+    window.location.replace("http://localhost:3000");
+  };
 
+  const menus = [
+    { name: "서비스 소개", to: "/about" },
+    { name: "상품", to: "/productlist" },
+    { name: "매장찾기", to: "/store" },
+    { name: "서비스", to: "/post" },
+    { name: "이벤트", to: "/event" },
+    { name: "고객센터", to: "/customercenter" },
+  ];
 
-    const [isOpen, setIsOpen] = useState(false);
+  return (
+    <div
+      className="mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
+                backdrop-blur-md shadow-md
+                transition duration-700 hover:bg-slate-50"
+    >
+      <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
+        {/* 홈 로고 */}
+        <Link to="http://localhost:3000" className="pb-2 ml-10 sm:ml-3">
+          <img
+            src={FullLogoImg}
+            alt="pickme full logo"
+            className="sm:size-24 md:size-28"
+          />
+          {/* <img
+            src={ShortLogoImg}
+            alt="pickme short logo"
+            className="sm:size-10 md:hidden lg:hidden"
+          /> */}
+        </Link>
+        
+        {/* 메뉴 links */}
+        <div className="sm:hidden">
+          {menus.map((menu) => (
+            <Link
+              key={menu.name}
+              className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                          after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                          after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              to={menu.to}
+            >
+              {menu.name}
+            </Link>
+          ))}
+        </div>
 
-    const toggleDropdown = () => {
-        setIsOpen(!isOpen);
-    };
+        {/* 로그인 */}
+        {/* flex items-center gap-x-5 md:gap-x-8 */}
+        <div
+          className="float-right flex items-center"
+          mobileMenuOpen={mobileMenuOpen}
+        >
+          <div className="md:block flex items-center my-1.5">
+            <Logincom />
+            
+            {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> */}
+            {adminName === "하기성" && (
+               <Link className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" to="/manager/orderchart">관리자</Link>
+            )}
+            {adminName === "곽두필" && (
+               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
+             )}
+            {adminName === "곽두필" && (
+               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
+             )}
+               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/mypage">마이페이지</Link>
+            )}
+            {/* <Link
+              className="inline-block px-1.5 text-sm font-bold text-slate-500 hover:text-slate-900 
+                          lg:text-base border-transparent border-b-4 transition hover:border-sub-yellow"
+              to="/mypage"
+            >
+              마이페이지
+            </Link> */}
+          </div>
 
-    const menuLinks = ["/about", "/productlist", "/store", "/post", "/event", "/customercenter"];
-    const menuNames = ["서비스소개", "상품", "매장찾기", "서비스", "이벤트", "고객센터"];
-
-
-    return (
-        <div className="mx-auto pt-6 pb-4 sm:px-4 sm:py-0 lg:px-8 
-                        backdrop-blur-md border-b-[1px] border-slate-50
-                        transition duration-700 hover:bg-slate-200">
-            <nav className="relative z-10 flex items-center justify-between">
-                <a href="/" className="mb-3 mx-7 ">
-                    <img src={FullLogoImg} alt="pickme logo" className=" sm:size-28"/>
-                </a>
-                <div className="flex items-center">
-                    <div className="lg:block hidden">
-                        {menuNames.map((menu, i) => (
-                            menu === '서비스' ? (
-                                <div key={i} className="relative inline-block">
-                                    <button onClick={toggleDropdown} className="inline-block rounded-lg px-3 font-medium text-slate-500 text-2xl md:text-base hover:text-slate-900 focus:outline-none">{menu}</button>
-                                    {isOpen && (
-                                        <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg">
-                                            <a href="/post" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">택배 예약</a>
-                                            <a href="/productreservation" className="block px-4 py-2 text-slate-500 hover:bg-slate-100 hover:text-slate-900">상품 예약</a>
-                                        </div>
-                                    )}
-                                </div>
-                            ) : (
-                                <a key={i} className="inline-block rounded-lg px-3 font-medium text-slate-500 text-2xl md:text-base hover:text-slate-900" href={menuLinks[i]}>{menu}</a>
-                            )
-                        ))}
-                    </div>
-                </div>
-
-                {/* 로그인 */}
-                {/* flex items-center gap-x-5 md:gap-x-8 */}
-                <div className="float-right flex items-center">
-                    <div className="md:block">
-                        <Logincom />
-                        {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> */}
-                        {adminName === "하기성" && (
-                            <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/manager/orderchart">관리자</a>
-                        )}
-                        {adminName === "곽두필" && (
-                            <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/pomain">점주</a>
-                        )}
-                        {adminName === "곽두필" && (
-                            <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/pomain">점주</a>
-                        )}
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/mypage">마이페이지</a>
-                    </div>
-
-                    {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-bold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
+          {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-bold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
                         <span>Get started 
                             <span class="hidden lg:inline">today</span>
                         </span></a> */}
-                    <div className="mx-2 lg:hidden">
-                        <div data-headlessui-state="">
-                            <button className="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none" aria-label="Toggle Navigation" type="button" aria-expanded="false" data-headlessui-state="" id="headlessui-popover-button-:Rbpnla:">
-                                <svg aria-hidden="true" className="h-3.5 w-3.5 overflow-visible stroke-slate-500" fill="none" strokeWidth="2" strokeLinecap="round">
-                                    <path d="M0 1H14M0 7H14M0 13H14" className="origin-center transition"></path>
-                                    <path d="M2 2L12 12M12 2L2 12" className="origin-center transition scale-90 opacity-0"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        {/* <div style={{ position: 'fixed', top: 1, left: 1, width: 1, height: 0, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0, display: 'none' }}></div> */}
-                    </div>
-                </div>
-            </nav>
+          <div className="mx-2 my-1 md:hidden lg:hidden z-10">
+            <div data-headlessui-state="">
+              <button
+                type="button"
+                aria-label="Toggle Navigation"
+                aria-expanded="false"
+                data-headlessui-state=""
+                className="relative flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
+                // id="headlessui-popover-button-:Rbpnla:"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 overflow-visible stroke-slate-500 group-hoverfill-slate-900 group-focus:fill-slate-900"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path
+                    d="M0 1H14M0 7H14M0 13H14"
+                    className="origin-center transition"
+                  ></path>
+                  <path
+                    d="M2 2L12 12M12 2L2 12"
+                    className="origin-center transition scale-90 opacity-0"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
         </div>
-    );
+      </nav>
+
+      <div className={`mt-6 z-20 h-screen w-screen transition-all duration-1000 bg-white
+                    ${mobileMenuOpen ? "opacity-1" : "opacity-0"} md:hidden lg:hidden`}
+      >
+        <div className="-my-8 pt-3 flex flex-col items-center">
+          {menus.map((menu) => (
+            <div className="flex flex-col items-center">
+              <Link
+              key={menu.name}
+              to={menu.to}
+              className="inline-block text-base relative w-fit after:block peer
+                      font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                      after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
+                      after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+              >
+                <p className="my-4">
+                  {menu.name}
+                </p>
+              </Link>
+              <hr className="w-28 border-2 border-slate-200" />
+            </div>
+          ))}
+          {/* 마이페이지 */}
+          {/* <Logincom /> */}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Header;
