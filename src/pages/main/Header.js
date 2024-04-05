@@ -2,8 +2,8 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
-import { RiUser5Line } from "react-icons/ri";
 import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
+import { RiUser5Fill } from "react-icons/ri";
 // import { Disclosure } from "@headlessui/react";
 // import Toast from '../public/Toast';
 
@@ -46,6 +46,7 @@ function Header() {
           {/* 마이페이지 */}
           <Link to={"http://localhost:3000/mypage" }>
             <RiUser5Line className="size-8 text-slate-600 hover:text-slate-900 hover:bg-main-yellow rounded-2xl p-1" />
+            <RiUser5Fill className="size-6 ml-1 text-slate-500 rounded-2xl hover:text-main-orange" />
           </Link>
         </div>
       );
