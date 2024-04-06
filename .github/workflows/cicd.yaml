@@ -1,4 +1,4 @@
-name: Build and Push Docker Image and Modify EKS Repo#
+name: Build and Push Docker Image and Modify EKS Repo###
 
 on:
   push:
@@ -44,7 +44,7 @@ jobs:
     env:
       ECR_REPOSITORY: pickme_front
       ECR_REGISTRY: public.ecr.aws/e3s0f1s6
-      EKS_PATH: projects/frontend
+      EKS_PATH: helm-projects/prickme-front
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
