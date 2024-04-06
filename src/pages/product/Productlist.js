@@ -10,7 +10,7 @@ function Productlist() {
     const [productlist, setProductlist] = useState([]);
     
     // 정렬
-    const [choice, setChoice] = useState("");
+    const [choice, setChoice] = useState('select');
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
     const [category, setCategory] = useState(0);
     // 검색  
@@ -41,24 +41,27 @@ function Productlist() {
 
 
     function choiceBtn(choice){
-      getProductlist(choice, search, 0, switching, category);
-      setSwitching(!switching);
+      setChoice(choice);
+      const nowSwitching = !switching;
+      setSwitching(nowSwitching);
+      getProductlist(choice, search, 0, nowSwitching, category);
       setPage(0);
     }
 
     function searchBtn(){        
-        getProductlist('select', search, 0, switching, category);
+      setChoice('select');
+      getProductlist('select', search, 0, switching, category);
     }
     
     function categoryBtn(num){
       setCategory(num);
-      getProductlist('select', search, 0, switching, num);
+      getProductlist(choice, search, 0, switching, num);
       setPage(0);
     }
 
     function handlePageChange(page){
         setPage(page);
-        getProductlist('select', search, page-1, switching, category);
+        getProductlist(choice, search, page-1, switching, category);
     }
 
 
@@ -164,8 +167,8 @@ function Productlist() {
               for (let j = i; j < i + columns && j < productlist.length; j++) {
                 const product = productlist[j];
                 row.push(
-                  <Link to={`/productdetail/${product.id}`}>
-                    <div key={product.id} className="items-center w-[300px] h-[450px] mb-10 rounded-xl border border-spacing-2
+                  <Link key={product.id} to={`/productdetail/${product.id}`}>
+                    <div className="items-center w-[300px] h-[450px] mb-10 rounded-xl border border-spacing-2
                               overflow-hidden transition duration-500 ease-in-out transform hover:ring-4 hover:ring-amber-400">
                       <div className='mt-10'>
                           <img src={product.url} className="w-[250px] h-[250px] object-cover hover:scale-110 transition duration-300" />
