@@ -1,4 +1,4 @@
-name: Build and Push Docker Image and Modify EKS Repo
+name: Build and Push Docker Image and Modify EKS Repo#
 
 on:
   push:
