@@ -4,6 +4,8 @@ import Header from "./Header";
 import Footer from "./Footer";
 import Home from "./Home";
 import Login from "../login/Login";
+import IdFind from "../login/IdFind";
+import PwFind from "../login/PwFind";
 import Register from "../login/Register";
 import UserRegister from "../login/UserRegister";
 import CeoRegister from "../login/CeoRegister";
@@ -41,6 +43,8 @@ export default function MainHome() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/idfind" element={<IdFind />} />
+            <Route path="/pwfind" element={<PwFind />} />
             <Route path="/register" element={<Register />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/ceoregister" element={<CeoRegister />} />
