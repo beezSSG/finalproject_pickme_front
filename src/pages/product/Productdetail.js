@@ -15,6 +15,7 @@ function Productdetail(){
     const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서  
     const [product, setProduct] = useState();
     const navigate = useNavigate();
+    const [productCategory, setProductCategory] = useState('');
   
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
     const [loading, setLoading] = useState(false); 
@@ -75,7 +76,7 @@ function Productdetail(){
 
     // 후기 변수
     const[reviewContent, setReviewContent] = useState("");
-    const[reviewRating, setReviewRating] = useState(3);
+    const[reviewRating, setReviewRating] = useState(5);
     const[reviewCnt, setReviewCnt] = useState(0);
     const[productRating, setProductRating] = useState(0);
     const[reviewCheck, setReviewCheck] = useState(0);
@@ -85,13 +86,15 @@ function Productdetail(){
     const[reviewList, setReviewList] = useState([]);
     const[visibleReviews, setVisibleReviews] = useState(5); // 처음엔 3개의 후기만 보이도록 설정
     const[isLoading, setIsLoading] = useState(false);       // 로딩 상태
-      
+    
+    // 상품 상세정보 받아오기
     async function getProduct(id){
         await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
             .then(function(resp){
             //    console.log(resp.data);
                 setId(id);
                 setProduct(resp.data);
+                setCategory(resp.data.categoryId);
 
                 setLoading(true);
             })
@@ -99,6 +102,13 @@ function Productdetail(){
                 alert('error');
             })
     };
+
+    // 카테고리 id를 이용해 카테고리 저장
+    function setCategory(categoryId){
+        if(categoryId === 7){
+            setProductCategory('생활용품');
+        }
+    }
 
     // 후기 등록
     async function reviewInsert(){
@@ -294,7 +304,7 @@ function Productdetail(){
     };
 
     // 장바구니 담기
-    function cartClick() {
+    function giftClick() {
         if(`${localStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
@@ -303,7 +313,10 @@ function Productdetail(){
               return;
         }
 
-        alert("어처구니 😛");
+        Toast.fire({
+            icon: 'warning',
+            title: "선물은 위험해요 😛",
+          });
     }
 
 
@@ -329,7 +342,10 @@ function Productdetail(){
                         <dl className="ml-5" style={{ display: 'flex' }}>
                             <dt  className='font-bold text-xl mb-8'>태그</dt>
                             <dd className='ml-8 text-xl'>
-                                <p><span>카테고리 들어갈 자리</span></p>
+                                <div className="focus:outline-none text-white bg-red-800
+                                    from-neutral-50 font-medium rounded-lg text-sm px-2 py-1.5">
+                                    {productCategory}
+                                </div>
                             </dd>
                         </dl>
                         <hr/><br/>
@@ -354,7 +370,7 @@ function Productdetail(){
                             <dd>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
-                                                    dark:focus:ring-yellow-900"onClick={()=>(cartClick())}>장바구니</button>
+                                                    dark:focus:ring-yellow-900"onClick={()=>(giftClick())}>선물하기🎁</button>
                             </dd>
                             <dd>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
@@ -404,11 +420,11 @@ function Productdetail(){
                                 style={{ maxWidth: '120px' }}
                                 value={reviewRating}
                                 onChange={handleRatingChange}>
-                            <option key="selectStars" value={5}>★★★★★</option>
-                            <option key="selectStars" value={4}>★★★★</option>
-                            <option key="selectStars" value={3}>★★★</option>
-                            <option key="selectStars" value={2}>★★</option>
-                            <option key="selectStars" value={1}>★</option>
+                            <option value={5}>★★★★★</option>
+                            <option value={4}>★★★★</option>
+                            <option value={3}>★★★</option>
+                            <option value={2}>★★</option>
+                            <option value={1}>★</option>
                         </select>
                         </div>
                         <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
