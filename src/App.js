@@ -1,5 +1,4 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import "./firebase-messaging-sw.js";
 import { AuthProvider } from './utils/AuthProvider';
 import { homeAlertHandle } from './utils/ServiceAlert.js'
 
