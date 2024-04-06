@@ -147,13 +147,13 @@ function Faq() {
           )
         )}
       </div>
-      <div className="bg-white grid place-items-center h-[100vh] flex items-start">
-        <div className="wrapper w-5/6">
+      <div className="max-w-[1300px] mx-auto px-3">
+        <div className="wrapper w-full">
           {faqlist.map((faq, index) => (
             <div
               key={faq.id}
               className={`tab px-5 py-2 bg-white shadow-lg relative mb-2 rounded-md transition-transform duration-300 ease-in-out transform hover:scale-105 ${
-                isChecked ? "mt-10" : ""
+                index === 0 ? "mt-10" : ""
               }`}
             >
               <input
@@ -161,8 +161,7 @@ function Faq() {
                 name="faq"
                 id={`faq${faq.id}`}
                 className="appearance-none peer"
-                checked={isChecked} // 체크박스의 체크 여부를 상태와 연결
-                onChange={() => handleCheckboxChange(faq.id)} // 체크박스 상태 변경 시 실행되는 함수
+                onChange={() => handleCheckboxChange(faq.id)}
               />
               <label
                 htmlFor={`faq${faq.id}`}
@@ -171,44 +170,24 @@ function Faq() {
                 <h2 className="w-8 h-8 bg-yellow-400 text-white flex justify-center items-center rounded-sm mr-3">
                   {index + 1}
                 </h2>
-                <h3>
-                  {faq.title.split(category).map((part, i) =>
-                    i === 0 ? (
-                      <span key={`title-part-${i}`}>{part}</span>
-                    ) : (
-                      <span key={`title-part-${i}`}>
-                        <span className="text-yellow-500">{category}</span>
-                        {part}
-                      </span>
-                    )
-                  )}
-                </h3>
+                <h3>{faq.title} </h3>
               </label>
               <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto">
-                <p>
-                  {faq.content.split(category).map((part, i) =>
-                    i === 0 ? (
-                      <span key={`content-part-${i}`}>{part}</span>
-                    ) : (
-                      <span key={`content-part-${i}`}>
-                        <span className="text-yellow-500">{category}</span>
-                        {part}
-                      </span>
-                    )
-                  )}
-                </p>
+                <p>{faq.content}</p>
               </div>
             </div>
           ))}
         </div>
         {/* 이 버튼은 로그인이 구현되면 관리자일시에만 뜨게 할꺼임(하기성만 뜨게 해뒀음) */}
         {adminName === "하기성" && (
-          <button
-            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
-            onClick={faqcreate}
-          >
-            글 생성하기
-          </button>
+          <div className="text-center mt-6">
+            <button
+              className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+              onClick={faqcreate}
+            >
+              글 생성하기
+            </button>
+          </div>
         )}
       </div>
     </>
