@@ -1,4 +1,4 @@
-name: Build and Push Docker Image and Modify EKS Repo
+name: Build and Push Docker Image and Modify EKS Repo#
 
 on:
   push:
@@ -8,11 +8,12 @@ on:
 jobs:
   build-and-push-docker:
     runs-on: ubuntu-latest
+
     env:
       ECR_REPOSITORY: pickme_front
-      #ECR_REGISTRY: 709745608741.dkr.ecr.ap-northeast-2.amazonaws.com
       ECR_REGISTRY: public.ecr.aws/e3s0f1s6
       IMAGE_TAG: ${{ github.sha }}
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -20,14 +21,17 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          registry: public.ecr.aws
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ap-northeast-2
 
-      - name: Login to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
+      - name: Login to Amazon ECR Public
+        run: |
+          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws
+
+      - name: Create .env file
+        run: |
+          echo "${{ secrets.ENV_VARS }}" > .env
 
       - name: Build and push Docker image to Amazon ECR
         run: |
@@ -38,7 +42,9 @@ jobs:
     needs: build-and-push-docker
     runs-on: ubuntu-latest
     env:
-      EKS_PATH: helm-projects/pickme-front
+      ECR_REPOSITORY: pickme_front
+      ECR_REGISTRY: public.ecr.aws/e3s0f1s6
+      EKS_PATH: projects/frontend
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
@@ -52,9 +58,9 @@ jobs:
         run: |
           cd Devops
           mkdir -p ${{ env.EKS_PATH}}
-          echo '"replicaCount": "1"' > ${{ env.EKS_PATH }}/values.yaml
-          echo '"image": "$ECR_REGISTRY/$ECR_REPOSITORY:${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
-          echo '"host": "mypickme.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml
+          echo 'replicaCount: "1"' > ${{ env.EKS_PATH }}/values.yaml
+          echo 'image: "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
+          echo 'host: "mypickme.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
           git add .

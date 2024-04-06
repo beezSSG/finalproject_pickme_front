@@ -93,7 +93,7 @@ function OcrModal({ onClose, checkOcr, onCheckOcrUpdate }) {
                             <img
                                 src={uploadedImage}
                                 alt="Uploaded Preview"
-                                className="absolute inset-0 object-cover rounded-xl max-h-full max-w-full"
+                                className="w-full h-full"
                             />          
                         ) : (
                             <FaRegImage className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-4xl" />
