@@ -144,14 +144,14 @@ function Header() {
           <div className="md:block flex items-center my-1.5">
             <Logincom />
             
-            {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> */}
+            {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> 
             {adminName === "하기성" && (
                <Link className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" to="/manager/orderchart">관리자</Link>
             )}
             {adminName === "곽두필" && (
                <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
             )}
-            {/* <Link
+            <Link
               className="inline-block px-1.5 text-sm font-bold text-slate-500 hover:text-slate-900 
                           lg:text-base border-transparent border-b-4 transition hover:border-sub-yellow"
               to="/mypage"
