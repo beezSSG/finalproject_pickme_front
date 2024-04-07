@@ -12,6 +12,7 @@ import CeoRegister from "../login/CeoRegister";
 import LoginGoogle from "../login/LoginGoogle";
 import LoginKakao from "../login/LoginKakao";
 import LoginNaver from "../login/LoginNaver";
+import About from "../about/About";
 import Productdetail from "../product/Productdetail";
 import Productlist from "../product/Productlist";
 import StoreMap from "../store/StoreMap";
@@ -51,6 +52,8 @@ export default function MainHome() {
             <Route path="/LoginGoogle" element={<LoginGoogle />} />
             <Route path="/LoginKakao" element={<LoginKakao />} />
             <Route path="/LoginNaver" element={<LoginNaver />} />
+            
+            <Route path="/about" element={<About />} />
 
             <Route path="/productlist" element={<Productlist />} />
             <Route path="/productdetail/:id" element={<Productdetail />} />
