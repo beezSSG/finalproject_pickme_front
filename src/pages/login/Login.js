@@ -22,72 +22,8 @@ const Login = () => {
     setModalOpen(false);
   };
 
-  //임시 로컬스토리지 삭제.
-  //localStorage.clear();
-
-  const goGoogleLogin = () => {
-    let base_url = process.env.REACT_APP_GOOGLE_LOGIN_API_BASE_URL;
-    let client_id = process.env.REACT_APP_GOOGLE_LOGIN_API_CLIENT_ID;
-    let redirect_uri = process.env.REACT_APP_GOOGLE_LOGIN_API_REDIRECT_URI;
-    let response_type = process.env.REACT_APP_GOOGLE_LOGIN_API_RESPONSE_TYPE;
-    let scope = process.env.REACT_APP_GOOGLE_LOGIN_API_SCOPE;
-
-    let url =
-      base_url +
-      "client_id=" +
-      client_id +
-      "&redirect_uri=" +
-      redirect_uri +
-      "&response_type=" +
-      response_type +
-      "&scope=" +
-      scope;
-
-    console.log(url);
-    window.location.href = url;
-  };
-
-  const goNaverLogin = () => {
-    let base_url = process.env.REACT_APP_NAVER_LOGIN_API_BASE_URL;
-    let client_id = process.env.REACT_APP_NAVER_LOGIN_API_CLIENT_ID;
-    let redirect_uri = process.env.REACT_APP_NAVER_LOGIN_API_REDIRECT_URI;
-    let response_type = process.env.REACT_APP_NAVER_LOGIN_API_RESPONSE_TYPE;
-
-    let url =
-      base_url +
-      "client_id=" +
-      client_id +
-      "&redirect_uri=" +
-      redirect_uri +
-      "&response_type=" +
-      response_type;
-
-    console.log(url);
-    window.location.href = url;
-  };
-
-  const goKakaoLogin = () => {
-    let base_url = process.env.REACT_APP_KAKAO_LOGIN_API_BASE_URL;
-    let client_id = process.env.REACT_APP_KAKAO_LOGIN_API_CLIENT_ID;
-    let redirect_uri = process.env.REACT_APP_KAKAO_LOGIN_API_REDIRECT_URI;
-    let response_type = process.env.REACT_APP_KAKAO_LOGIN_API_RESPONSE_TYPE;
-
-    let url =
-      base_url +
-      "client_id=" +
-      client_id +
-      "&redirect_uri=" +
-      redirect_uri +
-      "&response_type=" +
-      response_type;
-
-    console.log(url);
-    window.location.href = url;
-  };
-
   const navigate = useNavigate();
   const location = useLocation();
-
   const { setToken, setIsLoggedIn } = useAuth();
 
   // localStorge에 토큰이 있는 경우 로그인 상태로 간주, 최상위 레벨에서 호출되어야 한다.
@@ -105,20 +41,54 @@ const Login = () => {
     navigate("/");
   };
 
+  const goGoogleLogin = () => {
+      let base_url = process.env.REACT_APP_GOOGLE_LOGIN_API_BASE_URL;
+      let client_id = process.env.REACT_APP_GOOGLE_LOGIN_API_CLIENT_ID;
+      let redirect_uri = process.env.REACT_APP_GOOGLE_LOGIN_API_REDIRECT_URI;
+      let response_type = process.env.REACT_APP_GOOGLE_LOGIN_API_RESPONSE_TYPE;
+      let scope = process.env.REACT_APP_GOOGLE_LOGIN_API_SCOPE;
+
+      let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type + "&scope=" + scope;
+
+      console.log(url);
+      window.location.href = url;
+  }
+
+  const goNaverLogin = () => {
+      let base_url = process.env.REACT_APP_NAVER_LOGIN_API_BASE_URL;
+      let client_id = process.env.REACT_APP_NAVER_LOGIN_API_CLIENT_ID;
+      let redirect_uri = process.env.REACT_APP_NAVER_LOGIN_API_REDIRECT_URI;
+      let response_type = process.env.REACT_APP_NAVER_LOGIN_API_RESPONSE_TYPE;
+
+      let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type;
+
+      console.log(url);
+      window.location.href = url;
+  }
+
+  const goKakaoLogin = () => {
+      let base_url = process.env.REACT_APP_KAKAO_LOGIN_API_BASE_URL;
+      let client_id = process.env.REACT_APP_KAKAO_LOGIN_API_CLIENT_ID;
+      let redirect_uri = process.env.REACT_APP_KAKAO_LOGIN_API_REDIRECT_URI;
+      let response_type = process.env.REACT_APP_KAKAO_LOGIN_API_RESPONSE_TYPE;
+
+      let url = base_url + "client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=" + response_type;
+
+      console.log(url);
+      window.location.href = url;
+  }
+
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
-
   const handlePw = (e) => {
     setPw(e.target.value);
   };
 
   const onClickConfirmButton = () => {
     // console.log("Button clicked!");          // 1. 로그 확인
-    console.log("email:", email, "PW:", pw); // 2. 상태 값 확인
-
-    const endpoint = "http://localhost:8080/api/v1/user/login";
-
+    console.log("email:", email, "PW:", pw);    // 2. 상태 값 확인
+    const endpoint = 'user/login';
     let data = JSON.stringify({
       email: email,
       pw: pw,
@@ -135,30 +105,24 @@ const Login = () => {
     };
 
     //  로컬 스토리지에 토큰을 저장하는 부분
-    axios
-      .request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data));
-        // console.log(response.data);
-        if (response.data !== undefined) {
-          alert("로그인에 성공했습니다.");
-          // localStorage.setItem("jwt",  response.data.token);
-          // alert(response.data);
+    axios.request(config)
+    .then((response) => {
+      console.log(JSON.stringify(response.data));
+      // console.log(response.data);
+      if( response.data !== undefined ) {
+          alert('로그인에 성공했습니다.');
           setToken(response.data); // 상태에 토큰 저장
           setIsLoggedIn(true);
-
-          // setTimeout(() => {
-          //     navigate('/');
-          // }, 2000);
-        } else {
-          alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
-      });
-  };
+          window.location.replace("http://localhost:3000");
+      } else {
+          alert('로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요');
+      }
+    })
+    .catch((error) => {
+      console.log(error);
+      alert('로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요');
+    });
+  }
 
   return (
     <div className="relative flex min-h-full shrink-0 justify-center md:px-12 lg:px-0">
