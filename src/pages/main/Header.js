@@ -12,8 +12,6 @@ import { FaShoppingCart } from "react-icons/fa";
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  let adminName = localStorage.getItem("name");
-
   const Logincom = () => {
     if (
       localStorage.getItem("name") === null &&
@@ -21,7 +19,7 @@ function Header() {
     ) {
       console.log(localStorage.getItem("jwt"));
       return (
-        <div>
+        <div className="flex">
           <Link
             className="relative w-fit inline-block after:block mx-2
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300
