@@ -45,7 +45,16 @@ function Header() {
       return (
         <div className="flex items-center justify-center">
           {/* 로그아웃 */}
-          <Link
+          <button
+            className="relative w-fit inline-block after:block mx-1
+font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full
+after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            onClick={logout}
+          >
+            로그아웃
+          </button>
+          {/* <Link
             className="relative w-fit inline-block after:block mx-1
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
