@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import star2 from "../../assets/imgs/product/star2.png";
 
 export default function MyMainContent() {
   let getProduct = JSON.parse(localStorage.getItem("recentlyProduct"));
@@ -54,7 +55,9 @@ export default function MyMainContent() {
                   { product.productRating !== 0 ?
                   <div>
                     {Array.from({ length : product.productRating }, (_, index) => (
-                      <span key={index}>★</span>
+                      <span key={index} className="align-middle" style={{ display: 'inline-block' }}>
+                        <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} />
+                      </span>
                     ))}
                   </div>
                   :
