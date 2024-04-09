@@ -25,14 +25,6 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
             })
     }
 
-    function deg2rad(deg) {
-        return deg * Math.PI / 180.0;
-    }
-
-    function rad2deg(rad) {
-        return rad * 180 / Math.PI;
-    }
-
     function calDistance(lon, lat) {
         const mylon = 129.1324683;
         const mylat = 35.16591583;
