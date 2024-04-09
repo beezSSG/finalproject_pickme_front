@@ -97,14 +97,6 @@ function Faq() {
             자주 묻는 질문
           </Link>
         </li>
-        <li>
-          <Link
-            to="/chatbot"
-            className="text-white text-[20px] hover:text-yellow-500 mr-[200px]"
-          >
-            챗봇
-          </Link>
-        </li>
       </ul>
       <div className="flex items-center justify-center mt-[100px]">
         <FaBullhorn className="text-5xl mr-4" />

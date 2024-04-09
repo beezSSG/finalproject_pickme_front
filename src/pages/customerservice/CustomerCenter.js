@@ -68,14 +68,6 @@ function CustomerCenter() {
             자주 묻는 질문
           </Link>
         </li>
-        <li>
-          <Link
-            to="/chatbot"
-            className="text-white text-[20px] hover:text-yellow-500 mr-[200px]"
-          >
-            챗봇
-          </Link>
-        </li>
       </ul>
       <div className="max-w-[1200px] mx-auto mt-[70px]">
         <div className="flex">
