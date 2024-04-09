@@ -79,14 +79,6 @@ function ContactUs() {
             자주 묻는 질문
           </Link>
         </li>
-        <li>
-          <Link
-            to="/chatbot"
-            className="text-white text-[20px] hover:text-yellow-500 mr-[200px]"
-          >
-            챗봇
-          </Link>
-        </li>
       </ul>
       <div className="flex justify-center items-center mt-[70px]">
         <div>

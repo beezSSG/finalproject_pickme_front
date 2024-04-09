@@ -16,7 +16,6 @@ export default function MyCoupon() {
     })
     .then((response)=>{
       //console.log(JSON.stringify(response.data));
-      //console.log(Object.values(response.data));
       setMyCoupons(response.data);
     })
     .catch((err)=>{
@@ -37,7 +36,6 @@ export default function MyCoupon() {
                 {data.content}
                 </div>
               <div>
-                <span>쿠폰 유효기간</span>
                 <div>
                   <span>쿠폰 시작일 </span>
                   {data.startDate}
