@@ -103,7 +103,7 @@ function Productdetail(){
     
     // 상품 상세정보 받아오기
     async function getProduct(id){
-        await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
+        await axios.get("product/productdetail", { params:{"id":id} })
             .then(function(resp){
             //    console.log(resp.data);
                 setId(id);
@@ -166,10 +166,9 @@ function Productdetail(){
               return;
         }
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewInsert",
-            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
-             .then((resp)=>{
+        await axios.get("review/reviewInsert",
+            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating }})
+            .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
                     title: "후기 등록 완료!",
@@ -187,9 +186,8 @@ function Productdetail(){
     // 후기 삭제
     async function reviewDelete(listId){
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewDelete",
-            { params:{ "productId":id, "id":listId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/reviewDelete",
+            { params:{ "productId":id, "id":listId }})
              .then((resp)=>{
                 alert(resp.data);
                 productRatingAvg(id);
@@ -209,7 +207,7 @@ function Productdetail(){
 
     // 후기 평점 업데이트 후, 후기 수 반환
     async function productRatingAvg(id){
-        await axios.get("http://localhost:8080/api/v1/review/productRatingAvg", { params:{ "productId":id }})
+        await axios.get("review/productRatingAvg", { params:{ "productId":id }})
         .then((resp)=>{
         setReviewCnt(resp.data);
         })
@@ -221,7 +219,7 @@ function Productdetail(){
 
     // 후기 목록 불러오기
     async function productReviewList(id){
-        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
+        await axios.get("review/productReviewList", { params:{ "id":id }})
         .then((resp)=>{
             setReviewList(resp.data);
         })
@@ -230,8 +228,7 @@ function Productdetail(){
         })
 
         // 이미 후기 작성했는지 체크
-        await axios.get("http://localhost:8080/api/v1/review/productReviewCheck", { params:{ "id":id },
-                                    headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/productReviewCheck", { params:{ "id":id }})
         .then((resp)=>{
             setReviewCheck(resp.data.cnt);
             if(resp.data.cnt > 0){
@@ -283,10 +280,8 @@ function Productdetail(){
             return;
         }
         
-        await axios.get("http://localhost:8080/api/v1/customer/checkZZIM",
-         { params:{ "productId":productId },
-         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-        })
+        await axios.get("customer/checkZZIM",
+        { params:{ "productId":productId }  })
         .then((resp) => {
             if (resp.data == "YES"){
                 setZzim(true);
@@ -311,9 +306,8 @@ function Productdetail(){
         }
 
         if (zzim === false){
-            await axios.post("http://localhost:8080/api/v1/customer/insertZZIM", null,
-             { params:{ "productId":productId },             
-             headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/insertZZIM", null,
+             { params:{ "productId":productId } })
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -325,8 +319,7 @@ function Productdetail(){
             })
         }
         else{
-            await axios.post("http://localhost:8080/api/v1/customer/deleteZZIM", null, { params:{ "productId":productId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/deleteZZIM", null, { params:{ "productId":productId }})
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',

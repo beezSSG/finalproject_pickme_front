@@ -11,9 +11,7 @@ export default function MyCoupon() {
   }, []);
 
   const getMyInfo = async () => {
-    await axios.post("http://localhost:8080/api/v1/mypage/user/getCoupon", null, {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.post("mypage/user/getCoupon")
     .then((response)=>{
       //console.log(JSON.stringify(response.data));
       setMyCoupons(response.data);

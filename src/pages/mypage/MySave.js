@@ -13,9 +13,7 @@ export default function MySave() {
 
   // 찜목록 호출 [productid도 받아야함]
   const getMySave = async () => {
-    await axios.get("http://localhost:8080/api/v1/mypage/save/getSave", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("mypage/save/getSave")
     .then((resp)=>{
       console.log(resp.data);
       setData(resp.data);

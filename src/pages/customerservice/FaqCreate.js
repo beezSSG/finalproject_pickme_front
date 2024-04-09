@@ -31,7 +31,7 @@ function FaqCreate() {
               });
             return;
         }
-        axios.get("http://localhost:8080/api/v1/manager/faqcreate", {params:{"title":title,"content":content}})
+        axios.get("manager/faqcreate", {params:{"title":title,"content":content}})
                 .then(function(resp){
                      console.log(resp.data);
                      if(resp.data === "YES") {
