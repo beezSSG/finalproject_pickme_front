@@ -24,12 +24,7 @@ export default function MyPayinfo() {
 
   const getMypayinfo = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8080/api/v1/mypage/MyOrdersList",
-        {
-          headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-        }
-      );
+      const response = await axios.get("mypage/MyOrdersList");
       const groupedPayInfo = groupByDateTime(response.data);
       setPayInfo(groupedPayInfo);
     } catch (err) {

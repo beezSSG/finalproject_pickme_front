@@ -30,7 +30,6 @@ import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
-import Map from "../store/Map";
 
 export default function MainHome() {
   return (

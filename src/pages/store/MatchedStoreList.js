@@ -15,7 +15,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
     const [matchedStoreList, setMatchedStoreList] = useState([]);
 
     async function matchedstorelist(id) {
-        await axios.get("http://localhost:8080/api/v1/store/matchedstorelist", { params: { "id": id } })
+        await axios.get("store/matchedstorelist", { params: { "id": id } })
             .then(function (resp) {
                 console.log(resp.data);
                 setMatchedStoreList(resp.data)
