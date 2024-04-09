@@ -42,7 +42,7 @@ export default function MyMain() {
       setTopInfo(Object.values(response.data));
     })
     .catch((err)=>{
-      alert(err);
+      // alert(err);
     })
   }
 

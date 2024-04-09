@@ -2,6 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useAuth } from "../../utils/AuthProvider";
 import { Bootpay } from '@bootpay/client-js';
+import { Link } from "react-router-dom";
+
+import { VscArrowCircleUp, VscArrowCircleDown } from "react-icons/vsc";
+import { TiDelete } from "react-icons/ti";
+
+import { TbTruckDelivery } from "react-icons/tb";
+import { GiCardPickup } from "react-icons/gi";
+
 
 export default function MyCart(prop) {
   const {token} = useAuth();
@@ -37,7 +45,7 @@ export default function MyCart(prop) {
 
   // cart 물품 가져오기
   const getMyCart = async () => {
-    await axios.get("http://localhost:8080/api/v1/customer/cart/getCart", {
+    await axios.get("customer/cart/getCart", {
       headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
     })
     .then((response)=>{
@@ -83,7 +91,7 @@ export default function MyCart(prop) {
   const plusQuantity = async (quantity, sProductId) => {
     const newQuantity = Number(quantity) + 1;
 
-    await axios.post("http://localhost:8080/api/v1/customer/cart/changeQuantity",
+    await axios.post("customer/cart/changeQuantity",
       null,
       { params : { "quantity" : newQuantity, "sProductId" : sProductId },
         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
@@ -104,7 +112,7 @@ export default function MyCart(prop) {
     }
     const newQuantity = Number(quantity) - 1;
 
-    await axios.post("http://localhost:8080/api/v1/customer/cart/changeQuantity",
+    await axios.post("customer/cart/changeQuantity",
       null,
       { params : { "quantity" : newQuantity, "sProductId" : sProductId },
         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` } }
@@ -118,21 +126,17 @@ export default function MyCart(prop) {
   }
 
   const deleteItem = async (sProductId) => {
-    await axios.delete("http://localhost:8080/api/v1/customer/cart/delcart",
-      { data : { "sProductId" : sProductId },
-        headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` } }
-    )
-    .then(() => {
+    try {
+      await axios.delete(`customer/cart/delCart/${sProductId}`);
       getMyCart();
-    })
-    .catch((err)=>{
+    } catch (err) {
       alert(err);
-    })
+    }
   };
 
   // 결제후 BE 정보전송
   function sendOrder() {
-    axios.post("http://localhost:8080/api/v1/customer/order", checkItems)
+    axios.post("customer/order", checkItems)
     .then((response)=>{
       // console.log(JSON.stringify(response.data));
       getMyCart();
@@ -224,10 +228,10 @@ export default function MyCart(prop) {
   }
 
   return (
-    <div className="flex-col">
-      <div className="ml-20 w-[1090px] h-[800px] overflow-y-auto">
+    <div className="flex-col mx-auto w-[60%]">
+      <div className="overflow-y-auto">
         <p className="text-center font-bold text-xl text-yellow-500">장바구니</p>
-        <table className="">
+        <table className="sm:hidden">
           <thead>
             <tr>
               <td colSpan="2">
@@ -237,15 +241,15 @@ export default function MyCart(prop) {
               <td colSpan='2' className="text-right"><button>선택삭제</button></td>
               {/* <th colSpan='6' className="text-2xl text-yellow-500">장바구니</th> */}
             </tr>
-            <tr className="text-xl">
-              <th className="w-[50px]">선택</th>
-              <th className="w-[150px]">상품 사진</th>
-              <th className="w-[650px]">상품명</th>
+            <tr className="text-xl sm:text-sm">
+              <th className="w-[2%]">선택</th>
+              <th className="w-[5%]">상품 사진</th>
+              <th className="w-[18%]">상품명</th>
               {/* 편의점 이름 추가 */}
-              <th className="w-[7%]">가격</th>
-              <th className="w-[7%]">총 가격</th>
-              <th className="w-[5%]">수량</th>
-              <th className="w-[5%]">삭제</th>
+              <th className="w-[3%] text-right">가격</th>
+              <th className="w-[3%] text-right">총 가격</th>
+              <th className="w-[3%]">수량</th>
+              <th className="w-[2%]">삭제</th>
             </tr>
           </thead>
           <tbody>
@@ -257,17 +261,23 @@ export default function MyCart(prop) {
                     <td className="cartbox text-center ">
                       <input type="checkbox" onChange={(e) => CheckHandler(e.target.checked, data.id, productTotalPrice)} checked={checkItems.includes(data.id) ? true : false} />
                     </td>
-                    <td><img src={data.productUrl} className="w-[150px] " /></td>
-                    <td className="text-xl font-medium">{data.productName}</td>
-                    <td className="text-right text-lg">{data.productPrice.toLocaleString()}원</td>
-                    <td className="text-right text-lg">{productTotalPrice.toLocaleString()}원</td>
-                    <td className="text-center text-lg">
-                      <button onClick={() => {minusQuantity(`${data.quantity}`, `${data.sproductId}`)} }>-</button>
-                      &nbsp;{data.quantity}
-                      <button onClick={ () => {plusQuantity(`${data.quantity}`, `${data.sproductId}`)} }>+</button>
+                    <td><img src={data.productUrl} className="mx-auto w-[80%]" /></td>
+                    <td className="text-lg sm:text-xs font-medium">{data.productName}</td>
+                    <td className="text-right text-lg sm:text-xs">{data.productPrice.toLocaleString()}원</td>
+                    <td className="text-right text-lg sm:text-xs">{productTotalPrice.toLocaleString()}원</td>
+                    <td className="py-auto text-center ">
+                      <div className="flex justify-center text-xl sm:text-xs">
+                        <button onClick={ () => {plusQuantity(`${data.quantity}`, `${data.sproductId}`)} }><VscArrowCircleUp /></button>
+                        {data.quantity}
+                        <button onClick={() => {minusQuantity(`${data.quantity}`, `${data.sproductId}`)} }><VscArrowCircleDown /></button>
+                      </div>
                     </td>
                     <td className="text-center">
-                      <button onClick={ () => {deleteItem(`${data.sproductId}`)} }>X</button>
+                      <div className="text-2xl sm:text-xs">
+                        <button onClick={ () => {deleteItem(`${data.sproductId}`)} }> 
+                          <TiDelete />
+                        </button>
+                      </div>
                     </td>
                   </tr>
                 );
@@ -282,16 +292,40 @@ export default function MyCart(prop) {
             </tr>
           </tfoot>
         </table>
+        <div className="lg:hidden">
+            이거는 나타나야한다
+        </div>
       </div>
       {/* 총금액 및 계산하기 버튼 */}
-      <div className="m-auto w-[1090px] h-[200px] overflow-y-auto text-right">
+      <div className="mt-3 text-center text-xl font-bold">
+            <h1>결제 전 할인 및 결제사항 입력</h1>
+      </div>
+      <div className="grid grid-cols-2 gap-5 mt-3 h-24 w-[40%] mx-auto">
+          <button
+            className="w-[50%] h-24 bg-gray-300 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 items-center"
+          >
+            <GiCardPickup className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600" />
+            <h3 className="text-center mt-2 font-bold text-xl">
+              고객 픽업
+            </h3>
+          </button>
+          <button
+            className="w-[50%] h-24 bg-gray-300 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500"
+          >
+            <TbTruckDelivery className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600"/>
+            <h3 className="text-center mt-2 font-bold text-xl">
+              물품 배달
+            </h3>
+          </button>
+        </div>
+      {/* <div className="m-auto w-[1090px] h-[200px] overflow-y-auto text-right">
         <p>적립예정 포인트 금액 : </p>
         <p>총금액 : </p>
         <p>포인트 사용금액 : <input type="text" /> {prop.point} </p>
         <p>결제금액 :</p>
         <button onClick={sendOrder}>결제완료 테스트용</button><br/>
         <button onClick={payHandler}>결제하기</button>
-      </div>     
+      </div>      */}
     </div>
   );
 }

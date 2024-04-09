@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MyInfoPost from "./MyInfoPost";
+import { Button, Modal } from "antd";
 
 export default function MyInfo() {
   const [userInfo, setUserInfo] = useState({});
@@ -16,17 +17,18 @@ export default function MyInfo() {
   const [newPw, setNewPw] = useState(0); // 변경 비밀번호
   const [confirmPw, setConfirmPw] = useState(0); // 비밀번호 확인
 
+  // 회원탈퇴
+  const [open, setOpen] = useState(false);
+
   useEffect(() => {
     getInfo();
   }, []);
 
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   const getInfo = async () => {
-    await axios.get("http://localhost:8080/api/v1/mypage/user/getUserInfo", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("mypage/user/getUserInfo")
     .then((response)=>{
-      console.log(JSON.stringify(response.data));
+      // console.log(JSON.stringify(response.data));
       setUserInfo(response.data);
     })
     .catch((err)=>{
@@ -36,7 +38,7 @@ export default function MyInfo() {
 
   // 값 체인지 핸들러
   function chageHandler(i) {
-    console.log(i);
+    // console.log(i);
     if (i === 0) { // 개인정보 변경
       setChangeInfo(!changeInfo);
     } else if (i === 1) { // 비밀번호 변경
@@ -58,6 +60,29 @@ export default function MyInfo() {
             .replace(/(-{1,2})$/g, '')
     )
   }
+
+  // 개인정보 변경
+  function changeMyInformation() {
+    
+  }
+
+  // 비밀번호 변경
+
+  const onToggleModal = () => {
+    setOpen((prev) => !prev);
+  };
+
+  function existUser() {
+    // try {
+    //   await axios.delete(`customer/cart/delCart/${sProductId}`);
+    //   getMyCart();
+    // } catch (err) {
+    //   alert(err);
+    // }
+  }
+
+
+
 
   return (
     <div className="ml-14 w-[70%]">
@@ -166,9 +191,41 @@ export default function MyInfo() {
         </div>
         <div className="w-[85%] mt-5 pl-5">
           <div className="">
-            <button type="button" className="border-2 border-orange-500 bg-orange-500 text-white" onClick={() => {chageHandler(1)}}>
+            <button type="button" className="border-2 border-orange-500 bg-orange-500 text-white" onClick={() => {onToggleModal()}}>
               회원탈퇴
             </button>
+            {open && (
+            <Modal
+              open={true}
+              okText="회원탈퇴"
+              cancelText="취소"
+              onOk={onToggleModal}
+              onCancel={onToggleModal}
+              footer={null}
+            >
+              <div className="text-center">
+                <br />
+                <br />
+                <h1 className="text-red-500 font-bold text-2xl">경고문</h1>
+                <br />
+                <h1 className="text-lg">회원을 탈퇴하시면 지금까지의 모든 기록이 사라지고 </h1>
+                <h1 className="text-lg font-bold text-red-600">복구가 불가능합니다.</h1>
+                <br/>
+                
+                <h1 className="text-lg">정말로 회원탈퇴를 진행하시겠습니까?</h1>
+                <br />
+                <div className="grid grid-cols-2 gap-5"> 
+                  {/* 버튼을 중앙으로 정렬하기 위한 컨테이너 */}
+                  <Button key="back" onClick={onToggleModal}>
+                    떠날래요
+                  </Button>
+                  <Button key="submit" type="primary" onClick={onToggleModal}>
+                    더 써볼래요
+                  </Button>
+                </div>
+              </div>
+            </Modal>
+          )}
           </div>
         </div>
       </div>
