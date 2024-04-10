@@ -3,6 +3,7 @@
     {
       "title": "Pick pay",
       "subtitle": [
+        { "subname": "Pick Box", "subpath": "pickbox" },
         { "subname": "결제내역", "subpath": "payinfo" },
         { "subname": "장바구니", "subpath": "cart" },
         { "subname": "선물함", "subpath": "gift" },
