@@ -131,13 +131,18 @@ const Login = () => {
     axios
       .request(config)
       .then((response) => {
-        console.log(JSON.stringify(response.data));
+        // console.log(JSON.stringify(response.data));
         // console.log(response.data);
         if (response.data !== undefined) {
           alert("로그인에 성공했습니다.");
-          setToken(response.data); // 상태에 토큰 저장
+          setToken(response.data.jwt); // 상태에 토큰 저장
           setIsLoggedIn(true);
-          window.location.replace("http://localhost:3000");
+          if (response.data.who === "점주") {
+            window.location.replace("http://localhost:3000/ceo");
+          } else {
+            window.location.replace("http://localhost:3000");
+          }
+          
         } else {
           alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
         }
