@@ -34,7 +34,7 @@ export default function LeftMenu(props) {
 
   const [targetStore, setTargetStore] = useState(""); // 검색할 매장명
   // 임시로 array slice함
-  const [stores, setStores] = useState(props.props.slice(0, 9)); // 검색한 매장들
+  const [stores, setStores] = useState(); // 검색한 매장들
   // console.log(stores);
   const [filteredStores, setFilteredStores] = useState([]); // 카테고리에 해당되는 매장들
 
@@ -48,7 +48,7 @@ export default function LeftMenu(props) {
   return (
     <>
       <div
-        className={`bg-slate-50 h-svh p-5 pt-8 relative ${
+        className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
           menuOpen ? "w-2/6" : "w-14"
         } opacity-100 transition-all duration-400 ease-in-out`}
       >
@@ -119,7 +119,7 @@ export default function LeftMenu(props) {
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2">
-          {
+          {/* {
             stores.map((store, k) => (
               <li key={k}>
                 <h5>{store.name}</h5>
@@ -132,7 +132,7 @@ export default function LeftMenu(props) {
                 <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고</Link>
               </li>
             ))
-          }
+          } */}
         </ul>
       </div>
     </>
