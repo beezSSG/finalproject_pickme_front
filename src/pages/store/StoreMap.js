@@ -126,30 +126,36 @@ export default function StoreMap() {
       });
   }
 
-  // 보이는 영역에 따라 마커 표시 업데이트
-  const updateVisibleMarkers = (map, markers) => {
-    const mapBounds = map.getBounds();
-    markers.forEach((marker) => {
-      const isVisible = mapBounds.hasLatLng(marker.getPosition());
-      marker.setMap(isVisible ? map : null);
-    });
-  };
+  // // 보이는 영역에 따라 마커 표시 업데이트
+  // const updateVisibleMarkers = (map, markers) => {
+  //   const mapBounds = map.getBounds();
+  //   markers.forEach((marker) => {
+  //     const isVisible = mapBounds.hasLatLng(marker.getPosition());
+  //     marker.setMap(isVisible ? map : null);
+  //   });
+  // };
 
-  // 이벤트 발생에 딜레이를 걸어서 발동하게하는 함수
-  function debounce(func, wait) {
-    let timeout;
-    return function (...args) {
-      const context = this;
-      clearTimeout(timeout);
-      timeout = setTimeout(() => func.apply(context, args), wait);
-    };
-  }
+  // // 이벤트 발생에 딜레이를 걸어서 발동하게하는 함수
+  // function debounce(func, wait) {
+  //   let timeout;
+  //   return function (...args) {
+  //     const context = this;
+  //     clearTimeout(timeout);
+  //     timeout = setTimeout(() => func.apply(context, args), wait);
+  //   };
+  // }
 
   return (
     // <div style={{ width: "100%" }}>
     <div className="h-svh">
       {/* LeftMenu에 prop로 값 넘겨주세요 */}
-      <LeftMenu props={markersRef} />
+      {
+        storesInMap ?
+          <LeftMenu stores={ storesInMap } />
+        :
+          ""
+      }
+      {/* <LeftMenu stores={ storesInMap } /> */}
       <div id="map" className="h-svh"></div>
     </div>
   );
