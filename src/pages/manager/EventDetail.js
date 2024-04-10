@@ -23,7 +23,7 @@ function EventDetail() {
      }
 
      async function getevent(id) {
-         await axios.post("http://localhost:8080/api/v1/manager/eventdetail",null, { params:{"id":id} })
+         await axios.post("manager/eventdetail",null, { params:{"id":id} })
                          .then(function(resp){
                              console.log(resp.data);
                              setEvent(resp.data);
@@ -37,7 +37,7 @@ function EventDetail() {
      }
 
      function EventStop() {
-        axios.get("http://localhost:8080/api/v1/manager/eventstop", {params:{"id":params.id}})
+        axios.get("manager/eventstop", {params:{"id":params.id}})
                         .then(function(resp){
                              console.log(resp.data);
                              if(resp.data === "YES") {

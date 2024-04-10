@@ -71,12 +71,12 @@ function UserRegister() {
 
     // 이메일 확인 및 인증
     function emailSend() {
-        axios.get("http://localhost:8080/api/v1/user/countEmail",{params:{"email":email}})
+        axios.get("user/countEmail",{params:{"email":email}})
                 .then(function(resp){
                     let checkId = resp.data;
                     console.log(checkId);
                     if(checkId === 0) {
-                        axios.post("http://localhost:8080/api/v1/user/sendCodeToEmail",null,{params:{"email":email}})
+                        axios.post("user/sendCodeToEmail",null,{params:{"email":email}})
                                 .then(function(resp){
                                     Toast.fire({
                                         icon: 'success',
@@ -130,7 +130,7 @@ function UserRegister() {
             return;
         }
         else {
-            axios.post("http://localhost:8080/api/v1/user/regiCustomer", null, 
+            axios.post("user/regiCustomer", null, 
                         {params:{"email":email, "pw":pw, "name":name, "phone":phoneNumber,"address":address.address}})
                     .then(function(resp){
                         if(resp.data === 1) {
