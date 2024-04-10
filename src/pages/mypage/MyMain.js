@@ -12,6 +12,7 @@ import MyMainContent from "./MyMainContent";
 import MyCoupon from "./MyCoupon";
 import MyGift from "./MyGift";
 import MyGiftdetail from "./MyGiftdetail";
+import MyPickBox from "./MyPickBox";
 
 export default function MyMain() {
   // useState 선언
@@ -74,7 +75,11 @@ export default function MyMain() {
           <div className="pl-[10px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5" key={i}>
             <button className="w-full" onClick={ () => {window.location.href = `${topbar.path}`} }>
               <div className="text-left text-2xl text-neutral-500">{topbar.title}</div>
-              <div className="text-right mt-4 text-4xl text-yellow-600 ">{topInfo[i]}</div>
+              { i === 1 ?
+              <div className="text-right mt-4 text-4xl text-yellow-600 ">{topInfo[i].toLocaleString()}원</div>
+              :
+              <div className="text-right mt-4 text-4xl text-yellow-600 ">{topInfo[i]}개</div>
+              }
             </button>
           </div>
           ))
@@ -85,6 +90,7 @@ export default function MyMain() {
         <MyMainNav />
         <Routes>
           <Route path='' element={<MyMainContent />} />
+          <Route path='pickbox' element={<MyPickBox />} />
           <Route path='cart' element={<MyCart point={topInfo[1]} />} />
           <Route path='payinfo' element={<MyPayinfo />} />
           <Route path='save' element={<MySave />} />
