@@ -1,4 +1,3 @@
-
 # Tailwind CSS 설치
 
 콘솔 명령어로 Tailwind CSS 설치
@@ -18,7 +17,7 @@ module.exports = {
     extend: {},
   },
   plugins: [],
-}
+};
 ```
 
 src/styles/input.css에 Tailwind directives를 추가
@@ -36,6 +35,7 @@ npx tailwindcss -i ./src/styles/tailwindcss/input.css -o ./src/styles/tailwindcs
 ```
 
 Tailwind CSS를 react app에 적용햐보기
+
 ```javascript
 function App() {
   return (
@@ -44,4 +44,50 @@ function App() {
     </div>
   );
 }
+```
+
+```bash
+
+# 사용하지 않는 모듈 삭제
+npm uninstall react-material-ui-carousel
+npm uninstall tw-elements
+npm uninstall slider
+npm uninstall flowbite flowbite-react
+
+# 지도 이벤트에 필요
+npm install react-hook-geolocation
+
+# 네이버지도
+npm install react-naver-maps
+
+# 이미지 슬라이더(swiper.js)
+npm install swiper
+
+# 페이지네이션
+npm install react-js-pagination
+
+# 리엑트 아이콘
+npm install react-icons --save
+
+# pretendard 폰트 (기본 폰트로 사용할 것임)
+npm install pretendard
+
+# tailwind ui lib
+npm install @headlessui/react
+
+# 리엑트 무한 스크롤
+npm install --save react-infinite-scroll-component
+
+# 리액트 js바코드
+npm install Jsbarcode
+
+# 파이어베이스
+npm install firebase
+
+# 부트페이
+npm install bootpay
+
+# 날짜계산
+npm install moment
+
 ```
