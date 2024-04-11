@@ -30,6 +30,7 @@ import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
+import About from "./About";
 
 import PoMainpage from "../ceo/PoMainpage.js";
 
