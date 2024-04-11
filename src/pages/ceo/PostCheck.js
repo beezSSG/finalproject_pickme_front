@@ -1,4 +1,4 @@
-
+/*
  import { useState, useEffect } from 'react';
  import { Link } from 'react-router-dom';
  import Pagination from 'react-js-pagination'; // npm i react-js-pagination
@@ -88,8 +88,8 @@
 
            <br/>
 
-           {/* 세번째의 경우 */}
-           <Pagination
+           {/* 세번째의 경우 */
+/*           <Pagination
              itemClass='page-item'
              linkClass='page-link'
              activePage={page}
@@ -113,3 +113,4 @@
  export default PostCheck;
 
 
+*/
