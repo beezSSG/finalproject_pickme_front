@@ -18,7 +18,7 @@ function ProductReservation() {
     const [search, setSearch] = useState(""); 
 
     const fetchMoreData = () => {
-        axios.get("http://localhost:8080/api/v1/customer/reservationproductlist", { params: { "search": search, "pageNumber": page + 1 ,"perPage":12 }})
+        axios.get("customer/reservationproductlist", { params: { "search": search, "pageNumber": page + 1 ,"perPage":12 }})
             .then(function (resp) {
                 if (resp.data.length === 0) {
                     setHasMore(false); // No more data available
@@ -40,7 +40,7 @@ function ProductReservation() {
     }, [search]); // 검색어가 변경될 때마다 실행
 
     function reservationproductlist(search, page, perPage) {
-        axios.get("http://localhost:8080/api/v1/customer/reservationproductlist", { params: { "search": search, "pageNumber": page,"perPage": perPage } })
+        axios.get("customer/reservationproductlist", { params: { "search": search, "pageNumber": page,"perPage": perPage } })
             .then(function (resp) {
                 if (resp.data.length === 0) {
                     setHasMore(false); // No more data available

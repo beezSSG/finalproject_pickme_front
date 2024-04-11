@@ -87,4 +87,7 @@ npm install firebase
 # 부트페이
 npm install bootpay
 
+# 날짜계산
+npm install moment
+
 ```

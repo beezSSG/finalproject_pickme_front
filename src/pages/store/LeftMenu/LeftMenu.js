@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from 'react-router-dom';
 // import axios from "axios";
 
@@ -29,27 +29,50 @@ const LeftMenuStyle = styled.div`
 // ({abc, bcd})
 export default function LeftMenu(props) {
   // console.log(props);
+  const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true); // 왼쪽바 메뉴 열림 상태
   const [filterOpen, setFilterOpen] = useState(false); // 매장 검색 및 필터 열림 상태
 
   const [targetStore, setTargetStore] = useState(""); // 검색할 매장명
   // 임시로 array slice함
-  const [stores, setStores] = useState(props.props.slice(0, 9)); // 검색한 매장들
-  // console.log(stores);
+  const [stores, setStores] = useState(); // 검색한 매장들
   const [filteredStores, setFilteredStores] = useState([]); // 카테고리에 해당되는 매장들
 
   function setStorelist(data) {
     console.log("부모에게 도달!");
     // console.log(stores);
     // 임시로 array slice함
-    setStores(data.slice(0,9)); // 함수 종료 후에 setter 적용
+    // setStores(data.slice(0,9)); // 함수 종료 후에 setter 적용
   }
+  // useEffect(()=>{
+  //   // console.log(stores);
+  //   setStores(props.stores);
+  //   // setLoading(true);
+
+  //   // - 지금 뭔가 워링이 무제한으로 걸리고 있다 useeffect 관련
+  //   // - 컴포넌트에 대한 방법을 해보니 일정 부분의 값이 고정되고 나머지가 리렌더링이 되고 있는 부분이 있다
+  // }, [])
+
+  useEffect(()=>{
+    // console.log(stores);
+    setStores(props.stores);
+    if (stores !== undefined) {
+      setLoading(true);
+    } else { 
+      // console.log(stores);
+    }
+  }, [props.stores])
+  // }, [stores])
+
+  // 여기에 함수를 만들어서 stores 에 있는 json중에 카테고리가 1이 되어있는 부분을 뽑아내고 나머지는 지워서 setStores 다시 집어넣는것
+  // 두번째 방법은 내가 가지고있는 부분을 다시 백에 넘겨줘서 쿼리문으로 처리하고 다시 넘겨받기
+  // 둘다 함 수는 만들어야함
 
   return (
     <>
       <div
-        className={`bg-slate-50 h-svh p-5 pt-8 relative ${
-          menuOpen ? "w-2/6" : "w-14"
+        className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
+          menuOpen ? "w-1/3" : "w-14"
         } opacity-100 transition-all duration-400 ease-in-out`}
       >
         {/* 이거 부드럽게 애니메이션 주기 */}
@@ -102,6 +125,9 @@ export default function LeftMenu(props) {
             <h1 className="font-bold text-lg py-4">매장 카테고리 선택</h1>
             <StoreCategories />
           </section>
+          <button onClick={()=>console.log(props.stores)}>
+            클릭
+          </button>
         </div>
 
         {/* 검색필터 접기 버튼 */}
@@ -117,11 +143,12 @@ export default function LeftMenu(props) {
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
 
+
         {/* 매장 목록; 사용자 위치 연동 */}
-        <ul className="pt-2">
-          {
-            stores.map((store, k) => (
-              <li key={k}>
+        <ul className="pt-2 h-full overflow-y-auto">
+          {/* {
+            loading ? stores.map((store, i) => (
+              <li key={i}>
                 <h5>{store.name}</h5>
                 <p>{store.address}</p>
                 <p>
@@ -129,7 +156,21 @@ export default function LeftMenu(props) {
                   &nbsp;&nbsp;
                   <span>{store.tel}</span>
                 </p>
-                <Link to={`http://localhost:8080/api/v1/${ store.id }`}></Link>
+                <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고 보러가기</Link>
+              </li>
+            )) : "loading..."
+          } */}
+          { stores && 
+            stores.map((store, k) => (
+              <li key={k}>
+                <h5 className="font-semibold">{store.name}</h5>
+                <p>{store.address}</p>
+                <p>
+                  <FaPhone className="inline" />
+                  &nbsp;&nbsp;
+                  <span>{ store.tel !== "None" ? store.tel : ""}</span>
+                </p>
+                <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고 보러가기</Link>
               </li>
             ))
           }
