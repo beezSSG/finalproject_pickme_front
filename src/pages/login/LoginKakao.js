@@ -6,7 +6,7 @@ const LoginKakao = (props) => {
     useEffect(() => {
         const kakaoLogin = async () =>{
             await axios
-                .get( "http://mypickme.pickme-ssg.com/login/oauth2/code/kakao?code="+code)
+                .get( "http://backend.pickme-ssg.com/login/oauth2/code/kakao?code="+code)
                 .then((res) => {
                     localStorage.setItem("id", res.data.id);
                     localStorage.setItem("name", res.data.name);

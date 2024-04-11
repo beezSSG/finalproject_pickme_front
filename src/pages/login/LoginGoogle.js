@@ -6,7 +6,7 @@ const LoginGoogle = (props) => {
     useEffect(() => {
         const googleLogin = async () =>{
             await axios
-                .get( "http://mypickme.pickme-ssg.com/login/oauth2/code/google?code="+code)
+                .get( "http://backend.pickme-ssg.com/login/oauth2/code/google?code="+code)
                 .then((res) => {
                     localStorage.setItem("id", res.data.id);
                     localStorage.setItem("name", res.data.name);
