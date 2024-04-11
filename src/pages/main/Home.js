@@ -5,7 +5,7 @@ import AdProductSet from "./AdProductSet.js";
 import SearchProduct from "./SearchProduct.js";
 import Chatbot from "../customerservice/Chatbot.js";
 import { useState } from "react";
-import cutechatbot from "../../assets/imgs/chatbot/chatbot1.svg";
+import cutechatbot from "../../assets/imgs/chatbot/bee.gif";
 import { ImCancelCircle } from "react-icons/im";
 
 const Home = () => {
@@ -43,7 +43,7 @@ const Home = () => {
               />
             </div>
           ) : (
-            <div className="fixed bottom-4 right-4 bg-gray-500 rounded-full  hover:scale-95">
+            <div className="fixed bottom-4 right-4 bg-gray-500 rounded-full  hover:scale-95 z-50">
               <img
                 src={cutechatbot}
                 onClick={toggleModal}

@@ -32,19 +32,18 @@ export default function MyMain() {
 
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   const getMyInfo = async () => {
-
-
-    await axios.get("mypage/getMyInfo")
-    .then((response)=>{
-      //console.log(JSON.stringify(response.data));
-      // console.log(Object.values(response.data));
-      setInfo(response.data);
-      setTopInfo(Object.values(response.data));
-    })
-    .catch((err)=>{
-      // alert(err);
-    })
-  }
+    await axios
+      .get("mypage/getMyInfo")
+      .then((response) => {
+        //console.log(JSON.stringify(response.data));
+        // console.log(Object.values(response.data));
+        setInfo(response.data);
+        setTopInfo(Object.values(response.data));
+      })
+      .catch((err) => {
+        // alert(err);
+      });
+  };
 
   const topBar = [
     { title: "장바구니", path: "/mypage/cart" },
@@ -77,17 +76,29 @@ export default function MyMain() {
           </div>
         </div>
 
-        
-        { 
-          topBar.map((topbar, i) => (
-          <div className="pl-[10px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5" key={i}>
-            <button className="w-full" onClick={ () => {window.location.href = `${topbar.path}`} }>
-              <div className="text-left text-2xl text-neutral-500">{topbar.title}</div>
-              { i === 1 ?
-              <div className="text-right mt-4 text-4xl text-yellow-600 ">{topInfo[i].toLocaleString()}원</div>
-              :
-              <div className="text-right mt-4 text-4xl text-yellow-600 ">{topInfo[i]}개</div>
-              }
+        {topBar.map((topbar, i) => (
+          <div
+            className="pl-[10px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
+            key={i}
+          >
+            <button
+              className="w-full"
+              onClick={() => {
+                window.location.href = `${topbar.path}`;
+              }}
+            >
+              <div className="text-left text-2xl text-neutral-500">
+                {topbar.title}
+              </div>
+              {i === 1 ? (
+                <div className="text-right mt-4 text-4xl text-yellow-600 ">
+                  {topInfo[i].toLocaleString()}원
+                </div>
+              ) : (
+                <div className="text-right mt-4 text-4xl text-yellow-600 ">
+                  {topInfo[i]}개
+                </div>
+              )}
             </button>
           </div>
         ))}
@@ -96,18 +107,16 @@ export default function MyMain() {
       <div className="flex w-full">
         <MyMainNav />
         <Routes>
-
-          <Route path='' element={<MyMainContent />} />
-          <Route path='pickbox' element={<MyPickBox />} />
-          <Route path='cart' element={<MyCart point={topInfo[1]} />} />
-          <Route path='payinfo' element={<MyPayinfo />} />
-          <Route path='save' element={<MySave />} />
-          <Route path='userinfo' element={<MyInfo />} />
-          <Route path='review' element={<MyReview />} />
-          <Route path='coupon' element={<MyCoupon /> } />
-          <Route path='gift' element={<MyGift /> } />
-          <Route path='giftdetail' element={<MyGiftdetail /> } />
-
+          <Route path="" element={<MyMainContent />} />
+          <Route path="pickbox" element={<MyPickBox />} />
+          <Route path="cart" element={<MyCart point={topInfo[1]} />} />
+          <Route path="payinfo" element={<MyPayinfo />} />
+          <Route path="save" element={<MySave />} />
+          <Route path="userinfo" element={<MyInfo />} />
+          <Route path="review" element={<MyReview />} />
+          <Route path="coupon" element={<MyCoupon />} />
+          <Route path="gift" element={<MyGift />} />
+          <Route path="giftdetail" element={<MyGiftdetail />} />
         </Routes>
       </div>
     </>
