@@ -56,7 +56,7 @@ function EventCreate() {
 
         // 보내자
         // multipart인 경우에는 두번째 매개변수 보내는 파라미터가 된다
-        axios.post("http://localhost:8080/api/v1/manager/eventcreate", formData)
+        axios.post("manager/eventcreate", formData)
             .then((res) => {
                 console.log(res.data);
                 if (res.data === "YES") {

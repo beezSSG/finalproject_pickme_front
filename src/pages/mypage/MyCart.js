@@ -93,9 +93,7 @@ export default function MyCart(prop) {
 
     await axios.post("customer/cart/changeQuantity",
       null,
-      { params : { "quantity" : newQuantity, "sProductId" : sProductId },
-        headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-      }
+      { params : { "quantity" : newQuantity, "sProductId" : sProductId } }
     )
     .then(() => {
       getMyCart();
@@ -114,8 +112,7 @@ export default function MyCart(prop) {
 
     await axios.post("customer/cart/changeQuantity",
       null,
-      { params : { "quantity" : newQuantity, "sProductId" : sProductId },
-        headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` } }
+      { params : { "quantity" : newQuantity, "sProductId" : sProductId } }
     )
     .then(() => {
       getMyCart();

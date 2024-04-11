@@ -15,7 +15,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
     const [matchedStoreList, setMatchedStoreList] = useState([]);
 
     async function matchedstorelist(id) {
-        await axios.get("http://localhost:8080/api/v1/store/matchedstorelist", { params: { "id": id } })
+        await axios.get("store/matchedstorelist", { params: { "id": id } })
             .then(function (resp) {
                 console.log(resp.data);
                 setMatchedStoreList(resp.data)
@@ -23,14 +23,6 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
             .catch(function (err) {
                 alert('error');
             })
-    }
-
-    function deg2rad(deg) {
-        return deg * Math.PI / 180.0;
-    }
-
-    function rad2deg(rad) {
-        return rad * 180 / Math.PI;
     }
 
     function calDistance(lon, lat) {

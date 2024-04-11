@@ -12,6 +12,7 @@ import MyMainContent from "./MyMainContent";
 import MyCoupon from "./MyCoupon";
 import MyGift from "./MyGift";
 import MyGiftdetail from "./MyGiftdetail";
+import MyPickBox from "./MyPickBox";
 
 export default function MyMain() {
   // useState 선언
@@ -32,9 +33,7 @@ export default function MyMain() {
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   const getMyInfo = async () => {
     await axios
-      .get("http://localhost:8080/api/v1/mypage/getMyInfo", {
-        headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
-      })
+      .get("mypage/getMyInfo")
       .then((response) => {
         //console.log(JSON.stringify(response.data));
         // console.log(Object.values(response.data));
@@ -91,9 +90,15 @@ export default function MyMain() {
               <div className="text-left text-2xl text-neutral-500">
                 {topbar.title}
               </div>
-              <div className="text-right mt-4 text-4xl text-yellow-600 ">
-                {topInfo[i]}
-              </div>
+              {i === 1 ? (
+                <div className="text-right mt-4 text-4xl text-yellow-600 ">
+                  {topInfo[i].toLocaleString()}원
+                </div>
+              ) : (
+                <div className="text-right mt-4 text-4xl text-yellow-600 ">
+                  {topInfo[i]}개
+                </div>
+              )}
             </button>
           </div>
         ))}
@@ -103,6 +108,7 @@ export default function MyMain() {
         <MyMainNav />
         <Routes>
           <Route path="" element={<MyMainContent />} />
+          <Route path="pickbox" element={<MyPickBox />} />
           <Route path="cart" element={<MyCart point={topInfo[1]} />} />
           <Route path="payinfo" element={<MyPayinfo />} />
           <Route path="save" element={<MySave />} />

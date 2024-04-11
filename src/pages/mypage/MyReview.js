@@ -11,9 +11,7 @@ export default function MyReview() {
 
   // Axios 호출
   const getInfo = async () => {
-    await axios.get("http://localhost:8080/api/v1/mypage/review/getReview", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("mypage/review/getReview")
     .then((response)=>{
       // console.log(JSON.stringify(response.data));
       setReview(response.data);
