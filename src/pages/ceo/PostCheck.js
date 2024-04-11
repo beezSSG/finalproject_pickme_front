@@ -88,7 +88,7 @@
 
            <br/>
 
-           {/* 세번째의 경우 */}
+           {/* 세번째의 경우 */
 /*           <Pagination
              itemClass='page-item'
              linkClass='page-link'
