@@ -158,13 +158,10 @@ function Post() {
       deliveryPrice += 3000;
     }
 
-    setTotalPrice(fee + deliveryPrice);
-  }
-
   return (
     <>
       <div className="max-w-[1200px] mx-auto px-3">
-        <div className="text-4xl font-bold mt-[70px]">택배 예약 신청</div>
+        <div className="text-4xl font-bold mt-[70px]">택배 예약</div>
         <div className="text-red-500 font-bold">
           ※최대 3일 이내로 해당 편의점으로 가져다주세요!
         </div>
