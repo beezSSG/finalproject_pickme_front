@@ -145,7 +145,7 @@ function ProductReservation() {
     return(
         <>
             <div className="max-w-[1200px] mx-auto sm:px-3">
-                <div className="text-4xl font-bold mt-[70px]">상품 예약하기</div><br/>
+                <div className="text-4xl font-bold mt-[70px]">픽업 예약</div><br/>
                 <hr className="border-gray-500" /><br/><br/>
                 <div className=" font-bold text-3xl text-gray-700">픽업 매장찾기</div><br/>
                 
