@@ -30,7 +30,7 @@ function Event() {
   };
 
   function EventCreate() {
-    navigate("/eventcreate");
+    navigate("/manager/eventcreate");
   }
 
   // 진행 중인 이벤트만 보여주는 함수
@@ -57,7 +57,7 @@ function Event() {
         <div className="grid grid-cols-2 gap-10 sm:grid-cols-1 sm:gap-0">
           <button
             onClick={showOngoingEvents}
-            className="focus:outline-none text-gray-800 bg-yellow-400 hover:bg-yellow-500 font-bold
+            className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold
                     focus:ring-4 focus:ring-yellow-300 rounded-lg mb-10 py-3
                 "
           >
@@ -65,7 +65,7 @@ function Event() {
           </button>
           <button
             onClick={showFinishedEvents}
-            className="focus:outline-none text-yellow-400 bg-gray-800 hover:bg-gray-600 font-bold
+            className="focus:outline-none text-main-yellow bg-gray-800 hover:bg-gray-600 font-bold
                     focus:ring-4 focus:ring-gray-800 rounded-lg text-sm mb-10 py-3 
                 "
           >
@@ -108,12 +108,14 @@ function Event() {
 
         <br />
         {adminName === "하기성" && (
-          <button
-            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
-            onClick={EventCreate}
-          >
-            이벤트 생성
-          </button>
+          <div className="text-center">
+            <button
+              className="focus:outline-none text-white bg-main-yellow hover:bg-sub-orange focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+              onClick={EventCreate}
+            >
+              이벤트 생성
+            </button>
+          </div>
         )}
       </div>
     </>
