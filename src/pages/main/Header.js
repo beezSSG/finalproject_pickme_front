@@ -6,18 +6,14 @@ import { Popover, Transition } from "@headlessui/react";   // 접히는 메뉴
 // 이미지 및 아이콘
 import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";  // full 로고 이미지
 // import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
-import { FaBox } from "react-icons/fa6";          // 택배 아이콘
-import { GiCardPickup } from "react-icons/gi";    // 픽업 메뉴 아이콘
 
 import { RiUser5Fill } from "react-icons/ri";     // 마이페이지 아이콘
 import { FaShoppingCart } from "react-icons/fa";  // 장바구니 메뉴 아이콘
 // import { BsCart4 } from "react-icons/bs";
-import { HiChevronDown } from "react-icons/hi";   // 접히는 메뉴 화살표
 
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [serviceMenuOpen, setServiceMenuOpen] = useState(false);
 
   const Logincom = () => {
     if (
