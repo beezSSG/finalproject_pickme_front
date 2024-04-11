@@ -158,6 +158,9 @@ function Post() {
       deliveryPrice += 3000;
     }
 
+    setTotalPrice(fee + deliveryPrice);
+  }
+
   return (
     <>
       <div className="max-w-[1200px] mx-auto px-3">
@@ -394,7 +397,6 @@ function Post() {
       )}
     </>
   );
-}
 }
 
 export default Post;
