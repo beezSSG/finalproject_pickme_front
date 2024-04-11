@@ -2,6 +2,7 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 
 import axios from 'axios';
+import GiftModal from './GiftModal';
 import MatchedStoreList from '../store/MatchedStoreList';
 import Toast from "../public/Toast";
 
@@ -21,8 +22,21 @@ function Productdetail(){
     const [loading, setLoading] = useState(false); 
 
     // 모달 창 변수
+    const [giftModalIsOpen, setGiftModalIsOpen] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
     
+    const giftClick = (productId, productName, productPrice, productUrl) =>{        
+        if(`${localStorage.getItem('jwt')}` === "null"){
+            Toast.fire({
+                icon: 'warning',
+                title: "로그인 후 이용 가능합니다",
+              });
+              return;
+        }
+
+        setGiftModalIsOpen(true);
+    }
+
     const searchMatchStore = (id) => {
         // 모달 열 때 id 값 설정
         setModalIsOpen(true);
@@ -89,7 +103,7 @@ function Productdetail(){
     
     // 상품 상세정보 받아오기
     async function getProduct(id){
-        await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
+        await axios.get("product/productdetail", { params:{"id":id} })
             .then(function(resp){
             //    console.log(resp.data);
                 setId(id);
@@ -104,12 +118,36 @@ function Productdetail(){
     };
 
     // 카테고리 id를 이용해 카테고리 저장
-    function setCategory(categoryId){
-        if(categoryId === 7){
-            setProductCategory('생활용품');
+    function setCategory(categoryId) {
+        switch (categoryId) {
+            case 1:
+                setProductCategory('음료');
+                break;
+            case 2:
+                setProductCategory('간편식사');
+                break;
+            case 3:
+                setProductCategory('즉석조리');
+                break;
+            case 4:
+                setProductCategory('과자류');
+                break;
+            case 5:
+                setProductCategory('아이스크림');
+                break;
+            case 6:
+                setProductCategory('식품');
+                break;
+            case 7:
+                setProductCategory('생활용품');
+                break;
+            case 8:
+                setProductCategory('기타');
+                break;
+            default:
+                break;
         }
     }
-
     // 후기 등록
     async function reviewInsert(){
         if(reviewContent === ""){
@@ -128,10 +166,9 @@ function Productdetail(){
               return;
         }
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewInsert",
-            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
-             .then((resp)=>{
+        await axios.get("review/reviewInsert",
+            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating }})
+            .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
                     title: "후기 등록 완료!",
@@ -149,9 +186,8 @@ function Productdetail(){
     // 후기 삭제
     async function reviewDelete(listId){
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewDelete",
-            { params:{ "productId":id, "id":listId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/reviewDelete",
+            { params:{ "productId":id, "id":listId }})
              .then((resp)=>{
                 alert(resp.data);
                 productRatingAvg(id);
@@ -171,7 +207,7 @@ function Productdetail(){
 
     // 후기 평점 업데이트 후, 후기 수 반환
     async function productRatingAvg(id){
-        await axios.get("http://localhost:8080/api/v1/review/productRatingAvg", { params:{ "productId":id }})
+        await axios.get("review/productRatingAvg", { params:{ "productId":id }})
         .then((resp)=>{
         setReviewCnt(resp.data);
         })
@@ -183,7 +219,7 @@ function Productdetail(){
 
     // 후기 목록 불러오기
     async function productReviewList(id){
-        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
+        await axios.get("review/productReviewList", { params:{ "id":id }})
         .then((resp)=>{
             setReviewList(resp.data);
         })
@@ -192,8 +228,7 @@ function Productdetail(){
         })
 
         // 이미 후기 작성했는지 체크
-        await axios.get("http://localhost:8080/api/v1/review/productReviewCheck", { params:{ "id":id },
-                                    headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/productReviewCheck", { params:{ "id":id }})
         .then((resp)=>{
             setReviewCheck(resp.data.cnt);
             if(resp.data.cnt > 0){
@@ -245,10 +280,8 @@ function Productdetail(){
             return;
         }
         
-        await axios.get("http://localhost:8080/api/v1/customer/checkZZIM",
-         { params:{ "productId":productId },
-         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-        })
+        await axios.get("customer/checkZZIM",
+        { params:{ "productId":productId }  })
         .then((resp) => {
             if (resp.data == "YES"){
                 setZzim(true);
@@ -273,9 +306,8 @@ function Productdetail(){
         }
 
         if (zzim === false){
-            await axios.post("http://localhost:8080/api/v1/customer/insertZZIM", null,
-             { params:{ "productId":productId },             
-             headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/insertZZIM", null,
+             { params:{ "productId":productId } })
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -287,8 +319,7 @@ function Productdetail(){
             })
         }
         else{
-            await axios.post("http://localhost:8080/api/v1/customer/deleteZZIM", null, { params:{ "productId":productId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/deleteZZIM", null, { params:{ "productId":productId }})
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -303,21 +334,6 @@ function Productdetail(){
         zzimCheck(productId);
     };
 
-    // 장바구니 담기
-    function giftClick() {
-        if(`${localStorage.getItem('jwt')}` === "null"){
-            Toast.fire({
-                icon: 'warning',
-                title: "로그인 후 이용 가능합니다",
-              });
-              return;
-        }
-
-        Toast.fire({
-            icon: 'warning',
-            title: "선물은 위험해요 😛",
-          });
-    }
 
 
     return(        
@@ -325,7 +341,7 @@ function Productdetail(){
             <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap ">
                 
                 <div name="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
-                    <img src={product.url} style={{ maxWidth: '400px', maxHeight: '400px', margin: '10px' }} />
+                    <img src={product.url} style={{ maxWidth: '380px', maxHeight: '380px', margin: '10px' }} />
                     
                 </div>
 
@@ -371,6 +387,8 @@ function Productdetail(){
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
                                                     dark:focus:ring-yellow-900"onClick={()=>(giftClick())}>선물하기🎁</button>
+                                <GiftModal isOpen={giftModalIsOpen} closeModal={() => setGiftModalIsOpen(false)}
+                                    productId={product.id} productName={product.name} productPrice={product.price} productUrl={product.url} />
                             </dd>
                             <dd>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
@@ -442,7 +460,7 @@ function Productdetail(){
                             <div className="reviewListProfile flex sm:flex-wrap p-5 bg-orange-100 rounded-md" style={{ maxWidth: '800px' }}>
                                 <CgProfile size="40" color="#51abf3" />
                                 <div className='ml-2 text-left w-[100px]'>
-                                    <p>{review.name.substring(0, 1) + '*' + review.name.substring(review.name.length - 1)}</p>
+                                    <p>{review.name.substring(0, 1) + '*'.repeat(review.name.length - 2) + review.name.substring(review.name.length - 1)}</p>
                                     <p>
                                         {Array.from({ length: review.rating }, (_, index) => (
                                             <span key={index} style={{ display: 'inline-block' }}>
