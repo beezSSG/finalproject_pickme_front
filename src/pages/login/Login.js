@@ -96,7 +96,7 @@ const Login = () => {
       redirect_uri +
       "&response_type=" +
       response_type;
-
+    console.log("여기에도달");
     console.log(url);
     window.location.href = url;
   };
@@ -142,7 +142,6 @@ const Login = () => {
           } else {
             window.location.replace("http://localhost:3000");
           }
-          
         } else {
           alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
         }

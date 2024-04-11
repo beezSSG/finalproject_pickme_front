@@ -32,6 +32,11 @@ import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
 import About from "./About";
 
+import PoMainpage from "../ceo/PoMainpage.js";
+
+import About from "./About";
+
+
 export default function MainHome() {
   return (
     <>
@@ -85,8 +90,11 @@ export default function MainHome() {
             <Route path="/mypage/*" element={<MyMain />} />
 
             {/* 점주 */}
-            <Route path="/ceo" element={<Polist />} />
-            <Route path="/pow" element={<Powrite />} />
+
+            
+            
+
+
           </Routes>
         </div>
       </main>
