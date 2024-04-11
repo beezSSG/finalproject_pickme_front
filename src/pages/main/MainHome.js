@@ -34,9 +34,6 @@ import About from "./About";
 
 import PoMainpage from "../ceo/PoMainpage.js";
 
-import About from "./About";
-
-
 export default function MainHome() {
   return (
     <>
