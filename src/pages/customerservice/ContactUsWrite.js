@@ -10,7 +10,8 @@ function ContactUsWrite() {
     let navigate = useNavigate();
    
     useEffect(() => {
-        if(adminEmail===null){
+        if(localStorage.getItem("name") === null &&
+        localStorage.getItem("jwt") === null){
             Toast.fire({
                 icon: 'error',
                 title: "로그인 해주세요!!",

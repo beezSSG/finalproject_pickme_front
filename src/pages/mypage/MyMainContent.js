@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import star2 from "../../assets/imgs/product/star2.png";
 
 export default function MyMainContent() {
   let getProduct = JSON.parse(localStorage.getItem("recentlyProduct"));
@@ -15,7 +16,6 @@ export default function MyMainContent() {
     return params.toString();
   };
 
-  // 로그아웃 할때 jwt 및 최근본 상품 제거(?)
   useEffect(() => {
     if (getProduct !== null || getProduct !== undefined) {
       getRecentlyProduct();
@@ -25,14 +25,16 @@ export default function MyMainContent() {
 
   //  
   const getRecentlyProduct = async () => {
-    await axios.get("http://localhost:8080/api/v1/mypage/getRecentlyProduct", { params : { "id" : getProduct } })
+    await axios.get("mypage/getRecentlyProduct", { params : { "id" : getProduct } })
     .then((response)=>{
       // console.log(JSON.stringify(response.data));
       // console.log(Object.values(response.data));
-      setPdata(response.data);
+      if (response.data !== undefined || response.data !== null) {
+        setPdata(response.data);
+      }
     })
     .catch((err)=>{
-      alert(err);
+      // alert(err);
     })
   }
 
@@ -41,7 +43,7 @@ export default function MyMainContent() {
         <div className="text-center text-2xl font-bold">최근에 구경한 상품</div>
 
         <div className="w-[80%] mt-5 mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
-        { pdata && pdata.map((product, i) => {
+        { pdata ? pdata.map((product, i) => {
             return (
               <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
                 <div className='mt-5'>
@@ -53,7 +55,9 @@ export default function MyMainContent() {
                   { product.productRating !== 0 ?
                   <div>
                     {Array.from({ length : product.productRating }, (_, index) => (
-                      <span key={index}>★</span>
+                      <span key={index} className="align-middle" style={{ display: 'inline-block' }}>
+                        <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} />
+                      </span>
                     ))}
                   </div>
                   :
@@ -62,7 +66,7 @@ export default function MyMainContent() {
                 </div>
               </div>
             )
-          })
+          }) : <div>최근 본 상품이 없습니다.</div>
         }
         </div>
 

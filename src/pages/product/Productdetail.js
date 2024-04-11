@@ -13,19 +13,19 @@ import { CgProfile } from "react-icons/cg";
 function Productdetail(){
     let params = useParams();
 
-    const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서  
+    const [id, setId] = useState(''); // update, delete 버튼을 시각화할지 정하기 위해서
     const [product, setProduct] = useState();
     const navigate = useNavigate();
     const [productCategory, setProductCategory] = useState('');
-  
+
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
-    const [loading, setLoading] = useState(false); 
+    const [loading, setLoading] = useState(false);
 
     // 모달 창 변수
     const [giftModalIsOpen, setGiftModalIsOpen] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false);
-    
-    const giftClick = (productId, productName, productPrice, productUrl) =>{        
+
+    const giftClick = (productId, productName, productPrice, productUrl) =>{
         if(`${localStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
@@ -61,7 +61,7 @@ function Productdetail(){
     }
 
     // 최근본 상품 기능
-    function recentlyProduct(id) { 
+    function recentlyProduct(id) {
       let set_product = localStorage.getItem("recentlyProduct");
       if (set_product === null) {
         set_product = [];
@@ -81,7 +81,7 @@ function Productdetail(){
         set_product = [...set_product];
         localStorage.setItem("recentlyProduct", JSON.stringify(set_product));
       }
-      
+
     }
 
     // 찜 상품인지 아닌지 ~
@@ -100,10 +100,10 @@ function Productdetail(){
     const[reviewList, setReviewList] = useState([]);
     const[visibleReviews, setVisibleReviews] = useState(5); // 처음엔 3개의 후기만 보이도록 설정
     const[isLoading, setIsLoading] = useState(false);       // 로딩 상태
-    
+
     // 상품 상세정보 받아오기
     async function getProduct(id){
-        await axios.get("http://localhost:8080/api/v1/product/productdetail", { params:{"id":id} })
+        await axios.get("product/productdetail", { params:{"id":id} })
             .then(function(resp){
             //    console.log(resp.data);
                 setId(id);
@@ -112,7 +112,7 @@ function Productdetail(){
 
                 setLoading(true);
             })
-            .catch(function(err){           
+            .catch(function(err){
                 alert('error');
             })
     };
@@ -166,10 +166,9 @@ function Productdetail(){
               return;
         }
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewInsert",
-            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
-             .then((resp)=>{
+        await axios.get("review/reviewInsert",
+            { params:{ "productId":id, 'content':reviewContent, 'rating':reviewRating }})
+            .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
                     title: "후기 등록 완료!",
@@ -187,9 +186,8 @@ function Productdetail(){
     // 후기 삭제
     async function reviewDelete(listId){
 
-        await axios.get("http://localhost:8080/api/v1/review/reviewDelete",
-            { params:{ "productId":id, "id":listId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/reviewDelete",
+            { params:{ "productId":id, "id":listId }})
              .then((resp)=>{
                 alert(resp.data);
                 productRatingAvg(id);
@@ -209,7 +207,7 @@ function Productdetail(){
 
     // 후기 평점 업데이트 후, 후기 수 반환
     async function productRatingAvg(id){
-        await axios.get("http://localhost:8080/api/v1/review/productRatingAvg", { params:{ "productId":id }})
+        await axios.get("review/productRatingAvg", { params:{ "productId":id }})
         .then((resp)=>{
         setReviewCnt(resp.data);
         })
@@ -221,7 +219,7 @@ function Productdetail(){
 
     // 후기 목록 불러오기
     async function productReviewList(id){
-        await axios.get("http://localhost:8080/api/v1/review/productReviewList", { params:{ "id":id }})
+        await axios.get("review/productReviewList", { params:{ "id":id }})
         .then((resp)=>{
             setReviewList(resp.data);
         })
@@ -230,8 +228,7 @@ function Productdetail(){
         })
 
         // 이미 후기 작성했는지 체크
-        await axios.get("http://localhost:8080/api/v1/review/productReviewCheck", { params:{ "id":id },
-                                    headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+        await axios.get("review/productReviewCheck", { params:{ "id":id }})
         .then((resp)=>{
             setReviewCheck(resp.data.cnt);
             if(resp.data.cnt > 0){
@@ -274,26 +271,24 @@ function Productdetail(){
     if(loading === false){
         return <div>loading...</div>;
     }
-  
+
 
     // 찜 체크
     async function zzimCheck(productId){
-        
+
         if(`${localStorage.getItem('jwt')}` === "null"){
             return;
         }
-        
-        await axios.get("http://localhost:8080/api/v1/customer/checkZZIM",
-         { params:{ "productId":productId },
-         headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-        })
+
+        await axios.get("customer/checkZZIM",
+        { params:{ "productId":productId }  })
         .then((resp) => {
             if (resp.data == "YES"){
                 setZzim(true);
             }
             else{
                 setZzim(false);
-            }            
+            }
         })
         .catch(() => {
             alert('checkZZIM error');
@@ -311,9 +306,8 @@ function Productdetail(){
         }
 
         if (zzim === false){
-            await axios.post("http://localhost:8080/api/v1/customer/insertZZIM", null,
-             { params:{ "productId":productId },             
-             headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/insertZZIM", null,
+             { params:{ "productId":productId } })
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -325,8 +319,7 @@ function Productdetail(){
             })
         }
         else{
-            await axios.post("http://localhost:8080/api/v1/customer/deleteZZIM", null, { params:{ "productId":productId },
-            headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }})
+            await axios.post("customer/deleteZZIM", null, { params:{ "productId":productId }})
             .then((resp)=>{
                 Toast.fire({
                     icon: 'success',
@@ -337,19 +330,19 @@ function Productdetail(){
             alert('deleteZZIM error');
             })
         }
-       
+
         zzimCheck(productId);
     };
 
 
 
-    return(        
+    return(
         <div align="center">
             <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap ">
-                
+
                 <div name="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
                     <img src={product.url} style={{ maxWidth: '380px', maxHeight: '380px', margin: '10px' }} />
-                    
+
                 </div>
 
                 <div name="prodDetailText" className='ml-20'>
@@ -376,14 +369,14 @@ function Productdetail(){
                             <dd>
                                 {zzim === false ?
                                 (
-                                    <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 
+                                    <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500
                                     focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
                                     dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
                                         🤍
                                     </button>
-                                ) : 
+                                ) :
                                 (
-                                    <button className="focus:outline-none bg-red-400 hover:bg-yellow-500 
+                                    <button className="focus:outline-none bg-red-400 hover:bg-yellow-500
                                     focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
                                     dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
                                         ❤
@@ -391,20 +384,20 @@ function Productdetail(){
                                 )}
                             </dd>
                             <dd>
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
                                                     dark:focus:ring-yellow-900"onClick={()=>(giftClick())}>선물하기🎁</button>
                                 <GiftModal isOpen={giftModalIsOpen} closeModal={() => setGiftModalIsOpen(false)}
                                     productId={product.id} productName={product.name} productPrice={product.price} productUrl={product.url} />
                             </dd>
                             <dd>
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
                                                     dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
                                 <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
                             </dd>
                             <dd>
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
                                                     dark:focus:ring-yellow-900" onClick={()=>backBtn()}>목록</button>
                             </dd>
@@ -416,16 +409,16 @@ function Productdetail(){
             <br/><br/><hr/><br/>
 
             {/* 후기 나타나는 table */}
-            
+
             <div className="prodReview rounded-xl p-3 mx-48 sm:m-5 sm:flex-wrap ">
 
                 <div name="prodReviewHeader " align="left" style={{ width: '750px'}}>
-                    <p className='font-bold text-xl mb-2'>상품평</p>                                    
+                    <p className='font-bold text-xl mb-2'>상품평</p>
                 </div>
                 <div name="prodReviewAvg" align="left" style={{ width: '750px', display: 'flex'}}>
                     {Array.from({ length: product.productRating }, (_, index) => (
                     <span key={index} style={{ display: 'inline-block' }}>
-                        <img src={star2} style={{ maxWidth: '30px', maxHeight: '30px', margin: '3px' }} />                        
+                        <img src={star2} style={{ maxWidth: '30px', maxHeight: '30px', margin: '3px' }} />
                     </span>
                     ))}
                     <p className='ml-2 text-2xl'>({reviewCnt})</p>
@@ -452,15 +445,15 @@ function Productdetail(){
                             <option value={1}>★</option>
                         </select>
                         </div>
-                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-2 py-1 me-2 mb-2
                                                     dark:focus:ring-yellow-900"onClick={()=>(reviewInsert())}>
                                                     등록
                         </button>
-                    </div>                    
+                    </div>
                 </div>
                 )}
-                
+
                 <div name="prodReviewList" className='mt-10'>
                     {reviewList.slice(0, visibleReviews).map((review, index) => (
                         <div key={index}>
@@ -489,12 +482,12 @@ function Productdetail(){
                             </div>
                             <p>&nbsp;</p>
                         </div>
-                    ))}                
+                    ))}
                 </div>
 
                 {reviewList.length > visibleReviews &&(
                     <div className="loadMoreBtn mt-5">
-                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500 
+                        <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
                                                     focus:ring-4 focus:ring-yellow-300 rounded-lg px-2 py-1 me-2 mb-2
                                                     dark:focus:ring-yellow-900" onClick={moreReviews} disabled={isLoading}>
                             {isLoading? '로딩 중...' : '더보기'}

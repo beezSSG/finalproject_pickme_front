@@ -11,6 +11,7 @@ import MyReview from "./MyReview";
 import MyMainContent from "./MyMainContent";
 import MyCoupon from "./MyCoupon";
 import MyGift from "./MyGift";
+import MyGiftdetail from "./MyGiftdetail";
 
 export default function MyMain() {
   // useState 선언
@@ -41,7 +42,7 @@ export default function MyMain() {
       setTopInfo(Object.values(response.data));
     })
     .catch((err)=>{
-      alert(err);
+      // alert(err);
     })
   }
 
@@ -93,6 +94,7 @@ export default function MyMain() {
           <Route path='review' element={<MyReview />} />
           <Route path='coupon' element={<MyCoupon /> } />
           <Route path='gift' element={<MyGift /> } />
+          <Route path='giftdetail' element={<MyGiftdetail /> } />
         </Routes>
       </div>
     </>
