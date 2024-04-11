@@ -1,16 +1,14 @@
 // import logoImg from '../../assets/imgs/logo/logo.svg';
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Popover, Transition } from "@headlessui/react";   // 접히는 메뉴
 
 // 이미지 및 아이콘
-import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";  // full 로고 이미지
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg"; // full 로고 이미지
 // import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
 
-import { RiUser5Fill } from "react-icons/ri";     // 마이페이지 아이콘
-import { FaShoppingCart } from "react-icons/fa";  // 장바구니 메뉴 아이콘
+import { RiUser5Fill } from "react-icons/ri"; // 마이페이지 아이콘
+import { FaShoppingCart } from "react-icons/fa"; // 장바구니 메뉴 아이콘
 // import { BsCart4 } from "react-icons/bs";
-
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -49,8 +47,7 @@ function Header() {
           </Link>
         </div>
       );
-    } 
-    else {
+    } else {
       return (
         <div className="flex items-center justify-center">
           {/* 로그아웃 */}
@@ -107,7 +104,6 @@ function Header() {
     }
   };
 
-
   const logout = () => {
     localStorage.clear();
     window.location.replace("http://localhost:3000");
@@ -117,46 +113,55 @@ function Header() {
     { name: "소개", to: "/about" },
     { name: "상품", to: "/productlist" },
     { name: "매장찾기", to: "/store" },
-    { name: "서비스", 
-      submenus: [ {name: "택배 예약", to: "/post", }, { name: "픽업 예약", to: "/productreservation", } ] 
+    {
+      name: "서비스",
+      submenus: [
+        { name: "택배 예약", to: "/post" },
+        { name: "픽업 예약", to: "/productreservation" },
+      ],
     },
     { name: "이벤트", to: "/event" },
     { name: "고객센터", to: "/customercenter" },
   ];
 
+  // 서비스 하위 메뉴
   function ServiceSubMenus(menu) {
     // console.log(service);
     const service = menu.menu;
     return (
       <>
-        {
-          menu && 
-          <div id="service_menu" className="group">
-            <div className="relative inline-block flex-cols items-center">
-              <span className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
-                                font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                                after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
-                                after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
-              ">
-                { service.name }
+        {menu && (
+          <div id="service_menu" className="group inline-block">
+            <div className="relative flex-cols items-center">
+              <span
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                          after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                          after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
+              "
+              >
+                {service.name}
               </span>
             </div>
 
             <div className="mt-3 opacity-0 h-0 group-hover:opacity-100 group-hover:h-full transition duration-500">
               <ul className="absolute flex-col justify-center rounded-lg border-2 border-slate-200 bg-white">
-                {
-                  service.submenus.map((submenu)=>(
-                    <li key={ submenu.name } className="py-2 font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300">
-                      <Link to={ submenu.to } className="px-3">{ submenu.name }</Link>
-                    </li>
-                  ))
-                }
+                {service.submenus.map((submenu) => (
+                  <li
+                    key={submenu.name}
+                    className="py-2 font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300"
+                  >
+                    <Link to={submenu.to} className="px-3">
+                      {submenu.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
           </div>
-        }
+        )}
       </>
-    )
+    );
   }
 
   return (
@@ -183,31 +188,26 @@ function Header() {
         </Link>
 
         {/* 메뉴 links */}
-        <div className="sm:hidden">
-          <Popover.Group className="lg:flex lg:gap-x-8">
+        <div className="sm:hidden lg:flex lg:gap-x-8">
           {
-            menus.map((menu) => 
-              (menu.name !== "서비스") ? 
-              (
-                // 서비스 메뉴 아니면, 일반 Link
-                <Link
-                  key={menu.name}
-                  className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
-                              font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                              after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
-                              after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-                  to={menu.to}
-                >
-                  {menu.name}
-                </Link>
-              ) : 
-              (
-                // 서비스 메뉴일 때 Popover 메뉴
-                <ServiceSubMenus menu={ menu } />
-              )
+            menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴 아니면, 일반 Link
+              <Link
+                key={menu.name}
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                            font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                            after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                            after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+                to={menu.to}
+              >
+                {menu.name}
+              </Link>
+            ) : (
+              // 서비스 메뉴일 때 Popover 메뉴
+              <ServiceSubMenus menu={menu} />
             )
-          }
-          </Popover.Group>
+          )}
         </div>
 
         {/* 로그인 */}
@@ -264,22 +264,48 @@ function Header() {
             mobileMenuOpen ? "visible" : "hidden"
           }`}
         >
-          {menus.map((menu) => (
-            <div className="flex flex-col items-center">
-              <Link
-                key={menu.name}
-                to={menu.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className="inline-block text-base relative w-fit after:block peer
-                      font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                      after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
-                      after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-              >
-                <p className="my-4">{menu.name}</p>
-              </Link>
-              <hr className="w-28 border-2 border-slate-200" />
-            </div>
-          ))}
+          {menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴가 아닐때 일반 Link
+              <div className="flex flex-col items-center">
+                <Link
+                  key={menu.name}
+                  to={menu.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-block text-base relative w-fit peer
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300"
+                >
+                  <p className="my-4">{menu.name}</p>
+                </Link>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+              </div>
+            ) : (
+              // 서비스 메뉴일 때 dropdown 메뉴
+              <div className="flex flex-col items-center group">
+                <p className="my-4 inline-block text-base relative w-fit
+                              font-semibold text-slate-500 hover:text-slate-900 transition duration-300">
+                  { menu.name }
+                </p>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+                <ul className="hidden h-0 group-hover:block group-hover:h-full
+                                transition duration-500 divide-y-2 border-b-2 border-slate-200">
+                  {
+                    menu.submenus.map((submenu)=>(
+                      <li key={ submenu.name } 
+                          className="py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300">
+                        <Link to={ submenu.to } 
+                              className="font-semibold text-sm my-2 p-4 rounded-lg"
+                              onClick={() => setMobileMenuOpen(false)}
+                        >
+                          { submenu.name }
+                        </Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>
