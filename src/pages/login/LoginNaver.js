@@ -6,7 +6,7 @@ const LoginNaver = (props) => {
     useEffect(() => {
         const naverLogin = async () =>{
             await axios
-                .get( "http://mypickme.pickme-ssg.com/login/oauth2/code/naver?code="+code)
+                .get( "http://backend.pickme-ssg.com/login/oauth2/code/naver?code="+code)
                 .then((res) => {
                     localStorage.setItem("id", res.data.id);
                     localStorage.setItem("name", res.data.name);
