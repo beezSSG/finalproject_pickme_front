@@ -192,7 +192,7 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
                 aria-label="Toggle Navigation"
                 aria-expanded="false"
                 data-headlessui-state=""
-                className="relative flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
+                className=" flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
                 // id="headlessui-popover-button-:Rbpnla:"
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
@@ -224,9 +224,12 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
                       mobileMenuOpen ? "opacity-100" : "h-0 opacity-0"
                     } md:hidden lg:hidden`}
       >
-        <div className={`-my-8 pt-3 flex flex-col items-center ${
-                      mobileMenuOpen ? "visible" : "hidden"}
-                    `}>
+        <div
+          className={`-my-8 pt-3 flex flex-col items-center ${
+            mobileMenuOpen ? "visible" : "hidden"
+          }
+                    `}
+        >
           {menus.map((menu) => (
             <div className="flex flex-col items-center">
               <Link

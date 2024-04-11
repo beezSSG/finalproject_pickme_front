@@ -9,7 +9,7 @@ function Register() {
         <div className="grid grid-cols-2 gap-5">
           <Link
             to="/userregister"
-            className="bg-gray-300 rounded-2xl py-10 duration-500 cursor-pointer  hover:bg-sub-orange duration-500"
+            className="bg-gray-300 rounded-2xl py-10 cursor-pointer  hover:bg-sub-orange duration-500"
           >
             <FaUser className="text-[250px] mx-auto mt-10 sm:text-[130px] text-gray-600" />
             <h3 className="text-center my-10 font-bold text-xl">

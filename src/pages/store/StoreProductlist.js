@@ -32,7 +32,7 @@ function StoreProductlist() {
     /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
     
     function getStoreProductlist(c, s, pn, id, switching, category){
-        axios.get("http://localhost:8080/api/v1/store/storeproductlist", 
+        axios.get("store/storeproductlist", 
                     {params:{ choice:c, search:s, pageNumber:pn,"store_id":id, "switching":switching, "category":category}})
              .then(function(resp){  // success:function
                 console.log(resp.data);

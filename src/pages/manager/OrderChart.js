@@ -79,7 +79,7 @@ function OrderChart(){
         const address = selectedRegion && selectedDistrict ? `${selectedRegion} ${selectedDistrict}` : selectedRegion || selectedDistrict;
     
         if (address) { // 광역시 또는 구 중 하나만 선택된 경우에 요청을 보냄
-            axios.get("http://localhost:8080/api/v1/manager/orderchart", { params: { "date": selectedDate, "address": address } })
+            axios.get("manager/orderchart", { params: { "date": selectedDate, "address": address } })
                 .then(function(resp) {
                     setOrderList(resp.data);
                 })
@@ -91,7 +91,7 @@ function OrderChart(){
     
     // 1:1문의 게시글을 카테고리 별로 개수를 세서 가져오기
     function contactusCategory() {
-        axios.get("http://localhost:8080/api/v1/manager/ccbcategorycount")
+        axios.get("manager/ccbcategorycount")
             .then(function (resp) {
                 console.log(resp.data);
                 // 카테고리를 문의, 칭찬, 불만, 점주로 고정
@@ -110,7 +110,7 @@ function OrderChart(){
 
     // 답변하지않은 문의글 개수 세기
     function notanswercount() {
-        axios.get("http://localhost:8080/api/v1/manager/notanswercount")
+        axios.get("manager/notanswercount")
             .then(function (resp) {
                 console.log(resp.data);
                 setNotanswerCcb(resp.data);
@@ -122,7 +122,7 @@ function OrderChart(){
     
     // 승인하지않은 발주 개수 세기
     function notpocount() {
-        axios.get("http://localhost:8080/api/v1/manager/notpocount")
+        axios.get("manager/notpocount")
             .then(function (resp) {
                 console.log(resp.data);
                 setNotPo(resp.data);
@@ -134,7 +134,7 @@ function OrderChart(){
 
     // 이벤트의 종료날짜를 담을꺼임
     function eventenddate() {
-        axios.get("http://localhost:8080/api/v1/manager/eventenddate")
+        axios.get("manager/eventenddate")
             .then(function (resp) {
                 console.log(resp.data);
                 setEndDateStrings(resp.data);
@@ -146,7 +146,7 @@ function OrderChart(){
 
     // 승인되지 않은 사업자 등록 개수 담을꺼임
     function notocrcount() {
-        axios.get("http://localhost:8080/api/v1/user/notocrcount")
+        axios.get("user/notocrcount")
         .then(function (resp) {
             console.log(resp.data);
             setNotocr(resp.data);
