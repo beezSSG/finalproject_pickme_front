@@ -30,6 +30,7 @@ import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
+import PoMainpage from "../ceo/PoMainpage.js";
 
 export default function MainHome() {
   return (
@@ -82,8 +83,11 @@ export default function MainHome() {
             <Route path="/mypage/*" element={<MyMain />} />
 
             {/* 점주 */}
-            <Route path="/ceo" element={<Polist />} />
-            <Route path="/pow" element={<Powrite />} />
+
+            
+            
+
+
           </Routes>
         </div>
       </main>
