@@ -30,7 +30,11 @@ import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
-import Map from "../store/Map";
+
+import PoMainpage from "../ceo/PoMainpage.js";
+
+import About from "./About";
+
 
 export default function MainHome() {
   return (
@@ -52,6 +56,8 @@ export default function MainHome() {
             <Route path="/LoginGoogle" element={<LoginGoogle />} />
             <Route path="/LoginKakao" element={<LoginKakao />} />
             <Route path="/LoginNaver" element={<LoginNaver />} />
+
+            <Route path="/about" element={<About />}/>
 
             <Route path="/productlist" element={<Productlist />} />
             <Route path="/productdetail/:id" element={<Productdetail />} />
@@ -83,8 +89,11 @@ export default function MainHome() {
             <Route path="/mypage/*" element={<MyMain />} />
 
             {/* 점주 */}
-            <Route path="/ceo" element={<Polist />} />
-            <Route path="/pow" element={<Powrite />} />
+
+            
+            
+
+
           </Routes>
         </div>
       </main>

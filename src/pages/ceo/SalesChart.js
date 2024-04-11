@@ -2,12 +2,12 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Chart as ChartJS } from "chart.js/auto";
 import { Bar, Doughnut, Line } from "react-chartjs-2";
-import ManagerMain from "./ManagerMain";
 import { FaEllipsisV } from "react-icons/fa";
 import { GoAlertFill,GoCheck } from "react-icons/go";
+import PoMainpage from "./PoMainpage";
 import { useNavigate } from "react-router-dom";
 
-function OrderChart(){
+function SalesChart(){
 
     let navigate = useNavigate();
 
@@ -40,12 +40,13 @@ function OrderChart(){
         // 필요한 만큼 광역시와 구 추가
     };
 
-   
+    // const [info, setInfo] = useState();
+
     // 메인화면 펼치기/접기 버튼
     const showDropDown = () => {
         setOpen(!open);
     }
-
+    
     useEffect(() => {
         function parseDateString(dateString) {
           const year = dateString.substr(0, 4);
@@ -72,14 +73,12 @@ function OrderChart(){
         setThreeCount(count);
       },[endDateStrings]); 
 
-
-
     // 주문 목록을 받아오는 함수
-    function orderchart() {
+    function saleschart() {
         const address = selectedRegion && selectedDistrict ? `${selectedRegion} ${selectedDistrict}` : selectedRegion || selectedDistrict;
     
         if (address) { // 광역시 또는 구 중 하나만 선택된 경우에 요청을 보냄
-            axios.get("manager/orderchart", { params: { "date": selectedDate, "address": address } })
+            axios.get("http://localhost:8080/api/v1/ceo/saleschart", { params: { "date": selectedDate, "address": address } })
                 .then(function(resp) {
                     setOrderList(resp.data);
                 })
@@ -88,82 +87,10 @@ function OrderChart(){
                 });
         }
     }
-    
-    // 1:1문의 게시글을 카테고리 별로 개수를 세서 가져오기
-    function contactusCategory() {
-        axios.get("manager/ccbcategorycount")
-            .then(function (resp) {
-                console.log(resp.data);
-                // 카테고리를 문의, 칭찬, 불만, 점주로 고정
-                const fixedCategories = ["문의", "칭찬", "불만", "점주"];
-                // 받아온 데이터 중에서 고정된 카테고리에 해당하는 것만 필터링
-                const filteredData = fixedCategories.map(category => {
-                    const found = resp.data.find(item => item.category === category);
-                    return found ? found : { category: category, count: 0 };
-                });
-                setCategorycountList(filteredData);
-            })
-            .catch(function () {
-                console.log("error");
-            })
-    }
-
-    // 답변하지않은 문의글 개수 세기
-    function notanswercount() {
-        axios.get("manager/notanswercount")
-            .then(function (resp) {
-                console.log(resp.data);
-                setNotanswerCcb(resp.data);
-            })
-            .catch(function () {
-                console.log("error");
-            })
-    }
-    
-    // 승인하지않은 발주 개수 세기
-    function notpocount() {
-        axios.get("manager/notpocount")
-            .then(function (resp) {
-                console.log(resp.data);
-                setNotPo(resp.data);
-            })
-            .catch(function () {
-                console.log("error");
-            })
-    }
-
-    // 이벤트의 종료날짜를 담을꺼임
-    function eventenddate() {
-        axios.get("manager/eventenddate")
-            .then(function (resp) {
-                console.log(resp.data);
-                setEndDateStrings(resp.data);
-            })
-            .catch(function () {
-                console.log("error");
-            })
-    }
-
-    // 승인되지 않은 사업자 등록 개수 담을꺼임
-    function notocrcount() {
-        axios.get("user/notocrcount")
-        .then(function (resp) {
-            console.log(resp.data);
-            setNotocr(resp.data);
-        })
-        .catch(function () {
-            console.log("error");
-        })
-    }
 
     useEffect(() => {
-        orderchart();
-        contactusCategory();
-        notanswercount();
-        notpocount();
-        eventenddate();
-        notocrcount();
-    }, [selectedDate,selectedDistrict, selectedRegion]);
+        saleschart();
+    }, [selectedDate, selectedDistrict, selectedRegion]);
 
     
     // 상점별 총 가격을 계산하는 함수
@@ -305,7 +232,7 @@ function OrderChart(){
             <>
                 <div className="flex">
                 <div>
-                    <ManagerMain height={open ? "h-[1100px]" : "h-[920px]"} />
+                    <PoMainpage height={open ? "h-[1100px]" : "h-[920px]"} />
                 </div>
                     <div className="flex-1 p-10">
                         <div className="py-[25px] px-[25px] bg-[#ebedf4] rounded-xl">
@@ -371,12 +298,6 @@ function OrderChart(){
                                             <p className="text-xl font-bold mb-6">오늘의 인기 top 10 상품</p>
                                             <FaEllipsisV color="gray" className="cursor-pointer" />
                                         </div>
-                                        <div className="w-[80%] h-[600px] mx-auto">
-                                            <Doughnut
-                                                data={generateDoughnutChartData()}
-                                                options={{ maintainAspectRatio: false }}
-                                            />
-                                        </div>
                                     </div>
                             </div>
                             }
@@ -435,4 +356,4 @@ function OrderChart(){
     );
 }
 
-export default OrderChart;
+export default SalesChart;

@@ -5,12 +5,15 @@ import { homeAlertHandle } from './utils/ServiceAlert.js'
 
 import MainHome from './pages/main/MainHome.js';
 import Manager from './pages/manager/Manager.js';
+import Ceo from './pages/ceo/Ceo.js';
+
 import axios from 'axios';
 
 function App() {
   
   // 기본 axios url 설정
   axios.defaults.baseURL = 'http://localhost:8080/api/v1';
+  // axios.defaults.baseURL = 'http://backend.pickme-ssg.com/api/v1/';
 
   // 토큰값을 인터셉터를 통해 모든 axios에 자동으로 넘겨주기
   axios.interceptors.request.use(
@@ -36,8 +39,7 @@ function App() {
           <Routes>
             <Route path='/*' element={<MainHome />} />
             <Route path='/manager/*' element={<Manager/>} />
-            {/* <Route path='/ceo/*' element={</>} /> */}
-
+            <Route path='/ceo/*' element={<Ceo/>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>

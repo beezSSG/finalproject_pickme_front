@@ -37,7 +37,7 @@ function OcrModal({ onClose, checkOcr, onCheckOcrUpdate }) {
         formData.append('uploadfile', uploadfile);
 
         try {
-            const response = await axios.post('http://localhost:8080/api/v1/user/ocr', formData);
+            const response = await axios.post('user/ocr', formData);
             const inferText = response.data.images[0]?.fields[0]?.subFields[0]?.inferText || 'N/A';
             const titleText = response.data.images[0]?.title?.subFields[0]?.inferText || 'N/A';
             setResp({ inferText, titleText });

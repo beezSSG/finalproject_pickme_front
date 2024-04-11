@@ -21,7 +21,7 @@ function ContactUsDetail() {
 
     // 작성된 댓글 불러오기 axios
     const ccbcommentlist = async () => {
-        await axios.get("http://localhost:8080/api/v1/manager/ccbcommentlist", { params: { "ccbId": id } })
+        await axios.get("manager/ccbcommentlist", { params: { "ccbId": id } })
             .then((resp) => {
                 console.log(resp.data);
                 setCommentList(resp.data);
@@ -37,7 +37,7 @@ function ContactUsDetail() {
             alert("내용을 입력하세요!!");
             return;
         }
-    await axios.get("http://localhost:8080/api/v1/manager/ccbcommentwrite", { params:{ "ccbId":id, 'managerId':managerId, 'content':coContent }})
+    await axios.get("manager/ccbcommentwrite", { params:{ "ccbId":id, 'managerId':managerId, 'content':coContent }})
              .then((resp)=>{
                 // alert(resp.data);
                 setCommentList(resp.data);
@@ -50,7 +50,7 @@ function ContactUsDetail() {
 
     // 댓글 삭제 axios
     const ccbcommentdelete = async (ccbaid) => {
-        await axios.get("http://localhost:8080/api/v1/manager/ccbcommentdelete", { params:{"ccbId":id,"id":ccbaid}})
+        await axios.get("manager/ccbcommentdelete", { params:{"ccbId":id,"id":ccbaid}})
                 .then((resp)=>{
                     console.log(resp.data);   
                     setCommentList(resp.data);
@@ -70,7 +70,7 @@ function ContactUsDetail() {
     }
 
     async function ccbdetail() {
-        await axios.get("http://localhost:8080/api/v1/manager/ccbdetail", { params:{"id":id} })
+        await axios.get("manager/ccbdetail", { params:{"id":id} })
             .then(function(resp){
                 console.log(resp.data);
                 setCcbdetails(resp.data);
