@@ -5,6 +5,8 @@ import { homeAlertHandle } from './utils/ServiceAlert.js'
 
 import MainHome from './pages/main/MainHome.js';
 import Manager from './pages/manager/Manager.js';
+import Ceo from './pages/ceo/Ceo.js';
+
 import axios from 'axios';
 
 function App() {
@@ -37,8 +39,7 @@ function App() {
           <Routes>
             <Route path='/*' element={<MainHome />} />
             <Route path='/manager/*' element={<Manager/>} />
-            {/* <Route path='/ceo/*' element={</>} /> */}
-
+            <Route path='/ceo/*' element={<Ceo/>} />
           </Routes>
         </BrowserRouter>
       </AuthProvider>
