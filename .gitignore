@@ -23,3 +23,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
+
+#firebase
+#src/firebase-messaging-sw.js
+#public/firebase-message-sw.js

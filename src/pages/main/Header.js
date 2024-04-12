@@ -1,79 +1,315 @@
-
 // import logoImg from '../../assets/imgs/logo/logo.svg';
-import FullLogoImg from '../../assets/imgs/logo/fullLogo.svg';
-import Toast from '../public/Toast';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+
+// 이미지 및 아이콘
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg"; // full 로고 이미지
+// import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
+
+import { RiUser5Fill } from "react-icons/ri"; // 마이페이지 아이콘
+import { FaShoppingCart } from "react-icons/fa"; // 장바구니 메뉴 아이콘
+// import { BsCart4 } from "react-icons/bs";
 
 function Header() {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-    let adminName = localStorage.getItem('name');
+  const Logincom = () => {
+    if (
+      localStorage.getItem("name") === null &&
+      localStorage.getItem("jwt") === null
+    ) {
+      console.log(localStorage.getItem("jwt"));
+      return (
+        <div className="flex">
+          <Link
+            className="relative w-fit inline-block after:block mx-2
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            to="/login"
+          >
+            로그인
+          </Link>
 
-    const Logincom = () => {
-        if (localStorage.getItem("name") === null) {
-            return (
-                <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Login</a>
-            )
-        } else {
-            return (
-                <div>
-                    <span className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900">안녕하세요 { localStorage.getItem("name") } 님</span>
-                    <button className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" onClick={()=>(logout())}>Logout</button>
-                </div>
-            )
-        }
-    }
-
-    const logout = () => {
-        localStorage.clear();
-        window.location.replace("http://localhost:3000/");
-    }
-
-    return (
-        <div className="mx-auto min-h-2 pt-8 px-10 pb-6 sm:px-6 lg:px-8 backdrop-blur-md transition-colors duration-400 ease-in-out hover:bg-slate-100">
-            <nav className="relative z-50 flex justify-between">
-                <div className="flex items-center md:gap-x-12 ">
-                    <a href="/">
-                        <img src={FullLogoImg} alt="pickme logo"/>
-                    </a>
-                    <div className="md:flex md:gap-x-6">
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#features">서비스소개</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/productlist">상품</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/store">매장찾기</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#pricing">서비스</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/event">이벤트</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="#pricing">창업안내</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-3xl text-slate-500 hover:bg-slate-100 hover:text-slate-900" href="/ceo">발주하자</a>
-                    </div>
-                </div>
-                <div className="flex items-center gap-x-5 md:gap-x-8">
-                    <div className="md:block">
-                        <Logincom />
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/login">Sign in</a>
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/customercenter">고객센터</a>
-                        {adminName === "하기성" && (
-                            <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/orderchart">관리자</a>
-                        )}
-                        <a className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" href="/mypage">마이페이지</a>
-                    </div>
-
-                    {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
-                        <span>Get started 
-                            <span class="hidden lg:inline">today</span>
-                        </span></a> */}
-                    <div className="-mr-1 md:hidden">
-                        <div data-headlessui-state="">
-                            <button className="relative z-10 flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none" aria-label="Toggle Navigation" type="button" aria-expanded="false" data-headlessui-state="" id="headlessui-popover-button-:Rbpnla:">
-                                <svg aria-hidden="true" className="h-3.5 w-3.5 overflow-visible stroke-slate-700" fill="none" strokeWidth="2" strokeLinecap="round">
-                                    <path d="M0 1H14M0 7H14M0 13H14" className="origin-center transition"></path>
-                                    <path d="M2 2L12 12M12 2L2 12" className="origin-center transition scale-90 opacity-0"></path>
-                                </svg>
-                            </button>
-                        </div>
-                        <div style={{ position: 'fixed', top: 1, left: 1, width: 1, height: 0, padding: 0, margin: -1, overflow: 'hidden', clip: 'rect(0, 0, 0, 0)', whiteSpace: 'nowrap', borderWidth: 0, display: 'none' }}></div>
-                    </div>
-                </div>
-            </nav>
+          {/* 장바구니 */}
+          <Link
+            to={"http://mypickme.pickme-ssg.com/mypage"}
+            className="group"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span
+              className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                        text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+          </Link>
         </div>
+      );
+    } else {
+      return (
+        <div className="flex items-center justify-center">
+          {/* 로그아웃 */}
+          <button
+            className="relative w-fit inline-block after:block mx-1
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            onClick={logout}
+          >
+            로그아웃
+          </button>
+          {/* <Link
+            className="relative w-fit inline-block after:block mx-1
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+            to={() => logout()}
+          >
+            로그아웃
+          </Link> */}
+
+          {/* 마이페이지 */}
+          <Link
+            to={"http://mypickme.pickme-ssg.com/mypage"}
+            className="group"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span
+              className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                          text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
+            >
+              마이페이지
+            </span>
+            <RiUser5Fill className="size-6 mx-1 text-slate-500 rounded-2xl hover:text-main-orange" />
+          </Link>
+
+          {/* 장바구니 */}
+          <Link
+            to={"http://mypickme.pickme-ssg.com/mypage"}
+            className="group"
+            onClick={() => setMobileMenuOpen(false)}
+          >
+            <span
+              className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
+                        text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+            >
+              장바구니
+            </span>
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+          </Link>
+        </div>
+      );
+    }
+  };
+
+  const logout = () => {
+    localStorage.clear();
+    window.location.replace("http://mypickme.pickme-ssg.com/");
+  };
+
+  const menus = [
+    { name: "소개", to: "/about" },
+    { name: "상품", to: "/productlist" },
+    { name: "매장찾기", to: "/store" },
+    {
+      name: "서비스",
+      submenus: [
+        { name: "택배 예약", to: "/post" },
+        { name: "픽업 예약", to: "/productreservation" },
+      ],
+    },
+    { name: "이벤트", to: "/event" },
+    { name: "고객센터", to: "/customercenter" },
+  ];
+
+  // 서비스 하위 메뉴
+  function ServiceSubMenus(menu) {
+    // console.log(service);
+    const service = menu.menu;
+    return (
+      <>
+        {menu && (
+          <div id="service_menu" className="group inline-block">
+            <div className="relative flex-cols items-center">
+              <span
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                          after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                          after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
+              "
+              >
+                {service.name}
+              </span>
+            </div>
+
+            <div className="mt-3 opacity-0 h-0 group-hover:opacity-100 group-hover:h-full transition duration-500">
+              <ul className="absolute flex-col justify-center rounded-lg border-2 border-slate-200 bg-white">
+                {service.submenus.map((submenu) => (
+                  <li
+                    key={submenu.name}
+                    className="py-2 font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300"
+                  >
+                    <Link to={submenu.to} className="px-3">
+                      {submenu.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </>
     );
+  }
+
+  return (
+    <div
+      className={`mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
+                backdrop-blur-md shadow-md
+                transition duration-700 hover:bg-slate-50
+                ${mobileMenuOpen ? "bg-white" : ""}`}
+    >
+      <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
+        {/* 홈 로고 */}
+        <Link to="http://mypickme.pickme-ssg.com/" className="pb-2 ml-10 sm:ml-3">
+          <img
+            src={FullLogoImg}
+            alt="pickme full logo"
+            className="sm:size-24 md:size-28"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+          {/* <img
+            src={ShortLogoImg}
+            alt="pickme short logo"
+            className="sm:size-10 md:hidden lg:hidden"
+          /> */}
+        </Link>
+
+        {/* 메뉴 links */}
+        <div className="sm:hidden lg:flex lg:gap-x-8">
+          {
+            menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴 아니면, 일반 Link
+              <Link
+                key={menu.name}
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                            font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                            after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                            after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+                to={menu.to}
+              >
+                {menu.name}
+              </Link>
+            ) : (
+              // 서비스 메뉴일 때 Popover 메뉴
+              <ServiceSubMenus menu={menu} />
+            )
+          )}
+        </div>
+
+        {/* 로그인 */}
+        {/* flex items-center gap-x-5 md:gap-x-8 */}
+        <div
+          className="float-right flex items-center"
+          mobileMenuOpen={mobileMenuOpen}
+        >
+          <div className="md:block flex items-center my-1.5">
+            <Logincom />
+          </div>
+
+          <div className="mx-2 my-1 md:hidden lg:hidden z-10">
+            <div data-headlessui-state="">
+              <button
+                type="button"
+                aria-label="Toggle Navigation"
+                aria-expanded="false"
+                data-headlessui-state=""
+                className=" flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
+                // id="headlessui-popover-button-:Rbpnla:"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              >
+                <svg
+                  aria-hidden="true"
+                  className="h-3.5 w-3.5 overflow-visible stroke-slate-500 group-hoverfill-slate-900 group-focus:fill-slate-900"
+                  fill="none"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                >
+                  <path
+                    d="M0 1H14M0 7H14M0 13H14"
+                    className="origin-center transition"
+                  ></path>
+                  <path
+                    d="M2 2L12 12M12 2L2 12"
+                    className="origin-center transition scale-90 opacity-0"
+                  ></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div
+        className={`mt-6 z-20 h-screen w-screen transition-all duration-1000
+                    ${
+                      mobileMenuOpen ? "opacity-100" : "h-0 opacity-0"
+                    } md:hidden lg:hidden`}
+      >
+        <div
+          className={`-my-8 pt-3 flex flex-col items-center ${
+            mobileMenuOpen ? "visible" : "hidden"
+          }`}
+        >
+          {menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴가 아닐때 일반 Link
+              <div className="flex flex-col items-center">
+                <Link
+                  key={menu.name}
+                  to={menu.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-block text-base relative w-fit peer
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300"
+                >
+                  <p className="my-4">{menu.name}</p>
+                </Link>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+              </div>
+            ) : (
+              // 서비스 메뉴일 때 dropdown 메뉴
+              <div className="flex flex-col items-center group">
+                <p className="my-4 inline-block text-base relative w-fit
+                              font-semibold text-slate-500 hover:text-slate-900 transition duration-300">
+                  { menu.name }
+                </p>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+                <ul className="hidden h-0 group-hover:block group-hover:h-full
+                                transition duration-500 divide-y-2 border-b-2 border-slate-200">
+                  {
+                    menu.submenus.map((submenu)=>(
+                      <li key={ submenu.name } 
+                          className="py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300">
+                        <Link to={ submenu.to } 
+                              className="font-semibold text-sm my-2 p-4 rounded-lg"
+                              onClick={() => setMobileMenuOpen(false)}
+                        >
+                          { submenu.name }
+                        </Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            )
+          )}
+        </div>
+      </div>
+    </div>
+  );
 }
 
 export default Header;

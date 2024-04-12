@@ -10,7 +10,8 @@ function ContactUsWrite() {
     let navigate = useNavigate();
    
     useEffect(() => {
-        if(adminEmail===null){
+        if(localStorage.getItem("name") === null &&
+        localStorage.getItem("jwt") === null){
             Toast.fire({
                 icon: 'error',
                 title: "로그인 해주세요!!",
@@ -52,7 +53,7 @@ function ContactUsWrite() {
               });
             return ;
         }
-        axios.post("http://localhost:8080/api/v1/mypage/addCcbList",null,{params:{"category":category,"customerId":adminEmail,"title":title,"content":content}})
+        axios.post("mypage/addCcbList",null,{params:{"category":category,"customerId":adminEmail,"title":title,"content":content}})
                     .then(function(resp){
                         Toast.fire({
                             icon: 'success',

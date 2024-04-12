@@ -1,108 +1,47 @@
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
-import Header from './pages/main/Header';
-import Footer from './pages/main/Footer';
-import Home from './pages/main/Home';
-import Login from './pages/login/Login';
-import LoginGoogle from './pages/login/LoginGoogle';
-import LoginKakao from './pages/login/LoginKakao';
-import LoginNaver from './pages/login/LoginNaver';
-
-import Productlist from './pages/product/Productlist';
-import Productdetail from './pages/product/Productdetail';
-import StoreMap from './pages/store/StoreMap';
-import StoreProduct from './pages/store/StoreProductlist';
-import MatchedStoreList from './pages/store/MatchedStoreList';
-import Polist from './pages/ceo/Polist';
-import Powrite from './pages/ceo/Powrite';
-import PoMainpage from './pages/ceo/PoMainpage';
-
-import ManagerMain from './pages/manager/ManagerMain';
-import Event from './pages/manager/Event';
-import EventDetail from './pages/manager/EventDetail';
-import EventCreate from './pages/manager/EventCreate';
-import Coupon from './pages/manager/Coupon';
-import NewproductInsert from './pages/manager/NewproductInsert';
-import ManagerPurchaseOrder from './pages/manager/ManagerPurchaseOrder';
-import OrderChart from './pages/manager/OrderChart';
-
-import CustomerCenter from './pages/customerservice/CustomerCenter';
-import ContactUs from './pages/customerservice/ContactUs';
-import ContactUsDetail from './pages/customerservice/ContactUsDetail';
-import ContactUsWrite from './pages/customerservice/ContactUsWrite';
-
-import Faq from './pages/customerservice/Faq';
-import FaqCreate from './pages/customerservice/FaqCreate';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+// import "./firebase-messaging-sw.js";
 import { AuthProvider } from './utils/AuthProvider';
-import MyMain from './pages/mypage/MyMain';
-import SalesChart from './pages/ceo/SalesChart';
+import { homeAlertHandle } from './utils/ServiceAlert.js'
 
+import MainHome from './pages/main/MainHome.js';
+import Manager from './pages/manager/Manager.js';
+import Ceo from './pages/ceo/Ceo.js';
+
+import axios from 'axios';
 
 function App() {
+  
+  // 기본 axios url 설정
+  axios.defaults.baseURL = 'http://localhost:8080/api/v1';
+  // axios.defaults.baseURL = 'http://backend.pickme-ssg.com/api/v1/';
 
+  // 토큰값을 인터셉터를 통해 모든 axios에 자동으로 넘겨주기
+  axios.interceptors.request.use(
+    config => {
+      // 저장된 토큰을 가져옵니다.
+      const token = localStorage.getItem('jwt');
+      if (token) {
+        // 요청 헤더에 토큰을 추가합니다.
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
+
+  // homeAlertHandle();
   return (
     <>
       <AuthProvider>
-      <header className="w-full sticky top-0 z-50">
-        <Header />
-      </header>
-
-      <BrowserRouter>
-        {/* <nav className='navbar navbar-expand-md navbar-dark bg-info sticky-top'>
-          <div className='container'>
-            <div className="collapse navbar-collapse" id="navbar-content">
-              <ul className="navbar-nav mr-auto">
-                <li className='nav-item'>
-                  <Link className='nav-link' to="/">Home</Link>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </nav> */}
-
-        <main className="relative">
-          <div className='py-4'>
-            <Routes>
-              <Route path='/' element={<Home />} />
-              <Route path='/login' element={<Login />} />
-              <Route path='/LoginGoogle' element={<LoginGoogle />} />
-              <Route path='/LoginKakao' element={<LoginKakao />} />
-              <Route path='/LoginNaver' element={<LoginNaver />} />
-              <Route path='/productlist' element={<Productlist />} />
-              <Route path='/productdetail/:id' element={<Productdetail />} />
-
-              <Route path='/store' element={<StoreMap />} />
-              <Route path='/storeproductlist/:id/:name' element={<StoreProduct />} />
-              {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
-              <Route path='/ceo' element={<Polist />} />
-              <Route path='/pow' element={<Powrite />} />
-              <Route path='/pomain' element={<PoMainpage />} />
-              <Route path='/saleschart' element={<SalesChart />} />
-  
-              <Route path='/manager' element={<ManagerMain />} />
-              <Route path='/event' element={<Event />} />
-              <Route path='/eventdetail/:id' element={<EventDetail />} />
-              <Route path='/eventcreate' element={<EventCreate />} />
-              <Route path='/coupon' element={<Coupon />} />
-              <Route path='/newproductinsert' element={<NewproductInsert />} />
-              <Route path='/managerpurchaseorder' element={<ManagerPurchaseOrder />} />
-              <Route path='/orderchart' element={<OrderChart />} />
-
-              <Route path='/customercenter' element={<CustomerCenter />} />
-              <Route path='/contactus' element={<ContactUs />} />
-              <Route path='/contactusdetail/:id' element={<ContactUsDetail />} />
-              <Route path='/contactuswrite' element={<ContactUsWrite />} />
-              <Route path='/faq' element={<Faq />} />
-              <Route path='/faqcreate' element={<FaqCreate />} />
-
-              <Route path='/mypage/*' element={<MyMain />} />
-            </Routes>
-          </div>
-        </main>
-      </BrowserRouter>
-
-      <footer className='py-4 bg-info text-light'>
-        <Footer />
-      </footer>
+        <BrowserRouter>
+          <Routes>
+            <Route path='/*' element={<MainHome />} />
+            <Route path='/manager/*' element={<Manager/>} />
+            <Route path='/ceo/*' element={<Ceo/>} />
+          </Routes>
+        </BrowserRouter>
       </AuthProvider>
     </>
   );
