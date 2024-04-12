@@ -203,20 +203,20 @@ function Post() {
           </div>
           <br />
 
-          <div className="flex space-x-5">
+          <div className="flex flex-col">
             <div>
               <label className="font-bold text-2xl">주소</label>
+            </div>
+            <div className="flex items-center mt-2">
               <input
                 type="text"
-                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
+                className="h-1/3 sm:w-full w-1/6 rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
                 value={zonecode}
                 onChange={(e) => setZonecode(e.target.value)}
                 placeholder="우편번호"
                 readOnly
-              />
-            </div>
-            {/* 주소 찾기 모달 */}
-            <div>
+                />
+              {/* 주소 찾기 모달 */}
               <Antdmodal updateAddress={OnSetAddress} height="42px" />
             </div>
           </div>
