@@ -315,12 +315,12 @@ function Post() {
           </div>
           <br />
           <div>
-            <div className="text-center flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="text-center flex flex-col items-center justify-between">
               <span className="font-bold text-2xl mb-4 md:mb-0">
                 택배운임을 선택해주세요.
               </span>
               <button
-                className="cursor-pointer bg-main-yellow rounded-xl font-bold p-2 hover:bg-sub-orange"
+                className="cursor-pointer bg-main-yellow rounded-xl font-bold p-2 w-1/3 hover:bg-sub-orange transition duration-300"
                 onClick={() => setShowModal(true)}
               >
                 선택하기
@@ -341,7 +341,7 @@ function Post() {
             </span>
 
             <button
-              className="bg-gray-700 rounded-xl p-2 font-bold text-white"
+              className="bg-gray-700 rounded-xl p-2 font-bold text-white hover:bg-slate-200 transition duration-300"
               onClick={() => calculateTotalPrice(selectedOption)}
             >
               결제금액 계산
@@ -356,7 +356,7 @@ function Post() {
           <br />
           <div className="text-center">
             <button
-              className="bg-main-yellow hover:bg-sub-orange rounded-xl p-2 font-bold w-[30%]"
+              className="bg-main-yellow hover:bg-sub-orange transition duration-300 rounded-xl p-2 font-bold w-1/3"
               onClick={postReservation}
             >
               예약 신청
