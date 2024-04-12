@@ -73,6 +73,10 @@ function Polist(){
 
     return(
       <div>
+      {/* <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+            <p className='font-semibold text-center'>발주목록</p>
+          </div>
+          <br/><br/> */}
           <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
             <tbody>
               <tr>
@@ -110,7 +114,7 @@ function Polist(){
               <col width="70"/><col width="200"/><col width="300"/><col width="100"/><col width="200"/><col width="150"/><col width="150"/>
           </colgroup>
 
-          <thead className='bg-yellow-400'>
+          <thead className='bg-yellow-400 p-15' style={{ marginLeft: "auto", marginRight:"auto", marginTop:"3px", marginBottom:"3px"}}>
           <tr>
               <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>확인</th>
           </tr>
@@ -124,44 +128,16 @@ function Polist(){
                       <tr className="text-center border-b hover:bg-gray-200 cursor-pointer" key={i}>
                       <td>{ po.id }</td>
                       <td>
+
+                      {/* <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
+                      <td className='text-left py-4'>{ po.name }</td> */}
                           <img src={po.url} alt='' style={{width:140}}></img></td>
                       <td className='text-center py-4'>{ po.name }</td>
+
                       <td className='text-center py-4'>{ po.quantity }</td> 
                       <td className='text-center py-4'>{ po.wdate }</td>
                       <td className='text-center py-4'>{ po.poYn > 0 ? '승인완료' : '승인대기중'}</td>  
                       <td>
                         <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
                         onClick={()=>{con(po)}}>승인확인</button>
-                      </td> 
-                  </tr>
-                );     
-              })
-          }
-          </tbody>
-          </table>
-
-          <br/>
-
-          {/* 세번째의 경우 */}     
-          <Pagination
-            itemClass='page-item'
-            linkClass='page-link' 
-            activePage={page}
-            itemsCountPerPage={10}
-            totalItemsCount={totalCnt}
-            pageRangeDisplayed={10}
-            prevPageText={"prev"}
-            nextPageText={"next"}
-            onChange={handlePageChange} />
-
-        <div className='my-5 d-flex justify-content-center'>
-            <Link  style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"to="/pow">발주신청</Link>
-        </div>       
-
-      </div>
-    );
-}
-// 승인중 : 0 // 승인완료 : 1 -> 관리자가 승인중(0)을 보고 발주를 승인하면 승인완료라고 뜨게 하고 싶고 
-// 확인칸에 승인확인이라는 버튼이 나타나면서 승인 확인 버튼을 클릭하면 승인이 완료되었습니다라는 알림창이 뜨게 하고 싶습니다
-
-export default Polist;
+                      </td>   

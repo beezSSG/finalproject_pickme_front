@@ -83,14 +83,12 @@ const Powrite = () => {
     //   const onRemove = item => {
     //     // setCheckedList(checkedList.filter(e => e !== item));
     //     setProductList
-
     //   };
       const onRemove = i => {
         productList.splice(i, 1);
         counters.splice(i, 1);
         setProductList(productList.filter(() => productList));
         setCounters(counters.filter(() => counters));
-
       };
 
           // 체크박스를 토글하는 함수
@@ -167,7 +165,6 @@ const Powrite = () => {
                                 <select className='custom-select' value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
                                     <option value="name">상품명</option>
                                 </select>
-                                <button onClick={button}>확인용</button>
                             </td>
                             <td style={{ paddingLeft:"5px"}} className='align-middle'>
                                 <input className='form-control' placeholder='상품명을 입력하세요' value={search} onChange={(e)=>{setSearch(e.target.value)}} />
@@ -213,12 +210,11 @@ const Powrite = () => {
                             return (
                             <div key={i} className='bg-slate-300 grid grid-cols-2'>
                                     <p>{productList[i]}</p>
-                                    
+                                    <button onClick={() => increaseCounter(i)}>+</button>
+                                    {counters[i]}
+                                    <button onClick={() => decreaseCounter(i)}>-</button>
                                 <div className='bg-slate-500' onClick={() => onRemove(i)} >
-                                X<br/></div>
-                                <span><button onClick={() => increaseCounter(i)}>+</button></span>
-                                            <span>{counters[i]}</span>
-                                            <span><button onClick={() => decreaseCounter(i)}>-</button></span>
+                                X</div>
                             </div>
                             );
                         })}
