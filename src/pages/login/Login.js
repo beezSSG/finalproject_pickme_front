@@ -138,7 +138,7 @@ const Login = () => {
           setToken(response.data.jwt); // 상태에 토큰 저장
           setIsLoggedIn(true);
           if (response.data.who === "점주") {
-            window.location.replace("http://localhost:3000/ceo");
+            window.location.replace("http://localhost:3000/ceo/pomain");
           } else {
             window.location.replace("http://localhost:3000");
           }
