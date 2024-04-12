@@ -29,10 +29,17 @@ export default function Antdmodal({updateAddress, height}) {
   
   return (
     <>
-      <button className="p-3  bg-yellow-500 rounded-lg font-bold cursor-pointer hover:bg-yellow-600"
-       style={{ marginTop: height }}
+      {/* 데스크톱 / 탭 화면 버튼 */}
+      <button className="px-1.5 py-3 sm:hidden ml-8 lg:w-1/12 md:w-1/6 rounded-lg font-bold cursor-pointer bg-main-yellow hover:bg-sub-orange transition duration-300"
        onClick={onToggleModal}>
         주소찾기
+      </button>
+      {/* 반응형 버튼 */}
+      <button className="lg:hidden md:hidden sm:text-sm p-1 w-1/4 ml-3 bg-main-yellow rounded-lg font-bold cursor-pointer hover:bg-sub-orange transition duration-300"
+       onClick={onToggleModal}>
+        주소
+        <br />
+        찾기
       </button>
       {isOpen && (
         <Modal
