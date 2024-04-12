@@ -289,7 +289,7 @@ function Post() {
                     onChange={(e) => onChangePoints(e)}
                     value={addComma(itemPrice) || ""}
                     placeholder="물품가격"
-                    className="focus:outline-none focus:border-non"
+                    className="focus:outline-none focus:border-none w-full"
                   />
                   <span className="font-bold">원</span>
                 </div>
