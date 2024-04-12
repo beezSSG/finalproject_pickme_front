@@ -33,7 +33,7 @@ function Header() {
 
           {/* 장바구니 */}
           <Link
-            to={"http://localhost:3000/mypage"}
+            to={"http://mypickme.pickme-ssg.com/mypage"}
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -72,7 +72,7 @@ function Header() {
 
           {/* 마이페이지 */}
           <Link
-            to={"http://localhost:3000/mypage"}
+            to={"http://mypickme.pickme-ssg.com/mypage"}
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -87,7 +87,7 @@ function Header() {
 
           {/* 장바구니 */}
           <Link
-            to={"http://localhost:3000/mypage"}
+            to={"http://mypickme.pickme-ssg.com/mypage"}
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -106,7 +106,7 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
-    window.location.replace("http://localhost:3000");
+    window.location.replace("http://mypickme.pickme-ssg.com/");
   };
 
   const menus = [
@@ -173,7 +173,7 @@ function Header() {
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
-        <Link to="http://localhost:3000" className="pb-2 ml-10 sm:ml-3">
+        <Link to="http://mypickme.pickme-ssg.com/" className="pb-2 ml-10 sm:ml-3">
           <img
             src={FullLogoImg}
             alt="pickme full logo"

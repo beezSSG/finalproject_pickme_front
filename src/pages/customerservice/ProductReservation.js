@@ -155,6 +155,7 @@ function ProductReservation() {
         <div className=" font-bold text-3xl text-gray-700">픽업 매장찾기</div>
         <br />
 
+
         <label className="font-bold text-2xl text-slate-500">매장 명</label>
         <div className="flex space-x-3 mt-2">
           <div className="border-2 border-gray-400 w-[20%] sm:w-[50%] text-center p-2 rounded-xl">
@@ -176,6 +177,22 @@ function ProductReservation() {
                 {/* 모달 제목 */}
                 <div className="relative text-center my-5 text-3xl">
                   <p className="font-bold">매장 찾기</p>
+
+    return(
+        <>
+            <div className="mx-auto px-20 sm:px-3">
+                <div className="text-4xl font-bold mt-[70px]">픽업 예약</div><br/>
+                <hr className="border-gray-500" /><br/><br/>
+                <div className=" font-bold text-3xl text-gray-700">픽업 매장찾기</div><br/>
+                
+                <label className="font-bold text-2xl text-slate-500">매장 명</label>
+                <div className="flex space-x-3 mt-2">
+                    <div className="border-2 border-gray-400 w-[20%] sm:w-[50%] text-center p-2 rounded-xl">{storeName}</div>
+                    <div className="text-center">
+                        <button className="bg-sub-yellow rounded-xl p-2 font-bold w-[100px] h-full hover:bg-yellow-500"
+                        onClick={searchStore}>매장 찾기</button>
+                    </div>
+
                 </div>
                 {/* 모달 내용 */}
                 <div className="">
