@@ -19,7 +19,7 @@ const Receipt = ({ onClose, payInfo }) => {
       <div className="fixed top-0 left-0 w-full h-full bg-gray-900 opacity-50 z-40"></div>
 
       {/* 모달 */}
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-4 rounded-md w-[35%] h-[70%]">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-4 rounded-md w-[35%] h-[70%] overflow-y-auto">
         <div className="text-right">
           <button
             className="text-black hover:text-sub-yellow font-bold text-3xl"
