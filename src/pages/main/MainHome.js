@@ -55,6 +55,8 @@ export default function MainHome() {
             <Route path="/loginkakao" element={<LoginKakao />} />
             <Route path="/loginnaver" element={<LoginNaver />} />
 
+
+
             <Route path="/about" element={<About />}/>
 
             <Route path="/productlist" element={<Productlist />} />
