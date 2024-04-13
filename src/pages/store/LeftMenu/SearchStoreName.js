@@ -22,7 +22,6 @@ export default function SearchStoreName({menuOpen, handleStorelist, stateData, d
 
   function searchStore(target) {
     axios
-      // .get("http://localhost:8080/api/v1/store/searchstore", {
       .get("/store/searchstore", {
         params: { stateName: stateData, districtName: districtData, storeName: target },
       })

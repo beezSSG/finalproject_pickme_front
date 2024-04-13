@@ -8,7 +8,7 @@ function OcrList() {
 
   function selectocrlist() {
     axios
-      .get("http://localhost:8080/api/v1/user/selectocrlist")
+      .get("user/selectocrlist")
       .then(function (resp) {
         console.log(resp.data);
         setOcrlist(resp.data);

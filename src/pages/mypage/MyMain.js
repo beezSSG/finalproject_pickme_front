@@ -47,7 +47,7 @@ export default function MyMain() {
 
   const topBar = [
     { title: "장바구니", path: "/mypage/cart" },
-    { title: "포인트", path: "/mypage/point" },
+    { title: "포인트", path: "/mypage" },
     { title: "쿠폰", path: "/mypage/coupon" },
     { title: "찜 목록", path: "/mypage/save" },
     { title: "선물함", path: "/mypage/gift" },
@@ -106,7 +106,7 @@ export default function MyMain() {
           <Route path="review" element={<MyReview />} />
           <Route path="coupon" element={<MyCoupon />} />
           <Route path="gift" element={<MyGift />} />
-          <Route path="giftdetail" element={<MyGiftdetail />} />
+          <Route path="giftdetail/:id" element={<MyGiftdetail />} />
         </Routes>
       </div>
     </>

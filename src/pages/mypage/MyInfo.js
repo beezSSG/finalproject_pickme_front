@@ -13,9 +13,9 @@ export default function MyInfo() {
 
   // 비밀번호 수정
   const [changePw, setChangePw] = useState(false);
-  const [myPw, setMyPw] = useState(""); // 원래 비밀번호
-  const [newPw, setNewPw] = useState(""); // 변경 비밀번호
-  const [confirmPw, setConfirmPw] = useState(""); // 비밀번호 확인
+  const [myPw, setMyPw] = useState(); // 원래 비밀번호
+  const [newPw, setNewPw] = useState(); // 변경 비밀번호
+  const [confirmPw, setConfirmPw] = useState(); // 비밀번호 확인
 
   // 회원탈퇴
   const [open, setOpen] = useState(false);
@@ -54,7 +54,7 @@ export default function MyInfo() {
     setAddress(data);
   }
 
-  // 전화번호만 가능하게 만들기
+  // 전화번호만 가능하게 만들기 정규식에 대해 배우기
   const parsingPhoneNumber = (num) => {
     return num
       .replace(/[^0-9]/g, "")
@@ -63,21 +63,49 @@ export default function MyInfo() {
   };
 
   // 개인정보 변경
-  function changeMyInformation() {}
+  async function changeMyInformation() {
+      await axios.post("mypage/user/updateUserInfo", null, {params : {"address":address.address, "phone":phoneNumber}} )
+      .then((response)=>{
+        // console.log(response.data);
+        window.location.href = "/mypage/userinfo";
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+  }
 
   // 비밀번호 변경
+  async function changeMyPassword() {
+    if (Number(myPw) !== Number(userInfo.pw) ) {
+      alert('현재 비밀번호가 일치하지 않습니다');
+      return;
+    }
 
+    if (newPw === confirmPw) {
+      await axios.post("user/changePw", null, {params : {"pw":newPw}} )
+      .then((response)=>{
+        // console.log(response.data);
+        window.location.href = "/mypage/userinfo";
+      })
+      .catch((err)=>{
+        console.log(err);
+      })
+    } else {
+      alert('변경할 비밀번호가 일치하지 않습니다');
+    }
+  }
+
+  // 회원탈퇴
   const onToggleModal = () => {
     setOpen((prev) => !prev);
   };
 
-  function existUser() {
-    // try {
-    //   await axios.delete(`customer/cart/delCart/${sProductId}`);
-    //   getMyCart();
-    // } catch (err) {
-    //   alert(err);
-    // }
+  async function existUser() {
+    try {
+      await axios.delete("user/deleteCustomer");
+    } catch (err) {
+      // alert(err);
+    }
   }
 
   return (
@@ -138,13 +166,13 @@ export default function MyInfo() {
             {changeInfo ? (
               <input
                 type="tel"
-                placeholder="휴대폰 번호를 입력해주세요"
+                placeholder="번호를 입력해주세요"
                 maxLength={13}
                 value={phoneNumber}
                 onChange={(e) =>
                   setPhoneNumber(parsingPhoneNumber(e.target.value))
                 }
-                className="text-lg border-2 border-gray-500 rounded-xl p-2 w-72 focus:border-sub-yellow focus:outline-none"
+                className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60 focus:border-sub-yellow focus:outline-none"
               />
             ) : (
               <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
@@ -172,7 +200,7 @@ export default function MyInfo() {
                 <button
                   type="button"
                   className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => chageHandler(0)}
+                  onClick={() => {changeMyInformation()}}
                 >
                   확인
                 </button>
@@ -242,6 +270,7 @@ export default function MyInfo() {
               onChange={(e) => setConfirmPw(e.target.value)}
             />
           </div>
+          <div>{newPw === confirmPw ? "" : <span className="text-red-500">비밀번호가 일치하지 않습니다.</span>}</div>
           <div className="mt-3">
             {changePw ? (
               <div className="text-right">
@@ -265,7 +294,7 @@ export default function MyInfo() {
                 <button
                   type="button"
                   className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => chageHandler(1)}
+                  onClick={() => {changeMyPassword()}}
                 >
                   변경
                 </button>
@@ -297,9 +326,9 @@ export default function MyInfo() {
                 onOk={onToggleModal}
                 onCancel={onToggleModal}
                 footer={null}
+                centered={true}
               >
                 <div className="text-center">
-                  <br />
                   <br />
                   <h1 className="text-red-500 font-bold text-2xl">경고문</h1>
                   <br />
@@ -317,7 +346,7 @@ export default function MyInfo() {
                   <br />
                   <div className="grid grid-cols-2 gap-5">
                     {/* 버튼을 중앙으로 정렬하기 위한 컨테이너 */}
-                    <Button key="back" onClick={onToggleModal}>
+                    <Button key="back" onClick={existUser}>
                       떠날래요
                     </Button>
                     <Button key="submit" type="primary" onClick={onToggleModal}>

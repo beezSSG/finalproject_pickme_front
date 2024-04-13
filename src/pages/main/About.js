@@ -14,7 +14,7 @@ const About = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/v1/s3upload",
+        "s3upload",
         formData,
         {
           headers: {
