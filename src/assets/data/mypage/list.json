@@ -28,7 +28,6 @@
       "title": "고객센터",
       "subtitle": [
         { "subname": "F&Q보기", "subpath": "/faq" },
-        { "subname": "챗봇 상담 신청", "subpath": "/chatbot" },
         { "subname": "1:1 문의하기", "subpath": "/contactuswrite"}
       ]
     }

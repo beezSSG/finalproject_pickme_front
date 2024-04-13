@@ -37,7 +37,8 @@ export default function MyInfoPost({ updateAddress }) {
         <Modal
           open={true}
           onOk={onToggleModal}
-          onCancel={onToggleModal} // isOpen이 false가 되고 화면이 리렌더되면서 모달이 뜨지 않는다.
+          onCancel={onToggleModal}
+          centered={true}
         >
           <DaumPostcode onComplete={handleComplete} />
         </Modal>
