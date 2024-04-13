@@ -32,8 +32,8 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link
-            to={"http://mypickme.pickme-ssg.com/mypage"}
+          {/* <Link
+            to={"mypage/cart"}
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -44,7 +44,7 @@ function Header() {
               장바구니
             </span>
             <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
-          </Link>
+          </Link> */}
         </div>
       );
     } else {
@@ -72,7 +72,7 @@ function Header() {
 
           {/* 마이페이지 */}
           <Link
-            to={"http://mypickme.pickme-ssg.com/mypage"}
+            to="mypage"
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -87,7 +87,7 @@ function Header() {
 
           {/* 장바구니 */}
           <Link
-            to={"http://mypickme.pickme-ssg.com/mypage"}
+            to="/mypage/cart"
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
@@ -106,7 +106,7 @@ function Header() {
 
   const logout = () => {
     localStorage.clear();
-    window.location.replace("http://mypickme.pickme-ssg.com/");
+    window.location.href = "/";
   };
 
   const menus = [
@@ -173,7 +173,7 @@ function Header() {
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
-        <Link to="http://mypickme.pickme-ssg.com/" className="pb-2 ml-10 sm:ml-3">
+        <Link to="/" className="pb-2 ml-10 sm:ml-3">
           <img
             src={FullLogoImg}
             alt="pickme full logo"
