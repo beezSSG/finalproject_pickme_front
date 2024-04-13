@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import storeMap from "../store/StoreMap"
+import StoreMap from "../store/StoreMap";
 
 
 function ProductReservation() {
