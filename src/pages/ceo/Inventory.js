@@ -13,8 +13,6 @@ export default function Inventory() {
         .then((response)=>{
 
         console.log(response.data);
-
-          console.log(JSON.stringify(response.data.inventory));
           setInventory(response.data);
         })
         .catch((err)=>{
