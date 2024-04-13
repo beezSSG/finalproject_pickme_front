@@ -24,24 +24,23 @@ export default function StoreMap() {
     }
 
     if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        setMyLocation({
-          lat: position.coords.latitude,
-          lon: position.coords.longitude,
-        })
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          setMyLocation({
+            lat: position.coords.latitude,
+            lon: position.coords.longitude,
+          });
           console.log("좌표는늘도망가..");
-        }, 
+        },
         () => {
           setMyLocation({
             //  fallback
             lat: 35.16591583,
             lon: 129.1324683,
-          })
+          });
         }
       );
     }
-
-    
 
     // 마커 생성 및 마커 참조에 저장
     // markersRef.current = sampleData.map((store) => new window.naver.maps.Marker({
@@ -68,28 +67,32 @@ export default function StoreMap() {
   }, []);
 
   useEffect(() => {
-    
     // 맵 생성조건 - 위치, 줌, 등등 건드리시면됩니다.
     // 최초 렌더링시 값이 있는 지 확인 엥잘되는듯요
-    if (myLocation !== undefined || myLocation !== null || myLocation !== "{}") {
+    if (
+      myLocation !== undefined ||
+      myLocation !== null ||
+      myLocation !== "{}"
+    ) {
       // console.log(myLocation);
       const mapOptions = {
         // center: new window.naver.maps.LatLng(35.16591583, 129.1324683), //? 버근가?
-        center: new window.naver.maps.LatLng(myLocation.lat, myLocation.lon), 
+        center: new window.naver.maps.LatLng(myLocation.lat, myLocation.lon),
         zoom: 16,
       };
-  
+
       // 지도 초기화
       const map = new window.naver.maps.Map("map", mapOptions);
       mapRef.current = map;
-  
+
       // 지도 로드시 꼭지점 위치 계산
       getBoundsCorners(map);
-  
+
       // 지도의 바운드가 변경될 때마다 꼭지점의 위치 업데이트
-      window.naver.maps.Event.addListener(map, 'bounds_changed', ()=> { getBoundsCorners(map) });
+      window.naver.maps.Event.addListener(map, "bounds_changed", () => {
+        getBoundsCorners(map);
+      });
     }
-    
   }, [myLocation]);
 
   // 영역의 꼭지점 구하고 화면 이동시 점포 위치 구하는것
@@ -101,24 +104,34 @@ export default function StoreMap() {
     // 남동쪽(South-East)과 북서쪽(North-West) 꼭지점 계산
     const nw = new window.naver.maps.LatLng(ne.lat(), sw.lng());
     // const se = new window.naver.maps.LatLng(sw.lat(), ne.lng());
-    
+
     // console.log("남서쪽(SW): ", sw);
     // console.log("북동쪽(NE): ", ne);
     // console.log("북서쪽(NW): ", nw);
 
     // axios로 매장의 값을 받아와야함
     axios
-      .get("/store/getstoresinmap", { params : { "swLat": sw._lat, "nwLat": nw._lat, "nwLng": nw._lng, "neLng": ne._lng } })
+      .get("/store/getstoresinmap", {
+        params: {
+          swLat: sw._lat,
+          nwLat: nw._lat,
+          nwLng: nw._lng,
+          neLng: ne._lng,
+        },
+      })
       .then((resp) => {
         // console.log(resp.data);
         const storeData = resp.data;
         // console.log(storeData);
         // console.log(storesInMap);
         setStoresInMap(storeData);
-        markersRef.current = storeData.map((store) => new window.naver.maps.Marker({
-          map: map,
-          position: new window.naver.maps.LatLng(store.lat, store.lon),
-        }));
+        markersRef.current = storeData.map(
+          (store) =>
+            new window.naver.maps.Marker({
+              map: map,
+              position: new window.naver.maps.LatLng(store.lat, store.lon),
+            })
+        );
         // setRender(!render);
       })
       .catch((err) => {
@@ -147,14 +160,9 @@ export default function StoreMap() {
 
   return (
     // <div style={{ width: "100%" }}>
-    <div className="h-svh">
+    <div className="">
       {/* LeftMenu에 prop로 값 넘겨주세요 */}
-      {
-        storesInMap ?
-          <LeftMenu stores={ storesInMap } />
-        :
-          ""
-      }
+      {storesInMap ? <LeftMenu stores={storesInMap} /> : ""}
       {/* <LeftMenu stores={ storesInMap } /> */}
       <div id="map" className="h-svh"></div>
     </div>

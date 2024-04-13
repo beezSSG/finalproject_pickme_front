@@ -57,7 +57,7 @@ jobs:
       - name: Modify Files and Commit
         run: |
           cd Devops
-          mkdir -p ${{ env.EKS_PATH}}
+          mkdir -p ${{ env.EKS_PATH }}
           echo 'replicaCount: "1"' > ${{ env.EKS_PATH }}/values.yaml
           echo 'image: "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
           echo 'host: "mypickme.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml
