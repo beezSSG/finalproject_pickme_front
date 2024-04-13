@@ -19,8 +19,8 @@ export default function Ceo() {
             <Route path='sales' element={<SalesChart />} />
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
-            {/* <Route path='postcheck' element={<Postcheck />} />
-            <Route path='groupbuying' element={<GroupBuying />} /> */}
+            <Route path='postcheck' element={<Postcheck />} />
+            {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
             </Routes>
         
         </>

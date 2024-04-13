@@ -11,8 +11,8 @@ import Polist from './Polist';
 import Powrite from './Powrite';
 import SalesChart from './SalesChart';
 import Inventory from "./Inventory";
-// import Pickup from './Pickup';
-// import Postcheck from './PostCheck';
+import Pickup from "./Pickup";
+import PostCheck from "./PostCheck";
 // import GroupBuying from './GroupBuying';
 
 // import SalesChart from "./SalesChart";
@@ -97,9 +97,9 @@ function PoMainpage() {
             <Route path='pow' element={<Powrite />} />
             <Route path='sales' element={<SalesChart />} />
             <Route path='inventory' element={<Inventory />} />
-             {/* <Route path='pickup' element={<Pickup />} />
-            <Route path='postcheck' element={<Postcheck />} />
-            <Route path='groupbuying' element={<GroupBuying />} /> */}
+            <Route path='pickup' element={<Pickup />} />
+            <Route path='postcheck' element={<PostCheck />} />
+            {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
         </Routes>
       </div>
 
