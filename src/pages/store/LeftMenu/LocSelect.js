@@ -52,7 +52,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
         <div className="w-full">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md 
                                       focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 
-                                      focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm"
+                                      focus-visible:ring-offset-2 focus-visible:ring-offset-main-orange-300 sm:text-sm"
           >
             <span className="block truncate">{selectedState.name}</span>
             <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
@@ -78,7 +78,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
                   onClick={()=>{changeState(i, state.name)}}
                   className={({ active }) =>
                     `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? "bg-amber-100 text-amber-900" : "text-gray-900"
+                      active ? "bg-amber-100 text-main-orange" : "text-gray-900"
                     }`
                   }
                   value={state}
@@ -93,7 +93,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
                         {state.name}
                       </span>
                       {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
+                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-main-orange">
                           <FaCheck className="h-5 w-5" aria-hidden="true" />
                         </span>
                       ) : null}
@@ -150,8 +150,8 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
                   <Combobox.Option
                     key={district.name}
                     className={({ active }) =>
-                      `relative cursor-default select-none py-2 pl-9 pr-4 ${
-                        active ? "bg-amber-100 text-amber-600" : "text-gray-900"
+                    `relative cursor-default select-none py-2 pl-9 pr-4 ${
+                        active ? "bg-amber-100 text-main-orange" : "text-gray-900"
                       }`
                     }
                     value={district} // 이거 푸니까 값이 들어가서 보이는듯
@@ -172,7 +172,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
                         {selected ? (
                           <span
                             className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
-                              active ? "text-white" : "text-amber-600"
+                              active ? "text-white" : "text-main-orange"
                             }`}
                           >
                             <FaCheck className="h-5 w-5" aria-hidden="true" />
