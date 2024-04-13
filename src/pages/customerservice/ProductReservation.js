@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
+import storeMap from "../store/StoreMap"
 
 
 function ProductReservation() {
@@ -167,7 +168,7 @@ function ProductReservation() {
                                 </div>
                                 {/* 모달 내용 */}
                                 <div className="flex justify-center p-2 rounded-b">
-                                    {/* 매장찾기 검색부분 들어갈 예정 */}
+                                    <storeMap />
                                     <button
                                         className="bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-6 py-3 mr-1 mb-1 rounded-xl cursor-pointer"
                                         type="button"
