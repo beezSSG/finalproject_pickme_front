@@ -4,8 +4,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 // 함수는 첫 번째 인자로 {}안에 넣어야함 b/c props 객체 전체를 나타내지 않음
-export default function SearchStoreName({handleStorelist}, menuOpen) {
-  const [targetStore, setTargetStore] = useState("");
+export default function SearchStoreName({menuOpen, handleStorelist, stateData, districtData}) {
+  const [state, setState] = useState("");             // 
+  const [district, setDistrict] = useState("");       //
+  const [targetStore, setTargetStore] = useState(""); // 
   // const [storelist, setStorelist] = useState([]);
 
   // const [selectedStore, setSelectedStore] = useState(storeList[0])
@@ -19,13 +21,13 @@ export default function SearchStoreName({handleStorelist}, menuOpen) {
   //       })
 
   function searchStore(target) {
-
     axios
-      .get("store/searchstore", {
-        params: { storeName: target },
+      .get("/store/searchstore", {
+        params: { stateName: stateData, districtName: districtData, storeName: target },
       })
       .then((resp) => {
         // console.log(resp.data);
+        console.log(resp.data);
         handleStorelist(resp.data);
         console.log('부모에게 전송완료');
       })
@@ -61,18 +63,7 @@ export default function SearchStoreName({handleStorelist}, menuOpen) {
                 ${menuOpen && "mr-2"}`}
         />
       </button>
-
-      {/* 자동완성 검색창 */}
-      {/* <Combobox value={selectedPerson} onChange={setSelectedPerson}>
-      <Combobox.Input onChange={(event) => setQuery(event.target.value)} />
-      <Combobox.Options>
-        {filteredPeople.map((person) => (
-          <Combobox.Option key={person} value={person}>
-            {person}
-          </Combobox.Option>
-        ))}
-      </Combobox.Options>
-    </Combobox> */}
+      {/* <button onClick={()=>{console.log(stateData); console.log(districtData); console.log(targetStore)}}>console</button> */}
     </div>
   );
 }
