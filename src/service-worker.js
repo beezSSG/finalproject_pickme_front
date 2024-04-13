@@ -19,7 +19,10 @@ clientsClaim();
 // Their URLs are injected into the manifest variable below.
 // This variable must be present somewhere in your service worker file,
 // even if you decide not to use precaching. See https://cra.link/PWA
-precacheAndRoute(self.__WB_MANIFEST);
+// precacheAndRoute(self.__WB_MANIFEST);
+if (process.env.NODE_ENV === 'production') {
+  precacheAndRoute(self.__WB_MANIFEST);
+}
 
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
@@ -27,22 +30,22 @@ precacheAndRoute(self.__WB_MANIFEST);
 const fileExtensionRegexp = new RegExp('/[^/?]+\\.[^/]+$');
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
-  ({ request, url }) => {
-    // If this isn't a navigation, skip.
-    if (request.mode !== 'navigate') {
-      return false;
-    } // If this is a URL that starts with /_, skip.
+  // ({ request, url }) => {
+  //   // If this isn't a navigation, skip.
+  //   if (request.mode !== 'navigate') {
+  //     return false;
+  //   } // If this is a URL that starts with /_, skip.
 
-    if (url.pathname.startsWith('/_')) {
-      return false;
-    } // If this looks like a URL for a resource, because it contains // a file extension, skip.
+  //   if (url.pathname.startsWith('/_')) {
+  //     return false;
+  //   } // If this looks like a URL for a resource, because it contains // a file extension, skip.
 
-    if (url.pathname.match(fileExtensionRegexp)) {
-      return false;
-    } // Return true to signal that we want to use the handler.
+  //   if (url.pathname.match(fileExtensionRegexp)) {
+  //     return false;
+  //   } // Return true to signal that we want to use the handler.
 
-    return true;
-  },
+  //   return true;
+  // },
   createHandlerBoundToURL(process.env.PUBLIC_URL + '/index.html')
 );
 
