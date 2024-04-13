@@ -5,7 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(() => {
-        console.log('초기 토큰:', localStorage.getItem('jwt'));
+        // console.log('초기 토큰:', localStorage.getItem('jwt'));
         //로컬에 저장
         return localStorage.getItem('jwt');
     });
@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(!!token); // 로그인 상태를 관리합니다.
 
     useEffect(() => {
-        console.log('토큰 변경됨:', token);
+        // console.log('토큰 변경됨:', token);
         if (token) {
           console.log('jwt저장');
           localStorage.setItem('jwt', token);

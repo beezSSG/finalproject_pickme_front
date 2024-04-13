@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "./firebase-messaging-sw.js";
 import { AuthProvider } from './utils/AuthProvider';
-import { homeAlertHandle } from './utils/ServiceAlert.js'
 
 import MainHome from './pages/main/MainHome.js';
 import Manager from './pages/manager/Manager.js';
@@ -31,7 +30,13 @@ function App() {
     }
   );
 
-  // homeAlertHandle();
+  // push 알림 구현
+  if('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('/sw.js').then(function(registration) {
+      // console.log('ServiceWorker registration successful with scope: ', registration.active);
+    });
+  };
+
   return (
     <>
       <AuthProvider>
