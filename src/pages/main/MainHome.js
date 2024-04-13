@@ -26,14 +26,14 @@ import ContactUsWrite from "../customerservice/ContactUsWrite";
 import Faq from "../customerservice/Faq";
 import FaqCreate from "../customerservice/FaqCreate";
 import MyMain from "../mypage/MyMain";
-import Polist from "../ceo/Polist";
-import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
-import About from "./About";
-
+import Polist from "../ceo/Polist";
+import Powrite from "../ceo/Powrite";
 import PoMainpage from "../ceo/PoMainpage.js";
+// import About from "./About";
+
 
 export default function MainHome() {
   return (
