@@ -60,9 +60,7 @@ export default function MyCart(prop) {
 
   // cart 물품 가져오기
   const getMyCart = async () => {
-    await axios.get("customer/cart/getCart", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("customer/cart/getCart")
     .then((response)=>{
       // console.log(response.data);
       setCart(response.data);

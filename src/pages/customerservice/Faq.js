@@ -37,7 +37,7 @@ function Faq() {
 
   function faqlistup(selectedCategory) {
     axios
-      .get("http://localhost:8080/api/v1/manager/faqlist", {
+      .get("manager/faqlist", {
         params: { choice: selectedCategory },
       })
       .then((resp) => {
@@ -51,7 +51,7 @@ function Faq() {
 
   function faqreadcount(faqid) {
     axios
-      .get("http://localhost:8080/api/v1/manager/faqreadcount", {
+      .get("manager/faqreadcount", {
         params: { id: faqid },
       })
       .then(function (resp) {})

@@ -24,7 +24,7 @@ function Polist(){
 
     // polist 불러오는 함수
     function getPolist(c, s, pn){
-        axios.get("http://localhost:8080/api/v1/ceo/polist", 
+        axios.get("ceo/polist", 
               {params:{ choice:c, search:s, pageNumber:pn}})
             .then(function(resp){  // success:function
               console.log(resp.data.polist);
@@ -57,7 +57,7 @@ function Polist(){
       alert(po.poYn);
         // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
         const params = {"id": po.id};
-          axios.post("http://localhost:8080/api/v1/ceo/deleteProduct", null, {params:params})
+          axios.post("ceo/deleteProduct", null, {params:params})
           .then(response => {
               // 응답을 받았을 때의 처리
 

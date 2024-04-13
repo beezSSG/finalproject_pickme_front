@@ -22,7 +22,7 @@ function Event() {
   // 이벤트 목록을 서버에서 가져오는 함수
   const eventlistup = () => {
     axios
-      .get("http://localhost:8080/api/v1/manager/eventlist")
+      .get("manager/eventlist")
       .then(function (resp) {
         setEventlist(resp.data);
       })

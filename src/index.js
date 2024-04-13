@@ -15,6 +15,15 @@ root.render(
   </>
 );
 
-// ServiceWorkerRegistration.unregister();  // unregister(); => register(); 로 고치셔야합니다.
+// Service Worker 등록
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js").then(registration => {
+      console.log("Service Worker registered!");
+    }).catch(error => {
+      console.error("Service Worker registration failed:", error);
+    });
+  });
+}
 
 reportWebVitals();
