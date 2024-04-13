@@ -46,7 +46,7 @@ function PoMainpage() {
     // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   
     const getCeoInfo = async () => {
-    await axios.get("http://localhost:8080/api/v1/ceo/getCeoInfo")
+    await axios.get("ceo/getCeoInfo")
     .then((response)=>{
       console.log(JSON.stringify(response.data));
       console.log(Object.values(response.data));

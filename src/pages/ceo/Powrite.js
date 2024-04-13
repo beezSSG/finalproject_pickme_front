@@ -22,7 +22,7 @@ const Powrite = () => {
     const [search, setSearch] = useState("");
 
     const getPowrite = () => {
-        axios.get("http://localhost:8080/powriteCn")
+        axios.get("powriteCn")
             .then(function(resp){
                 console.log(resp); // 확인용
                 setCategoryList(resp.data);
