@@ -75,7 +75,7 @@ function Post() {
       // 입력된 정보가 정확하다면 예약 요청 보내기
       const toAddress = `${zonecode} ${roadAddress}`;
       axios
-        .post("http://localhost:8080/api/v1/customer/postreservation", null, {
+        .post("customer/postreservation", null, {
           params: {
             toUser: toUser,
             toPhone: toPhone,
@@ -163,7 +163,7 @@ function Post() {
 
   return (
     <>
-      <div className="max-w-[1200px] mx-auto px-3">
+      <div className="mx-auto px-20 sm:px-3">
         <div className="text-4xl font-bold mt-[70px]">택배 예약</div>
         <div className="text-red-500 font-bold">
           ※최대 3일 이내로 해당 편의점으로 가져다주세요!
@@ -203,20 +203,20 @@ function Post() {
           </div>
           <br />
 
-          <div className="flex space-x-5">
+          <div className="flex flex-col">
             <div>
               <label className="font-bold text-2xl">주소</label>
+            </div>
+            <div className="flex items-center mt-2">
               <input
                 type="text"
-                className="rounded-xl border-2 border-gray-400 p-3 w-full cursor-pointer focus:outline-none focus:border-yellow-400 mt-2"
+                className="h-1/3 sm:w-full w-1/6 rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
                 value={zonecode}
                 onChange={(e) => setZonecode(e.target.value)}
                 placeholder="우편번호"
                 readOnly
-              />
-            </div>
-            {/* 주소 찾기 모달 */}
-            <div>
+                />
+              {/* 주소 찾기 모달 */}
               <Antdmodal updateAddress={OnSetAddress} height="42px" />
             </div>
           </div>
@@ -289,7 +289,7 @@ function Post() {
                     onChange={(e) => onChangePoints(e)}
                     value={addComma(itemPrice) || ""}
                     placeholder="물품가격"
-                    className="focus:outline-none focus:border-non"
+                    className="focus:outline-none focus:border-none w-full"
                   />
                   <span className="font-bold">원</span>
                 </div>
@@ -315,12 +315,12 @@ function Post() {
           </div>
           <br />
           <div>
-            <div className="text-center flex flex-col md:flex-row md:items-center md:justify-between">
+            <div className="text-center flex flex-col items-center justify-between">
               <span className="font-bold text-2xl mb-4 md:mb-0">
                 택배운임을 선택해주세요.
               </span>
               <button
-                className="cursor-pointer bg-main-yellow rounded-xl font-bold p-2 hover:bg-sub-orange"
+                className="cursor-pointer bg-main-yellow rounded-xl font-bold p-2 w-1/3 hover:bg-sub-orange transition duration-300"
                 onClick={() => setShowModal(true)}
               >
                 선택하기
@@ -341,7 +341,7 @@ function Post() {
             </span>
 
             <button
-              className="bg-gray-700 rounded-xl p-2 font-bold text-white"
+              className="bg-gray-700 rounded-xl p-2 font-bold text-white hover:bg-slate-200 transition duration-300"
               onClick={() => calculateTotalPrice(selectedOption)}
             >
               결제금액 계산
@@ -356,7 +356,7 @@ function Post() {
           <br />
           <div className="text-center">
             <button
-              className="bg-main-yellow hover:bg-sub-orange rounded-xl p-2 font-bold w-[30%]"
+              className="bg-main-yellow hover:bg-sub-orange transition duration-300 rounded-xl p-2 font-bold w-1/3"
               onClick={postReservation}
             >
               예약 신청

@@ -21,7 +21,7 @@ export default function SearchStoreName({handleStorelist}, menuOpen) {
   function searchStore(target) {
 
     axios
-      .get("http://localhost:8080/api/v1/store/searchstore", {
+      .get("store/searchstore", {
         params: { storeName: target },
       })
       .then((resp) => {

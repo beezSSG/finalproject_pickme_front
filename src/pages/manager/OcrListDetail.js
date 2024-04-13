@@ -11,7 +11,7 @@ function OcrListDetail() {
 
   function ocrlistdetail(id) {
     axios
-      .get("http://localhost:8080/api/v1/user/ocrlistdetail", {
+      .get("user/ocrlistdetail", {
         params: { id: id },
       })
       .then(function (resp) {
@@ -29,7 +29,7 @@ function OcrListDetail() {
 
   function ocrapproval(id) {
     axios
-      .get("http://localhost:8080/api/v1/user/ocrapproval", {
+      .get("user/ocrapproval", {
         params: { id: id },
       })
       .then(function (resp) {

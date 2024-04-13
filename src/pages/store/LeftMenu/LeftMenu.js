@@ -1,6 +1,5 @@
-import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 // import axios from "axios";
 
 // icon
@@ -10,21 +9,11 @@ import { FaChevronDown } from "react-icons/fa6";
 
 // component
 import LocSelect from "./LocSelect";
-import SearchStoreName from './SearchStoreName';
+import SearchStoreName from "./SearchStoreName";
 import StoreCategories from "./StoreCategories.js";
 
 // icon
 import { FaPhone } from "react-icons/fa6";
-
-const LeftMenuStyle = styled.div`
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-`;
 
 // ({abc, bcd})
 export default function LeftMenu(props) {
@@ -53,15 +42,15 @@ export default function LeftMenu(props) {
   //   // - 컴포넌트에 대한 방법을 해보니 일정 부분의 값이 고정되고 나머지가 리렌더링이 되고 있는 부분이 있다
   // }, [])
 
-  useEffect(()=>{
+  useEffect(() => {
     // console.log(stores);
     setStores(props.stores);
     if (stores !== undefined) {
       setLoading(true);
-    } else { 
+    } else {
       // console.log(stores);
     }
-  }, [props.stores])
+  }, [props.stores]);
   // }, [stores])
 
   // 여기에 함수를 만들어서 stores 에 있는 json중에 카테고리가 1이 되어있는 부분을 뽑아내고 나머지는 지워서 setStores 다시 집어넣는것
@@ -125,9 +114,7 @@ export default function LeftMenu(props) {
             <h1 className="font-bold text-lg py-4">매장 카테고리 선택</h1>
             <StoreCategories />
           </section>
-          <button onClick={()=>console.log(props.stores)}>
-            클릭
-          </button>
+          <button onClick={() => console.log(props.stores)}>클릭</button>
         </div>
 
         {/* 검색필터 접기 버튼 */}
@@ -142,7 +129,6 @@ export default function LeftMenu(props) {
           검색필터 접기&nbsp;&nbsp;&nbsp;
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
-
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-full overflow-y-auto">
@@ -160,7 +146,7 @@ export default function LeftMenu(props) {
               </li>
             )) : "loading..."
           } */}
-          { stores && 
+          {stores &&
             stores.map((store, k) => (
               <li key={k}>
                 <h5 className="font-semibold">{store.name}</h5>
@@ -168,12 +154,13 @@ export default function LeftMenu(props) {
                 <p>
                   <FaPhone className="inline" />
                   &nbsp;&nbsp;
-                  <span>{ store.tel !== "None" ? store.tel : ""}</span>
+                  <span>{store.tel !== "None" ? store.tel : ""}</span>
                 </p>
-                <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고 보러가기</Link>
+                <Link to={`/storeproductlist/${store.id}/${store.name}`}>
+                  매장 재고 보러가기
+                </Link>
               </li>
-            ))
-          }
+            ))}
         </ul>
       </div>
     </>

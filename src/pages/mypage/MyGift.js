@@ -31,7 +31,7 @@ export default function MyGift() {
             return (
               <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
                 <div className='mt-5'>
-                  <Link to={`/mypage/giftdetail`}>
+                  <Link to={`/mypage/giftdetail/${product.id}`}>
                     <img src={product.productUrl} className="mx-auto w-[60%]" />
                   </Link>
                   <div className='mt-5'>{product.productName}</div>
