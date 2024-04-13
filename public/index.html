@@ -4,13 +4,13 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Pick ME</title>
-    <link rel="icon" href="./favicon.ico" />
-    <link rel="apple-touch-icon" href="./logo192.png" />
+    <link rel="icon" href="./logo.svg" />
+    <link rel="apple-touch-icon" href="./favicon.png" />
     <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=im12jhyvy5"></script>
     <script> 
       if ('serviceWorker' in navigator) {
-        window.addEventListener('sw-cached-site.js', function() {
-          navigator.serviceWorker.register('sw.js', {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('firebase-messaging-sw.js', {
             scope: '/',
           });
         });
