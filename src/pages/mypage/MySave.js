@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import star2 from "../../assets/imgs/product/star2.png";
 
 export default function MySave() {
 
@@ -12,9 +13,7 @@ export default function MySave() {
 
   // 찜목록 호출 [productid도 받아야함]
   const getMySave = async () => {
-    await axios.get("http://localhost:8080/api/v1/mypage/save/getSave", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("mypage/save/getSave")
     .then((resp)=>{
       console.log(resp.data);
       setData(resp.data);
@@ -43,7 +42,9 @@ export default function MySave() {
               <p>{product.price.toLocaleString()}원</p>
               <p>
                 {Array.from({ length: product.productRating }, (_, index) => (
-                  <span key={index}>★</span>
+                  <span key={index} className="align-middle" style={{ display: 'inline-block' }}>
+                    <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} />
+                  </span>
                 ))}
               </p>
             </div>

@@ -5,9 +5,8 @@ const MyItem = ({ item, cart, setCart }) => {
   const { url, price, id, quantity, name} = item; // 아이템 내부 정보
 
   const plusQuantity = async () => {
-    await axios.post("http://localhost:8080/api/v1/customer/cart/getCart",
-      { "quantity" : (quantity + 1), },
-      {headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` } }
+    await axios.post("http://localhost:8080/api/v1/customer/cart/getCart", null,
+      { "quantity" : (quantity + 1), }
     )
     .then((response)=>{
       console.log(response.data);
@@ -15,9 +14,7 @@ const MyItem = ({ item, cart, setCart }) => {
     })
     .then(async (res) => {
       if (res.ok) {
-      await axios.get("http://localhost:8080/api/v1/customer/cart/changeQuantity", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-      })
+      await axios.get("customer/cart/changeQuantity")
       .then((response)=>{
         console.log(response.data);
         setCart(response.data);

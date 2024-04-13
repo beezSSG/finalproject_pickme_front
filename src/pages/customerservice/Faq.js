@@ -37,7 +37,7 @@ function Faq() {
 
   function faqlistup(selectedCategory) {
     axios
-      .get("http://localhost:8080/api/v1/manager/faqlist", {
+      .get("manager/faqlist", {
         params: { choice: selectedCategory },
       })
       .then((resp) => {
@@ -51,7 +51,7 @@ function Faq() {
 
   function faqreadcount(faqid) {
     axios
-      .get("http://localhost:8080/api/v1/manager/faqreadcount", {
+      .get("manager/faqreadcount", {
         params: { id: faqid },
       })
       .then(function (resp) {})
@@ -95,14 +95,6 @@ function Faq() {
             className="text-white text-[20px] hover:text-yellow-500 mr-[100px]"
           >
             자주 묻는 질문
-          </Link>
-        </li>
-        <li>
-          <Link
-            to="/chatbot"
-            className="text-white text-[20px] hover:text-yellow-500 mr-[200px]"
-          >
-            챗봇
           </Link>
         </li>
       </ul>

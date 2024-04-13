@@ -3,7 +3,7 @@ name: Build and Push Docker Image and Modify EKS Repo
 on:
   push:
     branches:
-      - dev
+      - main
 
 jobs:
   build-and-push-docker:
@@ -44,7 +44,7 @@ jobs:
     env:
       ECR_REPOSITORY: pickme_front
       ECR_REGISTRY: public.ecr.aws/e3s0f1s6
-      EKS_PATH: helm-projects/prickme-front
+      EKS_PATH: helm-projects/pickme-front
       IMAGE_TAG: ${{ github.sha }}
     steps:
       - name: Checkout repository
@@ -57,7 +57,7 @@ jobs:
       - name: Modify Files and Commit
         run: |
           cd Devops
-          mkdir -p ${{ env.EKS_PATH}}
+          mkdir -p ${{ env.EKS_PATH }}
           echo 'replicaCount: "1"' > ${{ env.EKS_PATH }}/values.yaml
           echo 'image: "${{ env.ECR_REGISTRY }}/${{ env.ECR_REPOSITORY }}:${{ env.IMAGE_TAG }}"' >> ${{ env.EKS_PATH }}/values.yaml
           echo 'host: "mypickme.pickme-ssg.com"' >> ${{ env.EKS_PATH }}/values.yaml

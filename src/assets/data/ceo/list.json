@@ -1,0 +1,27 @@
+{
+    "res": [
+      {
+        "title": "발주",
+        "subtitle": [
+          { "subname": "발주내역", "subpath": "po" },
+          { "subname": "발주신청", "subpath": "pow" },
+          { "subname": "재고현황", "subpath": "inventory" }
+
+        ]
+      },
+      {
+        "title": "승인",
+        "subtitle": [
+          { "subname": "픽업완료 승인", "subpath": "pickup" },
+          { "subname": "배달완료 승인", "subpath": "postcheck" }
+        ]
+      },
+      {
+        "title": "공동구매",
+        "subtitle": [
+          { "subname": "공동구매 현황", "subpath": "/groupbuying" }
+        ]
+      }
+
+    ]
+  }

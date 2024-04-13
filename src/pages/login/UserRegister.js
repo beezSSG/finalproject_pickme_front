@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import RegisterPost from "./RegisterPost";
 import Toast from "../public/Toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function UserRegister() {
 
@@ -71,12 +71,12 @@ function UserRegister() {
 
     // 이메일 확인 및 인증
     function emailSend() {
-        axios.get("http://localhost:8080/api/v1/user/countEmail",{params:{"email":email}})
+        axios.get("user/countEmail",{params:{"email":email}})
                 .then(function(resp){
                     let checkId = resp.data;
                     console.log(checkId);
                     if(checkId === 0) {
-                        axios.post("http://localhost:8080/api/v1/user/sendCodeToEmail",null,{params:{"email":email}})
+                        axios.post("user/sendCodeToEmail",null,{params:{"email":email}})
                                 .then(function(resp){
                                     Toast.fire({
                                         icon: 'success',
@@ -130,7 +130,7 @@ function UserRegister() {
             return;
         }
         else {
-            axios.post("http://localhost:8080/api/v1/user/regiCustomer", null, 
+            axios.post("user/regiCustomer", null, 
                         {params:{"email":email, "pw":pw, "name":name, "phone":phoneNumber,"address":address.address}})
                     .then(function(resp){
                         if(resp.data === 1) {
@@ -200,6 +200,9 @@ function UserRegister() {
                         <RegisterPost updateAddress={onSetAddress} />
                     </div> 
                     <button className="w-full rounded-xl bg-sub-yellow hover:bg-sub-orange my-3 p-3 font-bold" onClick={regi}>회원가입</button>                 
+                </div>
+                <div className="mt-2 text-center text-xs font-bold">
+                  <Link to="/login" className="">이미회원이신경우 이곳을 클릭해주세요</Link>
                 </div>
             </div>
         </>

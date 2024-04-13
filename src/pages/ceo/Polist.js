@@ -24,7 +24,7 @@ function Polist(){
 
     // polist 불러오는 함수
     function getPolist(c, s, pn){
-        axios.get("http://localhost:8080/polist", 
+        axios.get("ceo/polist", 
               {params:{ choice:c, search:s, pageNumber:pn}})
             .then(function(resp){  // success:function
               console.log(resp.data.polist);
@@ -57,7 +57,7 @@ function Polist(){
       alert(po.poYn);
         // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
         const params = {"id": po.id};
-          axios.post("http://localhost:8080/deleteProduct", null, {params:params})
+          axios.post("ceo/deleteProduct", null, {params:params})
           .then(response => {
               // 응답을 받았을 때의 처리
 
@@ -67,12 +67,16 @@ function Polist(){
             })
             .catch(error => {
               // 오류가 발생했을 때의 처리
-              console.error('Error during deleteProduct request:', error);
+              console.error("error");
             });
     }
 
     return(
       <div>
+      {/* <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+            <p className='font-semibold text-center'>발주목록</p>
+          </div>
+          <br/><br/> */}
           <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
             <tbody>
               <tr>
@@ -110,7 +114,7 @@ function Polist(){
               <col width="70"/><col width="200"/><col width="300"/><col width="100"/><col width="200"/><col width="150"/><col width="150"/>
           </colgroup>
 
-          <thead className='bg-yellow-400'>
+          <thead className='bg-yellow-400 p-15' style={{ marginLeft: "auto", marginRight:"auto", marginTop:"3px", marginBottom:"3px"}}>
           <tr>
               <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>확인</th>
           </tr>
@@ -124,15 +128,19 @@ function Polist(){
                       <tr className="text-center border-b hover:bg-gray-200 cursor-pointer" key={i}>
                       <td>{ po.id }</td>
                       <td>
+
+                      {/* <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
+                      <td className='text-left py-4'>{ po.name }</td> */}
                           <img src={po.url} alt='' style={{width:140}}></img></td>
                       <td className='text-center py-4'>{ po.name }</td>
+
                       <td className='text-center py-4'>{ po.quantity }</td> 
                       <td className='text-center py-4'>{ po.wdate }</td>
                       <td className='text-center py-4'>{ po.poYn > 0 ? '승인완료' : '승인대기중'}</td>  
                       <td>
                         <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
                         onClick={()=>{con(po)}}>승인확인</button>
-                      </td> 
+                                            </td> 
                   </tr>
                 );     
               })

@@ -1,97 +1,110 @@
-import { useNavigate } from "react-router-dom";
-import { Link } from 'react-router-dom';
 import { useAuth } from "../../utils/AuthProvider";
+import CeoMainNav from "./CeoMainNav";
 
+import { Link, Route, Routes, useNavigate } from "react-router-dom";
 
-import { useState, useEffect } from 'react';
-import Toast from '../public/Toast';
-import axios from 'axios';
+import { useEffect, useState } from "react";
 
-import SalesChart from "./SalesChart";
+import axios from "axios";
+import CeoMainContent from "./CeoMainContent";
+import Polist from './Polist';
+import Powrite from './Powrite';
+import SalesChart from './SalesChart';
+import Inventory from "./Inventory";
+import Pickup from "./Pickup";
+import PostCheck from "./PostCheck";
+// import GroupBuying from './GroupBuying';
+
+// import SalesChart from "./SalesChart";
 
 function PoMainpage() {
-    let ceoEmail = localStorage.getItem('email');
+  const [open, setOpen] = useState(true);
+  // useState 선언
+  const navigater = useNavigate();
+  const {token} = useAuth();
+  const [info, setInfo] = useState([]); 
+  const [topInfo, setTopInfo] = useState([]);
 
-    const navigate = useNavigate();
-    const {token} = useAuth();
+  const topBar = [
+    { title: "Home", path: "/ceo/pomain" },
+    { title: "발주", path: "/ceo/po" },
+    { title: "승인", path: "/ceo/coupon" },
+    { title: "공동구매", path: "/ceo/" },
+  ];
 
-    const [open, setOpen] = useState(true);
-    const [info, setInfo] = useState();
-    const [topInfo, setTopInfo] = useState([]); 
+    // 진입전 토큰 유무 확인 토큰 유효성시간을 대폭 상향
 
-    // let navigate = useNavigate();
-    // useEffect(() => {
-    //     if(ceoEmail===null){
-    //         Toast.fire({
-    //             icon: 'error',
-    //             title: "당신은 점주가 아닙니다!!",              
-    //         });
-    //         navigate("/");
-    //     }
-    // });
     useEffect(() => {
       if (token === null || token === undefined) {
         alert('로그인이 필요한 서비스 입니다.');
-        navigate('/login');
+        navigater('/login');
       }
       getCeoInfo();
     }, []);
 
+
+    // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
+  
     const getCeoInfo = async () => {
-        await axios.post("http://localhost:8080/api/v1/mypage/pomain", null,{
-          headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-        })
-        .then((response)=>{
-          //console.log(JSON.stringify(response.data));
-          // console.log(Object.values(response.data));
-          setInfo(response.data);
-          setTopInfo(Object.values(response.data));
-        })
-        .catch((err)=>{
-          alert(err);
-        })
-      }
+    await axios.get("ceo/getCeoInfo")
+    .then((response)=>{
+      console.log(JSON.stringify(response.data));
+      console.log(Object.values(response.data));
+      setInfo(response.data);
+      setTopInfo(Object.values(response.data));
+    })
+    .catch((err)=>{
+       alert(err);
+    })
+  }
 
-    const Menus = [
-        { title: "발주 관리", path: "/ceo" },
-        { title: "픽업 관리", path: "/" },
-        { title: "택배 관리", path: "/" },
-        { title: "재고 관리", path: "/" }
-    ];
 
-    if (info === undefined || info === null) {
-      return <div>loding...</div>
-    }
+  if (info === undefined || info === null) {
+    return <div>loding...</div>
+  }
 
-    return(
-        <>
-        <div className="grid grid-cols-6 w-full mb-10">
-          <div className="pl-4 pt-5">
-            <div>
-              <span className="text-4xl font-bold  text-black-500">{info.name}</span>
-              <span className="pl-2 text-3xl font-bold text-yellow-500">{info.grade}</span>
-            </div>
-            <div className="mt-2 text-sm font-bold text-neutral-500">
-              <Link to="/mypage/userinfo" >회원정보수정</Link>
-            </div>
+
+
+    return (
+      <>
+        <div className="grid grid-cols-6 w-full mb-10 sm:flex-wrap md:grid-cols-2">
+        <div className="pl-4 pt-5">
+          <div>
+            <span className="text-4xl font-bold text-black-500">{topInfo[0]}</span>
+            <br/><br/>
+            <span className="pl-2 text-3xl font-bold text-yellow-500">{topInfo[1]}</span>
           </div>
-                
-            {Menus.map((menu, index) => (
-                <div className="m-auto pl-[200px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5 float-left" key={index}>
-                  <button className="text-left w-full  items-center  justify-center" onClick={ () => {window.location.href = `${menu.path}`} }>
-                    <div className=" text-2xl text-neutral-500 ">{menu.title}</div>
-                    <div className="text-right mt-4 text-4xl text-yellow-600 ">10건</div>
-                  </button>
-                </div>
-                 ))
-            }
-            <br/><br/><br/>
-            <SalesChart/>
+          <div className="mt-2 text-sm font-bold text-neutral-500">
+            <Link to="/mypage/userinfo">회원정보수정</Link>
+          </div>
+        </div>
+        
+        { 
+          topBar.map((topbar, i) => (
+          <div className="pl-[30px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5" key={i}>
+            <button className="w-full" onClick={ () => {window.location.href = `${topbar.path}`} }>
+              <div className="text-left text-2xl text-neutral-500">{topbar.title}</div>
+            </button>
+          </div>
+          ))
+        }
+      </div>
+      <div className="flex w-full">
+        <CeoMainNav />
+        <Routes>
+          <Route path='' element={<CeoMainContent />} />
+            <Route path='po' element={<Polist/>} />    
+            <Route path='pow' element={<Powrite />} />
+            <Route path='sales' element={<SalesChart />} />
+            <Route path='inventory' element={<Inventory />} />
+            <Route path='pickup' element={<Pickup />} />
+            <Route path='postcheck' element={<PostCheck />} />
+            {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
+        </Routes>
+      </div>
 
-            </div>
-       
-        </>        
-    )
+      </>
+    );
 }
 
 export default PoMainpage;

@@ -3,10 +3,10 @@
     {
       "title": "Pick pay",
       "subtitle": [
+        { "subname": "Pick Box", "subpath": "pickbox" },
         { "subname": "결제내역", "subpath": "payinfo" },
         { "subname": "장바구니", "subpath": "cart" },
         { "subname": "선물함", "subpath": "gift" },
-        { "subname": "포인트", "subpath": "point" },
         { "subname": "쿠폰함", "subpath": "coupon" }
       ]
     },
@@ -20,16 +20,15 @@
     {
       "title": "서비스 이용",
       "subtitle": [
-        { "subname": "편의점택배 예약", "subpath": "/post" },
-        { "subname": "상품예약 구매", "subpath": "/product" }
+        { "subname": "택배 예약", "subpath": "/post" },
+        { "subname": "픽업 예약", "subpath": "/productreservation" }
       ]
     },
     {
       "title": "고객센터",
       "subtitle": [
         { "subname": "F&Q보기", "subpath": "/faq" },
-        { "subname": "챗봇 상담신청", "subpath": "/chatbot" },
-        { "subname": "1:1문의하기", "subpath": "/contactus"}
+        { "subname": "1:1 문의하기", "subpath": "/contactuswrite"}
       ]
     }
   ]
