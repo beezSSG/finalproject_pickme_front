@@ -27,11 +27,12 @@ export default function LeftMenu(props) {
   const [stores, setStores] = useState(); // 검색한 매장들
   const [filteredStores, setFilteredStores] = useState([]); // 카테고리에 해당되는 매장들
 
+  const [state, setState] = useState("");        // LocSelect에서 넘겨받은 시/도 str 
+  const [district, setDistrict] = useState("");  // LocSelect에서 넘겨받은 구 str
+
   function setStorelist(data) {
     console.log("부모에게 도달!");
-    // console.log(stores);
-    // 임시로 array slice함
-    // setStores(data.slice(0,9)); // 함수 종료 후에 setter 적용
+    setStores(data);
   }
   // useEffect(()=>{
   //   // console.log(stores);
@@ -41,6 +42,19 @@ export default function LeftMenu(props) {
   //   // - 지금 뭔가 워링이 무제한으로 걸리고 있다 useeffect 관련
   //   // - 컴포넌트에 대한 방법을 해보니 일정 부분의 값이 고정되고 나머지가 리렌더링이 되고 있는 부분이 있다
   // }, [])
+
+  
+  function setOneState(data) {
+    console.log("부모에게 도달!");
+    setState(data);
+    console.log(state);
+  }
+  
+  function setOneDistrict(data) {
+    console.log("부모에게 도달!");
+    setDistrict(data);
+    console.log(district);
+  }
 
   useEffect(() => {
     // console.log(stores);
@@ -100,7 +114,12 @@ export default function LeftMenu(props) {
             <h1 className="font-bold text-lg">지역선택</h1>
 
             {/* 지역-군/구 선택 */}
-            <LocSelect menuOpen={menuOpen} />
+            <LocSelect 
+              menuOpen={menuOpen} 
+              handleState={setOneState} 
+              handleDistrict={setOneDistrict} 
+            />
+            
 
             {/* 매장명 검색창 */}
             <SearchStoreName
@@ -132,20 +151,6 @@ export default function LeftMenu(props) {
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-full overflow-y-auto">
-          {/* {
-            loading ? stores.map((store, i) => (
-              <li key={i}>
-                <h5>{store.name}</h5>
-                <p>{store.address}</p>
-                <p>
-                  <FaPhone className="inline" />
-                  &nbsp;&nbsp;
-                  <span>{store.tel}</span>
-                </p>
-                <Link to={`/storeproductlist/${ store.id }/${ store.name }`}>매장 재고 보러가기</Link>
-              </li>
-            )) : "loading..."
-          } */}
           {stores &&
             stores.map((store, k) => (
               <li key={k}>
