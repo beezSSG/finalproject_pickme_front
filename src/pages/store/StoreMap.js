@@ -9,6 +9,9 @@ import LeftMenu from "./LeftMenu/LeftMenu";
 // 마커이미지
 import MarkerImg from "../../assets/imgs/store/marker.svg";
 
+// icon
+import { FaPhone } from "react-icons/fa6";
+
 export default function StoreMap() {
   const mapRef = useRef(null);
   const markersRef = useRef([]);
@@ -149,6 +152,58 @@ export default function StoreMap() {
           //     anchor: new window.naver.maps.Point(11, 35),
           //   });
           // });
+
+          // 마커 클릭 시 InfoWindow 표시
+          window.naver.maps.Event.addListener(marker, 'click', function() {
+
+            function formatPhoneNumber(phoneNumber) {
+              const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+              const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
+              return cleaned.replace(regex, '$1-$2-$3');
+            }
+
+            // InfoWindow의 콘텐츠를 동적으로 생성하는 함수
+            const generateInfoWindowContent = (store) => {
+              return renderToString(
+                <Fragment>
+                  <div style={{ padding: '10px' }}>
+                    <p>
+                      <span className="font-semibold">{store.name}</span>
+                      <br />
+                      {
+                        store.tel !== "None" ?
+                        <span className="font-medium text-sm"><FaPhone className="inline" />&nbsp;{formatPhoneNumber(store.tel)}</span>
+                        :
+                        <span className="text-xs"><FaPhone className="inline" /> 전화 ✖</span>
+                      }
+                      <br />
+                      <span className="text-sm">{store.address}</span>
+                    </p>
+                  </div>
+                </Fragment>
+              );
+            };
+            
+            const infoWindow = new window.naver.maps.InfoWindow({
+              content: generateInfoWindowContent(store),
+              maxWidth: 200,
+              backgroundColor: "#ffffff",
+              anchorSkew: true,
+            });
+            
+            if (infoWindow.getMap()) {
+              infoWindow.close();
+            } else {
+              infoWindow.open(map, marker);
+              map.panTo(marker.getPosition());
+            }
+
+          }, { passive: true });
+
+          return marker;
+
+        });
+
         // markersRef.current = storeData.map(
         //   (store) =>
         //     // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임
