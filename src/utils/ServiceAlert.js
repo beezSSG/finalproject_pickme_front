@@ -1,6 +1,6 @@
 export function homeAlertHandle() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('../firebase-messaging-sw.js').then(function(registration) {
+    navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
       // 서비스 워커 등록 성공
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
       // 알림 표시

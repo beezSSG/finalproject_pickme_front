@@ -1,3 +1,6 @@
+importScripts("https://www.gstatic.com/firebasejs/9.10.0/firebase-app-compat.js");
+importScripts("https://www.gstatic.com/firebasejs/9.10.0/firebase-messaging-compat.js");
+
 self.addEventListener("install", function (e) {
   console.log('[Service Worker] install');
   self.skipWaiting();
@@ -9,7 +12,6 @@ self.addEventListener("activate", function (e) {
 
 // push알림 수신시 행동
 self.addEventListener("push", function (e) {
-  console.log("[Service Worker] push: ", e.data);
   console.log("[Service Worker] push: ", e.data.json());
   if (!e.data.json()) return;
 
@@ -18,7 +20,7 @@ self.addEventListener("push", function (e) {
 
   const notificationOptions = {
     body: resultData.body,
-    // icon: resultData.image,
+    icon: resultData.image,
     tag: resultData.tag,
     ...resultData,
   };
