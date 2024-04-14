@@ -292,7 +292,7 @@ function Productdetail(){
             }
         })
         .catch(() => {
-            alert('checkZZIM error');
+            alert('zzimCheck error');
         });
     };
 
@@ -336,12 +336,13 @@ function Productdetail(){
     };
 
 
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     return(
         <div align="center">
             <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap ">
 
-                <div name="prodDetailPic" style={{ position: 'relative', width: '400px', height: '400px' }}>
+                <div name="prodDetailPic" style={{ position: 'relative', maxWidth: '400px', maxHeight: '400px' }}>
                     <img src={product.url} style={{ maxWidth: '380px', maxHeight: '380px', margin: '10px' }} />
 
                 </div>

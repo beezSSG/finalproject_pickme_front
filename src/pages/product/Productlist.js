@@ -113,7 +113,7 @@ function Productlist() {
       <div id='contents' className='flex min-w-[430px]'>
       
         <div id="sort" className='w-2/12 min-h-[480px] relative top-0'>
-          <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-0 right-5'>
+          <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-3 right-5'>
             <ul className='prodInfo m-4 p-2' align="center">
               <li id='sort_00' className={`${category === 0 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
                                 cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(0)}>
@@ -210,7 +210,7 @@ function Productlist() {
                     const product = productlist[j];
                     row.push(
                       <Link key={product.id} to={`/productdetail/${product.id}`}>
-                        <div className="items-center max-w-[250px] max-h-[375px] min-w-[150px] min-h-[225px]
+                        <div className="items-center w-[250px] h-[375px]
                                         mb-10 rounded-xl border border-spacing-2
                                         overflow-hidden transition duration-500 ease-in-out transform
                                         hover:ring-4 hover:ring-amber-400"
@@ -247,35 +247,6 @@ function Productlist() {
               })()
             )}
           </div>
-
-{/* 
-          <div id='productList' className='bg-red-400 flex flex-wrap justify-start gap-4 p-4'>
-            {productlist.length > 0 &&
-              productlist.map((product) => (
-                <div key={product.id} className="flex-shrink-0 w-[300px] h-[450px] mb-4"
-                                        style={{ minWidth: '150px', minHeight: '225px' }}>
-
-                  <Link to={`/productdetail/${product.id}`}>
-                    <div className="flex flex-col items-center w-full rounded-xl border border-spacing-2
-                                      overflow-hidden transition duration-500 ease-in-out transform hover:ring-4 hover:ring-amber-400">
-                      <img src={product.url} className="w-full h-[250px] object-cover hover:scale-110 transition duration-300" />
-                      <hr />
-                      <div className='p-4'>
-                        <p className='mt-2 text-center'>{product.name}</p>
-                        <p className="text-center">{product.price.toLocaleString()}원</p>
-                        <div className="flex justify-center">
-                          {Array.from({ length: product.productRating }, (_, index) => (
-                            <img key={index} src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                </div>
-              ))}
-          </div> */}
-
-
 
           <div id='pagination' className='max-w-[1200px] bottom-0'>
             <Pagination className=""
