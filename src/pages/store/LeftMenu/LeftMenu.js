@@ -3,6 +3,8 @@ import { useState } from "react";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { FaChevronUp } from "react-icons/fa6";
 import { FaChevronDown } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
+import { FaStore } from "react-icons/fa";
 
 // component
 import LocSelect from "./LocSelect";
@@ -105,6 +107,10 @@ export default function LeftMenu() {
                     store.tel !== "None" ?  formatPhoneNumber(store.tel) : "전화 ✖"
                   }
                 </p>
+                <Link to={`/storeproductlist/${store.id}/${store.name}`} 
+                      className="flex items-center hover:text-main-orange transition duration-200">
+                  <FaStore className="inline" />&nbsp;매장 재고 보러가기
+                </Link>
                 <br />
                 <hr />
                 <br />
