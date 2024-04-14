@@ -238,6 +238,7 @@ function Productdetail(){
         .catch(()=>{
         alert('error');
         })
+        
     };
 
     // '더보기' 버튼
