@@ -1,98 +1,175 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 import axios from 'axios';
-import React from 'react';
-import './powrite.css';
+// import GlobalStyle from './styles/GlobalStyle';
 
-const Powrite = () => {
-    const [categoryList, setCategoryList] = useState([]);
+// import "./Polist.css";
 
-     const [categoryName, setCategoryname] = useState([]);
-     const [productName, setProductName] = useState([]);
-     const [checkedList, setCheckedList] = useState([]);
+function Polist(){
+    const [polist, setPolist] = useState([]);
+    const [deleteProduct, setDeleteProduct] = useState([]);
+
+    // 검색
+    const [choice, setChoice] = useState("");
+    const [search, setSearch] = useState("");
+
+    // 페이징
+    const [page, setPage] = useState(1);
+    const [totalCnt, setTotalCnt] = useState(0);
+
+    useEffect(function(){
+      getPolist('', '', 0);
+    }, []);
+
+    // polist 불러오는 함수
+    function getPolist(c, s, pn){
+        axios.get("ceo/polist", 
+              {params:{ choice:c, search:s, pageNumber:pn}})
+            .then(function(resp){  // success:function
+              console.log(resp.data.polist);
+              setPolist(resp.data.polist);
+              setTotalCnt(resp.data.cnt); // 글의 총수
+            })
+            .catch(function(err){     // error:function
+              alert('error');
+            })
+    }
+
+    // 검색에 대한 부분
+    function searchBtn(){        
+        // choice, search 검사
+        if(choice === ''){
+            alert('카테고리를 선택해 주십시오');
+            return;
+        }
+      getPolist(choice, search, 0);
+    }  
+
+    // 페이지 변경함수
+    function handlePageChange(page){
+        setPage(page);
+        getPolist(choice, search, page-1);
+    }
+
+    // 승인확인 버튼을 누르면 발생하는 함수
+    function con(po) {
+      alert(po.poYn);
+        // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
+        const params = {"id": po.id};
+          axios.post("ceo/deleteProduct", null, {params:params})
+          .then(response => {
+              // 응답을 받았을 때의 처리
+
+              if (po.poYn === 1) {
+                  // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
+              }
+            })
+            .catch(error => {
+              // 오류가 발생했을 때의 처리
+              console.error("error");
+            });
+    }
+
+    return(
+      <div>
+      {/* <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+            <p className='font-semibold text-center'>발주목록</p>
+          </div>
+          <br/><br/> */}
+          <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
+            <tbody>
+              <tr>
+                <td style={{ paddingLeft:"3px" }} >
+                  <select className='mr-4 shadow-xl rounded-2xl p-5 w-[125px] focus:outline-none focus:ring-2 focus:ring-yellow-400'  value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
+                  <option value="">검색</option>
+                    <option value="name">상품명</option>
+                    <option value="wdate">발주 일자</option>
+                  </select>
+                  <span class="icoArrow"><img src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png" alt=""/></span>
+                </td>
+                <td style={{ paddingLeft:"5px"}} className='align-middle'>
+                  <input placeholder='카테고리를 선택해 주십시오' size='30'
+                      value={search} onChange={(e)=>{setSearch(e.target.value)}} className='rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400'/>
+                </td> 
+                <td style={{ paddingLeft:"5px" }}>  
+                  <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                          focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[40px] py-5 me-2 mb-2
+                          dark:focus:ring-yellow-900"  onClick={()=>{searchBtn()}}>검색</button>
+                </td>
+              </tr>                
+            </tbody>    
+          </table>
+
+          <br/>
+
+          <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+          <p>발주목록</p>
+          </div>
+          <br/><br/>
 
 
-     const [modalOpen, setModalOpen] = useState(false);
-     const modalBackground = useRef();
+          <table className='mx-auto' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
+          <colgroup>
+              <col width="70"/><col width="200"/><col width="300"/><col width="100"/><col width="200"/><col width="150"/><col width="150"/>
+          </colgroup>
 
-     // 검색
-     const [choice, setChoice] = useState("");
-     const [search, setSearch] = useState("");
+          <thead className='bg-yellow-400 p-15' style={{ marginLeft: "auto", marginRight:"auto", marginTop:"3px", marginBottom:"3px"}}>
+          <tr>
+              <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>확인</th>
+          </tr>
+          </thead>
 
-     const getPowrite = () => {
-         axios.get("http://localhost:8080/powriteCn")
-             .then(function(resp){
-                 console.log(resp.data); // 확인용
-                 setCategoryList(resp.data); // 받아온 데이터로 카테고리 목록 업데이트
-                 setCategoryname(resp.data.categoryName);
-             })
-             .catch(function(err){
-                 alert('error');
-             })
-     }
+          <tbody style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+          {
+              polist.map(function(po, i){
+                return(
+                      // <TableRow po={po} rownum={i+1} key={i} />
+                      <tr className="text-center border-b hover:bg-gray-200 cursor-pointer" key={i}>
+                      <td>{ po.id }</td>
+                      <td>
 
-     useEffect(() => {
-         getPowrite();
-     }, []);
+                      {/* <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
+                      <td className='text-left py-4'>{ po.name }</td> */}
+                          <img src={po.url} alt='' style={{width:140}}></img></td>
+                      <td className='text-center py-4'>{ po.name }</td>
 
-     function searchBtn(){        
-         // choice, search 검사
-         if(choice === ''){
-             alert('카테고리를 선택해 주십시오');
-             return;
-         }   
-       getPowrite(choice, search);
-     }  
+                      <td className='text-center py-4'>{ po.quantity }</td> 
+                      <td className='text-center py-4'>{ po.wdate }</td>
+                      <td className='text-center py-4'>{ po.poYn > 0 ? '승인완료' : '승인대기중'}</td>  
+                      <td>
+                        <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
+                        onClick={()=>{con(po)}}>승인확인</button>
+                                            </td> 
+                  </tr>
+                );     
+              })
+          }
+          </tbody>
+          </table>
 
-     // Checkbox가 선택되었을 때의 동작
-     const onCheckedElement = (checked, categoryName) => {
-         if (checked) {
-             // alert("체크됨");
-             // 체크된 항목 추가
-             // checkedList 상태를 변경하지 않고 새로운 배열을 반환합니다.
-             categoryList.map((category) => {
-                 console.log(category);
-             });
+          <br/>
 
-         } else {
-         }
-     };
-     return(
-         <div>
-             <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-                 <tbody>
-                     <tr>
-                         <td style={{ paddingLeft:"3px" }}>
-                             <select className='custom-select' value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
-                                 <option value="name">상품명</option>
-                             </select>
-                         </td>
-                         <td style={{ paddingLeft:"5px"}} className='align-middle'>
-                             <input className='form-control' placeholder='상품명을 입력하세요' 
-                                 value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                         </td>
-                         <td style={{ paddingLeft:"5px" }}>  z
-                             <button className='btn btn-primary' onClick={searchBtn}>검색</button>
-                         </td>
-                     </tr>                
-                 </tbody>    
-             </table>
-             <h1>카테고리</h1>
-    
-             <div>
-                {categoryList.map((category) => (
-                    <div key={category.id}>
-                        <input
-                            type='checkbox'
-                            onChange={e => onCheckedElement(e.target.checked, category.categoryName)}                     
-                            checked={checkedList.includes(category.categoryName) ? true : false}
-                        />
-                        &nbsp; 
-                        {category.categoryName} 
-                    </div>
-                ))}
-             </div>
-         </div>
-     )
- }
+          {/* 세번째의 경우 */}     
+          <Pagination
+            itemClass='page-item'
+            linkClass='page-link' 
+            activePage={page}
+            itemsCountPerPage={10}
+            totalItemsCount={totalCnt}
+            pageRangeDisplayed={10}
+            prevPageText={"prev"}
+            nextPageText={"next"}
+            onChange={handlePageChange} />
 
- export default Powrite;
+        <div className='my-5 d-flex justify-content-center'>
+            <Link  style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"to="/pow">발주신청</Link>
+        </div>       
+
+      </div>
+    );
+}
+// 승인중 : 0 // 승인완료 : 1 -> 관리자가 승인중(0)을 보고 발주를 승인하면 승인완료라고 뜨게 하고 싶고 
+// 확인칸에 승인확인이라는 버튼이 나타나면서 승인 확인 버튼을 클릭하면 승인이 완료되었습니다라는 알림창이 뜨게 하고 싶습니다
+
+export default Polist;

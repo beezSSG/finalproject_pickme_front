@@ -51,7 +51,7 @@ function NewproductInsert() {
         formData.append('price', price);
         formData.append('uploadfile', uploadedFile);
 
-        axios.post('http://localhost:8080/api/v1/product/newproductinsert', formData)
+        axios.post('product/newproductinsert', formData)
             .then((res) => {
                 console.log(res.data);
                 navigate('/productlist');

@@ -15,7 +15,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
     const [matchedStoreList, setMatchedStoreList] = useState([]);
 
     async function matchedstorelist(id) {
-        await axios.get("http://localhost:8080/api/v1/store/matchedstorelist", { params: { "id": id } })
+        await axios.get("store/matchedstorelist", { params: { "id": id } })
             .then(function (resp) {
                 console.log(resp.data);
                 setMatchedStoreList(resp.data)
@@ -23,14 +23,6 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
             .catch(function (err) {
                 alert('error');
             })
-    }
-
-    function deg2rad(deg) {
-        return deg * Math.PI / 180.0;
-    }
-
-    function rad2deg(rad) {
-        return rad * 180 / Math.PI;
     }
 
     function calDistance(lon, lat) {
@@ -70,7 +62,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                     <div className="relative bg-white p-10 rounded-lg w-[80%] h-[60%] overflow-y-auto">
                         <div className="text-3xl font-bold mb-10">매장 목록</div>
                         <div className="modal-body">
-                            {matchedStoreList.length > 0 && (
+                            {matchedStoreList.length > 0 ? (
                                 matchedStoreList.map(matchedstore => (
                                     <div key={matchedstore.id} className="mb-10">
                                         <table className="w-full border border-gray-300 rounded-xl">
@@ -94,15 +86,23 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                                                     <td>{calDistance(matchedstore.lon, matchedstore.lat)}m</td>
                                                     <td>{matchedstore.tel}</td>
                                                     <td className='mr-7'>{matchedstore.open_ended === 0 ? 'X' : 'O'}</td>
-                                                    <td className='py-3'><button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none"
-                                                        onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}>
-                                                        선택
-                                                    </button></td>
+                                                    <td className='py-3'>
+                                                        <button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none"
+                                                            onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}
+                                                        >
+                                                            선택
+                                                        </button>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </div>
                                 ))
+                            ) : (
+                                <div className="text-center">
+                                    <br/><br/><br/><br/><br/><br/>
+                                    <p className="text-xl mb-6 text-gray-400">조건을 만족하는 점포가 없습니다.</p>
+                                </div>
                             )}
                         </div>
                         <span className="absolute top-0 right-[10px]  cursor-pointer text-3xl text-yellow-400" onClick={closeModal}> &times; </span>
