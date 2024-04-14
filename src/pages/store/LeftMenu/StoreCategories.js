@@ -9,6 +9,8 @@ import { LuCupSoda } from "react-icons/lu";
 import { RiAppleFill } from "react-icons/ri";
 import { FaMoneyBill1 } from "react-icons/fa6";
 
+import { useState, useEffect } from "react";
+
 const categories = [
     {
         name: "24시간",
@@ -57,16 +59,38 @@ const categories = [
     },
 ]
 
-export default function StoreCategories() {
+export default function StoreCategories({handleCategories}) {
+    const [checkedBoxes, setCheckedBoxes] = useState([]);
+
+    useEffect(()=>{
+        console.log(checkedBoxes);
+        handleCategories(checkedBoxes);
+    }, [checkedBoxes])
+
     return (
         <>
             <ul className="flex flex-wrap">
             {
-                categories.map((category, idx)=> (
-                    <li className="mb-1.5 mx-1" key={idx}>
-                        <input type="checkbox" className="hidden peer" id={`category-${idx}`} />
+                categories.map((category)=> (
+                    <li className="mb-1.5 mx-1" key={category.name}>
+                        <input value={category.val} type="checkbox" className="hidden peer" id={category.name}
+                            onChange={(e) => {
+                                // 체크된 상태를 업데이트
+                                const isChecked = e.target.checked;
+                                if (isChecked) {
+                                    // 체크 -> 배열에 추가
+                                    // console.log(e.target.value);
+                                    setCheckedBoxes([...checkedBoxes, (e.target.value) ]);
+                                } else {
+                                    // 체크 X -> 배열에서 제거
+                                    // console.log(e.target.value);
+                                    setCheckedBoxes(checkedBoxes.filter(item => item !== (e.target.value)));
+                                }
+                                // handleCategories(checkedBoxes);
+                            }} 
+                            />
                         <label 
-                            htmlFor={`category-${idx}`}
+                            htmlFor={category.name}
                             className="inline-flex items-center justify-between p-1 text-gray-500 border-2 
                                 border-gray-200 rounded-xl cursor-pointer transition duration-300 ease-in-out 
                                 peer-hover:bg-sub-yellow peer-checked:bg-sub-yellow
