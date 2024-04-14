@@ -27,7 +27,7 @@ function CustomerCenter() {
 
   function topfaqlist() {
     axios
-      .get("http://localhost:8080/api/v1/manager/topfaqlist")
+      .get("manager/topfaqlist")
       .then(function (resp) {
         console.log(resp.data);
         setFaqlist(resp.data);

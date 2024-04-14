@@ -5,6 +5,8 @@ import Antdmodal from "./Antdmodal";
 import PostModal from "./PostModal";
 import Toast from "../public/Toast";
 
+import {homeAlertHandle} from '../../utils/ServiceAlert'
+
 function Post() {
   let navigate = useNavigate();
 
@@ -50,6 +52,8 @@ function Post() {
     setItemPrice(str);
   };
 
+  homeAlertHandle();
+
   const Radiovalue = [
     "무게 : 350g 이하, 동일한 3,200/제주권:6,200",
     "무게 : 500g 이하, 동일한 3,500/제주권:6,500",
@@ -75,7 +79,7 @@ function Post() {
       // 입력된 정보가 정확하다면 예약 요청 보내기
       const toAddress = `${zonecode} ${roadAddress}`;
       axios
-        .post("http://localhost:8080/api/v1/customer/postreservation", null, {
+        .post("customer/postreservation", null, {
           params: {
             toUser: toUser,
             toPhone: toPhone,

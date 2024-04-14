@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+
 // tailwind css
 import "./styles/tailwindcss/input.css";
 import "./styles/tailwindcss/output.css";
@@ -15,6 +16,7 @@ root.render(
   </>
 );
 
-// ServiceWorkerRegistration.unregister();  // unregister(); => register(); 로 고치셔야합니다.
+// Service Worker 등록
+// ServiceWorkerRegistration.register(); 
 
 reportWebVitals();

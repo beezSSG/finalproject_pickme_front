@@ -11,8 +11,8 @@ import Polist from './Polist';
 import Powrite from './Powrite';
 import SalesChart from './SalesChart';
 import Inventory from "./Inventory";
-// import Pickup from './Pickup';
-// import Postcheck from './PostCheck';
+import Pickup from "./Pickup";
+import PostCheck from "./PostCheck";
 // import GroupBuying from './GroupBuying';
 
 // import SalesChart from "./SalesChart";
@@ -46,7 +46,7 @@ function PoMainpage() {
     // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
   
     const getCeoInfo = async () => {
-    await axios.get("http://localhost:8080/api/v1/ceo/getCeoInfo")
+    await axios.get("ceo/getCeoInfo")
     .then((response)=>{
       console.log(JSON.stringify(response.data));
       console.log(Object.values(response.data));
@@ -97,9 +97,9 @@ function PoMainpage() {
             <Route path='pow' element={<Powrite />} />
             <Route path='sales' element={<SalesChart />} />
             <Route path='inventory' element={<Inventory />} />
-             {/* <Route path='pickup' element={<Pickup />} />
-            <Route path='postcheck' element={<Postcheck />} />
-            <Route path='groupbuying' element={<GroupBuying />} /> */}
+            <Route path='pickup' element={<Pickup />} />
+            <Route path='postcheck' element={<PostCheck />} />
+            {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
         </Routes>
       </div>
 
