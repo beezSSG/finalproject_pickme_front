@@ -86,8 +86,23 @@ export default function LeftMenu() {
           }
         </button>
 
-        {/* 매장 목록; 사용자 위치 연동 -> 추후에 axios.get()으로 가져오기 */}
-        <ul className="pt-2"></ul>
+        {/* 매장 목록; 사용자 위치 연동 */}
+        <ul className="pt-2 h-3/6 overflow-y-auto">
+          {stores &&
+            stores.map((store, k) => (
+              <li key={k}>
+                <h5 className="font-semibold">{store.name}</h5>
+                <p>{store.address}</p>
+                <p>
+                  <FaPhone className="inline" />
+                  &nbsp;&nbsp;
+                </p>
+                <br />
+                <hr />
+                <br />
+              </li>
+            ))}
+        </ul>
       </div>
     </>
   );
