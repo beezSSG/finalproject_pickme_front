@@ -1,9 +1,13 @@
-import axios from "axios";
 
-// import MapData from "../../assets/data/store/emart24_busan.json";  // 프론트에 있던 기존 매장 data
-import MarkerImg from "../../assets/imgs/store/marker.svg";
-import { useEffect, useRef, useState } from "react";
+import axios from "axios";
+import { useEffect, useRef, useState, Fragment } from "react";
+import { renderToString } from 'react-dom/server';
+
+// 왼쪽 메뉴바
 import LeftMenu from "./LeftMenu/LeftMenu";
+
+// 마커이미지
+import MarkerImg from "../../assets/imgs/store/marker.svg";
 
 export default function StoreMap() {
   const mapRef = useRef(null);
@@ -11,10 +15,6 @@ export default function StoreMap() {
   const [myLocation, setMyLocation] = useState({});
   const [storesInMap, setStoresInMap] = useState();
   // const [render, setRender] = useState(false);
-
-  // const [userLatitude, setUserLatitude] = useState(0);
-  // const [userLongtitude, setUserLongtitude] = useState(0);
-  // const [userPoint, setUserPoint] = useState({});
 
   useEffect(() => {
     // index.html에 script연결이 되어있는지 확인
@@ -76,7 +76,7 @@ export default function StoreMap() {
     ) {
       // console.log(myLocation);
       const mapOptions = {
-        // center: new window.naver.maps.LatLng(35.16591583, 129.1324683), //? 버근가?
+        // center: new window.naver.maps.LatLng(35.16591583, 129.1324683),
         center: new window.naver.maps.LatLng(myLocation.lat, myLocation.lon),
         zoom: 16,
       };
@@ -123,16 +123,22 @@ export default function StoreMap() {
         // console.log(resp.data);
         const storeData = resp.data;
         // console.log(storeData);
-        // console.log(storesInMap);
         setStoresInMap(storeData);
-        markersRef.current = storeData.map(
-          (store) =>
-            new window.naver.maps.Marker({
-              map: map,
-              position: new window.naver.maps.LatLng(store.lat, store.lon),
-            })
-        );
-        // setRender(!render);
+        // console.log(storesInMap);
+
+        markersRef.current = storeData.map((store) => {
+          // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임
+          const marker = new window.naver.maps.Marker({
+            map: map,
+            position: new window.naver.maps.LatLng(store.lat, store.lon),
+            icon: {
+              url: MarkerImg,
+              size: new window.naver.maps.Size(25, 25),
+              origin: new window.naver.maps.Point(0, 0),
+              anchor: new window.naver.maps.Point(11, 35),
+            },
+          });
+
       })
       .catch((err) => {
         alert(err);
