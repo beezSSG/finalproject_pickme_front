@@ -22,6 +22,11 @@ const LeftMenuStyle = styled.div`
 export default function LeftMenu() {
   const [menuOpen, setMenuOpen] = useState(true);
   const [filterOpen, setFilterOpen] = useState(false);
+  function formatPhoneNumber(phoneNumber) {
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+    const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
+    return cleaned.replace(regex, '$1-$2-$3');
+  }
 
   return (
     <>
@@ -96,6 +101,9 @@ export default function LeftMenu() {
                 <p>
                   <FaPhone className="inline" />
                   &nbsp;&nbsp;
+                  {
+                    store.tel !== "None" ?  formatPhoneNumber(store.tel) : "전화 ✖"
+                  }
                 </p>
                 <br />
                 <hr />
