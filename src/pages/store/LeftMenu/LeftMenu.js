@@ -11,19 +11,59 @@ import LocSelect from "./LocSelect";
 import SearchStoreName from "./SearchStoreName";
 import StoreCategories from "./StoreCategories.js";
 
-const LeftMenuStyle = styled.div`
-  /* From https://css.glass */
-  background: rgba(255, 255, 255, 0.7);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(9px);
-  -webkit-backdrop-filter: blur(9px);
-  border: 1px solid rgba(255, 255, 255, 0.22);
-`;
 
-export default function LeftMenu() {
-  const [menuOpen, setMenuOpen] = useState(true);
-  const [filterOpen, setFilterOpen] = useState(false);
+// ({abc, bcd})
+export default function LeftMenu(props) {
+  // console.log(props);
+  const [loading, setLoading] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(true); // 왼쪽바 메뉴 열림 상태
+  const [filterOpen, setFilterOpen] = useState(false); // 매장 검색 및 필터 열림 상태
+
+  const [targetStore, setTargetStore] = useState(""); // 검색할 매장명
+  // 임시로 array slice함
+  const [stores, setStores] = useState(); // 검색한 매장들
+  const [filteredStores, setFilteredStores] = useState([]); // 카테고리에 해당되는 매장들
+
+  const [state, setState] = useState("");        // LocSelect에서 넘겨받은 시/도 str 
+  const [district, setDistrict] = useState("");  // LocSelect에서 넘겨받은 구 str
+
+  function setStorelist(data) {
+    console.log("부모에게 도달!");
+    setStores(data);
+  }
+  // useEffect(()=>{
+  //   // console.log(stores);
+  //   setStores(props.stores);
+  //   // setLoading(true);
+
+  //   // - 지금 뭔가 워링이 무제한으로 걸리고 있다 useeffect 관련
+  //   // - 컴포넌트에 대한 방법을 해보니 일정 부분의 값이 고정되고 나머지가 리렌더링이 되고 있는 부분이 있다
+  // }, [])
+
+  
+  function setOneState(data) {
+    console.log("부모에게 도달!");
+    setState(data);
+    console.log(state);
+  }
+  
+  function setOneDistrict(data) {
+    console.log("부모에게 도달!");
+    setDistrict(data);
+    console.log(district);
+  }
+
+  useEffect(() => {
+    // console.log(stores);
+    setStores(props.stores);
+    if (stores !== undefined) {
+      setLoading(true);
+    } else {
+      // console.log(stores);
+    }
+  }, [props.stores]);
+  // }, [stores])
+
   function formatPhoneNumber(phoneNumber) {
     const cleaned = ('' + phoneNumber).replace(/\D/g, '');
     const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
