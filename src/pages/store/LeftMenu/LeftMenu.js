@@ -75,7 +75,7 @@ export default function LeftMenu(props) {
     <>
       <div
         className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
-          menuOpen ? "w-1/3" : "w-14"
+          menuOpen ? "w-1/4 sm:w-3/4" : "w-14 sm:w-3"
         } opacity-100 transition-all duration-400 ease-in-out`}
       >
         {/* 이거 부드럽게 애니메이션 주기 */}
