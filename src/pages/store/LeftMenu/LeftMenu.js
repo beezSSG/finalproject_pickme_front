@@ -30,6 +30,8 @@ export default function LeftMenu(props) {
   const [state, setState] = useState("");        // LocSelect에서 넘겨받은 시/도 str 
   const [district, setDistrict] = useState("");  // LocSelect에서 넘겨받은 구 str
 
+  const [filter, setFilter] = useState([]);
+
   function setStorelist(data) {
     console.log("부모에게 도달!");
     setStores(data);
@@ -54,6 +56,12 @@ export default function LeftMenu(props) {
     console.log("부모에게 도달!");
     setDistrict(data);
     console.log(district);
+  }
+
+  function setChosenCategories(data) {
+    console.log("부모에게 도달!");
+    setFilter(data);
+    console.log("filter: " + filter);
   }
 
   useEffect(() => {
@@ -133,7 +141,8 @@ export default function LeftMenu(props) {
           {/* 편의점 제공 서비스 카테고리 선택 */}
           <section>
             <h1 className="font-bold text-lg py-4">매장 카테고리 선택</h1>
-            <StoreCategories />
+            <StoreCategories handleCategories={setChosenCategories} />
+            {/* <button type="button" onClick={()=>console.log(filter)}>확인</button> */}
           </section>
           {/* <button onClick={() => console.log(props.stores)}>매장 목록 보기</button> */}
         </div>
