@@ -7,6 +7,8 @@ import JsIcon from "../../assets/imgs/about/js.gif";
 import WbIcon from "../../assets/imgs/about/wb.gif";
 import KsIcon from "../../assets/imgs/about/ks.gif";
 
+// 말풍선 이미지
+import BubbleTail from "../../assets/imgs/about/bubbletail.svg";
 
 import { Link } from "react-router-dom";
 
@@ -58,14 +60,37 @@ const icons = [
 export default function About() {
   return (
     <>
-      <div className="flex items-center justify-center px-auto">
-        <div className="lg:flex flex-wrap space-x-28">
-          {
-            icons.map((icon)=>(
-                <img key={ icon } src={ icon.src } alt={ icon.name } />
-            ))
-          }
-        </div>tr
+      <div className="sm:flex-wrap flex justify-around">
+        {icons.map((icon) => (
+          <div key={icon.name} className="my-14 group">
+            {/* 자기소개 말풍선 */}
+            <div>
+              <div className="bg-slate-50 rounded-xl shadow-md p-1">
+                <p className="text-center">
+                  안녕하세요 
+                  <br />
+                  저는 <span className="font-semibold">{icon.name}</span> 입니다
+                  <br />
+                  <span className="font-medium text-base">✨Full Stack✨</span>
+                  개발자로
+                  <br />
+                  <span className="font-medium text-sm text-wrap">
+                    {icon.development }
+                  </span>
+                  <br />개발을 담당하였습니다
+                  <Link to={icon.githubUrl}></Link>
+                </p>
+              </div>
+              <div className="flex justify-center">
+                <img src={BubbleTail} alt="bubble-tail" /> 
+              </div>
+
+              {/* 아이콘 이미지 */}
+              <img src={icon.src} alt={icon.name + " icon"} />
+            </div>
+            
+          </div>
+        ))}
       </div>
     </>
   );
