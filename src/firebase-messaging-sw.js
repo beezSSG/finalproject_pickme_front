@@ -1,12 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getMessaging, getToken, onMessage } from 'firebase/messaging';
-// import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_API_KEY,
   authDomain: "pick-me-3592.firebaseapp.com",
@@ -24,7 +18,7 @@ const messaging = getMessaging(app);
 
 // react 시작시 push알림 권한 요청 함수
 async function requestPermission() {
-  console.log("권한 요청 중...");
+  // console.log("권한 요청 중...");
 
   const permission = await Notification.requestPermission();
   if (permission === "denied") {
@@ -32,7 +26,7 @@ async function requestPermission() {
     return;
   }
 
-  console.log("알림 권한이 허용됨");
+  // console.log("알림 권한이 허용됨");
 
   const token = await getToken(messaging, {
     vapidKey: process.env.REACT_APP_FIREBASE_KEY,

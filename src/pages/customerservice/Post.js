@@ -5,6 +5,8 @@ import Antdmodal from "./Antdmodal";
 import PostModal from "./PostModal";
 import Toast from "../public/Toast";
 
+import {homeAlertHandle} from '../../utils/ServiceAlert'
+
 function Post() {
   let navigate = useNavigate();
 
@@ -49,6 +51,8 @@ function Post() {
     let str = value.replaceAll(",", "");
     setItemPrice(str);
   };
+
+  homeAlertHandle();
 
   const Radiovalue = [
     "무게 : 350g 이하, 동일한 3,200/제주권:6,200",
