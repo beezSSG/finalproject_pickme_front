@@ -139,30 +139,67 @@ export default function StoreMap() {
             },
           });
 
+          // // 마커에 마우스 커서가 올라갔을 때 이벤트 리스너 추가
+          // window.naver.maps.Event.addListener(marker, 'mouseover', function() {
+          //   // 마커 이미지 사이즈 변경
+          //   marker.setIcon({
+          //     url: MarkerImg,
+          //     size: new window.naver.maps.Size(50, 50), // 변경된 이미지 사이즈
+          //     origin: new window.naver.maps.Point(0, 0),
+          //     anchor: new window.naver.maps.Point(11, 35),
+          //   });
+          // });
+        // markersRef.current = storeData.map(
+        //   (store) =>
+        //     // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임
+        //   new window.naver.maps.Marker({
+        //     map: map,
+        //     position: new window.naver.maps.LatLng(store.lat, store.lon),
+        //     icon: {
+        //       url: MarkerImg,
+        //       size: new window.naver.maps.Size(25, 25),
+        //       origin: new window.naver.maps.Point(0, 0),
+        //       anchor: new window.naver.maps.Point(11, 35)
+        //   })
+        // );
+
+        // setMarkerList(markersRef.current);
+
+        // // 마커에 hover(mouserover)시 마커 이미지 변경
+        // markersRef.current.map(
+        //   (marker) =>
+        //   {
+        //     window.naver.maps.Event.addListener(marker, 'mouseover', function () {
+        //       console.log("on");
+        //       // return function(e) { 그럼그냥 크기 조정하지 말고 정보창만 띄울까요? 왜냐면 클릭했을때 우리 로고들어간 아이콘 마커로 바꾸고 정보창 띄우려고 했거든요
+        //         marker.setIcon({
+        //           url: MarkerImg,
+        //           size: new window.naver.maps.Size(40, 40),
+        //           origin: new window.naver.maps.Point(0, 0),
+        //           anchor: new window.naver.maps.Point(11, 35)
+        //         })
+        //       // }
+        //   })}
+        // );
+
+        // // 마커에 커서가 떨어졌을 시(mouseout), 마커 이미지 원상태 복구
+        // markersRef.current.map(
+        //   (marker) =>
+        //   window.naver.maps.Event.addListener(marker, 'mouseout', function () {
+        //     console.log("off");
+        //     marker.setIcon({
+        //       url: MarkerImg,
+        //       size: new window.naver.maps.Size(25, 25),
+        //       origin: new window.naver.maps.Point(0, 0),
+        //       anchor: new window.naver.maps.Point(11, 35),
+        //     })
+        //   })
+        // );
       })
       .catch((err) => {
         alert(err);
       });
   }
-
-  // // 보이는 영역에 따라 마커 표시 업데이트
-  // const updateVisibleMarkers = (map, markers) => {
-  //   const mapBounds = map.getBounds();
-  //   markers.forEach((marker) => {
-  //     const isVisible = mapBounds.hasLatLng(marker.getPosition());
-  //     marker.setMap(isVisible ? map : null);
-  //   });
-  // };
-
-  // // 이벤트 발생에 딜레이를 걸어서 발동하게하는 함수
-  // function debounce(func, wait) {
-  //   let timeout;
-  //   return function (...args) {
-  //     const context = this;
-  //     clearTimeout(timeout);
-  //     timeout = setTimeout(() => func.apply(context, args), wait);
-  //   };
-  // }
 
   return (
     // <div style={{ width: "100%" }}>
