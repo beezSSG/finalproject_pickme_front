@@ -14,8 +14,6 @@ import LocSelect from "./LocSelect";
 import SearchStoreName from "./SearchStoreName";
 import StoreCategories from "./StoreCategories.js";
 
-// icon
-import { FaPhone } from "react-icons/fa6";
 
 // ({abc, bcd})
 export default function LeftMenu(props) {
@@ -72,6 +70,12 @@ export default function LeftMenu(props) {
   // 여기에 함수를 만들어서 stores 에 있는 json중에 카테고리가 1이 되어있는 부분을 뽑아내고 나머지는 지워서 setStores 다시 집어넣는것
   // 두번째 방법은 내가 가지고있는 부분을 다시 백에 넘겨줘서 쿼리문으로 처리하고 다시 넘겨받기
   // 둘다 함 수는 만들어야함
+
+  function formatPhoneNumber(phoneNumber) {
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+    const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
+    return cleaned.replace(regex, '$1-$2-$3');
+  }
 
   return (
     <>
