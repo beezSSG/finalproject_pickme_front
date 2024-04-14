@@ -178,7 +178,7 @@ function Chatbot() {
 
   return (
     <>
-      <div className="w-full h-[650px] border-2 rounded-xl bg-white z-50  ">
+      <div className="w-full h-[580px] border-2 rounded-xl bg-white z-50">
         <div className="h-full rounded-xl">
           <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg ">
             <h3 className="welcome">Welcome Pickme</h3>
