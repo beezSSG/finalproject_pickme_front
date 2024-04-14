@@ -88,8 +88,6 @@ export default function StoreCategories({handleCategories}) {
                                 }
                                 // handleCategories(checkedBoxes);
                             }} 
-                            // // 체크된 상태를 확인하여 checked 속성을 설정합니다.
-                            // checked={checkedBoxes.includes(idx)} 
                             />
                         <label 
                             htmlFor={category.name}
