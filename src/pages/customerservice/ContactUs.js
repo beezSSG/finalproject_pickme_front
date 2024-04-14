@@ -29,7 +29,7 @@ function ContactUs() {
 
   function ccblistup() {
     axios
-      .get("http://localhost:8080/api/v1/manager/ccblist")
+      .get("manager/ccblist")
       .then(function (resp) {
         console.log(resp.data);
         setCcblist(resp.data);
@@ -41,7 +41,7 @@ function ContactUs() {
 
   function ccbdelete(id) {
     axios
-      .get("http://localhost:8080/api/v1/manager/ccbdelete", {
+      .get("manager/ccbdelete", {
         params: { id: id },
       })
       .then(function (resp) {

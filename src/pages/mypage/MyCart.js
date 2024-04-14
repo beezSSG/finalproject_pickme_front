@@ -6,20 +6,34 @@ import { Link } from "react-router-dom";
 
 import { VscArrowCircleUp, VscArrowCircleDown } from "react-icons/vsc";
 import { TiDelete } from "react-icons/ti";
+import { PiHandbagBold  } from "react-icons/pi";
 
 import { TbTruckDelivery } from "react-icons/tb";
+import { BsHandbag } from "react-icons/bs";
 import { GiCardPickup } from "react-icons/gi";
 
 
 export default function MyCart(prop) {
-  const {token} = useAuth();
   const [cart, setCart] = useState([]); // 카트(아이템 목록)
+
   const [checkItems, setCheckItems] = useState([]); // 전체선택기능
-  const [checkPrice, setCheckPrice] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalPoint, setTotalPoint] = useState(0);
+  const [checkPrice, setCheckPrice] = useState([]);  // 체크한 상품 금액
+
+  const [totalPrice, setTotalPrice] = useState(0);  // 선택한 상품금액
+  const [totalPoint, setTotalPoint] = useState(0); // 구매시 포인트 적립
+
+  // 버튼
+  const [pOrd, setPOrd] = useState(); // 0 픽업, 1 배달
+  const [buttonCol, setbuttonCol] = useState(2);
+
+  // 포인트 사용
+  const [point, setPoint] = useState(0);
+  const [read, setRead] = useState(false);
+
+  const [payPrice, setPayPrice] = useState(0); // 할인 까지 전부 한 총금액
+  const [resultPoint, setResultPoint] = useState(0); // 기존 포인트 + 적립 포인트
   const [fpay, setFpay] = useState(); // 결제 완료시 들어갈것
-  const [point, setPoint] = useState(prop.point);
+  
 
   // 처음실행시
   useEffect(() => {
@@ -39,17 +53,16 @@ export default function MyCart(prop) {
         money = money + checkPrice[i];
       }
       setTotalPrice(money);
+      setPayPrice(money);
       setTotalPoint((money * 0.05));
     }
   }, [checkPrice]);
 
   // cart 물품 가져오기
   const getMyCart = async () => {
-    await axios.get("customer/cart/getCart", {
-      headers : { Authorization: `Bearer ${localStorage.getItem('jwt')}` }
-    })
+    await axios.get("customer/cart/getCart")
     .then((response)=>{
-      console.log(response.data);
+      // console.log(response.data);
       setCart(response.data);
     })
     .catch((err)=>{
@@ -74,6 +87,7 @@ export default function MyCart(prop) {
     }
   }
 
+  // 상품체크
   function CheckHandler(checked, id, productTotalPrice) {
     if (checked) {
       setCheckItems(prev => [...prev, id]);
@@ -131,6 +145,38 @@ export default function MyCart(prop) {
     }
   };
 
+  // 픽업 배달 함수
+  function pickOrDelivery(num) {
+    console.log(num);
+    setPOrd(num);
+    setbuttonCol(num);
+  }
+
+  // 포인트 숫자만 입력함수
+  const writePoint = (e) => {
+    let inputValue = e.target.value;
+
+    // 입력값에서 숫자가 아닌 부분만 제거합니다.
+    inputValue = inputValue.replace(/\D/g, '');
+    // console.log(inputValue);
+
+    // 최종금액 초과 X
+    if (parseInt(inputValue) > totalPrice) {
+      inputValue = Number(totalPrice);
+    }
+    // 최대값초과 X
+    if (parseInt(inputValue) > prop.point) {
+      inputValue = Number(prop.point);
+    }
+
+    let newPrice = Number(totalPrice)-Number(inputValue);
+    let newPoint = Number(prop.point)-Number(inputValue)+Number(totalPoint);
+    // console.log(newPoint);
+    setPoint(inputValue);    
+    setPayPrice(newPrice);
+    setResultPoint(newPoint);
+  };
+
   // 결제후 BE 정보전송
   function sendOrder() {
     axios.post("customer/order", checkItems)
@@ -145,76 +191,66 @@ export default function MyCart(prop) {
 
   // 결제 핸들러
   const payHandler = async () => {
-    
-    try {
-      const response = await Bootpay.requestPayment({
-        "application_id": "65efaac4d25985001c6e5e40",
-        "price": 100,
-        "order_name": "Pick ME 상품결제",
-        "order_id": "TEST_ORDER_ID",
-        "tax_free": 0,
-        "user": {
-          "id": "회원아이디",
-          "username": "회원이름",
-          "phone": "01000000000",
-          "email": "test@test.com"
-        },
-        "items": [
-          {
-            "id": "item_id",
-            "name": "테스트아이템",
-            "qty": 1,
-            "price": 100
+    if (pOrd == 0 || pOrd == 1) {
+      try {
+        const response = await Bootpay.requestPayment({
+          "application_id": "65efaac4d25985001c6e5e40",
+          "price": payPrice,
+          "order_name": "Pick ME 상품결제",
+          "order_id": "TEST_ORDER_ID",
+          "tax_free": 0,
+          "user": {
+            "id": "회원아이디",
+            "username": "회원이름",
+            "phone": "01000000000",
+            "email": "test@test.com"
+          },
+          "items": [
+            {
+              "id": "item_id",
+              "name": "테스트아이템",
+              "qty": 1,
+              "price": payPrice
+            }
+          ],
+          "extra": {
+            "open_type": "iframe",
+            "card_quota": "0,2,3",
+            "escrow": false
           }
-        ],
-        "extra": {
-          "open_type": "iframe",
-          "card_quota": "0,2,3",
-          "escrow": false
+        })
+        switch (response.event) {
+          case 'issued':
+            // 가상계좌 입금 완료 처리
+            break
+          case 'done':
+            console.log(response)
+            sendOrder();
+            // 결제 완료 처리
+            break
+          case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+            console.log(response.receipt_id);
+            const confirmedData = await Bootpay.confirm() //결제를 승인한다
+            if(confirmedData.event === 'done') {
+                //결제 성공
+            }
+            break;
         }
-      })
-      switch (response.event) {
-        case 'issued':
-          // 가상계좌 입금 완료 처리
-          break
-        case 'done':
-          console.log(response)
-          sendOrder();
-          // 결제 완료 처리
-          break
-        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
-          console.log(response.receipt_id);
-          /**
-           * 1. 클라이언트 승인을 하고자 할때
-           * // validationQuantityFromServer(); //예시) 재고확인과 같은 내부 로직을 처리하기 한다.
-           */
-          const confirmedData = await Bootpay.confirm() //결제를 승인한다
-          if(confirmedData.event === 'done') {
-              //결제 성공
-          }
-          /**
-           * 2. 서버 승인을 하고자 할때
-           * // requestServerConfirm(); //예시) 서버 승인을 할 수 있도록  API를 호출한다. 서버에서는 재고확인과 로직 검증 후 서버승인을 요청한다.
-           * Bootpay.destroy(); //결제창을 닫는다.
-           */
-          break;
+      } catch (e) {
+        console.log(e.message)
+        switch (e.event) {
+          case 'cancel':
+            // 사용자가 결제창을 닫을때 호출
+            console.log(e.message);
+            break;
+          case 'error':
+            // 결제 승인 중 오류 발생시 호출
+            console.log(e.error_code);
+            break;
+        }
       }
-    } catch (e) {
-      // 결제 진행중 오류 발생
-      // e.error_code - 부트페이 오류 코드
-      // e.pg_error_code - PG 오류 코드
-      // e.message - 오류 내용
-      console.log(e.message)
-      switch (e.event) {
-        case 'cancel':
-          // 사용자가 결제창을 닫을때 호출
-          console.log(e.message);
-          break;
-        case 'error':
-          // 결제 승인 중 오류 발생시 호출
-          console.log(e.error_code);
-          break;
-      }
+    } else {
+      alert('픽업 또는 배달을 선택해주세요!');
     }
   }
 
@@ -297,32 +333,49 @@ export default function MyCart(prop) {
       <div className="mt-3 text-center text-xl font-bold">
             <h1>결제 전 할인 및 결제사항 입력</h1>
       </div>
-      <div className="grid grid-cols-2 gap-5 mt-3 h-24 w-[40%] mx-auto">
-          <button
-            className="w-[50%] h-24 bg-gray-300 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 items-center"
-          >
-            <GiCardPickup className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600" />
-            <h3 className="text-center mt-2 font-bold text-xl">
-              고객 픽업
-            </h3>
-          </button>
-          <button
-            className="w-[50%] h-24 bg-gray-300 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500"
-          >
-            <TbTruckDelivery className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600"/>
-            <h3 className="text-center mt-2 font-bold text-xl">
-              물품 배달
-            </h3>
-          </button>
+      <div className="flex justify-center gap-4 mt-3 h-24 w-[40%] mx-auto sm:w-[80%]">
+        {/* 픽업 = 0 배달 = 1 */}
+        <button
+          className={`${
+            buttonCol === 0 ? 'bg-sub-orange' : 'bg-gray-300'
+          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 `}
+          onClick={()=>{pickOrDelivery(0)}}
+        >
+          <PiHandbagBold  className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600 " />
+          
+          <h3 className="text-center mt-2 font-bold text-lg">
+            픽업
+          </h3>
+        </button>
+        <button
+          className={`${
+            buttonCol === 1 ? 'bg-sub-orange' : 'bg-gray-300'
+          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 `}
+          onClick={()=>{pickOrDelivery(1)}}
+        >
+          <TbTruckDelivery className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600"/>
+          <h3 className="text-center mt-2 font-bold text-lg">
+            배달
+          </h3>
+        </button>
+      </div>
+
+      <div className="mx-auto mt-5">
+        <div>Pick 포인트: {prop.point.toLocaleString()}P </div>
+        <div>
+          <span>포인트: <input type="text" value={point} onChange={writePoint} placeholder={`0부터 ${prop.point} 사이`} readOnly={read} /> </span>
+          <button onClick={()=>{setRead(!read)}}>{read ? '수정하기' : '사용하기'}</button>
         </div>
-      {/* <div className="m-auto w-[1090px] h-[200px] overflow-y-auto text-right">
-        <p>적립예정 포인트 금액 : </p>
-        <p>총금액 : </p>
-        <p>포인트 사용금액 : <input type="text" /> {prop.point} </p>
-        <p>결제금액 :</p>
+        <div>
+          최종 결제금액: {payPrice.toLocaleString()}원
+        </div>
+        <div><button onClick={payHandler}>결제하기</button></div>
+      </div>
+      
+      <div className="m-auto overflow-y-auto text-right">
         <button onClick={sendOrder}>결제완료 테스트용</button><br/>
-        <button onClick={payHandler}>결제하기</button>
-      </div>      */}
+      </div>
+
     </div>
   );
 }

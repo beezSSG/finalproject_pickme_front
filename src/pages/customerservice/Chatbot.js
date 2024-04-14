@@ -24,7 +24,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 text-gray-600";
+      "px-4 py-2 inline-block  bg-gray-200 text-gray-600 rounded-t-lg rounded-bl-lg";
     spanElement.textContent = message;
     const divElement = document.createElement("div");
     divElement.appendChild(spanElement);
@@ -110,7 +110,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "bg-gray-200 text-gray-600 px-4 py-2 rounded-lg inline-block rounded-bl-none";
+      "bg-gray-400 text-gray-700 px-4 py-2 inline-block rounded-t-lg rounded-br-lg";
     spanElement.textContent = str;
 
     const imgElement = document.createElement("img");
@@ -153,7 +153,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-200 text-gray-600";
+      "px-4 py-2  inline-block  bg-gray-400 text-gray-700 rounded-t-lg rounded-br-lg";
     spanElement.textContent = str;
 
     const divElement = document.createElement("div");
@@ -180,7 +180,7 @@ function Chatbot() {
     <>
       <div className="w-full h-[650px] border-2 rounded-xl bg-white z-50  ">
         <div className="h-full rounded-xl">
-          <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg">
+          <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg ">
             <h3 className="welcome">Welcome Pickme</h3>
           </div>
           <br />

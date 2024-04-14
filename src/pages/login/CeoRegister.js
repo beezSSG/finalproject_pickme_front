@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import RegisterPost from "./RegisterPost";
 import Toast from "../public/Toast";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import OcrModal from "./OcrModal";
 
 function CeoRegister() {
@@ -231,6 +231,9 @@ function CeoRegister() {
                     {/* 모달이 열려있을 때만 모달을 렌더링 */}
                     {modalOpen && <OcrModal onClose={closeModal} checkOcr={checkOcr} onCheckOcrUpdate={handleCheckOcrUpdate} />}
                     <button className="w-full rounded-xl bg-sub-yellow hover:bg-sub-orange my-3 p-3 font-bold" onClick={regi}>회원가입</button>                 
+                </div>
+                <div className="mt-2 text-center text-xs font-bold">
+                  <Link to="/login" className="">이미회원이신경우 이곳을 클릭해주세요</Link>
                 </div>
             </div>
         </>

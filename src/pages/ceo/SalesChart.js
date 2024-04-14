@@ -11,7 +11,6 @@ function SalesChart(){
 
     let navigate = useNavigate();
 
-
     // 초기 화면 오늘날짜로 설정되게
     const today = new Date();
     const year = today.getFullYear();
@@ -60,7 +59,6 @@ function SalesChart(){
         const today = new Date();
         const threeDaysLater = new Date();
         threeDaysLater.setDate(today.getDate() + 3);
-    
         let count = 0;
     
         endDateStrings.forEach((item) => {
@@ -78,7 +76,7 @@ function SalesChart(){
         const address = selectedRegion && selectedDistrict ? `${selectedRegion} ${selectedDistrict}` : selectedRegion || selectedDistrict;
     
         if (address) { // 광역시 또는 구 중 하나만 선택된 경우에 요청을 보냄
-            axios.get("http://localhost:8080/api/v1/ceo/saleschart", { params: { "date": selectedDate, "address": address } })
+            axios.get("ceo/saleschart", { params: { "date": selectedDate, "address": address } })
                 .then(function(resp) {
                     setOrderList(resp.data);
                 })
@@ -201,7 +199,6 @@ function SalesChart(){
         };
     };
     
-
     const handleDateChange = (event) => {
         setSelectedDate(event.target.value);
     };
@@ -213,7 +210,6 @@ function SalesChart(){
     const handleDistrictChange = (event) => {
         setSelectedDistrict(event.target.value);
     };
-        
     // 페이지로 이동하는 함수들
     function goPo() {
         navigate("/managerpurchaseorder");

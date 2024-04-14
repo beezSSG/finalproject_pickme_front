@@ -1,13 +1,14 @@
 // import logoImg from '../../assets/imgs/logo/logo.svg';
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg";
+
+// 이미지 및 아이콘
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg"; // full 로고 이미지
 // import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
-import { RiUser5Fill } from "react-icons/ri";
+
+import { RiUser5Fill } from "react-icons/ri"; // 마이페이지 아이콘
+import { FaShoppingCart } from "react-icons/fa"; // 장바구니 메뉴 아이콘
 // import { BsCart4 } from "react-icons/bs";
-import { FaShoppingCart } from "react-icons/fa";
-// import { Disclosure } from "@headlessui/react";
-// import Toast from '../public/Toast';
 
 function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -31,19 +32,19 @@ function Header() {
           </Link>
 
           {/* 장바구니 */}
-          <Link
-            to={"http://localhost:3000/mypage"}
+          {/* <Link
+            to={"mypage/cart"}
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span
               className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
-                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+                        text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
               장바구니
             </span>
             <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
-          </Link>
+          </Link> */}
         </div>
       );
     } else {
@@ -52,9 +53,9 @@ function Header() {
           {/* 로그아웃 */}
           <button
             className="relative w-fit inline-block after:block mx-1
-font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full
-after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full
+                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
             onClick={logout}
           >
             로그아웃
@@ -71,13 +72,13 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
 
           {/* 마이페이지 */}
           <Link
-            to={"http://localhost:3000/mypage"}
+            to="mypage"
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span
               className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
-                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
+                          text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-[78px] md:top-6 md:right-9 lg:top-0 lg:right-9"
             >
               마이페이지
             </span>
@@ -86,13 +87,13 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
 
           {/* 장바구니 */}
           <Link
-            to={"http://localhost:3000/mypage"}
+            to="/mypage/cart"
             className="group"
             onClick={() => setMobileMenuOpen(false)}
           >
             <span
               className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
-                            text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
+                        text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
             >
               장바구니
             </span>
@@ -105,17 +106,63 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
 
   const logout = () => {
     localStorage.clear();
-    window.location.replace("http://localhost:3000");
+    window.location.href = "/";
   };
 
   const menus = [
-    { name: "서비스 소개", to: "/about" },
+    { name: "소개", to: "/about" },
     { name: "상품", to: "/productlist" },
     { name: "매장찾기", to: "/store" },
-    { name: "서비스", to: "/post" },
+    {
+      name: "서비스",
+      submenus: [
+        { name: "택배 예약", to: "/post" },
+        { name: "픽업 예약", to: "/productreservation" },
+      ],
+    },
     { name: "이벤트", to: "/event" },
     { name: "고객센터", to: "/customercenter" },
   ];
+
+  // 서비스 하위 메뉴
+  function ServiceSubMenus(menu) {
+    // console.log(service);
+    const service = menu.menu;
+    return (
+      <>
+        {menu && (
+          <div id="service_menu" className="group inline-block">
+            <div className="relative flex-cols items-center">
+              <span
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                          after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                          after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
+              "
+              >
+                {service.name}
+              </span>
+            </div>
+
+            <div className="mt-3 opacity-0 h-0 group-hover:opacity-100 group-hover:h-full transition duration-500">
+              <ul className="absolute flex-col justify-center rounded-lg border-2 border-slate-200 bg-white">
+                {service.submenus.map((submenu) => (
+                  <li
+                    key={submenu.name}
+                    className="py-2 font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300"
+                  >
+                    <Link to={submenu.to} className="px-3">
+                      {submenu.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        )}
+      </>
+    );
+  }
 
   return (
     <div
@@ -126,7 +173,7 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
-        <Link to="http://localhost:3000" className="pb-2 ml-10 sm:ml-3">
+        <Link to="/" className="pb-2 ml-10 sm:ml-3">
           <img
             src={FullLogoImg}
             alt="pickme full logo"
@@ -141,19 +188,26 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
         </Link>
 
         {/* 메뉴 links */}
-        <div className="sm:hidden">
-          {menus.map((menu) => (
-            <Link
-              key={menu.name}
-              className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
-                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                          after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
-                          after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-              to={menu.to}
-            >
-              {menu.name}
-            </Link>
-          ))}
+        <div className="sm:hidden lg:flex lg:gap-x-8">
+          {
+            menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴 아니면, 일반 Link
+              <Link
+                key={menu.name}
+                className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
+                            font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                            after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
+                            after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
+                to={menu.to}
+              >
+                {menu.name}
+              </Link>
+            ) : (
+              // 서비스 메뉴일 때 Popover 메뉴
+              <ServiceSubMenus menu={menu} />
+            )
+          )}
         </div>
 
         {/* 로그인 */}
@@ -164,27 +218,8 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
         >
           <div className="md:block flex items-center my-1.5">
             <Logincom />
-
-            {/* <a className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" href="/login">Sign in</a> 
-            {adminName === "하기성" && (
-               <Link className="inline-block rounded-lg px-1.5 py-1 text-base font-bold text-slate-500 md:text-sm hover:text-slate-900" to="/manager/orderchart">관리자</Link>
-            )}
-            {adminName === "곽두필" && (
-               <Link className="inline-block rounded-lg px-2 py-1 text-2xl text-slate-700 hover:bg-slate-100 hover:text-slate-900" to="/pomain">점주</Link>
-            )}
-            <Link
-              className="inline-block px-1.5 text-sm font-bold text-slate-500 hover:text-slate-900 
-                          lg:text-base border-transparent border-b-4 transition hover:border-sub-yellow"
-              to="/mypage"
-            >
-              마이페이지
-            </Link> */}
           </div>
 
-          {/* <a className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-bold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600" color="blue" variant="solid" href="/register">
-                        <span>Get started 
-                            <span class="hidden lg:inline">today</span>
-                        </span></a> */}
           <div className="mx-2 my-1 md:hidden lg:hidden z-10">
             <div data-headlessui-state="">
               <button
@@ -227,27 +262,50 @@ after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 afte
         <div
           className={`-my-8 pt-3 flex flex-col items-center ${
             mobileMenuOpen ? "visible" : "hidden"
-          }
-                    `}
+          }`}
         >
-          {menus.map((menu) => (
-            <div className="flex flex-col items-center">
-              <Link
-                key={menu.name}
-                to={menu.to}
-                onClick={() => setMobileMenuOpen(false)}
-                className="inline-block text-base relative w-fit after:block peer
-                      font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                      after:content-[''] after:absolute after:h-[3px] after:-left-[20px] after:bg-main-yellow after:w-[112px]
-                      after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-              >
-                <p className="my-4">{menu.name}</p>
-              </Link>
-              <hr className="w-28 border-2 border-slate-200" />
-            </div>
-          ))}
-          {/* 마이페이지 */}
-          {/* <Logincom /> */}
+          {menus.map((menu) =>
+            menu.name !== "서비스" ? (
+              // 서비스 메뉴가 아닐때 일반 Link
+              <div className="flex flex-col items-center">
+                <Link
+                  key={menu.name}
+                  to={menu.to}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="inline-block text-base relative w-fit peer
+                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300"
+                >
+                  <p className="my-4">{menu.name}</p>
+                </Link>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+              </div>
+            ) : (
+              // 서비스 메뉴일 때 dropdown 메뉴
+              <div className="flex flex-col items-center group">
+                <p className="my-4 inline-block text-base relative w-fit
+                              font-semibold text-slate-500 hover:text-slate-900 transition duration-300">
+                  { menu.name }
+                </p>
+                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+                <ul className="hidden h-0 group-hover:block group-hover:h-full
+                                transition duration-500 divide-y-2 border-b-2 border-slate-200">
+                  {
+                    menu.submenus.map((submenu)=>(
+                      <li key={ submenu.name } 
+                          className="py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300">
+                        <Link to={ submenu.to } 
+                              className="font-semibold text-sm my-2 p-4 rounded-lg"
+                              onClick={() => setMobileMenuOpen(false)}
+                        >
+                          { submenu.name }
+                        </Link>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </div>
+            )
+          )}
         </div>
       </div>
     </div>

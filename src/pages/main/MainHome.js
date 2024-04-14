@@ -30,11 +30,9 @@ import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
-
-import PoMainpage from "../ceo/PoMainpage.js";
-
 import About from "./About";
 
+import PoMainpage from "../ceo/PoMainpage.js";
 
 export default function MainHome() {
   return (
@@ -53,9 +51,11 @@ export default function MainHome() {
             <Route path="/register" element={<Register />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/ceoregister" element={<CeoRegister />} />
-            <Route path="/LoginGoogle" element={<LoginGoogle />} />
-            <Route path="/LoginKakao" element={<LoginKakao />} />
-            <Route path="/LoginNaver" element={<LoginNaver />} />
+            <Route path="/logingoogle" element={<LoginGoogle />} />
+            <Route path="/loginkakao" element={<LoginKakao />} />
+            <Route path="/loginnaver" element={<LoginNaver />} />
+
+
 
             <Route path="/about" element={<About />}/>
 

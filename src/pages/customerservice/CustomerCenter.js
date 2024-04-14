@@ -27,7 +27,7 @@ function CustomerCenter() {
 
   function topfaqlist() {
     axios
-      .get("http://localhost:8080/api/v1/manager/topfaqlist")
+      .get("manager/topfaqlist")
       .then(function (resp) {
         console.log(resp.data);
         setFaqlist(resp.data);
@@ -108,7 +108,7 @@ function CustomerCenter() {
                 htmlFor={`faq${faq.id}`}
                 className="flex items-center cursor-pointer font-semibold text-lg after:content-['+'] after:absolute after:right-5 after:text-2xl after:text-gray-400 hover:after:text-gray-950 peer-checked:after:transform peer-checked:after:rotate-45"
               >
-                <h2 className="w-8 h-8 bg-yellow-400 text-white flex justify-center items-center rounded-sm mr-3">
+                <h2 className="w-8 h-8 bg-main-yellow text-white flex justify-center items-center rounded-sm mr-3">
                   {index + 1}
                 </h2>
                 <h3>{faq.title} </h3>

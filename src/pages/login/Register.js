@@ -26,6 +26,9 @@ function Register() {
             </h3>
           </Link>
         </div>
+        <div className="mt-2 text-center text-lg font-bold">
+          <Link to="/login" className="">회원이신경우 이곳을 클릭해주세요</Link>
+        </div>
       </div>
     </>
   );

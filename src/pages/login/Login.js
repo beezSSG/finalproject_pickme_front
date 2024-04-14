@@ -96,7 +96,7 @@ const Login = () => {
       redirect_uri +
       "&response_type=" +
       response_type;
-
+    console.log("여기에도달");
     console.log(url);
     window.location.href = url;
   };
@@ -138,17 +138,16 @@ const Login = () => {
           setToken(response.data.jwt); // 상태에 토큰 저장
           setIsLoggedIn(true);
           if (response.data.who === "점주") {
-            window.location.replace("http://localhost:3000/ceo");
+            window.location.href = "ceo/pomain";
           } else {
-            window.location.replace("http://localhost:3000");
+            window.location.href = "/";
           }
-          
         } else {
           alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
         }
       })
       .catch((error) => {
-        console.log(error);
+        // console.log(error);
         alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
       });
   };
@@ -159,13 +158,13 @@ const Login = () => {
         <h2 className="mt-20 text-2xl font-semibold text-gray-900">로그인</h2>
         <p className="mt-2 text-sm text-gray-700">
           계정이 없으신가요?
-          <a
+          <Link
             className="font-medium text-blue-600 hover:underline"
-            href="/register"
+            to="/register"
           >
             {" "}
             회원가입
-          </a>
+          </Link>
           을 진행해주세요.
         </p>
         <div className="mt-10 grid grid-cols-1 gap-y-8">
