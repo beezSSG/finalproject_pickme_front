@@ -6,14 +6,14 @@ import { Link } from "react-router-dom";
 import { BsArrowLeftShort } from "react-icons/bs";
 import { FaChevronUp } from "react-icons/fa6";
 import { FaChevronDown } from "react-icons/fa6";
+import { FaPhone } from "react-icons/fa6";
+import { FaStore } from "react-icons/fa";
 
 // component
 import LocSelect from "./LocSelect";
 import SearchStoreName from "./SearchStoreName";
 import StoreCategories from "./StoreCategories.js";
 
-// icon
-import { FaPhone } from "react-icons/fa6";
 
 // ({abc, bcd})
 export default function LeftMenu(props) {
@@ -112,11 +112,17 @@ export default function LeftMenu(props) {
   // 두번째 방법은 내가 가지고있는 부분을 다시 백에 넘겨줘서 쿼리문으로 처리하고 다시 넘겨받기
   // 둘다 함 수는 만들어야함
 
+  function formatPhoneNumber(phoneNumber) {
+    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+    const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
+    return cleaned.replace(regex, '$1-$2-$3');
+  }
+
   return (
     <>
       <div
         className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
-          menuOpen ? "w-1/3" : "w-14"
+          menuOpen ? "w-1/4 sm:w-3/4" : "w-14 sm:w-3"
         } opacity-100 transition-all duration-400 ease-in-out`}
       >
         {/* 이거 부드럽게 애니메이션 주기 */}
@@ -193,21 +199,26 @@ export default function LeftMenu(props) {
         {/* <button onClick={()=>{console.log(state); console.log(district); console.log(district)}}>도/시 구 state, 검색어 확인용</button> */}
 
         {/* 매장 목록; 사용자 위치 연동 */}
-        <ul className="pt-2 h-full overflow-y-auto">
-          {
-            stores &&
-            stores.map((store) => (
-              <li key={store.id}>
+        <ul className="pt-2 h-3/6 overflow-y-auto">
+          {stores &&
+            stores.map((store, k) => (
+              <li key={k}>
                 <h5 className="font-semibold">{store.name}</h5>
                 <p>{store.address}</p>
                 <p>
                   <FaPhone className="inline" />
                   &nbsp;&nbsp;
-                  <span>{store.tel !== "None" ? store.tel : ""}</span>
+                  {
+                    store.tel !== "None" ?  formatPhoneNumber(store.tel) : "전화 ✖"
+                  }
                 </p>
-                <Link to={`/storeproductlist/${store.id}/${store.name}`}>
-                  매장 재고 보러가기
+                <Link to={`/storeproductlist/${store.id}/${store.name}`} 
+                      className="flex items-center hover:text-main-orange transition duration-200">
+                  <FaStore className="inline" />&nbsp;매장 재고 보러가기
                 </Link>
+                <br />
+                <hr />
+                <br />
               </li>
             ))
           }

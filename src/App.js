@@ -30,18 +30,6 @@ function App() {
     }
   );
 
-  // push 알림 구현
-  // if('serviceWorker' in navigator) {
-  //   navigator.serviceWorker.register('/sw.js').then(function(registration) {
-  //     // console.log('ServiceWorker registration successful with scope: ', registration.active);
-  //   });
-  // };
-  if('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
-      // console.log('ServiceWorker registration successful with scope: ', registration.active);
-    });
-  };
-
   return (
     <>
       <AuthProvider>
