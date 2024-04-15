@@ -24,12 +24,12 @@ export default function MyCoupon() {
       });
   };
 
-  // 진행 중인 이벤트만 보여주는 함수
+  // 사용가능 쿠폰만 보여주는 함수
   const canCouponHandle = () => {
     setType(0);
   };
 
-  // 종료된 이벤트만 보여주는 함수
+  // 만료된 쿠폰만 보여주는 함수
   const expCouponHandle = () => {
     setType(1);
   };
@@ -73,28 +73,50 @@ export default function MyCoupon() {
             if ((type === 0 && duration >= 0) || (type === 1 && duration < 0)) {
               return (
                 <div className="flex justify-center">
-                  <div className="bg-gradient-to-br from-sub-orange to-sub-yellow  text-center py-10 px-20 rounded-lg shadow-md relative">
-                    <div className="w-[400px] sm:w-[200px]">
-                      <span className="sm:text-xs">{data.title}</span>
-                      <div className="">
-                        <span className="font-bold ">{content}원</span>
-                      </div>
-                      <div className="mb-3">
-                        <div>
-                          <span>
-                            {data.startDate} ~ {data.endDate}
-                          </span>
+                  {type === 0 && (
+                    <div className="bg-gradient-to-br from-sub-orange to-sub-yellow  text-center py-10 px-20 rounded-lg shadow-md relative">
+                      <div className="w-[400px] sm:w-[200px]">
+                        <span className="sm:text-xs">{data.title}</span>
+                        <div className="">
+                          <span className="font-bold ">{content}원</span>
+                        </div>
+                        <div className="mb-3">
+                          <div>
+                            <span>
+                              {data.startDate} ~ {data.endDate}
+                            </span>
+                          </div>
+                        </div>
+
+                        <div className="bg-gray-700 p-2 rounded-lg hover:bg-gray-500 cursor-pointer">
+                          <button className="font-bold text-white ">
+                            쿠폰 사용
+                          </button>
                         </div>
                       </div>
-                      <div className="bg-gray-700 p-2 rounded-lg hover:bg-gray-500 cursor-pointer">
-                        <button className="font-bold text-white ">
-                          쿠폰 사용
-                        </button>
-                      </div>
+                      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
+                      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
                     </div>
-                    <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
-                    <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
-                  </div>
+                  )}
+                  {type === 1 && (
+                    <div className="bg-gradient-to-br bg-gray-300   text-center py-10 px-20 rounded-lg shadow-md relative">
+                      <div className="w-[400px] sm:w-[200px]">
+                        <span className="sm:text-xs">{data.title}</span>
+                        <div className="">
+                          <span className="font-bold ">{content}원</span>
+                        </div>
+                        <div>
+                          <div>
+                            <span>
+                              {data.startDate} ~ {data.endDate}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 left-0 -ml-6"></div>
+                      <div class="w-12 h-12 bg-white rounded-full absolute top-1/2 transform -translate-y-1/2 right-0 -mr-6"></div>
+                    </div>
+                  )}
                 </div>
               );
             }

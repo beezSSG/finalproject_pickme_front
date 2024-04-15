@@ -70,30 +70,39 @@ export default function MyMain() {
             </span>
           </div>
           <div className="flex mt-2 text-sm font-bold text-neutral-500">
-            <Link to="/mypage/userinfo" >회원정보수정</Link>
+            <Link to="/mypage/userinfo">회원정보수정</Link>
             <button>메뉴창 보기</button>
           </div>
         </div>
-
         <div className="grid grid-cols-5 sm:grid-cols-3 sm:gap-5 sm:font-thin text-[0.5rem] sm:h-5">
-
-        { 
-          topBar.map((topbar, i) => (
-          <div className="w-[90%] lg:p-5 lg:mx-5 sm:p-1 sm:mx-1 font-bold rounded-3xl shadow-xl bg-stone-100 " key={i}>
-            <button className="w-full" onClick={ () => {window.location.href = `${topbar.path}`} }>
-              <div className="text-left lg:text-2xl text-neutral-500">{topbar.title}</div>
-              { i === 1 ?
-              <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">{topInfo[i].toLocaleString()}P</div>
-              :
-              <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">{topInfo[i]}개</div>
-              }
-            </button>
-          </div>
-          ))
-        }
+          {topBar.map((topbar, i) => (
+            <div
+              className="w-[90%] lg:p-5 lg:mx-5 sm:p-1 sm:mx-1 font-bold rounded-3xl shadow-xl bg-stone-100 "
+              key={i}
+            >
+              <button
+                className="w-full"
+                onClick={() => {
+                  window.location.href = `${topbar.path}`;
+                }}
+              >
+                <div className="text-left lg:text-2xl text-neutral-500">
+                  {topbar.title}
+                </div>
+                {i === 1 ? (
+                  <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">
+                    {topInfo[i].toLocaleString()}P
+                  </div>
+                ) : (
+                  <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">
+                    {topInfo[i]}개
+                  </div>
+                )}
+              </button>
+            </div>
+          ))}
         </div>
       </div>
-
       <div className="flex w-full">
         <MyMainNav />
         <Routes>
