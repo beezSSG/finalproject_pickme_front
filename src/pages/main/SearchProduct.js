@@ -217,7 +217,7 @@ const SearchProduct = () => {
                 </p>
                 <Link>
                   <img src={Household_top} alt="생활용품 카테고리 아이콘 top" 
-                        className='scale-[20%] translate-y-[55%] -translate-x-[14%] transition duration-300 ease-in-out group-hover:translate-x-4 group-hover:-translate-y-9 group-hover:rotate-45 transform' />
+                        className='scale-[20%] translate-y-[56%] -translate-x-[14%] transition duration-300 ease-in-out group-hover:translate-x-4 group-hover:-translate-y-9 group-hover:rotate-45 transform' />
                   <img src={Household_body} alt="생활용품 카테고리 아이콘 body" className='scale-90' />
                 </Link>
               </div>
