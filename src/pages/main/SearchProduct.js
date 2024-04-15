@@ -138,15 +138,15 @@ const SearchProduct = () => {
               </div>
 
               {/* 간편식사 */}
-              <div className='sm:px-0 px-16 group relative'>
+              <div className='sm:px-0 px-16 relative group mb-30'>
                 <p className="absolute sm:py-3 p-3 left-[36%] top-1/2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#F37335] group-hover:text-white transition duration-300">
                   간편식사
                 </p>
                 <Link>
                   <img src={ConvIcon_top} alt="간편식사 카테고리 아이콘 top" 
-                      className='z-10 translate-y-1/2 scale-95 transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' />
-                  <img src={ConvIcon_btm} alt="간편식사 카테고리 아이콘 bottom" />
+                      className='z-10 translate-y-[55%] scale-[80%] transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' />
+                  <img src={ConvIcon_btm} alt="간편식사 카테고리 아이콘 bottom" className='scale-[85%]' />
                 </Link>
               </div>
               
