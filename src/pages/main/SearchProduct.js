@@ -128,7 +128,7 @@ const SearchProduct = () => {
                     onMouseEnter={() => setDrinkHovered(true)}
                     onMouseLeave={() => setDrinkHovered(false)}
                 >
-                <p className="absolute sm:py-3 p-2 top-1/2 z-10 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute sm:py-3 p-2 top-1/2 z-10 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#E91235] group-hover:text-white transition duration-300">
                   음료
                 </p>
