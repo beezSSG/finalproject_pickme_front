@@ -164,16 +164,16 @@ const SearchProduct = () => {
             <div className='flex mt-20 items-center'>
               
               {/* 과자류 */}
-              <div className='px-5 flex flex-col items-center justify-center group'
+              <div className='relative group'
                   onMouseEnter={() => setDonutHovered(true)}
                   onMouseLeave={() => setDonutHovered(false)}
                 >
-                <p className="inline-block mb-2 sm:py-3 p-3 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute mb-2 sm:py-3 p-3 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-300">
                   과자류
                 </p> 
                 <Link>
-                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" className='transition duration-300' />
+                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" className='transition duration-300 scale-90' />
                 </Link>
               </div>
 
