@@ -186,19 +186,20 @@ const SearchProduct = () => {
               </div>
 
               {/* 식품 */}
-              <div className='relative sm:px-0 p-4 flex items-center justify-center rounded-full group'>
+              <div className='relative sm:px-0 p-4 group'>
                 <Link>
                   <div className="relative">
                     <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
-                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-0 left-1/3">
+                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-5 left-1/3 z-10">
                       식품
                     </p>
-                    <img src={Egg_behind} alt="" />
+                    <img src={Egg_behind} alt="" className='scale-[86%]' />
                   </div>
                   <img 
                     src={Egg_front} 
                     alt="" 
-                    className='absolute top-0 left-0 scale-90 transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' 
+                    className='absolute top-0 left-0 scale-75 transition duration-300 ease-in-out 
+                              translate-x-0 group-hover:-translate-x-20 group-hover:translate-y-6 group-hover:-rotate-12 transform' 
                   />
                 </Link>
               </div>
