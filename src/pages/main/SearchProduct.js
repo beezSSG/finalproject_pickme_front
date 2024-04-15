@@ -33,7 +33,7 @@ import Egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
 
 
 const SearchProduct = () => {
-  const [hovered, setHovered] = useState(false);
+  const [drinkHovered, setDrinkHovered] = useState(false);
   
   return (
     <>
@@ -120,12 +120,18 @@ const SearchProduct = () => {
           {/* 상품 카테고리 아이콘 */}
           {/* bg-[#FFEFBA] */}
           <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
-            <div className='flex items-center'>
+            <div className='flex items-center'
+                  onMouseEnter={() => setDrinkHovered(true)}
+                  onMouseLeave={() => setDrinkHovered(false)}
+              >
               {/* 음료 */}
-              <div className='sm:px-0 px-16'>
+              <div className='sm:px-0 px-16 flex flex-col items-center justify-center group'>
+                <p className="inline-block sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#EB3349] group-hover:text-white transition duration-300">
+                  음료
+                </p>
                 <Link>
-                  <img src={InstantIcon_top} alt='' className='' />
-                  <img src={InstantIcon_body} alt='' className='' />
+                  <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className={`transition duration-300 scale-90 ${drinkHovered ? "" : "mt-12"}`} />
                 </Link>
               </div>
 
