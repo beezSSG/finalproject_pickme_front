@@ -19,11 +19,11 @@ const SearchProduct = () => {
               <input
                 type="text"
                 // id="voice-search"
-                className="py-6 bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
-                          focus:border-gray-300 focus-visible:ring-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300 
+                className="py-6 bg-gray-50 border border-gray-300 text-gray-900 sm:text-xs text-lg
+                          rounded-lg focus:border-gray-300 focus-visible:ring-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-500
                           hover:drop-shadow-xl duration-300 ease-in-out text-center
-                          block w-full ps-10 p-7"
-                placeholder="찾고 싶은 상품을 입력하세요"
+                          block w-full ps-10 px-12"
+                placeholder="찾고 싶은 상품을 입력하세요!"
                 required
               />
 
@@ -80,8 +80,12 @@ const SearchProduct = () => {
               // className="inline-flex items-center py-5 px-3 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             > */}
           </form>
+
+
           {/* 상품 카테고리 */}
-          {/* 추후에 아이콘 작업 */}
+          <section>
+
+          </section>
         </div>
       </div>
     </>
