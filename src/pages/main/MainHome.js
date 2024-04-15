@@ -25,14 +25,10 @@ import ContactUsWrite from "../customerservice/ContactUsWrite";
 import Faq from "../customerservice/Faq";
 import FaqCreate from "../customerservice/FaqCreate";
 import MyMain from "../mypage/MyMain";
-import Polist from "../ceo/Polist";
-import Powrite from "../ceo/Powrite";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
 import About from "./About";
-
-import PoMainpage from "../ceo/PoMainpage.js";
 
 export default function MainHome() {
   return (
@@ -89,10 +85,6 @@ export default function MainHome() {
             <Route path="/mypage/*" element={<MyMain />} />
 
             {/* 점주 */}
-
-            
-            
-
 
           </Routes>
         </div>
