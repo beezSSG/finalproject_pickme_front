@@ -1,3 +1,34 @@
+
+// 즉석조리 - 컵라면
+import InstantIcon_top from "../../assets/imgs/main/searchProduct/instant/instant_top.svg";
+import InstantIcon_body from "../../assets/imgs/main/searchProduct/instant/instant_body.svg";
+
+// 간편식사 - 햄버거
+import ConvIcon_top from "../../assets/imgs/main/searchProduct/conv/hamburger_topbun.svg";
+import ConvIcon_btm from "../../assets/imgs/main/searchProduct/conv/hamburger_btmGroup.svg";
+
+// 아이스 - 아이스크림
+import IcecreamIcon_body from "../../assets/imgs/main/searchProduct/icecream/icecream.svg";
+
+// 스낵/과자류 - 도넛
+import SnackIcon_bf from "../../assets/imgs/main/searchProduct/snack/snackBF.svg";
+import SnackIcon_af from "../../assets/imgs/main/searchProduct/snack/snackAF.svg";
+
+// 생활용품 - 세제
+import householdIcon_top from "../../assets/imgs/main/searchProduct/household/household_top.svg";
+import householdIcon_body from "../../assets/imgs/main/searchProduct/household/household_body.svg";
+import Bubble_bf from "../../assets/imgs/main/searchProduct/household/bubbleBF.svg";
+import Bubble_af from "../../assets/imgs/main/searchProduct/household/bubbleAF.svg";
+
+// 음료 - 캔음료
+import drink_bf from "../../assets/imgs/main/searchProduct/drink/drink_body.svg";
+import drink_af from "../../assets/imgs/main/searchProduct/drink/drink.svg";
+
+// 식품 - 삶은 계란
+import egg_behind from "../../assets/imgs/main/searchProduct/food/eggLeft.svg";
+import egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
+
+
 const SearchProduct = () => {
   return (
     <>
