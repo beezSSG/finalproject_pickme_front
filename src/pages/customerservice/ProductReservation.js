@@ -6,7 +6,7 @@ import LeftMenu2 from "./LeftMenu2";
 
 function ProductReservation() {
   // 매장 찾기
-  const [storeName, setStoreName] = useState("센텀프리미어호텔점");
+  const [storeName, setStoreName] = useState("");
   const [selectedStore, setSelectedStore] = useState(null);
 
   const handleStoreSelect = (storeData) => {
@@ -35,9 +35,15 @@ function ProductReservation() {
       });
   }
 
-  useEffect(function () {
-    selectstorename();
-  });
+  useEffect(
+    function () {
+      console.log(selectedStore);
+      if (selectedStore !== null) {
+        selectstorename();
+      }
+    },
+    [selectedStore]
+  );
 
   const fetchMoreData = () => {
     axios
