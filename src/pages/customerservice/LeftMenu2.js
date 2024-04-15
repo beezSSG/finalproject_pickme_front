@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 
 // icon
 import { BsArrowLeftShort } from "react-icons/bs";
@@ -10,13 +10,12 @@ import { FaPhone } from "react-icons/fa6";
 import { FaStore } from "react-icons/fa";
 
 // component
-import LocSelect from "./LocSelect";
-import SearchStoreName from "./SearchStoreName";
-import StoreCategories from "./StoreCategories.js";
-
+import LocSelect from "../store/LeftMenu/LocSelect";
+import SearchStoreName from "../store/LeftMenu/SearchStoreName";
+import StoreCategories from "../store/LeftMenu/StoreCategories";
 
 // ({abc, bcd})
-export default function LeftMenu(props) {
+export default function LeftMenu2(props) {
   // console.log(props);
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true); // 왼쪽바 메뉴 열림 상태
@@ -64,6 +63,18 @@ export default function LeftMenu(props) {
     console.log("filter: " + filter);
   }
 
+  function storeselect(storename) {
+    axios
+      .get("/customer/storeselect", { params: { storename: storename } })
+      .then(function (resp) {
+        console.log(resp.data);
+        props.handleStoreSelect(resp.data); // 부모로 선택한 매장 정보 전달
+      })
+      .catch(function () {
+        console.log("error");
+      });
+  }
+
   useEffect(() => {
     // setStores(props.stores); 보여져야할 부분
     setInitialStores(props.stores);
@@ -72,31 +83,33 @@ export default function LeftMenu(props) {
     } else {
       // console.log(stores);
     }
-    
+
     if (filter !== undefined || filter.length !== 0) {
       let filteredStores = initialStores;
-      filter.map((f)=>{
+      filter.map((f) => {
         console.log(f);
         // key이름이 겹침 -> 키에 대한 정확한 위치를 파악 && 거기에 각각 1이 맞는지 확인 작업
-        filteredStores = filteredStores.filter((item) => item.hasOwnProperty(f) && item[f] === 1) 
-      })
+        filteredStores = filteredStores.filter(
+          (item) => item.hasOwnProperty(f) && item[f] === 1
+        );
+      });
       console.log(filteredStores);
       // console.log(noneStores);
       setStores(filteredStores);
-      // 초기화 작업을 따로 해줘야겠네요 
+      // 초기화 작업을 따로 해줘야겠네요
     }
     // if (stores !== undefined) {
     //   setLoading(true);
     // } else {
     //   // console.log(stores);
     // }
-    
+
     // if (filter !== undefined || filter.length !== 0) {
     //   let filteredStores = stores;
     //   filter.map((f)=>{
     //     console.log(f);
     //     // key이름이 겹치자나요 키에대한 정확한 위치를 파악하고 거기에 각각 1이맞는지 확인작업까지 하는것
-    //     filteredStores = filteredStores.filter((item) => item.hasOwnProperty(f) && item[f] === 1) 
+    //     filteredStores = filteredStores.filter((item) => item.hasOwnProperty(f) && item[f] === 1)
     //   })
     //   console.log(filteredStores);
     //   // console.log(noneStores);
@@ -104,7 +117,6 @@ export default function LeftMenu(props) {
     // }
 
     // console.log(stores);
-
   }, [props.stores, filter]);
   // }, [stores])
 
@@ -113,28 +125,14 @@ export default function LeftMenu(props) {
   // 둘다 함 수는 만들어야함
 
   function formatPhoneNumber(phoneNumber) {
-    const cleaned = ('' + phoneNumber).replace(/\D/g, '');
+    const cleaned = ("" + phoneNumber).replace(/\D/g, "");
     const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
-    return cleaned.replace(regex, '$1-$2-$3');
+    return cleaned.replace(regex, "$1-$2-$3");
   }
 
   return (
     <>
-      <div
-        className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
-          menuOpen ? "w-1/4 sm:w-3/4" : "w-14 sm:w-3"
-        } opacity-100 transition-all duration-400 ease-in-out`}
-      >
-        {/* 이거 부드럽게 애니메이션 주기 */}
-
-        {/* 화살표(펼치기) 버튼 */}
-        <BsArrowLeftShort
-          className={`z-10 bg-white text-slate-400 text-6xl rounded-full absolute -right-8 top-1/3 border-4 border-slate-200 cursor-pointer 
-          transition-all duration-500 hover:text-slate-600 
-          ${!menuOpen && "rotate-180"}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-        />
-
+      <div className="bg-slate-50 h-svh z-10 p-5 pt-8 absolute opacity-100 transition-all duration-400 ease-in-out">
         <div
           className={`${
             !menuOpen && "opacity-0 transition-all duration-400 ease-in-out"
@@ -179,8 +177,6 @@ export default function LeftMenu(props) {
           <section>
             <h1 className="font-bold text-lg py-4">매장 카테고리 선택</h1>
             <StoreCategories handleCategories={setChosenCategories} />
-            <button type="button" onClick={()=>console.log(stores)}>클릭</button>
-
           </section>
         </div>
 
@@ -203,25 +199,25 @@ export default function LeftMenu(props) {
           {stores &&
             stores.map((store, k) => (
               <li key={k}>
-                <h5 className="font-semibold">{store.name}</h5>
+                <button
+                  className="hover:text-sub-orange"
+                  onClick={() => storeselect(store.name)}
+                >
+                  <h5 className="font-semibold">{store.name}</h5>
+                </button>
                 <p>{store.address}</p>
                 <p>
                   <FaPhone className="inline" />
                   &nbsp;&nbsp;
-                  {
-                    store.tel !== "None" ?  formatPhoneNumber(store.tel) : "전화 ✖"
-                  }
+                  {store.tel !== "None"
+                    ? formatPhoneNumber(store.tel)
+                    : "전화 ✖"}
                 </p>
-                <Link to={`/storeproductlist/${store.id}/${store.name}`} 
-                      className="flex items-center hover:text-main-orange transition duration-200">
-                  <FaStore className="inline" />&nbsp;매장 재고 보러가기
-                </Link>
                 <br />
                 <hr />
                 <br />
               </li>
-            ))
-          }
+            ))}
         </ul>
       </div>
     </>
