@@ -1,7 +1,6 @@
-
 import axios from "axios";
 import { useEffect, useRef, useState, Fragment } from "react";
-import { renderToString } from 'react-dom/server';
+import { renderToString } from "react-dom/server";
 
 // 왼쪽 메뉴바
 import LeftMenu from "./LeftMenu/LeftMenu";
@@ -154,54 +153,60 @@ export default function StoreMap() {
           // });
 
           // 마커 클릭 시 InfoWindow 표시
-          window.naver.maps.Event.addListener(marker, 'click', function() {
+          window.naver.maps.Event.addListener(
+            marker,
+            "click",
+            function () {
+              function formatPhoneNumber(phoneNumber) {
+                const cleaned = ("" + phoneNumber).replace(/\D/g, "");
+                const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
+                return cleaned.replace(regex, "$1-$2-$3");
+              }
 
-            function formatPhoneNumber(phoneNumber) {
-              const cleaned = ('' + phoneNumber).replace(/\D/g, '');
-              const regex = /^(\d{3})(\d{3})(\d{4,5})$/;
-              return cleaned.replace(regex, '$1-$2-$3');
-            }
+              // InfoWindow의 콘텐츠를 동적으로 생성하는 함수
+              const generateInfoWindowContent = (store) => {
+                return renderToString(
+                  <Fragment>
+                    <div style={{ padding: "10px" }}>
+                      <p>
+                        <span className="font-semibold">{store.name}</span>
+                        <br />
+                        {store.tel !== "None" ? (
+                          <span className="font-medium text-sm">
+                            <FaPhone className="inline" />
+                            &nbsp;{formatPhoneNumber(store.tel)}
+                          </span>
+                        ) : (
+                          <span className="text-xs">
+                            <FaPhone className="inline" /> 전화 ✖
+                          </span>
+                        )}
+                        <br />
+                        <span className="text-sm">{store.address}</span>
+                      </p>
+                    </div>
+                  </Fragment>
+                );
+              };
 
-            // InfoWindow의 콘텐츠를 동적으로 생성하는 함수
-            const generateInfoWindowContent = (store) => {
-              return renderToString(
-                <Fragment>
-                  <div style={{ padding: '10px' }}>
-                    <p>
-                      <span className="font-semibold">{store.name}</span>
-                      <br />
-                      {
-                        store.tel !== "None" ?
-                        <span className="font-medium text-sm"><FaPhone className="inline" />&nbsp;{formatPhoneNumber(store.tel)}</span>
-                        :
-                        <span className="text-xs"><FaPhone className="inline" /> 전화 ✖</span>
-                      }
-                      <br />
-                      <span className="text-sm">{store.address}</span>
-                    </p>
-                  </div>
-                </Fragment>
-              );
-            };
-            
-            const infoWindow = new window.naver.maps.InfoWindow({
-              content: generateInfoWindowContent(store),
-              maxWidth: 200,
-              backgroundColor: "#ffffff",
-              anchorSkew: true,
-            });
-            
-            if (infoWindow.getMap()) {
-              infoWindow.close();
-            } else {
-              infoWindow.open(map, marker);
-              map.panTo(marker.getPosition());
-            }
+              const infoWindow = new window.naver.maps.InfoWindow({
+                content: generateInfoWindowContent(store),
+                maxWidth: 200,
+                backgroundColor: "#ffffff",
+                anchorSkew: true,
+              });
 
-          }, { passive: true });
+              if (infoWindow.getMap()) {
+                infoWindow.close();
+              } else {
+                infoWindow.open(map, marker);
+                map.panTo(marker.getPosition());
+              }
+            },
+            { passive: true }
+          );
 
           return marker;
-
         });
 
         // markersRef.current = storeData.map(
@@ -261,6 +266,7 @@ export default function StoreMap() {
     <div className="">
       {/* LeftMenu에 prop로 값 넘겨주세요 */}
       {storesInMap ? <LeftMenu stores={storesInMap} /> : ""}
+
       {/* <LeftMenu stores={ storesInMap } /> */}
       <div id="map" className="h-svh"></div>
     </div>
