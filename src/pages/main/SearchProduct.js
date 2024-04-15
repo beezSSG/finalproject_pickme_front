@@ -145,7 +145,7 @@ const SearchProduct = () => {
                 </p>
                 <Link>
                   <img src={ConvIcon_top} alt="간편식사 카테고리 아이콘 top" 
-                      className='z-10 translate-y-[55%] scale-[80%] transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' />
+                      className='z-10 translate-y-[55%] scale-[80%] transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-[10%] group-hover:translate-y-[25%] group-hover:rotate-45 transform' />
                   <img src={ConvIcon_btm} alt="간편식사 카테고리 아이콘 bottom" className='scale-[85%]' />
                 </Link>
               </div>
