@@ -173,7 +173,8 @@ const SearchProduct = () => {
                   onMouseEnter={() => setDonutHovered(true)}
                   onMouseLeave={() => setDonutHovered(false)}
                 >
-                <p className="absolute mb-2 sm:py-3 p-3 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute mb-2 sm:py-3 p-3 sm:p-0 sm:w-full top-[18%] sm:top-0 left-[55%] text-center 
+                              text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-300">
                   과자류
                 </p> 
