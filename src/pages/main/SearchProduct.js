@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 // 즉석조리 - 컵라면
@@ -32,6 +33,8 @@ import egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
 
 
 const SearchProduct = () => {
+  const [hovered, setHovered] = useState(false);
+  
   return (
     <>
       <div className="bg-white drop-shadow-2xl rounded-2xl m-auto mb-11">
@@ -147,8 +150,16 @@ const SearchProduct = () => {
               
               {/* 과자류 */}
               <div className='px-5 flex flex-col items-center justify-center group'
+                  onMouseEnter={() => setHovered(true)}
+                  onMouseLeave={() => setHovered(false)}
                 >
+                <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#EB3349] group-hover:text-white transition duration-300">
+                  과자류
+                </p> 
                 <Link>
+                  <img src={hovered ? SnackIcon_af : SnackIcon_bf}  alt="" className='transition duration-300' />
+                </Link>
               </div>
 
               {/* 아이스 */}
