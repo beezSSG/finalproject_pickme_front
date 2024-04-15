@@ -1,4 +1,6 @@
 
+import { Link } from 'react-router-dom';
+
 // 즉석조리 - 컵라면
 import InstantIcon_top from "../../assets/imgs/main/searchProduct/instant/instant_top.svg";
 import InstantIcon_body from "../../assets/imgs/main/searchProduct/instant/instant_body.svg";
@@ -112,11 +114,69 @@ const SearchProduct = () => {
             > */}
           </form>
 
+          <section className="mt-10">
+            <div className='flex items-center'>
+              {/* 음료 */}
+              <div className='sm:px-0 px-16'>
+                <Link>
+                  <img src={InstantIcon_top} alt='' className='' />
+                  <img src={InstantIcon_body} alt='' className='' />
+                </Link>
+              </div>
 
-          {/* 상품 카테고리 */}
-          <section>
+              {/* 간편식사 */}
+              <div className='sm:px-0 px-16'>
+                <Link>
+                  <img src={InstantIcon_top} alt="" />
+                  <img src={InstantIcon_body} alt="" />
+                </Link>
+              </div>
+              
+              {/* 즉석조리 */}
+              <div className='px-16'>
+                <Link>
+                  <img src={InstantIcon_top} alt="" />
+                  <img src={InstantIcon_body} alt="" />
+                </Link>
+              </div>
 
+              
+            </div>
+
+            <div className='flex mt-20 items-center'>
+              
+              {/* 과자류 */}
+              <div className='px-5 flex flex-col items-center justify-center group'
+                >
+                <Link>
+              </div>
+
+              {/* 아이스 */}
+              <div className='sm:px-0 px-5'>
+                <Link>
+                  <img src={InstantIcon_top} alt="" />
+                  <img src={InstantIcon_body} alt="" />
+                </Link>
+              </div>
+
+              {/* 식품 */}
+              <div className='sm:px-0 px-5'>
+                <Link>
+                  <img src={InstantIcon_top} alt="" />
+                  <img src={InstantIcon_body} alt="" />
+                </Link>
+              </div>
+
+              {/* 생활용품 */}
+              <div className='sm:px-0 px-5'>
+                <Link>
+                  <img src={InstantIcon_top} alt="" />
+                  <img src={InstantIcon_body} alt="" />
+                </Link>
+              </div>
+            </div>
           </section>
+          
         </div>
       </div>
     </>
