@@ -182,7 +182,11 @@ const SearchProduct = () => {
                     </p>
                     <img src={egg_behind} alt="" />
                   </div>
-                  <img src={egg_front} alt="" className='absolute top-0 left-0 scale-90 group-hover:-translate-y-56 transition duration-300 ease-in-out' />
+                  <img 
+                    src={egg_front} 
+                    alt="" 
+                    className='absolute top-0 left-0 scale-90 transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' 
+                  />
                 </Link>
               </div>
 
