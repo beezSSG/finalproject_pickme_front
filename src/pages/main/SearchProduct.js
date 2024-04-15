@@ -117,7 +117,9 @@ const SearchProduct = () => {
             > */}
           </form>
 
-          <section className="mt-10">
+          {/* 상품 카테고리 아이콘 */}
+          {/* bg-[#FFEFBA] */}
+          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
             <div className='flex items-center'>
               {/* 음료 */}
               <div className='sm:px-0 px-16'>
