@@ -19,6 +19,7 @@ function Productdetail(){
     const [product, setProduct] = useState();
     const navigate = useNavigate();
     const [productCategory, setProductCategory] = useState('');
+    const [productPromotionType, setProductPromotionType] = useState(0);
 
     // 받을 데이터를 읽어 들이는 처리가 끝났는지 확인
     const [loading, setLoading] = useState(false);
@@ -126,6 +127,7 @@ function Productdetail(){
                 setId(id);
                 setProduct(resp.data);
                 setCategory(resp.data.categoryId);
+                setProductPromotionType(resp.data.promotionType);
 
                 setLoading(true);
             })
@@ -268,7 +270,6 @@ function Productdetail(){
         }, 500);
     };
 
-
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////// useEffect //////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -357,10 +358,16 @@ function Productdetail(){
             <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap sm:justify-center
                             min-w-[350px] max-w-[1100px]">
 
-                <div name="prodDetailPic" style={{ position: 'relative', maxWidth: '400px', maxHeight: '400px' }}>
+                <div name="prodDetailPic" className="relative max-w-[400px] max-h-[400px]">
                     <img src={product.url} className="max-w-[350px] max-h-[350px] m-5"/>
-
+                    {productPromotionType === 1 && (
+                        <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 p-2 rounded-full
+                                        px-5 select-none">
+                            <p className='text-3xl font-bold text-gray-800'>1+1</p>
+                        </div>
+                    )}
                 </div>
+
 
                 <div name="prodDetailText" className='lg:ml-20'>
                     <p name="tit" className='font-bold mt-20 mb-5 text-3xl '> {product.name} </p>
