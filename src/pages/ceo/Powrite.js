@@ -22,7 +22,7 @@ const Powrite = () => {
     const [search, setSearch] = useState("");
 
     const getPowrite = () => {
-        axios.get("powriteCn")
+        axios.get("ceo/powriteCn")
             .then(function(resp){
                 console.log(resp); // 확인용
                 setCategoryList(resp.data);
@@ -91,7 +91,7 @@ const Powrite = () => {
         setCounters(counters.filter(() => counters));
       };
 
-          // 체크박스를 토글하는 함수
+    // 체크박스를 토글하는 함수
     const handleCheckboxChange = (id, isChecked) => {
         setCheckboxValues({
             ...checkboxValues,
@@ -208,12 +208,12 @@ const Powrite = () => {
                             console.log(item.id);
 
                             return (
-                            <div key={i} className='bg-slate-300 grid grid-cols-2'>
+                            <div key={i} className='bg-yellow-400 grid grid-cols-2'>
                                     <p>{productList[i]}</p>
                                     <button onClick={() => increaseCounter(i)}>+</button>
                                     {counters[i]}
                                     <button onClick={() => decreaseCounter(i)}>-</button>
-                                <div className='bg-slate-500' onClick={() => onRemove(i)} >
+                                <div className='bg-yellow-400' onClick={() => onRemove(i)} >
                                 X</div>
                             </div>
                             );
