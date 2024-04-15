@@ -9,6 +9,8 @@ import Toast from "../public/Toast";
 import star2 from "../../assets/imgs/product/star2.png";
 import { CgProfile } from "react-icons/cg";
 
+// 화면 쪼그라들기 시작할 시점
+const mobileWidth = 680; 
 
 function Productdetail(){
     let params = useParams();
@@ -53,8 +55,23 @@ function Productdetail(){
 
       recentlyProduct(params.id);
 
+    
+
+      onResize();
+      window.addEventListener('resize', onResize);
+
+      return () => {
+        window.removeEventListener('resize', onResize);
+      };
     }, []);
 
+
+    // 화면 고정 상태로 축소되도록 하는 함수
+    function onResize (){
+        const zoom = Math.min(window.innerWidth / mobileWidth, 1);
+        //document.documentElement.style.zoom = `${zoom}`;
+    };
+    
     // 뒤로가기 버튼
     function backBtn(){
         navigate(-1); // 바로 이전 페이지로 이동, '/main' 등 직접 지정도 당연히 가능
@@ -113,7 +130,7 @@ function Productdetail(){
                 setLoading(true);
             })
             .catch(function(err){
-                alert('error');
+                alert('getProduct error');
             })
     };
 
@@ -179,7 +196,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('error');
+                alert('reviewInsert error');
             })
     };
 
@@ -195,7 +212,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('error');
+                alert('reviewDelete error');
             })
     };
 
@@ -212,7 +229,7 @@ function Productdetail(){
         setReviewCnt(resp.data);
         })
         .catch(()=>{
-        alert('error');
+        alert('productRatingAvg error');
         })
     };
 
@@ -224,7 +241,7 @@ function Productdetail(){
             setReviewList(resp.data);
         })
         .catch(()=>{
-        alert('error');
+        alert('productReviewList error');
         })
 
         // 이미 후기 작성했는지 체크
@@ -236,7 +253,7 @@ function Productdetail(){
             }
         })
         .catch(()=>{
-        alert('error');
+        alert('productReviewCheck error');
         })
         
     };
@@ -264,9 +281,6 @@ function Productdetail(){
         productRatingAvg(params.id);
 
     }, []);
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////// useEffect //////////////////////////////////////////////////
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
     if(loading === false){
@@ -340,14 +354,15 @@ function Productdetail(){
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     return(
         <div align="center">
-            <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap ">
+            <div className="prodDetail rounded-xl border border-spacing-2 p-3 mx-48 flex sm:m-5 sm:flex-wrap sm:justify-center
+                            min-w-[350px] max-w-[1100px]">
 
                 <div name="prodDetailPic" style={{ position: 'relative', maxWidth: '400px', maxHeight: '400px' }}>
-                    <img src={product.url} style={{ maxWidth: '380px', maxHeight: '380px', margin: '10px' }} />
+                    <img src={product.url} className="max-w-[350px] max-h-[350px] m-5"/>
 
                 </div>
 
-                <div name="prodDetailText" className='ml-20'>
+                <div name="prodDetailText" className='lg:ml-20'>
                     <p name="tit" className='font-bold mt-20 mb-5 text-3xl '> {product.name} </p>
                     <hr/><br/>
                     <div name="prodInfo" >
@@ -367,43 +382,40 @@ function Productdetail(){
                             </dd>
                         </dl>
                         <hr/><br/>
-                        <dl style={{ display: 'flex' }}>
-                            <dd>
+                        <div className='flex sm:flex-col '>
+                            <div>
                                 {zzim === false ?
                                 (
                                     <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl p-1.5
                                     dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
                                         🤍
                                     </button>
                                 ) :
                                 (
                                     <button className="focus:outline-none bg-red-400 hover:bg-yellow-500
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl px-5 py-1.5 me-2 mb-2
+                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl p-1
                                     dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
                                         ❤
                                     </button>
                                 )}
-                            </dd>
-                            <dd>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
-                                                    dark:focus:ring-yellow-900"onClick={()=>(giftClick())}>선물하기🎁</button>
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
+                                                    dark:focus:ring-yellow-900" onClick={()=>(giftClick())}>선물하기🎁</button>
                                 <GiftModal isOpen={giftModalIsOpen} closeModal={() => setGiftModalIsOpen(false)}
                                     productId={product.id} productName={product.name} productPrice={product.price} productUrl={product.url} />
-                            </dd>
-                            <dd>
+                            </div>
+                            <div>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
                                                     dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
                                 <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
-                            </dd>
-                            <dd>
+
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg px-5 py-2.5 me-2 mb-2
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
                                                     dark:focus:ring-yellow-900" onClick={()=>backBtn()}>목록</button>
-                            </dd>
-                        </dl>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -412,12 +424,12 @@ function Productdetail(){
 
             {/* 후기 나타나는 table */}
 
-            <div className="prodReview rounded-xl p-3 mx-48 sm:m-5 sm:flex-wrap ">
+            <div className="prodReview rounded-xl p-3 mx-48 sm:m-5 sm:flex-wrap max-w-[750px]">
 
-                <div name="prodReviewHeader " align="left" style={{ width: '750px'}}>
+                <div name="prodReviewHeader " align="left">
                     <p className='font-bold text-xl mb-2'>상품평</p>
                 </div>
-                <div name="prodReviewAvg" align="left" style={{ width: '750px', display: 'flex'}}>
+                <div name="prodReviewAvg" align="left" style={{ display: 'flex'}}>
                     {Array.from({ length: product.productRating }, (_, index) => (
                     <span key={index} style={{ display: 'inline-block' }}>
                         <img src={star2} style={{ maxWidth: '30px', maxHeight: '30px', margin: '3px' }} />
@@ -427,17 +439,17 @@ function Productdetail(){
                 </div>
 
                 {localStorage.getItem('jwt') !== null && reviewCheck === 0 &&(
-                <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ width: '800px', height: '110px' }}>
+                <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ height: '110px' }}>
                     <div name="writerInbox">
-                        <textarea placeholder='후기를 남겨보세요' rows={2}
-                                style={{overflow: 'hidden', overflowWrap: 'break-word', width: '700px', height: '50px', resize: 'none', outline: 'none'}}
+                        <textarea placeholder='후기를 남겨보세요' rows={2} className='min-w-[550px]'
+                                style={{overflow: 'hidden', overflowWrap: 'break-word', height: '50px', resize: 'none', outline: 'none'}}
                                 value={reviewContent}
                                 onChange={(e) => setReviewContent(e.target.value)} />
                     </div>
                     <div name="writerAttach" className="flex justify-between">
                         <div className="flex items-center me-2 mb-2">
-                        <select className="ml-2 border border-gray-300 rounded-md px-2 py-1 focus:outline-none text-yellow-500"
-                                style={{ maxWidth: '120px' }}
+                        <select className="ml-2 border border-gray-300 rounded-md px-2 py-1 focus:outline-none text-yellow-500
+                                            min-w-[120px]"
                                 value={reviewRating}
                                 onChange={handleRatingChange}>
                             <option value={5}>★★★★★</option>

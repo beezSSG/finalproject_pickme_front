@@ -79,7 +79,7 @@ function Productlist() {
 
     function onResize (){
       const zoom = Math.min(window.innerWidth / mobileWidth, 1);
-      document.documentElement.style.zoom = `${zoom}`;
+      //document.documentElement.style.zoom = `${zoom}`;
     };
 
     const handleScroll = () => {
@@ -105,15 +105,15 @@ function Productlist() {
     <div>
 
       <div name="title" align="center" className='mt-5 mb-10'>
-        <p className='font-bold text-3xl'>
+        <p className='font-bold text-3xl text-gray-800'>
           전체 상품 목록
         </p>
       </div>
 
       <div id='contents' className='flex min-w-[430px]'>
       
-        <div id="sort" className='w-2/12 min-h-[480px] relative top-0'>
-          <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-3 right-5'>
+        <div id="sort" className='w-5/12 min-h-[480px] relative top-0'>
+          <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-3 right-0'>
             <ul className='prodInfo m-4 p-2' align="center">
               <li id='sort_00' className={`${category === 0 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
                                 cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(0)}>
@@ -178,27 +178,27 @@ function Productlist() {
             <div id='priceSearch'></div>
             
             <div id='nameSearch' align="center">
-              <div className='flex mb-5'>
+              <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
                       <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg w-2/3'
                           value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                          font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
                                           dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </div>
-                  <div className='flex items-center'>
-                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                          font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
+                  <div className='flex items-center justify-center'>
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
-                      <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                          font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
                   </div>
               </div>
             </div>
           </div>
 
-          <div id='productList' className='flex flex-wrap justify-start gap-4 p-4 max-w-[1200px] min-h-[480px]'>
+          <div id='productList' className='flex flex-wrap justify-center gap-4 p-4 max-w-[1200px] min-h-[480px]'>
             {productlist.length > 0 && (
               // Use a for loop to create table rows
               (() => {
@@ -219,7 +219,7 @@ function Productlist() {
                             <img src={product.url} className="w-5/6 h-5/6 object-cover hover:scale-110 transition duration-300" />
                           <br/>
                           <hr/>
-                            <p className='mt-5'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
+                            <p className='mt-5 font-semibold'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
                             <p>{product.price.toLocaleString()}원</p>
                             <p>
                               {product.productRating === 0 ? (
@@ -249,7 +249,7 @@ function Productlist() {
           </div>
 
           <div id='pagination' className='max-w-[1200px] bottom-0'>
-            <Pagination className=""
+            <Pagination
             itemClass='page-item'
             linkClass='page-link' 
             activePage={page}           // 현재 활성화 된 페이지 번호
