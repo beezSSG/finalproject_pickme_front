@@ -178,10 +178,10 @@ const SearchProduct = () => {
               </div>
 
               {/* 아이스 */}
-              <div className='sm:px-0 px-5'>
+              <div className='sm:px-0'>
                 <Link>
-                  <img src={InstantIcon_top} alt="" />
-                  <img src={InstantIcon_body} alt="" />
+                  <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" className='scale-[70%]' />
+                  {/* <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" /> */}
                 </Link>
               </div>
 
