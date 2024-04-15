@@ -121,7 +121,7 @@ const SearchProduct = () => {
           {/* 상품 카테고리 아이콘 */}
           {/* bg-[#FFEFBA] */}
           <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
-            <div className='flex items-center'
+            <div className='flex justify-between items-end'
               >
               {/* 음료 */}
               <div className='sm:px-0 flex flex-col items-center justify-center relative group'
@@ -161,7 +161,7 @@ const SearchProduct = () => {
               
             </div>
 
-            <div className='flex mt-20 items-center'>
+            <div className='flex items-center justify-between'>
               
               {/* 과자류 */}
               <div className='relative group'
