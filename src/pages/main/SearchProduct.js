@@ -18,18 +18,18 @@ import SnackIcon_bf from "../../assets/imgs/main/searchProduct/snack/snackBF.svg
 import SnackIcon_af from "../../assets/imgs/main/searchProduct/snack/snackAF.svg";
 
 // 생활용품 - 세제
-import householdIcon_top from "../../assets/imgs/main/searchProduct/household/household_top.svg";
-import householdIcon_body from "../../assets/imgs/main/searchProduct/household/household_body.svg";
+import Household_top from "../../assets/imgs/main/searchProduct/household/household_top.svg";
+import Household_body from "../../assets/imgs/main/searchProduct/household/household_body.svg";
 import Bubble_bf from "../../assets/imgs/main/searchProduct/household/bubbleBF.svg";
 import Bubble_af from "../../assets/imgs/main/searchProduct/household/bubbleAF.svg";
 
 // 음료 - 캔음료
-import drink_bf from "../../assets/imgs/main/searchProduct/drink/drink_body.svg";
-import drink_af from "../../assets/imgs/main/searchProduct/drink/drink.svg";
+import Drink_bf from "../../assets/imgs/main/searchProduct/drink/drink_body.svg";
+import Drink_af from "../../assets/imgs/main/searchProduct/drink/drink.svg";
 
 // 식품 - 삶은 계란
-import egg_behind from "../../assets/imgs/main/searchProduct/food/eggLeft.svg";
-import egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
+import Egg_behind from "../../assets/imgs/main/searchProduct/food/eggLeft.svg";
+import Egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
 
 
 const SearchProduct = () => {
@@ -180,10 +180,10 @@ const SearchProduct = () => {
                               group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-0 left-1/3">
                       식품
                     </p>
-                    <img src={egg_behind} alt="" />
+                    <img src={Egg_behind} alt="" />
                   </div>
                   <img 
-                    src={egg_front} 
+                    src={Egg_front} 
                     alt="" 
                     className='absolute top-0 left-0 scale-90 transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-28 group-hover:translate-y-9 group-hover:rotate-45 transform' 
                   />
