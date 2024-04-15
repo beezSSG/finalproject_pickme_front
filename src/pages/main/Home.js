@@ -1,4 +1,3 @@
-import GuideAndSc from "./GuideAndSc.js";
 import MyStoreProducts from "./MyStoreProducts.js";
 import Promotion from "./Promotion.js";
 import AdProductSet from "./AdProductSet.js";
@@ -7,6 +6,7 @@ import Chatbot from "../customerservice/Chatbot.js";
 import { useState } from "react";
 import cutechatbot from "../../assets/imgs/chatbot/bee.gif";
 import { ImCancelCircle } from "react-icons/im";
+import MainPickBox from "./MainPickBox.js";
 
 const Home = () => {
   const [modal, setModal] = useState(false);
@@ -21,6 +21,9 @@ const Home = () => {
       <main className="relative">
         <div className="py-4">
           <section className="container mx-auto w-screen mb-4">
+            <MainPickBox />
+          </section>
+          <section className="container mx-auto w-screen mb-4">
             <Promotion />
           </section>
           <section className="container mx-auto w-screen mb-4">
@@ -32,9 +35,10 @@ const Home = () => {
           <section className="container mx-auto w-screen mb-4">
             <SearchProduct />
           </section>
-          <section className="container mx-auto w-screen mb-4">
+          {/* 사용안함으로 인한 주석처리 */}
+          {/* <section className="container mx-auto w-screen mb-4">
             <GuideAndSc />
-          </section>
+          </section> */}
           {modal ? (
             <div className="fixed bottom-9 right-4">
               <ImCancelCircle
