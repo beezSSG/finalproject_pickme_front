@@ -7,30 +7,29 @@ const SearchProduct = () => {
             <h1 className="text-2xl font-bold tracking-tight text-gray-900">
               상품찾기
             </h1>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h2 className="text-2xl font-bold tracking-tight text-slate-500 hover:text-slate-900 transition duration-300">
               <button>더보기</button>
             </h2>
           </div>
-          <form className="flex items-center mx-auto px-8 py-8">
+          <form className="flex items-center justify-center">
             <label htmlFor="voice-search" className="sr-only">
               Search
             </label>
-            <div className="relative w-1/3">
-              {/* <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none"></div> */}
+            <div className="relative w-screen">
               <input
                 type="text"
-                id="voice-search"
+                // id="voice-search"
                 className="py-6 bg-gray-50 border border-gray-300 text-gray-900 text-base rounded-lg 
                           focus:border-gray-300 focus-visible:ring-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-300 
-                          hover:drop-shadow-xl duration-300 ease-in-out
-                          block w-full ps-10 p-2.5"
-                placeholder="상품을 입력하세용"
+                          hover:drop-shadow-xl duration-300 ease-in-out text-center
+                          block w-full ps-10 p-7"
+                placeholder="찾고 싶은 상품을 입력하세요"
                 required
               />
 
               <div>
                 {/* 음성검색 버튼 */}
-                <button
+                {/* <button
                   type="button"
                   className="absolute inset-y-0 end-0 flex items-center pe-12
                             text-gray-400 hover:text-gray-700 transition-colors duration-400 ease-in-out "
@@ -49,10 +48,9 @@ const SearchProduct = () => {
                       d="M12 18.75a6 6 0 0 0 6-6v-1.5m-6 7.5a6 6 0 0 1-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 0 1-3-3V4.5a3 3 0 1 1 6 0v8.25a3 3 0 0 1-3 3Z"
                     />
                   </svg>
-                </button>
+                </button> */}
 
                 {/* 검색 버튼 */}
-                {/* styled-comp 생성 필요해보임 */}
                 <button
                   type="button"
                   className="absolute inset-y-0 end-0 flex items-center pe-4
