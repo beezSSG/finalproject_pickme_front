@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import CheckModal from "./CheckModal";
 
 export default function PostCheck() {
   const [postcheck, setPostCheck] = useState([]);
@@ -35,6 +36,7 @@ export default function PostCheck() {
             <th className="w-1/4 py-2">금액</th>
             <th className="w-1/4 py-2">날짜</th>
             <th className="w-1/4 py-2">승인여부</th>
+            <th className="w-1/4 py-2">확인</th>
           </tr>
         </thead>
         <tbody>
@@ -43,9 +45,12 @@ export default function PostCheck() {
                <td className="text-center py-3">{group.customerName}</td>
               <td className="text-center py-3">{group.itemCategory}</td>
               <td className="text-center py-3">{group.itemWeight}</td>
-              <td className="text-center py-3">{group.totalPrice}</td>
+              <td className="text-center py-3">{group.totalPrice.toLocaleString()}원</td>
               <td className="text-center py-3">{group.date}</td>
               <td className="text-center py-3">{group.postYn}</td>
+              <td className="text-center py-3">
+              <CheckModal/>
+              </td>
             </tr>
           ))}
         </tbody>
