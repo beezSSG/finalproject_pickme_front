@@ -204,10 +204,15 @@ const SearchProduct = () => {
               </div>
 
               {/* 생활용품 */}
-              <div className='sm:px-0 px-5'>
+              <div className='sm:px-0 group relative'>
+                <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
+                          group-hover:bg-[#22c1c3] group-hover:text-white transition duration-300 absolute top-8 right-[40%]">
+                  생활용품
+                </p>
                 <Link>
-                  <img src={InstantIcon_top} alt="" />
-                  <img src={InstantIcon_body} alt="" />
+                  <img src={Household_top} alt="생활용품 카테고리 아이콘 top" 
+                        className='scale-[20%] translate-y-[55%] -translate-x-[14%] transition duration-300 ease-in-out group-hover:translate-x-4 group-hover:-translate-y-9 group-hover:rotate-45 transform' />
+                  <img src={Household_body} alt="생활용품 카테고리 아이콘 body" className='scale-90' />
                 </Link>
               </div>
             </div>
