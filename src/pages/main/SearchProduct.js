@@ -122,11 +122,12 @@ const SearchProduct = () => {
           {/* bg-[#FFEFBA] */}
           <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
             <div className='flex items-center'
-                  onMouseEnter={() => setDrinkHovered(true)}
-                  onMouseLeave={() => setDrinkHovered(false)}
               >
               {/* 음료 */}
-              <div className='sm:px-0 px-16 flex flex-col items-center justify-center group'>
+              <div className='sm:px-0 px-16 flex flex-col items-center justify-center group'
+                    onMouseEnter={() => setDrinkHovered(true)}
+                    onMouseLeave={() => setDrinkHovered(false)}
+                >
                 <p className="inline-block sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#EB3349] group-hover:text-white transition duration-300">
                   음료
