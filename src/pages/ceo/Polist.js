@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 import axios from 'axios';
+import Pocheckmodal from './Pocheckmodal';
+
 // import GlobalStyle from './styles/GlobalStyle';
 
 // import "./Polist.css";
@@ -9,6 +11,7 @@ import axios from 'axios';
 function Polist(){
     const [polist, setPolist] = useState([]);
     const [deleteProduct, setDeleteProduct] = useState([]);
+    
 
     // 검색
     const [choice, setChoice] = useState("");
@@ -52,10 +55,11 @@ function Polist(){
         getPolist(choice, search, page-1);
     }
 
-    // 승인확인 버튼을 누르면 발생하는 함수
+    // 그동안 잠깐 프론트적으로 필요한건 있어요? 아까 모달창 대충 보여드릴까요? 넵 모달창 사용할 위치로 이동해주세요
+    // 승인확인 버튼을 누르면 발생하는 함수 -> 승인 누르고 모달 나왔으면 좋겠습니다
     function con(po) {
       alert(po.poYn);
-        // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
+        // #1. 화면에서 승인이 완료된 물품을 사라지게 하기ㅠㅠ
         const params = {"id": po.id};
           axios.post("ceo/deleteProduct", null, {params:params})
           .then(response => {
@@ -138,9 +142,12 @@ function Polist(){
                       <td className='text-center py-4'>{ po.wdate }</td>
                       <td className='text-center py-4'>{ po.poYn > 0 ? '승인완료' : '승인대기중'}</td>  
                       <td>
-                        <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
-                        onClick={()=>{con(po)}}>승인확인</button>
-                                            </td> 
+                        {/* 여기에 모달을 추가하면 거기안에 버튼까지 있으니까 괜찮을 거예요 */}
+                        {/* 만약 모달에서 값을 전달해야하거나 전달받아야하면 아래의 컴포넌트에서 상호작용 하시면 됩니다 */}
+                        <Pocheckmodal />
+                        {/* <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
+                        onClick={()=>{con(po)}}>승인확인</button> */}
+                      </td> 
                   </tr>
                 );     
               })
@@ -169,7 +176,6 @@ function Polist(){
       </div>
     );
 }
-// 승인중 : 0 // 승인완료 : 1 -> 관리자가 승인중(0)을 보고 발주를 승인하면 승인완료라고 뜨게 하고 싶고 
-// 확인칸에 승인확인이라는 버튼이 나타나면서 승인 확인 버튼을 클릭하면 승인이 완료되었습니다라는 알림창이 뜨게 하고 싶습니다
+
 
 export default Polist;

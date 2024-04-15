@@ -26,13 +26,13 @@ export default function Inventory() {
 
       <table className="w-full table-fixed border-collapse">
         <thead>
-          <tr className="bg-gray-200">
-            <th className="w-1/3 py-2">상품 번호</th>
+          <tr className="bg-yellow-400 p-20">
+            <th className="w-1/6 py-2">번호</th>
             <th className="w-1/4 py-2">점포 이름</th>
-            <th className="w-1/4 py-2">상품 이름</th>
-            <th className="w-1/4 py-2">가격</th>
+            <th className="w-1/2 py-1">상품 이름</th>
+            <th className="w-1/5 py-2">가격</th>
             <th className="w-1/4 py-2">수량</th>
-            <th className="w-1/4 py-2">exp_date</th>
+            <th className="w-1/4 py-2">소비기한</th>
 
           </tr>
         </thead>
@@ -42,7 +42,7 @@ export default function Inventory() {
               <td className="text-center py-3">{group.id}</td>
               <td className="text-center py-3">{group.storeName}</td>
               <td className="text-center py-3">{group.productName}</td>
-              <td className="text-center py-3">{group.price}원</td>
+              <td className="text-center py-3">{group.price.toLocaleString()}원</td>
               <td className="text-center py-3">{group.quantity}개</td>
               <td className="text-center py-3">{group.expDate}</td>
             </tr>
