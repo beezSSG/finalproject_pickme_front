@@ -183,7 +183,7 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
                             <div className="rounded-xl border border-spacing-2 p-3 mx-48 sm:m-5 ">
                                 <div className='flex sm:flex-wrap items-center justify-center'>
                                     <div>
-                                        <img src={productUrl} style={{ maxWidth: '250px', maxHeight: '250px', margin: '3px' }} />
+                                        <img src={productUrl} className="w-[250px] h-[250px] sm:w-[125px] sm:h-[125px]" />
                                         <p className='font-bold mt-2 mb-5 '> {productName} </p>                              
                                     </div>
 
