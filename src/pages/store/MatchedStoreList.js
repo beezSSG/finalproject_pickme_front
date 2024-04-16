@@ -51,8 +51,10 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
         return dist;
     }
 
+
     useEffect(function () {
         matchedstorelist(params.id);
+
     }, [params.id]);
 
     return (

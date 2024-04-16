@@ -208,7 +208,10 @@ function Productdetail(){
         await axios.get("review/reviewDelete",
             { params:{ "productId":id, "id":listId }})
              .then((resp)=>{
-                alert(resp.data);
+                Toast.fire({
+                    icon: 'success',
+                    title: "후기 삭제 완료!",
+                  });
                 productRatingAvg(id);
                 setProductRating(product.productRating);
                 productReviewList(id);
@@ -392,37 +395,33 @@ function Productdetail(){
                             </dd>
                         </dl>
                         <hr/><br/>
-                        <div className='flex sm:flex-col '>
-                            <div>
+                        <div className='flex sm:flex-col'>
+                            <div className='flex' align="center">
                                 {zzim === false ?
                                 (
-                                    <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl p-1.5
-                                    dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
+                                    <button className="bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-2xl p-1.5 m-1"
+                                    onClick={() => zzimClick(product.id)}>
                                         🤍
                                     </button>
                                 ) :
                                 (
-                                    <button className="focus:outline-none bg-red-400 hover:bg-yellow-500
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-2xl p-1
-                                    dark:focus:ring-yellow-900"onClick={() => zzimClick(product.id)}>
+                                    <button className="bg-red-400 hover:bg-yellow-500font-medium rounded-lg text-2xl p-1.5 m-1"
+                                    onClick={() => zzimClick(product.id)}>
                                         ❤
                                     </button>
                                 )}
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
                                                     dark:focus:ring-yellow-900" onClick={()=>(giftClick())}>선물하기🎁</button>
                                 <GiftModal isOpen={giftModalIsOpen} closeModal={() => setGiftModalIsOpen(false)}
                                     productId={product.id} productName={product.name} productPrice={product.price} productUrl={product.url} />
-                            </div>
-                            <div>
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
                                                     dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
                                 <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
 
                                 <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
                                                     dark:focus:ring-yellow-900" onClick={()=>backBtn()}>목록</button>
                             </div>
                         </div>
@@ -451,7 +450,7 @@ function Productdetail(){
                 {localStorage.getItem('jwt') !== null && reviewCheck === 0 &&(
                 <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ height: '110px' }}>
                     <div name="writerInbox">
-                        <textarea placeholder='후기를 남겨보세요' rows={2} className='min-w-[550px]'
+                        <textarea placeholder='후기를 남겨보세요' rows={2} className='lg:w-[600px] sm:w-[340px]'
                                 style={{overflow: 'hidden', overflowWrap: 'break-word', height: '50px', resize: 'none', outline: 'none'}}
                                 value={reviewContent}
                                 onChange={(e) => setReviewContent(e.target.value)} />
@@ -484,7 +483,7 @@ function Productdetail(){
                             <div className="reviewListProfile flex sm:flex-wrap p-5 bg-orange-100 rounded-md" style={{ maxWidth: '800px' }}>
                                 <CgProfile size="40" color="#51abf3" />
                                 <div className='ml-2 text-left w-[100px]'>
-                                    <p>{review.name.substring(0, 1) + '*'.repeat(review.name.length - 2) + review.name.substring(review.name.length - 1)}</p>
+                                    <p className='w-[90px]'>{review.name.substring(0, 1) + '*'.repeat(review.name.length - 2) + review.name.substring(review.name.length - 1)}</p>
                                     <p>
                                         {Array.from({ length: review.rating }, (_, index) => (
                                             <span key={index} style={{ display: 'inline-block' }}>
@@ -493,7 +492,7 @@ function Productdetail(){
                                         ))}
                                     </p>
                                 </div>
-                                <div className="ml-20 text-left">
+                                <div className="lg:ml-20 sm:ml-3 text-left">
                                     <p>{review.content}</p>
                                 </div>
                                 {localStorage.getItem('jwt') !== null && cd === review.customerId && (
