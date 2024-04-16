@@ -179,8 +179,6 @@ export default function LeftMenu(props) {
           <section>
             <h1 className="font-bold text-lg py-4">매장 카테고리 선택</h1>
             <StoreCategories handleCategories={setChosenCategories} />
-            <button type="button" onClick={()=>console.log(stores)}>클릭</button>
-
           </section>
         </div>
 
@@ -196,7 +194,6 @@ export default function LeftMenu(props) {
           검색필터 접기 &nbsp;&nbsp;&nbsp;
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
-        {/* <button onClick={()=>{console.log(state); console.log(district); console.log(district)}}>도/시 구 state, 검색어 확인용</button> */}
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-3/6 overflow-y-auto">
