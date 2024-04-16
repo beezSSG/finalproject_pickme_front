@@ -125,16 +125,17 @@ const SearchProduct = () => {
             <div className='flex justify-between items-end'
               >
               {/* 음료 */}
-              <div className='sm:px-0 flex flex-col items-center justify-center relative group'
+              <div className='relative group'
                     onMouseEnter={() => setDrinkHovered(true)}
                     onMouseLeave={() => setDrinkHovered(false)}
                 >
-                <p className="absolute sm:py-3 p-2 top-1/2 right-[45%] z-10 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#E91235] group-hover:text-white transition duration-300">
+                <p className="absolute z-10 sm:left-[20%] sm:text-sm md:left-[30%] md:text-xl
+                            top-[45%] lg:left-[25%] lg:text-5xl text-center font-semibold text-transparent rounded-full 
+                            group-hover:text-white group-hover:mt-[11%] transition duration-200">
                   음료
                 </p>
                 <Link>
-                  <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className={`transition duration-300 w-[80%] ${drinkHovered ? "" : "mt-16"}`} />
+                  <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className='transition duration-300 w-[80%]' />
                 </Link>
               </div>
 
