@@ -18,18 +18,18 @@ module.exports = {
             opacity: "1",
           },
           "25%": {
-            transform: "translateX(-10px)",
+            transform: "translateX(-8px)",
           },
           "50%": {
-            transform: "translateX(10px)",
+            transform: "translateX(8px)",
           },
           "75%": {
-            transform: "translateX(-10px)",
+            transform: "translateX(-8px)",
           },
           "100%": {
             top: '5%',
             scale: '0.5',
-            transform: "translateX(10px)",
+            transform: "translateX(8px)",
             opacity: "0"
           },
         },
