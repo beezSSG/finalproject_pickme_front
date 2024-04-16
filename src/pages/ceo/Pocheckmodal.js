@@ -1,11 +1,13 @@
 import { useState, useRef } from "react";
 import { Modal, Button } from "antd";
 import axios from "axios";
+import Polist from "./Polist";
 
 
-export default function Pocheckmodal({po}) {
+export default function Pocheckmodal({getPolist, po}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, onChange] = useState(new Date()); // 초기값은 현재 날짜
+  const [deleteProduct, setDeleteProduct] = useState([]);
+  
 
   // 이함수는 모달을 껏다 켰다 하는 함수
   const onToggleModal = () => {
@@ -27,16 +29,19 @@ export default function Pocheckmodal({po}) {
   // 생각할점: 재고현황을 한번에 보는것과 먼저 상품으로 묶은뒤 상품을 클릭했을때 각기 주문한 수량 소비기한을 묶어서 보여주는것
   // #0. 승인완료 누를 때 실행되는 함수
   function con() {
-      // 받아야하는거 id, quantity, date(소비기한)
-      const params = {"id": po.id, "quantity": po.quantity};
+      // 받아야하는거 id, quantity, date(소비기한) 이렇게하면 완벽하게 끝! 이해가 안가는 부분 있을까요?
+      const params = {"id": po.id, "quantity": po.quantity, }; // 소비기한 , 스토어아이디
       // #1. purchase_order 테이블에 값을 주입
+      // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
+      // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
       axios.post("ceo/deleteProduct", null, {params:params})
         .then(resp => {
             // 응답을 받았을 때의 처리              
-
-            // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
-
-          })
+            // 아 함수가 여기 없는데 불러오고 싶다는 말이였군요 네 그래서 넘나 당ㅇ황스 
+            // setPolist는 polist.js에 있어요 거기에 데이터가 있는데 그냥 자식한테 다 넘겨주면 끝 보여드릴게요 이번거는
+            getPolist('', '', 0);
+                    
+         })
           .catch(err => {
             // 오류가 발생했을 때의 처리
             console.error(err);
