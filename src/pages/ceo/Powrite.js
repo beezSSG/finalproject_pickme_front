@@ -156,6 +156,10 @@ const Powrite = () => {
         console.log(categoryCN);
       }
 
+    // 수정해야할 부분 디자인 부분에서 카테고리안 상품이 많으니까 너무 밑으로내려감
+    // 크기를 제한하여 스크롤을 구현해야할듯...
+    // 기능적인 부분에서 얼만큼 구현했는지 확인하는게 중요 이부분은 확인해서 알려주세요
+
     return(
         <div>
             <div>
@@ -214,12 +218,12 @@ const Powrite = () => {
 
                             return (
                             <div key={i} className= 'rounded-2xl p-5 w-[400px] focus:ring-2 border-2 border-yellow-400'>
-                                    <span >
+                                <span >
                                     <p>{productList[i]}</p>
-                                    </span>
+                                </span>
                                     <div className="flex justify-center gap-2 text-xl sm:text-xs">
-                                    <div className='relative h-10 w-40 '>
-                                    <div >
+                                        <div className='relative h-10 w-40'>
+                                            <div>
                                     <span>    
                                     <button onClick={() => decreaseCounter(i)}><VscArrowCircleDown /></button>
                                     </span>
