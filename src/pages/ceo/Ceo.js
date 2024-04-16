@@ -6,7 +6,7 @@ import SalesChart from './SalesChart';
 import Inventory from './Inventory';
 import Pickup from './Pickup';
 import Postcheck from './PostCheck';
-import GroupBuying from './GroupBuying';
+
 
 export default function Ceo() {
 

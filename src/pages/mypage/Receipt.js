@@ -19,7 +19,7 @@ const Receipt = ({ onClose, payInfo }) => {
       <div className="fixed top-0 left-0 w-full h-full bg-gray-900 opacity-50 z-40"></div>
 
       {/* 모달 */}
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-4 rounded-md w-[35%] h-[70%] overflow-y-auto">
+      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white z-50 p-4 rounded-md w-[35%] h-[70%] overflow-y-auto sm:w-full">
         <div className="text-right">
           <button
             className="text-black hover:text-sub-yellow font-bold text-3xl"
@@ -45,7 +45,7 @@ const Receipt = ({ onClose, payInfo }) => {
                 <tr className="border-b border-t border-gray-400">
                   <th className="text-left py-2">상품명</th>
                   <th className="text-center">단가</th>
-                  <th className="text-center">수량</th>
+                  <th className="text-center sm:w-12">수량</th>
                   <th className="text-right">가격</th>
                 </tr>
               </thead>
@@ -59,7 +59,6 @@ const Receipt = ({ onClose, payInfo }) => {
                     <td className="text-center">{item.quantity}개</td>
                     <td className="text-right">
                       {(item.price * item.quantity).toLocaleString()}{" "}
-                      {/* 상품 가격 * 수량 */}
                     </td>
                   </tr>
                 ))}

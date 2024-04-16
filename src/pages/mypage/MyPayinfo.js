@@ -48,7 +48,7 @@ export default function MyPayinfo() {
     <div className="mx-auto w-[60%]">
       <p className="text-lg font-semibold mb-4">결제정보</p>
 
-      <table className="w-full table-fixed border-collapse">
+      <table className="w-full table-fixed border-collapse sm:hidden">
         <thead>
           <tr className="bg-gray-200">
             <th className="w-1/3 py-2">구매 내역</th>
@@ -86,6 +86,40 @@ export default function MyPayinfo() {
           ))}
         </tbody>
       </table>
+      <div className="w-full border-collapse xl:hidden lg:hidden">
+        {payInfo.map((group, index) => (
+          <div
+            key={index}
+            className="bg-gray-100 rounded-lg mb-4 overflow-hidden shadow-md"
+          >
+            <div className="px-2 py-4">
+              <p className="font-bold text-lg mb-2 text-center">
+                {group[0].pname}{" "}
+              </p>
+              <p className="font-bold text-lg text-center">
+                {group.length > 1 ? `외 ${group.length - 1}개` : ""}
+              </p>
+              <p className="text-gray-700 text-center">{group[0].date}</p>
+              <p className="text-gray-700 text-center">
+                {" "}
+                {group.reduce((total, item) => total + item.quantity, 0)}개
+              </p>
+            </div>
+            <div className="px-6 py-4">
+              <button
+                className="block w-full bg-sub-yellow text-white font-bold py-2 px-4 rounded-full focus:outline-none focus:shadow-outline hover:bg-sub-orange"
+                onClick={() => openModal(group)}
+              >
+                전자 영수증 보기
+              </button>
+              <button className="block w-full mt-2 text-red-600 hover:underline focus:outline-none focus:shadow-outline">
+                결제취소 요청
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
+
       {modalOpen && <Receipt onClose={closeModal} payInfo={selectedPayInfo} />}
     </div>
   );
