@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import React from 'react';
-import './powrite.css';
+import { VscArrowCircleDown, VscArrowCircleUp } from 'react-icons/vsc';
+import { TiDelete } from 'react-icons/ti';
 
 const Powrite = () => {
     const [categoryList, setCategoryList] = useState([]);
@@ -177,27 +178,30 @@ const Powrite = () => {
                 </table>
             </div>
             <div>
-                <div>카테고리</div>
+                <h3 class="mb-4 font-semibold text-gray-900 dark:text-white">카테고리</h3>
                 <div className='grid grid-cols-2 gap-8 rounded-2xl p-2'>
-                    <div>
-                        
+                <ul class="w-48 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                <li class="w-full border-b border-gray-200 rounded-t-lg dark:border-gray-600">
+
+    
                     {categoryCN.map((item, i) => {
 
                         console.log("카테고리 리스트 : ");
                         console.log(item);
 
                         return (
-                        <div key={item} className='grid grid-cols-2'>
+                        <div key={item} className='grid grid-cols-2 flex items-center ps-3'>
                              <div className='bg-slate-400'>
-                             { item.categoryName }
-                                <input type="checkbox" onChange={e => { onCheckedElement(e.target.checked, item.name ); }}/>
+                             <label for="vue-checkbox" class="w-full py-3 ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">{ item.categoryName }</label>
+                                <input type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-700 dark:focus:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500" onChange={e => { onCheckedElement(e.target.checked, item.name ); }}/>
                                 {/* <input type='checkbox' id={`checkbox-${item.id}`} checked={checkboxValues[`checkbox-${item.id}`] || false} onChange={(e) => handleCheckboxChange(`checkbox-${item.id}`, e.target.checked)}/> */}
                             </div> 
 
                         </div>
                         );
                     })}
-                    </div>
+                    </li>
+                    </ul>
                     <div>
                         {checkedList.length === 0 && (
                             <div>{'카테고리를 지정해 주세요.'}</div>
@@ -207,21 +211,40 @@ const Powrite = () => {
                             // console.log(item);
                             console.log(item.id);
 
+
                             return (
-                            <div key={i} className='bg-yellow-400 grid grid-cols-2'>
+                            <div key={i} className= 'rounded-2xl p-5 w-[400px] focus:ring-2 border-2 border-yellow-400'>
+                                    <span >
                                     <p>{productList[i]}</p>
-                                    <button onClick={() => increaseCounter(i)}>+</button>
+                                    </span>
+                                    <div className="flex justify-center gap-2 text-xl sm:text-xs">
+                                    <div className='relative h-10 w-40 '>
+                                    <div >
+                                    <span>    
+                                    <button onClick={() => decreaseCounter(i)}><VscArrowCircleDown /></button>
+                                    </span>
                                     {counters[i]}
-                                    <button onClick={() => decreaseCounter(i)}>-</button>
-                                <div className='bg-yellow-400' onClick={() => onRemove(i)} >
-                                X</div>
+                                    <span> 
+                                    <button onClick={() => increaseCounter(i)} ><VscArrowCircleUp /></button>
+                                    </span>
+                                    <div className='ml-6'>
+                                    <span> 
+                                    <button  onClick={() => onRemove(i)}><TiDelete /></button>
+                                    </span>
+                                    </div>
+                                    <span className="text-xl">
+
+                                    </span>
+                                    </div>
+                                    </div>
+                                    </div>
                             </div>
                             );
                         })}
                     </div>
                 </div>
             </div>
-            <button>발주신청</button>
+            <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">발주신청</button>
         </div>
     );
 }
