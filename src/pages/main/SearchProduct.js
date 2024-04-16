@@ -227,9 +227,10 @@ const SearchProduct = () => {
               </div>
 
               {/* 생활용품 */}
-              <div className='sm:px-0 group relative'>
-                <p className="absolute z-10 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                           group-hover:text-white transition duration-300 top-[60%] right-[35%]">
+              <div className='group relative'>
+                <p className="sm:text-xs md:text-xl lg:text-3xl top-[60%] right-[35%]
+                              absolute z-10 text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-white transition duration-300">
                   생활용품
                 </p>
                 <Link>
