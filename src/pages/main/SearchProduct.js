@@ -153,8 +153,10 @@ const SearchProduct = () => {
               
               {/* 즉석조리 */}
               <div className='relative group mb-[5%]'>
-                <p className="absolute sm:py-3 p-3 left-[25%] top-[60%] text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#FC5B15] group-hover:text-white transition duration-300 z-10">
+                <p className="absolute w-full sm:top-[60%] sm:text-sm md:top-[60%] md:text-xl
+                              left-0 lg:top-[60%] lg:text-3xl
+                              text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-white transition duration-300 z-10">
                   즉석조리
                 </p>
                 <Link>
