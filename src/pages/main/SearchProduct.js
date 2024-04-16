@@ -174,13 +174,15 @@ const SearchProduct = () => {
                   onMouseEnter={() => setDonutHovered(true)}
                   onMouseLeave={() => setDonutHovered(false)}
                 >
-                <p className="absolute mb-2 sm:py-3 p-3 sm:p-0 sm:w-full top-[18%] sm:top-0 left-[55%] text-center 
-                              text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute sm:p-0 sm:text-sm sm:w-2/3 md:w-full 
+                            mb-2 lg:p-3 top-[18%] left-[55%] text-center 
+                            text-3xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-300">
                   과자류
                 </p> 
                 <Link>
-                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" className='transition duration-300 scale-90' />
+                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" 
+                        className='transition duration-300 scale-90' />
                 </Link>
               </div>
 
