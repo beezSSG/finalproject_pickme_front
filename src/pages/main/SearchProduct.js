@@ -120,8 +120,8 @@ const SearchProduct = () => {
           </form>
 
           {/* 상품 카테고리 아이콘 */}
-          {/* bg-[#FFEFBA] */}
-          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFE47A]">
+          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#ffe992] flex flex-col items-center">
+            <h1 className='font-bold mt-[5%] text-slate-800 sm:text-xl md:text-3xl lg:text-4xl'>음식을 터치해 보세요!</h1>
             <div className='flex justify-between items-end'
               >
               {/* 음료 */}
@@ -218,13 +218,13 @@ const SearchProduct = () => {
                                  group-hover:bg-[#FDC830] group-hover:text-white transition duration-300">
                       식품
                     </p>
-                    <img src={Egg_behind} alt="" className='w-[86%]' />
+                    <img src={Egg_behind} alt="식품 카테고리 아이콘 behind" className='w-[86%]' />
                   </div>
                   <img 
                     src={Egg_front} 
-                    alt="" 
-                    className='absolute sm:w-[90%] sm:-left-[1%] md:w-[86%] md:-left-[1%]
-                                lg:w-[86%] top-0 lg:left-0
+                    alt="식품 카테고리 아이콘 front" 
+                    className='absolute sm:w-[90%] md:w-[86%]
+                                lg:w-[86%] top-0 left-0
                                 transition duration-300 ease-in-out group-hover:-translate-x-[60%]
                                 group-hover:translate-y-[10%] group-hover:-rotate-12 transform' 
                   />
