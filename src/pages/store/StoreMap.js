@@ -265,7 +265,7 @@ export default function StoreMap() {
     // <div style={{ width: "100%" }}>
     <div className="">
       {/* LeftMenu에 prop로 값 넘겨주세요 */}
-      {storesInMap ? <LeftMenu stores={storesInMap} /> : ""}
+      {storesInMap ? <LeftMenu storelist={storesInMap} /> : ""}
 
       {/* <LeftMenu stores={ storesInMap } /> */}
       <div id="map" className="h-svh"></div>

@@ -16,7 +16,7 @@ import StoreCategories from "./StoreCategories.js";
 
 
 // ({abc, bcd})
-export default function LeftMenu(props) {
+export default function LeftMenu({storelist}) {
   // console.log(props);
   const [loading, setLoading] = useState(false);
   const [menuOpen, setMenuOpen] = useState(true); // 왼쪽바 메뉴 열림 상태
@@ -25,8 +25,7 @@ export default function LeftMenu(props) {
   const [targetStore, setTargetStore] = useState(""); // 검색할 매장명
   // 임시로 array slice함
   const [initialStores, setInitialStores] = useState(); // 초기 렌더링 시 매장들
-  const [stores, setStores] = useState(props.stores); // 검색한 매장들
-  // const [filteredStores, setFilteredStores] = useState([]); // 카테고리에 해당되는 매장들
+  const [stores, setStores] = useState(storelist); // 보여질 매장 목록
 
   const [state, setState] = useState(""); // LocSelect에서 넘겨받은 시/도 str
   const [district, setDistrict] = useState(""); // LocSelect에서 넘겨받은 구 str
@@ -65,8 +64,9 @@ export default function LeftMenu(props) {
   }
 
   useEffect(() => {
-    // setStores(props.stores); 보여져야할 부분
-    setInitialStores(props.stores);
+    setStores(storelist); // 보여져야 할 부분
+    setInitialStores(storelist);
+
     if (initialStores !== undefined) {
       setLoading(true);
     } else {
@@ -197,8 +197,8 @@ export default function LeftMenu(props) {
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-3/6 overflow-y-auto">
-          {stores &&
-            stores.map((store, k) => (
+          { initialStores && 
+            initialStores.map((store, k) => (
               <li key={k}>
                 <h5 className="font-semibold">{store.name}</h5>
                 <p>{store.address}</p>
