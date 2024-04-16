@@ -36,9 +36,6 @@ export default function Pocheckmodal({getPolist, po}) {
       // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
       axios.post("ceo/deleteProduct", null, {params:params})
         .then(resp => {
-            // 응답을 받았을 때의 처리              
-            // 아 함수가 여기 없는데 불러오고 싶다는 말이였군요 네 그래서 넘나 당ㅇ황스 
-            // setPolist는 polist.js에 있어요 거기에 데이터가 있는데 그냥 자식한테 다 넘겨주면 끝 보여드릴게요 이번거는
             getPolist('', '', 0);
                     
          })
