@@ -129,7 +129,7 @@ const SearchProduct = () => {
                     onMouseEnter={() => setDrinkHovered(true)}
                     onMouseLeave={() => setDrinkHovered(false)}
                 >
-                <p className="absolute z-10 sm:left-[20%] sm:text-sm md:left-[30%] md:text-xl
+                <p className="absolute z-10 sm:top-[40%] sm:left-[23%] sm:text-sm md:left-[30%] md:text-xl
                             top-[45%] lg:left-[25%] lg:text-5xl text-center font-semibold text-transparent rounded-full 
                             group-hover:text-white group-hover:mt-[11%] transition duration-200">
                   음료
@@ -142,9 +142,9 @@ const SearchProduct = () => {
               {/* 간편식사 */}
               <div className='relative group mb-30'>
                 <p className="absolute sm:p-1.5 sm:top-[50%] sm:left-[27%] sm:text-sm md:p-2.5 md:top-[55%] md:left-[35%] md:text-xl 
-                              lg:p-2.5 lg:top-[58%] lg:left-[35%] lg:text-3xl
+                              lg:p-3 lg:top-[56%] lg:left-[28%] lg:text-5xl
                               text-center font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#f8b500] group-hover:text-white transition duration-300">
+                            group-hover:bg-[#f8a100] group-hover:text-white transition duration-300">
                   간편식사
                 </p>
                 <Link>
@@ -157,7 +157,7 @@ const SearchProduct = () => {
               {/* 즉석조리 */}
               <div className='relative group mb-[5%]'>
                 <p className="absolute w-full sm:top-[60%] sm:text-sm md:top-[60%] md:text-xl
-                              left-0 lg:top-[60%] lg:text-3xl
+                              left-0 lg:top-[60%] lg:text-5xl
                               text-center font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:text-white transition duration-300 z-10">
                   즉석조리
@@ -175,15 +175,15 @@ const SearchProduct = () => {
             <div className='flex items-center justify-between'>
               
               {/* 과자류 */}
-              <div className='relative group'
-                  onMouseEnter={() => setDonutHovered(true)}
-                  onMouseLeave={() => setDonutHovered(false)}
+              <div className={`relative group ${donutHovered ? "mr-[1%]" : ""}`}
+                    onMouseEnter={() => setDonutHovered(true)}
+                    onMouseLeave={() => setDonutHovered(false)}
                 >
-                <p className="absolute sm:p-0 sm:text-sm sm:w-2/3 md:w-1/2 md:text-xl
-                            mb-2 lg:p-3 top-[18%] left-[55%] text-center 
-                            lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-300">
-                  과자류
+                <p className="absolute sm:w-[40%] sm:text-xs md:p-2.5 md:text-lg
+                            mb-2 lg:p-3 top-[20%] left-[60%] lg:text-4xl text-center
+                            font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-400">
+                  과자
                 </p> 
                 <Link>
                   <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" 
@@ -193,8 +193,8 @@ const SearchProduct = () => {
 
               {/* 아이스크림 */}
               <div className='sm:px-0 relative group'>
-                <p className="absolute z-10 sm:p-0 sm:text-xs md:text-xl sm:left-[24%] top-[47%] md:left-[27%] lg:left-[29%] 
-                              text-center lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute z-10 sm:p-0 sm:text-xs md:text-xl sm:left-[24%] top-[48%] md:left-[27%] lg:left-[25%] lg:text-4xl
+                              text-center font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:text-[#E091BB] transition duration-300">
                   아이스크림
                 </p>
