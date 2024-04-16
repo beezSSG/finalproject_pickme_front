@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 const MatchedStoreList = ({ isOpen, closeModal, id }) => {
+
     const navigate = useNavigate();
 
     const goToMatchStore = (id, name) => {
@@ -21,7 +22,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                 setMatchedStoreList(resp.data)
             })
             .catch(function (err) {
-                alert('error');
+                alert('matchedstorelist error');
             })
     }
 
@@ -87,7 +88,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                                                     <td>{matchedstore.tel}</td>
                                                     <td className='mr-7'>{matchedstore.open_ended === 0 ? 'X' : 'O'}</td>
                                                     <td className='py-3'>
-                                                        <button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none"
+                                                        <button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none min-w-[92px]"
                                                             onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}
                                                         >
                                                             선택
@@ -99,8 +100,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center">
-                                    <br/><br/><br/><br/><br/><br/>
+                                <div className="text-center min-h-[150px] flex justify-center items-center">
                                     <p className="text-xl mb-6 text-gray-400">조건을 만족하는 점포가 없습니다.</p>
                                 </div>
                             )}

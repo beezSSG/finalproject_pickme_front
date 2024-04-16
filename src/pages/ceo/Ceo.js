@@ -14,12 +14,12 @@ export default function Ceo() {
         <>
             <Routes>
             <Route path='pomain/*' element={<PoMainpage />} />
-            <Route path='po' element={<Polist/>} />    
+            {/* <Route path='po' element={<Polist/>} />    
             <Route path='pow' element={<Powrite />} />
             <Route path='sales' element={<SalesChart />} />
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
-            <Route path='postcheck' element={<Postcheck />} />
+            <Route path='postcheck' element={<Postcheck />} /> */}
             {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
             </Routes>
         
