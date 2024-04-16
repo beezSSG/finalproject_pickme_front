@@ -43,34 +43,10 @@ export default function StoreMap() {
         }
       );
     }
-
-    // 마커 생성 및 마커 참조에 저장
-    // markersRef.current = sampleData.map((store) => new window.naver.maps.Marker({
-    //   map: map,
-    //   position: new window.naver.maps.LatLng(store.lat, store.lng),
-    // }));
-
-    // // 지도 영역 변경 시 마커 표시 업데이트 및 이벤트 딜레이주기
-    // const debouncedUpdateVisibleMarkers = debounce(
-    //   () => updateVisibleMarkers(map, markersRef.current),
-    //   1000
-    // ); // 1초 지연
-    // window.naver.maps.Event.addListener(
-    //   map,
-    //   "bounds_changed",
-    //   () => debouncedUpdateVisibleMarkers
-    // );
-
-    // return () => {
-    //   // 페이지가 들어왔다는 상태를 인지 -> 이 상태를 전역변수로 관리 -> 밑 코드가 실행가능
-    //   // 페이지에서 이동할 때 현재 페이지에 있는걸 clear -> 페이지 이동
-    //   // emptyCacheStorage();
-    // };
   }, []);
 
   useEffect(() => {
-    // 맵 생성조건 - 위치, 줌, 등등 건드리시면됩니다.
-    // 최초 렌더링시 값이 있는 지 확인 엥잘되는듯요
+    // 맵 생성조건 - 위치, 줌, 등등 
     if (
       myLocation !== undefined ||
       myLocation !== null ||
@@ -105,7 +81,6 @@ export default function StoreMap() {
 
     // 남동쪽(South-East)과 북서쪽(North-West) 꼭지점 계산
     const nw = new window.naver.maps.LatLng(ne.lat(), sw.lng());
-    // const se = new window.naver.maps.LatLng(sw.lat(), ne.lng());
 
     // console.log("남서쪽(SW): ", sw);
     // console.log("북동쪽(NE): ", ne);
@@ -140,17 +115,6 @@ export default function StoreMap() {
               anchor: new window.naver.maps.Point(11, 35),
             },
           });
-
-          // // 마커에 마우스 커서가 올라갔을 때 이벤트 리스너 추가
-          // window.naver.maps.Event.addListener(marker, 'mouseover', function() {
-          //   // 마커 이미지 사이즈 변경
-          //   marker.setIcon({
-          //     url: MarkerImg,
-          //     size: new window.naver.maps.Size(50, 50), // 변경된 이미지 사이즈
-          //     origin: new window.naver.maps.Point(0, 0),
-          //     anchor: new window.naver.maps.Point(11, 35),
-          //   });
-          // });
 
           // 마커 클릭 시 InfoWindow 표시
           window.naver.maps.Event.addListener(
@@ -208,53 +172,6 @@ export default function StoreMap() {
 
           return marker;
         });
-
-        // markersRef.current = storeData.map(
-        //   (store) =>
-        //     // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임
-        //   new window.naver.maps.Marker({
-        //     map: map,
-        //     position: new window.naver.maps.LatLng(store.lat, store.lon),
-        //     icon: {
-        //       url: MarkerImg,
-        //       size: new window.naver.maps.Size(25, 25),
-        //       origin: new window.naver.maps.Point(0, 0),
-        //       anchor: new window.naver.maps.Point(11, 35)
-        //   })
-        // );
-
-        // setMarkerList(markersRef.current);
-
-        // // 마커에 hover(mouserover)시 마커 이미지 변경
-        // markersRef.current.map(
-        //   (marker) =>
-        //   {
-        //     window.naver.maps.Event.addListener(marker, 'mouseover', function () {
-        //       console.log("on");
-        //       // return function(e) { 그럼그냥 크기 조정하지 말고 정보창만 띄울까요? 왜냐면 클릭했을때 우리 로고들어간 아이콘 마커로 바꾸고 정보창 띄우려고 했거든요
-        //         marker.setIcon({
-        //           url: MarkerImg,
-        //           size: new window.naver.maps.Size(40, 40),
-        //           origin: new window.naver.maps.Point(0, 0),
-        //           anchor: new window.naver.maps.Point(11, 35)
-        //         })
-        //       // }
-        //   })}
-        // );
-
-        // // 마커에 커서가 떨어졌을 시(mouseout), 마커 이미지 원상태 복구
-        // markersRef.current.map(
-        //   (marker) =>
-        //   window.naver.maps.Event.addListener(marker, 'mouseout', function () {
-        //     console.log("off");
-        //     marker.setIcon({
-        //       url: MarkerImg,
-        //       size: new window.naver.maps.Size(25, 25),
-        //       origin: new window.naver.maps.Point(0, 0),
-        //       anchor: new window.naver.maps.Point(11, 35),
-        //     })
-        //   })
-        // );
       })
       .catch((err) => {
         alert(err);
@@ -264,10 +181,9 @@ export default function StoreMap() {
   return (
     // <div style={{ width: "100%" }}>
     <div className="">
-      {/* LeftMenu에 prop로 값 넘겨주세요 */}
+      {/* LeftMenu에 prop로 값 넘기기 */}
       {storesInMap ? <LeftMenu storelist={storesInMap} /> : ""}
 
-      {/* <LeftMenu stores={ storesInMap } /> */}
       <div id="map" className="h-svh"></div>
     </div>
   );
