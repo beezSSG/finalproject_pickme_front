@@ -11,6 +11,8 @@ import ConvIcon_top from "../../assets/imgs/main/searchProduct/conv/hamburger_to
 import ConvIcon_btm from "../../assets/imgs/main/searchProduct/conv/hamburger_btmGroup.svg";
 
 // 아이스 - 아이스크림
+// import IcecreamIcon_drop1 from "../../assets/imgs/main/searchProduct/icecream/droppingCream1.svg";
+import IcecreamIcon_drop2 from "../../assets/imgs/main/searchProduct/icecream/droppingCream2.svg";
 import IcecreamIcon_body from "../../assets/imgs/main/searchProduct/icecream/icecream.svg";
 
 // 스낵/과자류 - 도넛
@@ -183,11 +185,20 @@ const SearchProduct = () => {
                 </Link>
               </div>
 
-              {/* 아이스 */}
-              <div className='sm:px-0'>
+              {/* 아이스크림 */}
+              <div className='sm:px-0 relative group'>
+                <p className="absolute z-10 sm:p-0 w-max top-1/2 sm:top-0 left-[30%] text-center 
+                              text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-[#E091BB] transition duration-300">
+                  아이스크림
+                </p>
                 <Link>
-                  <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" className='scale-[70%]' />
-                  {/* <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" /> */}
+                  <div className="relative group">
+                  <img src={IcecreamIcon_drop2} alt="아이스크림 카테고리 아이콘 drop" 
+                        className='absolute z-10 w-[15%] top-[60%] left-[50%] transition-transform transform group-hover:animate-melt'/>
+                        
+                  <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 body" className='scale-[70%]' />
+                  </div>
                 </Link>
               </div>
 
@@ -195,8 +206,8 @@ const SearchProduct = () => {
               <div className='relative sm:px-0 p-4 group'>
                 <Link>
                   <div className="relative">
-                    <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
-                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-5 left-1/3 z-10">
+                    <p className="inline-block my-5 sm:py-3 p-2 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
+                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-[10%] left-[30%] z-10">
                       식품
                     </p>
                     <img src={Egg_behind} alt="" className='scale-[86%]' />

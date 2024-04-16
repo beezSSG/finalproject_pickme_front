@@ -9,6 +9,19 @@ module.exports = {
       xl: { min: "1280px", max: "1600px" },
     },
     extend: {
+      keyframes: {
+        melt: {
+          '0%': {
+            transform: 'translateY(0)'
+          },
+          '50%': {
+            transform: 'translateY(16.5%)'
+          },
+          '100%': {
+            transform: 'translateY(0)'
+          }
+        }
+      },
       colors: {
         // 색상 옆에 어디 component에 쓰일 지 적어놓기 -> 통일된 디자인
         "main-orange": "#ff6b00", //
@@ -16,6 +29,9 @@ module.exports = {
         "main-yellow": "#ffc300", //
         "sub-yellow": "#ffd60a", //
       },
+      animation: {
+        melt: 'melt 1.5s ease-in-out infinite',
+      }
     },
   },
   plugins: [],
