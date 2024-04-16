@@ -147,28 +147,53 @@ export default function LeftMenu({ storelist }) {
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-3/6 overflow-y-auto">
-          { initialStores && 
-            initialStores.map((store, k) => (
-              <li key={k}>
-                <h5 className="font-semibold">{store.name}</h5>
-                <p>{store.address}</p>
-                <p>
-                  <FaPhone className="inline" />
-                  &nbsp;&nbsp;
-                  {
-                    store.tel !== "None" ?  formatPhoneNumber(store.tel) : "전화 ✖"
-                  }
-                </p>
-                <Link to={`/storeproductlist/${store.id}/${store.name}`} 
-                      className="flex items-center hover:text-main-orange transition duration-200">
-                  <FaStore className="inline" />&nbsp;매장 재고 보러가기
-                </Link>
-                <br />
-                <hr />
-                <br />
-              </li>
-            ))
-          }
+          { filter.length === 0
+            ? initialStores.map((store, k) => (
+                <li key={k}>
+                  <h5 className="font-semibold">{store.name}</h5>
+                  <p>{store.address}</p>
+                  <p>
+                    <FaPhone className="inline" />
+                    &nbsp;&nbsp;
+                    {store.tel !== "None"
+                      ? formatPhoneNumber(store.tel)
+                      : "전화 ✖"}
+                  </p>
+                  <Link
+                    to={`/storeproductlist/${store.id}/${store.name}`}
+                    className="flex items-center hover:text-main-orange transition duration-200"
+                  >
+                    <FaStore className="inline" />
+                    &nbsp;매장 재고 보러가기
+                  </Link>
+                  <br />
+                  <hr />
+                  <br />
+                </li>
+              ))
+            : stores.map((store, k) => (
+                <li key={k}>
+                  <h5 className="font-semibold">{store.name}</h5>
+                  <p>{store.address}</p>
+                  <p>
+                    <FaPhone className="inline" />
+                    &nbsp;&nbsp;
+                    {store.tel !== "None"
+                      ? formatPhoneNumber(store.tel)
+                      : "전화 ✖"}
+                  </p>
+                  <Link
+                    to={`/storeproductlist/${store.id}/${store.name}`}
+                    className="flex items-center hover:text-main-orange transition duration-200"
+                  >
+                    <FaStore className="inline" />
+                    &nbsp;매장 재고 보러가기
+                  </Link>
+                  <br />
+                  <hr />
+                  <br />
+                </li>
+              ))}
         </ul>
       </div>
     </>
