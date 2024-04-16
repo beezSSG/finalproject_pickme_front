@@ -45,12 +45,6 @@ const MyStoreProducts = () => {
     }
   }, [userLocation, stores]); // userLocation과 stores 상태가 변경될 때 실행
 
-  const formatTime = (timeStr) => {
-    const hour = timeStr.substring(0, 2);
-    const minute = timeStr.substring(2);
-    return `${hour}시 ${minute}분`;
-  };
-
   const findNearestStore = () => {
     let closest = null;
     let minDistance = Infinity;
@@ -105,8 +99,8 @@ const MyStoreProducts = () => {
               <p>가장 가까운 편의점: {nearestStore.name}</p>
               <p> 전화번호 : {nearestStore.tel}</p>
               <p> 주소 : {nearestStore.address}</p>
-              <p> 운영시작시간 : {formatTime(nearestStore.startHour)}</p>
-              <p> 운영종료시간 : {formatTime(nearestStore.endHour)}</p>
+              <p> 운영시작시간 : { nearestStore.startHour }</p>
+              <p> 운영종료시간 : { nearestStore.endHour }</p>
             </div>
           ) : (
             <p>편의점을 찾고 있습니다...</p>
