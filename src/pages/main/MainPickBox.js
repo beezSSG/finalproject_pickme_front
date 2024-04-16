@@ -46,7 +46,7 @@ const MainPickBox = () => {
   }
 
   if (!token) {
-    return null;
+    return <div></div>
   } else {
     return (
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
