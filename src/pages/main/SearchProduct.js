@@ -220,8 +220,8 @@ const SearchProduct = () => {
                   <img 
                     src={Egg_front} 
                     alt="" 
-                    className='absolute sm:w-[90%] sm:top-0 sm:left-0 md:w-[86%] md:top-0 md:left-0
-                                lg:w-[86%] lg:top-0 lg:left-0
+                    className='absolute sm:w-[90%] sm:-left-[1%] md:w-[86%] md:-left-[1%]
+                                lg:w-[86%] top-0 lg:left-0
                                 transition duration-300 ease-in-out group-hover:-translate-x-[60%]
                                 group-hover:translate-y-[10%] group-hover:-rotate-12 transform' 
                   />
