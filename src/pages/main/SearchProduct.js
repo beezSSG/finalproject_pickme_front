@@ -204,20 +204,24 @@ const SearchProduct = () => {
               </div>
 
               {/* 식품 */}
-              <div className='relative sm:px-0 p-4 group'>
+              <div className='relative group'>
                 <Link>
                   <div className="relative">
-                    <p className="inline-block my-5 sm:py-3 p-2 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-[10%] left-[30%] z-10">
+                    <p className="absolute sm:p-[0.2rem] sm:text-xs sm:top-[10%] sm:left-[19%] md:p-1.5 md:top-[16%] md:left-[23%]
+                                  lg:p-2 lg:top-[15%] lg:left-[23%]
+                                  text-center lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
+                                 group-hover:bg-[#FDC830] group-hover:text-white transition duration-300">
                       식품
                     </p>
-                    <img src={Egg_behind} alt="" className='scale-[86%]' />
+                    <img src={Egg_behind} alt="" className='w-[86%]' />
                   </div>
                   <img 
                     src={Egg_front} 
                     alt="" 
-                    className='absolute top-0 left-0 scale-75 transition duration-300 ease-in-out 
-                              translate-x-0 group-hover:-translate-x-20 group-hover:translate-y-6 group-hover:-rotate-12 transform' 
+                    className='absolute sm:w-[90%] sm:top-0 sm:left-0 md:w-[86%] md:top-0 md:left-0
+                                lg:w-[86%] lg:top-0 lg:left-0
+                                transition duration-300 ease-in-out group-hover:-translate-x-[60%]
+                                group-hover:translate-y-[10%] group-hover:-rotate-12 transform' 
                   />
                 </Link>
               </div>
