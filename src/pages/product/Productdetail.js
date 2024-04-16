@@ -247,16 +247,19 @@ function Productdetail(){
         })
 
         // 이미 후기 작성했는지 체크
-        await axios.get("review/productReviewCheck", { params:{ "id":id }})
-        .then((resp)=>{
-            setReviewCheck(resp.data.cnt);
-            if(resp.data.cnt > 0){
-                setCd(resp.data.cd);
-            }
-        })
-        .catch(()=>{
-        alert('productReviewCheck error');
-        })
+        if(`${localStorage.getItem('jwt')}` !== "null"){
+            await axios.get("review/productReviewCheck", { params:{ "id":id }})
+            .then((resp)=>{
+                setReviewCheck(resp.data.cnt);
+                if(resp.data.cnt > 0){
+                    setCd(resp.data.cd);
+                }
+            })
+            .catch(()=>{
+            alert('productReviewCheck error');
+            })
+        }
+        
         
     };
 
