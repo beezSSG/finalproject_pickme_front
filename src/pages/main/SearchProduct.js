@@ -188,8 +188,8 @@ const SearchProduct = () => {
 
               {/* 아이스크림 */}
               <div className='sm:px-0 relative group'>
-                <p className="absolute z-10 sm:p-0 w-max top-1/2 sm:top-0 left-[29%] text-center 
-                              text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
+                <p className="absolute z-10 sm:p-0 sm:text-xs md:text-xl sm:left-[20%] top-[47%] md:left-[27%] lg:left-[29%] 
+                              text-center lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:text-[#E091BB] transition duration-300">
                   아이스크림
                 </p>
