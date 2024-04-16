@@ -121,7 +121,7 @@ const SearchProduct = () => {
 
           {/* 상품 카테고리 아이콘 */}
           {/* bg-[#FFEFBA] */}
-          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
+          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFE47A]">
             <div className='flex justify-between items-end'
               >
               {/* 음료 */}
