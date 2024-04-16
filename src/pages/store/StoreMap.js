@@ -43,7 +43,6 @@ export default function StoreMap() {
         }
       );
     }
-
     // 마커 생성 및 마커 참조에 저장
     // markersRef.current = sampleData.map((store) => new window.naver.maps.Marker({
     //   map: map,
