@@ -21,6 +21,7 @@ function Polist(){
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
 
+    
     useEffect(function(){
       getPolist('', '', 0);
     }, []);
@@ -64,7 +65,7 @@ function Polist(){
           axios.post("ceo/deleteProduct", null, {params:params})
           .then(response => {
               // 응답을 받았을 때의 처리
-
+              
               if (po.poYn === 1) {
                   // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
               }
@@ -140,11 +141,11 @@ function Polist(){
 
                       <td className='text-center py-4'>{ po.quantity }</td> 
                       <td className='text-center py-4'>{ po.wdate }</td>
-                      <td className='text-center py-4'>{ po.poYn > 0 ? '승인완료' : '승인대기중'}</td>  
+                      <td className='text-center py-4'>{ po.poYn > 0 ? <span style={{ color: "red", fontWeight:"bold" }}>승인완료</span>  : '승인대기중'}</td>  
                       <td>
                         {/* 여기에 모달을 추가하면 거기안에 버튼까지 있으니까 괜찮을 거예요 */}
                         {/* 만약 모달에서 값을 전달해야하거나 전달받아야하면 아래의 컴포넌트에서 상호작용 하시면 됩니다 */}
-                        <Pocheckmodal />
+                        { po.poYn === 1 ? <Pocheckmodal po={po} getPolist={getPolist()} /> : ""}
                         {/* <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
                         onClick={()=>{con(po)}}>승인확인</button> */}
                       </td> 

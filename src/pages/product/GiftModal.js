@@ -96,7 +96,7 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
             "items": [
             {
                 "id": "item_id",
-                "name": "item_name",                             // 상품 이름
+                "name": "item_name",                                    // 상품 이름
                 "qty": 1,
                 "price": productPrice                                    //  상품 금액
             }
@@ -176,8 +176,8 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black opacity-50" onClick={closeModal}></div>
-                    <div className="relative bg-white p-10 rounded-lg w-[80%] h-[60%] overflow-y-auto">
-                        <div className="text-3xl font-bold mb-10">선물하기</div>
+                    <div className="relative bg-white p-10 rounded-lg w-[70%] h-[60%] overflow-y-auto">
+                        <div className="text-3xl font-bold lg:mb-10 sm:mb-2">선물하기</div>
                         <div className="modal-body">
 
                             <div className="rounded-xl border border-spacing-2 p-3 mx-48 sm:m-5 ">
