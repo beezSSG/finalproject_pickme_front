@@ -11,8 +11,7 @@ import ConvIcon_top from "../../assets/imgs/main/searchProduct/conv/hamburger_to
 import ConvIcon_btm from "../../assets/imgs/main/searchProduct/conv/hamburger_btmGroup.svg";
 
 // 아이스 - 아이스크림
-// import IcecreamIcon_drop1 from "../../assets/imgs/main/searchProduct/icecream/droppingCream1.svg";
-import IcecreamIcon_drop2 from "../../assets/imgs/main/searchProduct/icecream/droppingCream2.svg";
+import IcecreamIcon_drop from "../../assets/imgs/main/searchProduct/icecream/droppingCream2.svg";
 import IcecreamIcon_body from "../../assets/imgs/main/searchProduct/icecream/icecream.svg";
 
 // 스낵/과자류 - 도넛
@@ -187,14 +186,14 @@ const SearchProduct = () => {
 
               {/* 아이스크림 */}
               <div className='sm:px-0 relative group'>
-                <p className="absolute z-10 sm:p-0 w-max top-1/2 sm:top-0 left-[30%] text-center 
+                <p className="absolute z-10 sm:p-0 w-max top-1/2 sm:top-0 left-[29%] text-center 
                               text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:text-[#E091BB] transition duration-300">
                   아이스크림
                 </p>
                 <Link>
                   <div className="relative group">
-                  <img src={IcecreamIcon_drop2} alt="아이스크림 카테고리 아이콘 drop" 
+                  <img src={IcecreamIcon_drop} alt="아이스크림 카테고리 아이콘 drop" 
                         className='absolute z-10 w-[15%] top-[60%] left-[50%] transition-transform transform group-hover:animate-melt'/>
                         
                   <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 body" className='scale-[70%]' />
