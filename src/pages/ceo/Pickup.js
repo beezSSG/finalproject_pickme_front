@@ -26,7 +26,7 @@ export default function Pickup() {
       }
 
   return (
-    <div className="mx-auto w-[60%]">
+    <div className="mx-auto w-[80%]">
       <p className="text-lg font-semibold mb-4">픽업 승인</p>
 
       <table className="w-full table-fixed border-collapse">

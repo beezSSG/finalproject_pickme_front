@@ -13,9 +13,6 @@ import SalesChart from './SalesChart';
 import Inventory from "./Inventory";
 import Pickup from "./Pickup";
 import PostCheck from "./PostCheck";
-// import GroupBuying from './GroupBuying';
-
-// import SalesChart from "./SalesChart";
 
 function PoMainpage() {
   const [open, setOpen] = useState(true);
@@ -29,11 +26,9 @@ function PoMainpage() {
     { title: "Home", path: "/ceo/pomain" },
     { title: "발주", path: "/ceo/po" },
     { title: "승인", path: "/ceo/coupon" },
-    { title: "공동구매", path: "/ceo/" },
   ];
 
     // 진입전 토큰 유무 확인 토큰 유효성시간을 대폭 상향
-
     useEffect(() => {
       if (token === null || token === undefined) {
         alert('로그인이 필요한 서비스 입니다.');
@@ -62,8 +57,6 @@ function PoMainpage() {
   if (info === undefined || info === null) {
     return <div>loding...</div>
   }
-
-
 
     return (
       <>
@@ -99,10 +92,9 @@ function PoMainpage() {
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
             <Route path='postcheck' element={<PostCheck />} />
-            {/* <Route path='groupbuying' element={<GroupBuying />} /> */}
+            <Route path="saleschart" element={<SalesChart/> } />
         </Routes>
       </div>
-
       </>
     );
 }
