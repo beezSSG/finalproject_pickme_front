@@ -1,10 +1,13 @@
 import { useState, useRef } from "react";
 import { Modal, Button } from "antd";
+import axios from "axios";
+import Polist from "./Polist";
 
 
-export default function Pocheckmodal() {
+export default function Pocheckmodal({getPolist, po}) {
   const [isOpen, setIsOpen] = useState(false);
-  const [value, onChange] = useState(new Date()); // 초기값은 현재 날짜
+  const [deleteProduct, setDeleteProduct] = useState([]);
+  
 
   // 이함수는 모달을 껏다 켰다 하는 함수
   const onToggleModal = () => {
@@ -22,11 +25,31 @@ export default function Pocheckmodal() {
     onToggleModal(); // 주소창은 자동으로 사라지므로 모달만 꺼주면 된다.
   };
 
-  function InputSample() {
-    const [inputs, setInputs] = useState({
-      name: '',
-      nickname: ''
-    });
+
+  // 생각할점: 재고현황을 한번에 보는것과 먼저 상품으로 묶은뒤 상품을 클릭했을때 각기 주문한 수량 소비기한을 묶어서 보여주는것
+  // #0. 승인완료 누를 때 실행되는 함수
+  function con() {
+      // 받아야하는거 id, quantity, date(소비기한) 이렇게하면 완벽하게 끝! 이해가 안가는 부분 있을까요?
+      const params = {"id": po.id, "quantity": po.quantity, }; // 소비기한 , 스토어아이디
+      // #1. purchase_order 테이블에 값을 주입
+      // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
+      // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
+      axios.post("ceo/deleteProduct", null, {params:params})
+        .then(resp => {
+            // 응답을 받았을 때의 처리              
+            // 아 함수가 여기 없는데 불러오고 싶다는 말이였군요 네 그래서 넘나 당ㅇ황스 
+            // setPolist는 polist.js에 있어요 거기에 데이터가 있는데 그냥 자식한테 다 넘겨주면 끝 보여드릴게요 이번거는
+            getPolist('', '', 0);
+                    
+         })
+          .catch(err => {
+            // 오류가 발생했을 때의 처리
+            console.error(err);
+          });
+      
+
+      // #3. 모달창 끄기
+      onToggleModal();
   }
 
 
@@ -101,18 +124,6 @@ export default function Pocheckmodal() {
       </button>
               
       {isOpen && 
-        // 모달 속성이 onok / cancel 두개가 예 아니요 누를때 실행되는 함수이구요
-        // centered는 항상 화면에 정중앙에 모달을 띄우겠냐는 의미예요
-        // width같은게 모달창 크기 조절 할 수 있어요 여기는 테일윈드 쓰는 className 이걸로 모달크기 조절이 불가능하고
-        // 내부에 있는 표현할 부분은 테일윈드 가능해요
-        // footer라는 기능이 있는데 원래 ok라는 부분이 정해져있는 위치라 조정이 안되는데 저걸로 버튼을 새로만들고
-        // 사용가능해요 참고할곳은 mypage에 회원탈퇴 부분인데 잠시만요
-        // 어떤 디자인 원하세요? 디자인이라고 함은 ok 이부분인가요??
-        // 우선 승인 확인되었습니다라는 창이 뜨고 그 다음에 pickbox로 넘어갔으면 좋겠어요
-        // 민기씌 혹시 보셨나요? 이제 제가 해볼게여 감사합니당
-        // 모르는게 생기면 물어봐주세요 모달창 디자인이랑 함수 적는거까지 하시고 만약에 axios할때
-        // 에러생기면 말해주시면 될거같아요 감사합니다 민기씨 안힘드세요?  많이 피곤하실거같은데
-        // 얼마안남았으니 열심히 해야죠 27일 실기 시험있는데 아직 책한글자도헉
         <Modal
           open={true}
           centered={true}
@@ -138,7 +149,7 @@ export default function Pocheckmodal() {
                 </div>
               </div>
             </div> */}
-          <Button key="submit" onClick={onToggleModal}>
+          <Button key="submit" onClick={con}>
             소비기한 입력하기
           </Button>
           </div>
