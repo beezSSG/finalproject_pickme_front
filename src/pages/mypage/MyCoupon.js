@@ -3,8 +3,11 @@ import { useState } from "react";
 import { useEffect } from "react";
 import moment from "moment";
 
-export default function MyCoupon() {
+export default function MyCoupon({point}) {
   const [myCoupons, setMyCoupons] = useState([]);
+
+  const [myPoint, setMyPoint] = useState(point);
+
   const [type, setType] = useState(0);
   const today = moment();
 
@@ -33,6 +36,22 @@ export default function MyCoupon() {
   const expCouponHandle = () => {
     setType(1);
   };
+
+  // 쿠폰사용시 함수
+  async function useCoupon(pointContent, num) {
+    // console.log('도착');
+    let Newpoint = myPoint + pointContent;
+
+    await axios.post("mypage/user/deleteCoupon", null , {params:{ "point": Newpoint, "couponNumber":num}})
+      .then(() => {
+        // console.log('성공');
+        getMyInfo();
+        // window.location.href = '/mypage/coupon';
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <div className="w-[80%] mx-auto">
@@ -63,8 +82,8 @@ export default function MyCoupon() {
         {myCoupons &&
           myCoupons.map((data, i) => {
             let length = data.content.length;
-            let content = data.content.substring(0, length - 1);
-            content = parseInt(content).toLocaleString();
+            let pointContent = parseInt(data.content.substring(0, length - 1));
+            let content = pointContent.toLocaleString();
 
             const end = moment(data.endDate);
             const duration = moment.duration(end.diff(today));
@@ -72,7 +91,7 @@ export default function MyCoupon() {
 
             if ((type === 0 && duration >= 0) || (type === 1 && duration < 0)) {
               return (
-                <div className="flex justify-center">
+                <div className="flex justify-center" key={i}>
                   {type === 0 && (
                     <div className="bg-gradient-to-br from-sub-orange to-sub-yellow  text-center py-10 px-20 rounded-lg shadow-md relative">
                       <div className="w-[400px] sm:w-[200px]">
@@ -89,7 +108,7 @@ export default function MyCoupon() {
                         </div>
 
                         <div className="bg-gray-700 p-2 rounded-lg hover:bg-gray-500 cursor-pointer">
-                          <button className="font-bold text-white ">
+                          <button className="font-bold text-white w-full" onClick={()=>{useCoupon(pointContent, data.couponNumber)}}>
                             쿠폰 사용
                           </button>
                         </div>

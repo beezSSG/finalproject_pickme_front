@@ -113,7 +113,7 @@ export default function MyMain() {
           <Route path="save" element={<MySave />} />
           <Route path="userinfo" element={<MyInfo />} />
           <Route path="review" element={<MyReview />} />
-          <Route path="coupon" element={<MyCoupon />} />
+          <Route path="coupon" element={<MyCoupon point={topInfo[1]} />} />
           <Route path="gift" element={<MyGift />} />
           <Route path="giftdetail/:id" element={<MyGiftdetail />} />
         </Routes>

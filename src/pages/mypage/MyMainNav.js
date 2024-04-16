@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 
 import jsonData from '../../assets/data/mypage/list.json';
-import { BsArrowLeftShort} from "react-icons/bs";
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { RiDashboardFill } from "react-icons/ri";
+import { useState } from 'react';
 
 export default function MyMainNav() {
   const [open, setOpen] = useState(true);
