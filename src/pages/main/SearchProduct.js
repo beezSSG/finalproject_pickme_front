@@ -140,8 +140,8 @@ const SearchProduct = () => {
 
               {/* 간편식사 */}
               <div className='sm:px-0 px-16 relative group mb-30'>
-                <p className="absolute sm:py-3 p-3 left-[38%] top-[55%] text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#ffa751] group-hover:text-white transition duration-300">
+                <p className="absolute sm:py-3 p-3 left-[38%] top-[56%] text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#f8b500] group-hover:text-white transition duration-300">
                   간편식사
                 </p>
                 <Link>
