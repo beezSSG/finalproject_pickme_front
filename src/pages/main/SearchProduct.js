@@ -11,6 +11,7 @@ import ConvIcon_top from "../../assets/imgs/main/searchProduct/conv/hamburger_to
 import ConvIcon_btm from "../../assets/imgs/main/searchProduct/conv/hamburger_btmGroup.svg";
 
 // 아이스 - 아이스크림
+import IcecreamIcon_drop from "../../assets/imgs/main/searchProduct/icecream/droppingCream2.svg";
 import IcecreamIcon_body from "../../assets/imgs/main/searchProduct/icecream/icecream.svg";
 
 // 스낵/과자류 - 도넛
@@ -119,28 +120,31 @@ const SearchProduct = () => {
           </form>
 
           {/* 상품 카테고리 아이콘 */}
-          {/* bg-[#FFEFBA] */}
-          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#FFEFBA]">
+          <section className="mt-10 p-5 sm:p-2 rounded-full bg-[#ffe992] flex flex-col items-center">
+            <h1 className='font-bold mt-[5%] text-slate-800 sm:text-xl md:text-3xl lg:text-4xl'>음식을 터치해 보세요!</h1>
             <div className='flex justify-between items-end'
               >
               {/* 음료 */}
-              <div className='sm:px-0 flex flex-col items-center justify-center relative group'
+              <div className='relative group'
                     onMouseEnter={() => setDrinkHovered(true)}
                     onMouseLeave={() => setDrinkHovered(false)}
                 >
-                <p className="absolute sm:py-3 p-2 top-1/2 z-10 text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#E91235] group-hover:text-white transition duration-300">
+                <p className="absolute z-10 sm:top-[40%] sm:left-[23%] sm:text-sm md:left-[30%] md:text-xl
+                            top-[45%] lg:left-[25%] lg:text-5xl text-center font-semibold text-transparent rounded-full 
+                            group-hover:text-white group-hover:mt-[11%] transition duration-200">
                   음료
                 </p>
                 <Link>
-                  <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className={`transition duration-300 scale-75 ${drinkHovered ? "" : "mt-16"}`} />
+                  <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className='transition duration-300 w-[80%]' />
                 </Link>
               </div>
 
               {/* 간편식사 */}
-              <div className='sm:px-0 px-16 relative group mb-30'>
-                <p className="absolute sm:py-3 p-3 left-[38%] top-[55%] text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#ffa751] group-hover:text-white transition duration-300">
+              <div className='relative group mb-30'>
+                <p className="absolute sm:p-1.5 sm:top-[50%] sm:left-[27%] sm:text-sm md:p-2.5 md:top-[55%] md:left-[35%] md:text-xl 
+                              lg:p-3 lg:top-[56%] lg:left-[28%] lg:text-5xl
+                              text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#f8a100] group-hover:text-white transition duration-300">
                   간편식사
                 </p>
                 <Link>
@@ -152,8 +156,10 @@ const SearchProduct = () => {
               
               {/* 즉석조리 */}
               <div className='relative group mb-[5%]'>
-                <p className="absolute sm:py-3 p-3 left-[25%] top-[60%] text-center text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#FC5B15] group-hover:text-white transition duration-300 z-10">
+                <p className="absolute w-full sm:top-[60%] sm:text-sm md:top-[60%] md:text-xl
+                              left-0 lg:top-[60%] lg:text-5xl
+                              text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-white transition duration-300 z-10">
                   즉석조리
                 </p>
                 <Link>
@@ -169,56 +175,75 @@ const SearchProduct = () => {
             <div className='flex items-center justify-between'>
               
               {/* 과자류 */}
-              <div className='relative group'
-                  onMouseEnter={() => setDonutHovered(true)}
-                  onMouseLeave={() => setDonutHovered(false)}
+              <div className={`relative group ${donutHovered ? "mr-[1%]" : ""}`}
+                    onMouseEnter={() => setDonutHovered(true)}
+                    onMouseLeave={() => setDonutHovered(false)}
                 >
-                <p className="absolute mb-2 sm:py-3 p-3 sm:p-0 sm:w-full top-[18%] sm:top-0 left-[55%] text-center 
-                              text-3xl sm:text-sm font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-300">
-                  과자류
+                <p className="absolute sm:w-[40%] sm:text-xs md:p-2.5 md:text-lg
+                            mb-2 lg:p-3 top-[20%] left-[60%] lg:text-4xl text-center
+                            font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-400">
+                  과자
                 </p> 
                 <Link>
-                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" className='transition duration-300 scale-90' />
+                  <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" 
+                        className='transition duration-300 scale-90' />
                 </Link>
               </div>
 
-              {/* 아이스 */}
-              <div className='sm:px-0'>
+              {/* 아이스크림 */}
+              <div className='sm:px-0 relative group'>
+                <p className="absolute z-10 sm:p-0 sm:text-xs md:text-xl sm:left-[24%] top-[48%] md:left-[27%] lg:left-[25%] lg:text-4xl
+                              text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-[#E091BB] transition duration-300">
+                  아이스크림
+                </p>
                 <Link>
-                  <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" className='scale-[70%]' />
-                  {/* <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 hover 이후" /> */}
+                  <div className="relative group">
+                  <img src={IcecreamIcon_drop} alt="아이스크림 카테고리 아이콘 drop" 
+                        className='absolute z-10 w-[15%] top-[60%] left-[50%] transition-transform transform group-hover:animate-melt'/>
+                        
+                  <img src={IcecreamIcon_body} alt="아이스크림 카테고리 아이콘 body" className='scale-[70%]' />
+                  </div>
                 </Link>
               </div>
 
               {/* 식품 */}
-              <div className='relative sm:px-0 p-4 group'>
+              <div className='relative group'>
                 <Link>
                   <div className="relative">
-                    <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
-                              group-hover:bg-[#FDC830] group-hover:text-white transition duration-300 absolute top-5 left-1/3 z-10">
+                    <p className="absolute sm:p-[0.2rem] sm:text-xs sm:top-[10%] sm:left-[19%] md:p-1.5 md:top-[16%] md:left-[23%]
+                                  lg:p-2 lg:top-[15%] lg:left-[23%]
+                                  text-center lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
+                                 group-hover:bg-[#FDC830] group-hover:text-white transition duration-300">
                       식품
                     </p>
-                    <img src={Egg_behind} alt="" className='scale-[86%]' />
+                    <img src={Egg_behind} alt="식품 카테고리 아이콘 behind" className='w-[86%]' />
                   </div>
                   <img 
                     src={Egg_front} 
-                    alt="" 
-                    className='absolute top-0 left-0 scale-75 transition duration-300 ease-in-out 
-                              translate-x-0 group-hover:-translate-x-20 group-hover:translate-y-6 group-hover:-rotate-12 transform' 
+                    alt="식품 카테고리 아이콘 front" 
+                    className='absolute sm:w-[90%] md:w-[86%]
+                                lg:w-[86%] top-0 left-0
+                                transition duration-300 ease-in-out group-hover:-translate-x-[60%]
+                                group-hover:translate-y-[10%] group-hover:-rotate-12 transform' 
                   />
                 </Link>
               </div>
 
               {/* 생활용품 */}
-              <div className='sm:px-0 group relative'>
-                <p className="inline-block my-5 sm:py-3 p-2 text-center text-2xl font-semibold bg-transparent text-transparent rounded-full 
-                          group-hover:bg-[#22c1c3] group-hover:text-white transition duration-300 absolute top-8 right-[40%]">
+              <div className='group relative'>
+                <p className="sm:text-xs md:text-xl lg:text-3xl top-[60%] right-[35%]
+                              absolute z-10 text-center font-semibold bg-transparent text-transparent rounded-full 
+                            group-hover:text-white transition duration-300">
                   생활용품
                 </p>
                 <Link>
+                  <img src={Bubble_bf} alt="생활용품 카테고리 아이콘 bubble before" className='absolute opacity-0 w-[20%] right-[54%] top-[25%] group-hover:animate-bubble' />
+                  <img src={Bubble_af} alt="생활용품 카테고리 아이콘 bubble after" className='absolute opacity-0 w-[20%] right-[55%] top-[5%] group-hover:animate-pop' />
                   <img src={Household_top} alt="생활용품 카테고리 아이콘 top" 
-                        className='scale-[20%] translate-y-[56%] -translate-x-[14%] transition duration-300 ease-in-out group-hover:translate-x-4 group-hover:-translate-y-9 group-hover:rotate-45 transform' />
+                        className='scale-[20%] translate-y-[56%] -translate-x-[14%] transition duration-300 ease-in-out 
+                                    group-hover:translate-x-4 group-hover:-translate-y-2 group-hover:rotate-45 transform' />
                   <img src={Household_body} alt="생활용품 카테고리 아이콘 body" className='scale-90' />
                 </Link>
               </div>
