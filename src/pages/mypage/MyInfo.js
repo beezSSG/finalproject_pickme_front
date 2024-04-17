@@ -232,10 +232,10 @@ export default function MyInfo() {
         <div className="w-[20%] mt-5 sm:w-full">
           <p className="text-3xl font-bold">비밀번호 변경</p>
         </div>
-        <div className="w-[80%] mt-5 pl-5 flex flex-col">
+        <div className="mt-5 pl-5 flex flex-col">
           {/* Password Change Fields */}
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
               현재 비밀번호
             </span>
             <input
@@ -246,9 +246,9 @@ export default function MyInfo() {
               onChange={(e) => setMyPw(e.target.value)}
             />
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
-              변경할 비밀번호{" "}
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
+              변경할 비밀번호
             </span>
             <input
               type="password"
@@ -258,9 +258,9 @@ export default function MyInfo() {
               onChange={(e) => setNewPw(e.target.value)}
             />
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
-              비밀번호 확인{" "}
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
+              비밀번호 확인
             </span>
             <input
               type="password"
@@ -270,6 +270,7 @@ export default function MyInfo() {
               onChange={(e) => setConfirmPw(e.target.value)}
             />
           </div>
+
           <div>{newPw === confirmPw ? "" : <span className="text-red-500">비밀번호가 일치하지 않습니다.</span>}</div>
             {changePw ? (
               <div className="text-right">
