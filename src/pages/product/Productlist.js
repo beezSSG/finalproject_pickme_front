@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
@@ -7,13 +7,13 @@ import "./page.css";
 import star2 from "../../assets/imgs/product/star2.png";
 
 function Productlist() {    
-
+    let params = useParams();
     const [productlist, setProductlist] = useState([]);
     
     // 정렬
     const [choice, setChoice] = useState('select');
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
-    const [category, setCategory] = useState(0);
+    const [category, setCategory] = useState(Number(params.id));
     // 검색  
     const [search, setSearch] = useState("");
     // 페이징 
@@ -40,6 +40,7 @@ function Productlist() {
     }
 
     useEffect(function(){
+      console.log(category);
         getProductlist('select', search, 0, switching, category);
 
         window.addEventListener('scroll', handleScroll);
