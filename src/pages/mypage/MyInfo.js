@@ -109,15 +109,13 @@ export default function MyInfo() {
   }
 
   return (
-    <div className="w-[70%] mx-auto">
+    <div className="lg:w-[70%] mx-auto sm:w-full sm:p-[5%]">
       {/* Personal Information Section */}
-      <div className="flex gap-40">
-        <div className="w-[20%]">
-          <p className="text-3xl font-bold ">개인정보</p>
+      <div className="flex lg:gap-40 sm:gap-0">
         </div>
         <div className="w-[80%] pl-5 flex flex-col">
           {/* 개인정보 Blocks */}
-          <div className="flex gap-12 mb-2">
+          <div className="flex lg:gap-12 mb-2 sm:gap-0">
             <span className="w-24 text-xl font-bold text-gray-600">
               아이디{" "}
             </span>
@@ -228,7 +226,7 @@ export default function MyInfo() {
       </div>
 
       {/* 비밀번호 Section */}
-      <div className="flex gap-40">
+      <div className="flex gap-40 sm:gap-0">
         <div className="w-[20%] mt-5">
           <p className="text-3xl font-bold">비밀번호 변경</p>
         </div>
@@ -301,7 +299,9 @@ export default function MyInfo() {
             )}
         </div>
       </div>
-      <div className="flex gap-40">
+
+      {/* 회원탈퇴 */}
+      <div className="flex gap-40 sm:gap-0">
         <div className="w-[20%] mt-5">
           <p className="text-3xl font-bold">Pick ME 탈퇴</p>
         </div>
