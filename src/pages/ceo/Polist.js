@@ -50,7 +50,7 @@ function Polist() {
   }
   function con(po) {
     alert(po.poYn);
-    // #1. 화면에서 승인이 완료된 물품을 사라지게 하기ㅠㅠ
+    // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
     const params = { id: po.id };
     axios
       .post("ceo/deleteProduct", null, { params: params })
