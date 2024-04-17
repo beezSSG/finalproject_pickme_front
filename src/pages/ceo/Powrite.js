@@ -104,8 +104,7 @@ const Powrite = () => {
         ...prevSelectedProducts,
         selectedProductToAdd,
       ]);
-      setSelectedProductToAdd(null); // Reset selected product
-      // Reset quantity input field
+      setSelectedProductToAdd(null);
       const quantityInput = document.getElementById("quantityInput");
       if (quantityInput) {
         quantityInput.value = 1;
@@ -118,11 +117,6 @@ const Powrite = () => {
       prevSelectedProducts.filter((product) => product !== productToRemove)
     );
   };
-
-  const totalPrice = selectedProducts.reduce((acc, product) => {
-    return acc + product.price;
-  }, 0);
-
   function insertproduct() {
     axios
       .post("/ceo/powritefinal", selectedProducts)
@@ -136,9 +130,7 @@ const Powrite = () => {
           navigate("/ceo/pomain");
         }
       })
-      .catch((error) => {
-        // handle error
-      });
+      .catch((error) => {});
   }
 
   function scrollToTop() {

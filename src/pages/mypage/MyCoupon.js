@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import moment from "moment";
 
-export default function MyCoupon({point}) {
+export default function MyCoupon({ point }) {
   const [myCoupons, setMyCoupons] = useState([]);
 
   const [myPoint, setMyPoint] = useState(point);
@@ -38,11 +38,14 @@ export default function MyCoupon({point}) {
   };
 
   // 쿠폰사용시 함수
-  async function useCoupon(pointContent, num) {
+  async function useeCoupon(pointContent, num) {
     // console.log('도착');
     let Newpoint = myPoint + pointContent;
 
-    await axios.post("mypage/user/deleteCoupon", null , {params:{ "point": Newpoint, "couponNumber":num}})
+    await axios
+      .post("mypage/user/deleteCoupon", null, {
+        params: { point: Newpoint, couponNumber: num },
+      })
       .then(() => {
         // console.log('성공');
         getMyInfo();
@@ -108,7 +111,12 @@ export default function MyCoupon({point}) {
                         </div>
 
                         <div className="bg-gray-700 p-2 rounded-lg hover:bg-gray-500 cursor-pointer">
-                          <button className="font-bold text-white w-full" onClick={()=>{useCoupon(pointContent, data.couponNumber)}}>
+                          <button
+                            className="font-bold text-white w-full"
+                            onClick={() => {
+                              useeCoupon(pointContent, data.couponNumber);
+                            }}
+                          >
                             쿠폰 사용
                           </button>
                         </div>
