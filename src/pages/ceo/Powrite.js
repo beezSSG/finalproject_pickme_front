@@ -22,7 +22,9 @@ const SelectedProducts = ({ selectedProducts, removeProduct }) => {
               <div>
                 <p className="font-bold">{product.name}</p>
                 <p className="font-bold">{product.quantity}개</p>
-                <p className="font-bold">{product.price.toLocaleString()}원</p>
+                <p className="font-bold">
+                  {(product.price * product.quantity).toLocaleString()}원
+                </p>
               </div>
               <div>
                 <button
