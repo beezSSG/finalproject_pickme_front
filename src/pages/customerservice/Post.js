@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Antdmodal from "./Antdmodal";
@@ -26,6 +26,10 @@ function Post() {
   const [selectedOption, setSelectedOption] = useState("");
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  useEffect(()=> {
+    window.localStorage.removeItem('product');
+  }, [])
 
   const handleConfirmShippingOption = (option) => {
     setSelectedOption(option);

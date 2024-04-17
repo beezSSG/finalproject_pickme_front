@@ -29,6 +29,7 @@ export default function MyMain() {
       navigater("/login");
     }
     getMyInfo();
+    window.localStorage.removeItem('product');
   }, []);
 
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
