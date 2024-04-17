@@ -55,7 +55,7 @@ export default function MyCoupon({point}) {
 
   return (
     <div className="w-[80%] mx-auto">
-      <div className="grid grid-cols-2 gap-10 sm:grid-cols-1 sm:gap-2">
+      <div className="grid grid-cols-2 gap-10 sm:gap-2">
         <button
           onClick={() => {
             canCouponHandle();

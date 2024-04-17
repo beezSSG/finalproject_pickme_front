@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
+import JsBarcode from 'jsbarcode';
 
 const Receipt = ({ onClose, payInfo }) => {
   // 모든 상품의 총 수량 계산
@@ -12,6 +13,20 @@ const Receipt = ({ onClose, payInfo }) => {
     (total, item) => total + item.price * item.quantity,
     0
   );
+
+  const BarcodeGenerator = ({ value }) => {
+    const barcodeRef = useRef(null);
+  
+    useEffect(() => {
+      if (barcodeRef.current) {
+        JsBarcode(barcodeRef.current, value, {
+          displayValue: false,  // 바코드 아래 값 표시 X
+        });
+      }
+    }, [value]);
+  
+    return <svg ref={barcodeRef} className="w-full" />;
+  };
 
   return (
     <>
@@ -81,7 +96,7 @@ const Receipt = ({ onClose, payInfo }) => {
           <br />
           <div className="border-b border-dashed border-black"></div>
           <br />
-          <div>바코드</div>
+          <div><BarcodeGenerator value={totalQuantity} /></div>
         </div>
       </div>
     </>
