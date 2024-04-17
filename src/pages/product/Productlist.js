@@ -45,12 +45,15 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
         if (newchoice === 'select' && newcategory > 0) {
           getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
           setPage(newpage);
+          setSearch(newsearch);
           setCategory(newcategory); 
         } else if ( newchoice === 'select') {
           getProductlist('select', newsearch, (newpage-1), newswitching, 0);
           setPage(newpage);
+          setSearch(newsearch);
         } else {
           getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
+          setSearch(newsearch);
           setChoice(newchoice);
           setPage(newpage);
         }
