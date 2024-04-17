@@ -108,6 +108,11 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
       //document.documentElement.style.zoom = `${zoom}`;
     };
 
+    function changeHandle(e) {
+      setSearch(e.target.value);
+      searchHandle(e.target.value);
+    }
+
     const handleScroll = () => {
       const sortList = sortListRef.current;
       const sortElement = document.getElementById('sort');
@@ -208,7 +213,7 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
               <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
                       <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg w-60'
-                          value={search} onChange={(e)=>{setSearch(e.target.value), searchHandle(e.target.value)}} />
+                          value={search} onChange={(e)=>{changeHandle(e)}} />
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
                                           dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>

@@ -187,7 +187,7 @@ function Polist() {
                     {/* 여기에 모달을 추가하면 거기안에 버튼까지 있으니까 괜찮을 거예요 */}
                     {/* 만약 모달에서 값을 전달해야하거나 전달받아야하면 아래의 컴포넌트에서 상호작용 하시면 됩니다 */}
                     {po.poYn === 1 ? (
-                      <Pocheckmodal po={po} getPolist={getPolist()} />
+                      <Pocheckmodal po={po} getPolist={getPolist} />
                     ) : (
                       ""
                     )}
