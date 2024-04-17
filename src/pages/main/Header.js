@@ -111,7 +111,7 @@ function Header() {
 
   const menus = [
     { name: "소개", to: "/about" },
-    { name: "상품", to: "/productlist" },
+    { name: "상품", to: "/productlist/0" },
     { name: "매장찾기", to: "/store" },
     {
       name: "서비스",

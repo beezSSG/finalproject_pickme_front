@@ -134,7 +134,7 @@ const SearchProduct = () => {
                             group-hover:text-white group-hover:mt-[11%] transition duration-200">
                   음료
                 </p>
-                <Link>
+                <Link to='/productlist/1'>
                   <img src={drinkHovered ? Drink_af : Drink_bf} alt='음료 카테고리 아이콘' className='transition duration-300 w-[80%]' />
                 </Link>
               </div>
@@ -147,7 +147,7 @@ const SearchProduct = () => {
                             group-hover:bg-[#f8a100] group-hover:text-white transition duration-300">
                   간편식사
                 </p>
-                <Link>
+                <Link to='/productlist/2'>
                   <img src={ConvIcon_top} alt="간편식사 카테고리 아이콘 top" 
                       className='z-10 translate-y-[55%] scale-[80%] transition duration-300 ease-in-out translate-x-0 group-hover:translate-x-[10%] group-hover:translate-y-[25%] group-hover:rotate-45 transform' />
                   <img src={ConvIcon_btm} alt="간편식사 카테고리 아이콘 bottom" className='scale-[85%]' />
@@ -162,7 +162,7 @@ const SearchProduct = () => {
                             group-hover:text-white transition duration-300 z-10">
                   즉석조리
                 </p>
-                <Link>
+                <Link to='/productlist/3'>
                   <img src={InstantIcon_top} alt="즉석조리 카테고리 아이콘 top" 
                       className='translate-y-[60%] -translate-x-2.5 transition duration-300 ease-in-out group-hover:translate-x-4 group-hover:translate-y-0 group-hover:-rotate-12 transform' />
                   <img src={InstantIcon_body} alt="즉석조리 카테고리 아이콘 body" className='relative' />
@@ -185,7 +185,7 @@ const SearchProduct = () => {
                             group-hover:bg-[#ff6e7f] group-hover:text-white transition duration-400">
                   과자
                 </p> 
-                <Link>
+                <Link to='/productlist/4'>
                   <img src={donutHovered ? SnackIcon_af : SnackIcon_bf}  alt="과자류 카테고리 아이콘" 
                         className='transition duration-300 scale-90' />
                 </Link>
@@ -198,7 +198,7 @@ const SearchProduct = () => {
                             group-hover:text-[#E091BB] transition duration-300">
                   아이스크림
                 </p>
-                <Link>
+                <Link to='/productlist/5'>
                   <div className="relative group">
                   <img src={IcecreamIcon_drop} alt="아이스크림 카테고리 아이콘 drop" 
                         className='absolute z-10 w-[15%] top-[60%] left-[50%] transition-transform transform group-hover:animate-melt'/>
@@ -210,7 +210,7 @@ const SearchProduct = () => {
 
               {/* 식품 */}
               <div className='relative group'>
-                <Link>
+                <Link to='/productlist/6'>
                   <div className="relative">
                     <p className="absolute sm:p-[0.2rem] sm:text-xs sm:top-[10%] sm:left-[19%] md:p-1.5 md:top-[16%] md:left-[23%]
                                   lg:p-2 lg:top-[15%] lg:left-[23%]
@@ -238,7 +238,7 @@ const SearchProduct = () => {
                             group-hover:text-white transition duration-300">
                   생활용품
                 </p>
-                <Link>
+                <Link to='/productlist/7'>
                   <img src={Bubble_bf} alt="생활용품 카테고리 아이콘 bubble before" className='absolute opacity-0 w-[20%] right-[54%] top-[25%] group-hover:animate-bubble' />
                   <img src={Bubble_af} alt="생활용품 카테고리 아이콘 bubble after" className='absolute opacity-0 w-[20%] right-[55%] top-[5%] group-hover:animate-pop' />
                   <img src={Household_top} alt="생활용품 카테고리 아이콘 top" 
