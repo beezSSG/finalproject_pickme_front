@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 
-export default function MyInfoPost({ updateAddress }) {
+export default function MyInfoPost({ updateAddress, changeInfo }) {
   const [isOpen, setIsOpen] = useState(false);
   // const [address, setAddress] = useState({});
 
@@ -29,7 +29,7 @@ export default function MyInfoPost({ updateAddress }) {
     <>
       <button
         onClick={onToggleModal}
-        className="bg-sub-yellow rounded-xl p-1 font-bold hover:bg-sub-orange"
+        className={`bg-sub-yellow rounded-xl p-1 font-bold hover:bg-sub-orange ${changeInfo ? "" :"hidden"}`}
       >
         주소 검색
       </button>
