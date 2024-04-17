@@ -243,13 +243,11 @@ function StoreProductlist() {
                 생활용품
               </li>
               <hr/>
-
               <li id='sort_08' className={`${category === 8 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
                                 cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(8)}>
                 기타
               </li>
               <hr/>
-
             </ul>
           </div>
         </div>
@@ -352,9 +350,8 @@ function StoreProductlist() {
             prevPageText={"prev"}
             nextPageText={"next"}
             onChange={handlePageChange} />
+            </div>
           </div>
-
-        </div>
         </div>
       </div>
     </div>
