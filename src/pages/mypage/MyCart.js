@@ -62,7 +62,7 @@ export default function MyCart(prop) {
   const getMyCart = async () => {
     await axios.get("customer/cart/getCart")
     .then((response)=>{
-      // console.log(response.data);
+      console.log(response.data);
       setCart(response.data);
     })
     .catch((err)=>{
