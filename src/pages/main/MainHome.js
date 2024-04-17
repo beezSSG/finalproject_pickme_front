@@ -51,26 +51,18 @@ export default function MainHome() {
             <Route path="/loginkakao" element={<LoginKakao />} />
             <Route path="/loginnaver" element={<LoginNaver />} />
 
-
-
             <Route path="/about" element={<About />}/>
 
-            <Route path="/productlist" element={<Productlist />} />
+            <Route path="/productlist/:id" element={<Productlist />} />
             <Route path="/productdetail/:id" element={<Productdetail />} />
 
-            <Route
-              path="/storeproductlist/:id/:name"
-              element={<StoreProductlist />}
-            />
+            <Route path="/storeproductlist/:id/:name" element={<StoreProductlist />} />
             {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
 
             <Route path="/store" element={<StoreMap />} />
 
             <Route path="/post" element={<Post />} />
-            <Route
-              path="/productreservation"
-              element={<ProductReservation />}
-            />
+            <Route path="/productreservation" element={<ProductReservation />} />
 
             <Route path="event" element={<Event />} />
             <Route path="eventdetail/:id" element={<EventDetail />} />
@@ -83,9 +75,6 @@ export default function MainHome() {
             <Route path="/faqcreate" element={<FaqCreate />} />
             <Route path="/chatbot" element={<Chatbot />} />
             <Route path="/mypage/*" element={<MyMain />} />
-
-            {/* 점주 */}
-
           </Routes>
         </div>
       </main>
