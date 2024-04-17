@@ -1,4 +1,4 @@
-import { useAuth } from "../../utils/AuthProvider";
+ import { useAuth } from "../../utils/AuthProvider";
 import CeoMainNav from "./CeoMainNav";
 
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
@@ -92,7 +92,6 @@ function PoMainpage() {
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
             <Route path='postcheck' element={<PostCheck />} />
-            <Route path="saleschart" element={<SalesChart/> } />
         </Routes>
       </div>
       </>
