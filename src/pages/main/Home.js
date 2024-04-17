@@ -3,7 +3,7 @@ import Promotion from "./Promotion.js";
 import AdProductSet from "./AdProductSet.js";
 import SearchProduct from "./SearchProduct.js";
 import Chatbot from "../customerservice/Chatbot.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cutechatbot from "../../assets/imgs/chatbot/bee.gif";
 import { ImCancelCircle } from "react-icons/im";
 import MainPickBox from "./MainPickBox.js";
@@ -15,6 +15,9 @@ const Home = () => {
   const toggleModal = () => {
     setModal(!modal);
   };
+  useEffect(() => {
+    window.localStorage.removeItem('product');
+  }, [])
 
   return (
     <div>

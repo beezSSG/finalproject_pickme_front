@@ -20,6 +20,7 @@ export default function StoreMap() {
 
   useEffect(() => {
     // index.html에 script연결이 되어있는지 확인
+    window.localStorage.removeItem('product');
     if (!window.naver) {
       console.error("Naver Maps API가 로드되지 않았습니다.");
       return;

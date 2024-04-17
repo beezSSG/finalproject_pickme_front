@@ -287,6 +287,8 @@ function Productdetail(){
         zzimCheck(params.id);
         productRatingAvg(params.id);
 
+        window.localStorage.setItem('product', '확인');
+
     }, []);
 
 

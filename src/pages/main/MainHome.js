@@ -29,8 +29,36 @@ import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
 import About from "./About";
+import { useState } from "react";
 
 export default function MainHome() {
+  const [choice, setChoice] = useState('select');
+  const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
+  const [category, setCategory] = useState(0);
+  // 검색  
+  const [search, setSearch] = useState("");
+  // 페이징 
+  const [page, setPage] = useState(1);
+
+  function choiceHandle(pa) {
+    // console.log(pa);
+    setChoice(pa);
+  }
+  function switchingHandle(pa) {
+    setSwitching(pa);
+  }
+  function searchHandle(pa) {
+    setSearch(pa);
+  }
+  function pageHandle(pa) {
+    setPage(pa);
+  }
+  function categoryHandle(pa) {
+    setCategory(pa);
+  }
+
+
+
   return (
     <>
       <header className="w-full sticky top-0 z-50">
@@ -53,8 +81,11 @@ export default function MainHome() {
 
             <Route path="/about" element={<About />}/>
 
-            <Route path="/productlist/:id" element={<Productlist />} />
-            <Route path="/productdetail/:id" element={<Productdetail />} />
+            <Route path="/productlist/:id" 
+            element={<Productlist newchoice={choice} newswitching={switching} newsearch={search} newpage={page} newcategory = {category}
+                        choiceHandle={choiceHandle} switchingHandle={switchingHandle} searchHandle={searchHandle} pageHandle={pageHandle} categoryHandle={categoryHandle} />} />
+            <Route path="/productdetail/:id" 
+            element={<Productdetail />} />
 
             <Route path="/storeproductlist/:id/:name" element={<StoreProductlist />} />
             {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}

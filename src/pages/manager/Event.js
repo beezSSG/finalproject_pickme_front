@@ -17,6 +17,7 @@ function Event() {
   // 컴포넌트가 마운트되었을 때 이벤트 목록을 가져오는 함수 호출
   useEffect(() => {
     eventlistup();
+    window.localStorage.removeItem('product');
   }, []);
 
   // 이벤트 목록을 서버에서 가져오는 함수
