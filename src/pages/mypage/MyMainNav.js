@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom';
 
 import jsonData from '../../assets/data/mypage/list.json';
-import { BsArrowLeftShort} from "react-icons/bs";
 
 import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { RiDashboardFill } from "react-icons/ri";
+import { useState } from 'react';
+import MyMenuButton from './MyMenuButton';
 
 export default function MyMainNav() {
   const [open, setOpen] = useState(true);
@@ -21,8 +20,8 @@ export default function MyMainNav() {
               const service = data.subtitle;
               return (
                 <ul key={i}>
-                  <li className='mt-2 p-2 gap-x-4 rounded-md text-yellow-500 items-center font-bold sm:text-sm'>
-                    <span className='text-3xl'>{data.title}</span>
+                  <li className='mt-2 p-2 gap-x-4 rounded-md items-center font-bold sm:text-sm'>
+                    <span className='font-semibold text-2xl bg-sub-orange text-white rounded-full p-2'>{data.title}</span>
                     <ul>
                     {
                       service.map(service => {
