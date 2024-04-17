@@ -132,10 +132,19 @@ function StoreProductlist() {
     // 장바구니
 
     const addCart = async (productId, storeId, quantity) => {
+
       await axios.post("/customer/cart/insert", null,
         { params : { "productId":productId, "storeId":storeId, "quantity":quantity }}
       )
-      .then(() => {
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.data === "YES") {
+          Toast.fire({
+            icon: 'warning',
+            title: "이미 장바구니에 추가되어 있습니다.",
+          });
+          return;
+        }
         Toast.fire({
             icon: 'success',
             title: "✔ 장바구니에 추가되었습니다!",
@@ -169,7 +178,7 @@ function StoreProductlist() {
       <div name="storeInfo" align="center" className='mb-4'>
         <div name='infoBox' className='max-w-[500px] mb-14'>
           <div className='border-b-2 border-b-gray-300 mb-4'>
-            <div className='mt-5 mb-4 p-2 inline-block rounded-md bg-yellow-100 border-2 border-stone-400'>
+            <div className='mt-5 mb-4 p-2 inline-block rounded-md bg-yellow-200 shadow-lg border-2 border-stone-400'>
               <p className='font-bold text-3xl text-gray-800'>          
                 {name}
               </p>
@@ -243,13 +252,11 @@ function StoreProductlist() {
                 생활용품
               </li>
               <hr/>
-
               <li id='sort_08' className={`${category === 8 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
                                 cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(8)}>
                 기타
               </li>
               <hr/>
-
             </ul>
           </div>
         </div>
@@ -352,9 +359,8 @@ function StoreProductlist() {
             prevPageText={"prev"}
             nextPageText={"next"}
             onChange={handlePageChange} />
+            </div>
           </div>
-
-        </div>
         </div>
       </div>
     </div>

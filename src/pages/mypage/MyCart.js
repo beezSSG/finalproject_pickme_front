@@ -9,8 +9,8 @@ import { TiDelete } from "react-icons/ti";
 import { PiHandbagBold  } from "react-icons/pi";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { BsHandbag } from "react-icons/bs";
-import { GiCardPickup } from "react-icons/gi";
+import { PiPlusBold } from "react-icons/pi";
+import { PiMinusBold } from "react-icons/pi";
 
 
 export default function MyCart(prop) {
@@ -191,7 +191,7 @@ export default function MyCart(prop) {
 
   // 결제 핸들러
   const payHandler = async () => {
-    if (pOrd == 0 || pOrd == 1) {
+    if (pOrd === 0 || pOrd === 1) {
       try {
         const response = await Bootpay.requestPayment({
           "application_id": "65efaac4d25985001c6e5e40",
@@ -234,7 +234,7 @@ export default function MyCart(prop) {
             if(confirmedData.event === 'done') {
                 //결제 성공
             }
-            break;
+          break;
         }
       } catch (e) {
         console.log(e.message)
@@ -246,7 +246,7 @@ export default function MyCart(prop) {
           case 'error':
             // 결제 승인 중 오류 발생시 호출
             console.log(e.error_code);
-            break;
+          break;
         }
       }
     } else {
@@ -261,27 +261,33 @@ export default function MyCart(prop) {
   }
 
   return (
-    <div className="flex-col mx-auto w-[60%]">
+    <div className="flex-col mx-auto lg:w-[60%] px-[2%]">
       <div className="overflow-y-auto">
-        <p className="text-center font-bold text-xl text-yellow-500">장바구니</p>
-        <table className="sm:hidden">
+        <h1 className="text-center font-bold text-3xl">장바구니</h1>
+        <table className="sm:text-xs">
           <thead>
             <tr>
               <td colSpan="2">
-                <input type="checkbox" onChange={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />&nbsp;전체선택
+                <input type="checkbox" onChange={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />
+                <span>&nbsp;전체선택</span>
               </td>
               <td colSpan="3"></td>
-              <td colSpan='2' className="text-right"><button>선택삭제</button></td>
-              {/* <th colSpan='6' className="text-2xl text-yellow-500">장바구니</th> */}
+              <td colSpan="2" className="group text-right">
+                <button className="rounded-lg p-1">
+                  <span className="group-hover:font-semibold transition duration-100">선택삭제</span>
+                  <TiDelete className="inline group-hover:text-rose-600 transition duration-100 mb-1" />
+                </button>
+              </td>
             </tr>
-            <tr className="text-xl sm:text-sm">
-              <th className="w-[2%]">선택</th>
-              <th className="w-[5%]">상품 사진</th>
+            <br />
+            <tr className="lg:text-xl md:text-xl">
+              <th className="w-[4%]">선택</th>
+              <th className="lg:w-[5%] md:w-[10%] sm:w-[15%]">상품 사진</th>
               <th className="w-[18%]">상품명</th>
               {/* 편의점 이름 추가 */}
-              <th className="w-[3%] text-right">가격</th>
-              <th className="w-[3%] text-right">총 가격</th>
-              <th className="w-[3%]">수량</th>
+              <th className="w-[4%] text-right">가격</th>
+              <th className="w-[4%] text-right">총 가격</th>
+              <th className="w-[4%]">수량</th>
               <th className="w-[2%]">삭제</th>
             </tr>
           </thead>
@@ -291,22 +297,41 @@ export default function MyCart(prop) {
                 const productTotalPrice = data.productPrice * data.quantity;
                 return (
                   <tr key={i} className="h-28 border-b-2">
+                    {/* 선택 체크박스 */}
                     <td className="cartbox text-center ">
                       <input type="checkbox" onChange={(e) => CheckHandler(e.target.checked, data.id, productTotalPrice)} checked={checkItems.includes(data.id) ? true : false} />
                     </td>
-                    <td><img src={data.productUrl} className="mx-auto w-[80%]" /></td>
-                    <td className="text-lg sm:text-xs font-medium">{data.productName}</td>
-                    <td className="text-right text-lg sm:text-xs">{data.productPrice.toLocaleString()}원</td>
-                    <td className="text-right text-lg sm:text-xs">{productTotalPrice.toLocaleString()}원</td>
-                    <td className="py-auto text-center ">
-                      <div className="flex justify-center text-xl sm:text-xs">
-                        <button onClick={ () => {plusQuantity(`${data.quantity}`, `${data.sproductId}`)} }><VscArrowCircleUp /></button>
-                        {data.quantity}
-                        <button onClick={() => {minusQuantity(`${data.quantity}`, `${data.sproductId}`)} }><VscArrowCircleDown /></button>
+
+                    {/* 상품 사진 */}
+                    <td>
+                      <img src={data.productUrl} className="mx-auto lg:w-[80%]" alt="data's productUrl" />
+                    </td>
+
+                    {/* 상품명 */}
+                    <td className="lg:text-lg md:text-lg sm:text-sm font-medium ">{data.productName}</td>
+
+                    {/* 가격 */}
+                    <td className="text-right lg:text-lg md:text-lg sm:text-base">{data.productPrice.toLocaleString()}</td>
+
+                    {/* 총 가격 */}
+                    <td className="text-right lg:text-lg md:text-lg sm:text-base">{productTotalPrice.toLocaleString()}</td>
+                    
+                    {/* 수향 버튼 */}
+                    <td className="py-auto text-center">
+                      <div className="flex justify-center lg:text-xl md:text-lg sm:text-base">
+                        <button onClick={() => {minusQuantity(`${data.quantity}`, `${data.sproductId}`)} } className="p-1 rounded-full text-slate-500 hover:bg-rose-600 hover:text-white transition duration-100">
+                          <PiMinusBold />
+                        </button>
+                        <span className="mx-0.5">
+                          {data.quantity}
+                        </span>
+                        <button onClick={ () => {plusQuantity(`${data.quantity}`, `${data.sproductId}`)} } className="p-1 rounded-full text-slate-500 hover:bg-rose-600 hover:text-white transition duration-100">
+                          <PiPlusBold />
+                        </button>
                       </div>
                     </td>
-                    <td className="text-center">
-                      <div className="text-2xl sm:text-xs">
+                    <td className="text-center group">
+                      <div className="text-3xl group-hover:text-rose-600 transition duration-100 flex justify-center items-center">
                         <button onClick={ () => {deleteItem(`${data.sproductId}`)} }> 
                           <TiDelete />
                         </button>
@@ -320,61 +345,70 @@ export default function MyCart(prop) {
           <tfoot>
             <tr>
               <td colSpan="7" className="bg-gray-300 text-center">
-                <span className="text-xl">선택한 상품 금액: <b>{totalPrice.toLocaleString()}원</b>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;구매시 Pick포인트 적립액: <b>{totalPoint.toLocaleString()}Pick</b></span>
+                <span className="text-base">
+                  선택한 상품 금액&nbsp;&nbsp;
+                  <b className="text-lg">{totalPrice.toLocaleString()}원</b>
+                </span>
+                <span className="font-bold mx-5 text-slate-700 sm:hidden">|</span>
+                <span className="sm:block text-base">
+                  구매시 Pick포인트 적립액&nbsp;&nbsp;
+                  <b className="text-lg">{totalPoint.toLocaleString()}Pick</b>
+                </span>
               </td>
             </tr>
           </tfoot>
         </table>
-        <div className="lg:hidden">
-            이거는 나타나야한다
-        </div>
       </div>
       {/* 총금액 및 계산하기 버튼 */}
-      <div className="mt-3 text-center text-xl font-bold">
-            <h1>결제 전 할인 및 결제사항 입력</h1>
-      </div>
-      <div className="flex justify-center gap-4 mt-3 h-24 w-[40%] mx-auto sm:w-[80%]">
+      <div className="flex justify-center gap-4 mt-5 h-24 w-[40%] mx-auto sm:w-[80%]">
         {/* 픽업 = 0 배달 = 1 */}
         <button
           className={`${
-            buttonCol === 0 ? 'bg-sub-orange' : 'bg-gray-300'
-          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 `}
+            buttonCol === 0 ? 'bg-sub-orange text-white' : 'bg-gray-300'
+          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-400 group`}
           onClick={()=>{pickOrDelivery(0)}}
         >
-          <PiHandbagBold  className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600 " />
+          <PiHandbagBold  className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-700 group-over:text-white " />
           
-          <h3 className="text-center mt-2 font-bold text-lg">
+          <h3 className="text-center mt-2 font-bold text-lg text-slate-700">
             픽업
           </h3>
         </button>
         <button
           className={`${
-            buttonCol === 1 ? 'bg-sub-orange' : 'bg-gray-300'
-          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange duration-500 `}
+            buttonCol === 1 ? 'bg-sub-orange text-white' : 'bg-gray-300'
+          } w-[50%] h-24 rounded-2xl py-1 cursor-pointer hover:bg-sub-orange trasition duration-400 group`}
           onClick={()=>{pickOrDelivery(1)}}
         >
-          <TbTruckDelivery className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-600"/>
-          <h3 className="text-center mt-2 font-bold text-lg">
+          <TbTruckDelivery className="text-[40px] mx-auto mt-1 sm:text-[20px] text-gray-700 group-over:text-white"/>
+          <h3 className="text-center mt-2 font-bold text-lg text-slate-700">
             배달
           </h3>
         </button>
       </div>
 
-      <div className="mx-auto mt-5">
-        <div>Pick 포인트: {prop.point.toLocaleString()}P </div>
-        <div>
-          <span>포인트: <input type="text" value={point} onChange={writePoint} placeholder={`0부터 ${prop.point} 사이`} readOnly={read} /> </span>
-          <button onClick={()=>{setRead(!read)}}>{read ? '수정하기' : '사용하기'}</button>
+      <div className="mx-auto mt-5 text-3xl">
+        <div className="my-4 flex sm:flex-col justify-center items-center">
+          <span className="mb-1 text-xl font-medium mx-2 p-1 px-2.5 rounded-lg bg-main-yellow">Pick 포인트</span>
+          <p>
+            <b>{prop.point.toLocaleString()}</b>
+            <span className="text-2xl">P</span>
+          </p>
         </div>
-        <div>
-          최종 결제금액: {payPrice.toLocaleString()}원
+        <div className="my-4 flex sm:flex-col justify-center lg:items-center">
+          <span className="mb-1 text-xl font-medium mx-2 p-1 px-2.5 rounded-lg bg-main-yellow">사용할 포인트</span>
+          <input type="text" value={point.toLocaleString()} onChange={writePoint} placeholder={`0 ~ ${prop.point}`} readOnly={read} className="sm:w-1/2 text-2xl my-1.5 text-center" />
         </div>
-        <div><button onClick={payHandler}>결제하기</button></div>
+        <div className="flex items-center justify-center">
+          <button onClick={payHandler} className="w-auto bg-main-orange text-white rounded-xl p-2 font-semibold hover:bg-main-orange transition duration-200">
+            {payPrice.toLocaleString()}원 결제하기
+          </button>
+        </div>
       </div>
       
-      <div className="m-auto overflow-y-auto text-right">
+      {/* <div className="m-auto overflow-y-auto text-right">
         <button onClick={sendOrder}>결제완료 테스트용</button><br/>
-      </div>
+      </div> */}
 
     </div>
   );

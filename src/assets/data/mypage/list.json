@@ -1,7 +1,7 @@
 {
   "res": [
     {
-      "title": "Pick pay",
+      "title": "Pick Pay",
       "subtitle": [
         { "subname": "Pick Box", "subpath": "pickbox" },
         { "subname": "결제내역", "subpath": "payinfo" },

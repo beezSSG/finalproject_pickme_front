@@ -37,6 +37,7 @@ function ProductReservation() {
 
   useEffect(
     function () {
+      window.localStorage.removeItem('product');
       console.log(selectedStore);
       if (selectedStore !== null) {
         selectstorename();

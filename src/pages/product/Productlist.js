@@ -1,18 +1,19 @@
 import { useEffect, useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
 import "./page.css";
 import star2 from "../../assets/imgs/product/star2.png";
 
-function Productlist() {    
+function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, choiceHandle, switchingHandle, searchHandle, pageHandle, categoryHandle} ) {     
+    let params = useParams();
     const [productlist, setProductlist] = useState([]);
     
     // 정렬
     const [choice, setChoice] = useState('select');
     const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
-    const [category, setCategory] = useState(0);
+    const [category, setCategory] = useState(Number(params.id));
     // 검색  
     const [search, setSearch] = useState("");
     // 페이징 
@@ -39,7 +40,27 @@ function Productlist() {
     }
 
     useEffect(function(){
+      console.log(category);
+      if (window.localStorage.getItem('product') === '확인') {
+        if (newchoice === 'select' && newcategory > 0) {
+          getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
+          setPage(newpage);
+          setSearch(newsearch);
+          setCategory(newcategory); 
+        } else if ( newchoice === 'select') {
+          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
+          setPage(newpage);
+          setSearch(newsearch);
+        } else {
+          getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
+          setSearch(newsearch);
+          setChoice(newchoice);
+          setPage(newpage);
+        }
+        
+      } else {
         getProductlist('select', search, 0, switching, category);
+      }
 
         window.addEventListener('scroll', handleScroll);
         onResize();
@@ -54,9 +75,11 @@ function Productlist() {
 
 
     function choiceBtn(choice){
+      choiceHandle(choice);
       setChoice(choice);
       const nowSwitching = !switching;
       setSwitching(nowSwitching);
+      switchingHandle(nowSwitching);
       getProductlist(choice, search, 0, nowSwitching, category);
       setPage(0);
     }
@@ -68,12 +91,15 @@ function Productlist() {
     
     function categoryBtn(num){
       setCategory(num);
+      categoryHandle(num);
+      choiceHandle('select');
       getProductlist(choice, search, 0, switching, num);
       setPage(0);
     }
 
     function handlePageChange(page){
         setPage(page);
+        pageHandle(page);
         getProductlist(choice, search, page-1, switching, category);
     }
 
@@ -81,6 +107,11 @@ function Productlist() {
       const zoom = Math.min(window.innerWidth / mobileWidth, 1);
       //document.documentElement.style.zoom = `${zoom}`;
     };
+
+    function changeHandle(e) {
+      setSearch(e.target.value);
+      searchHandle(e.target.value);
+    }
 
     const handleScroll = () => {
       const sortList = sortListRef.current;
@@ -182,12 +213,15 @@ function Productlist() {
               <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
                       <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg w-60'
-                          value={search} onChange={(e)=>{setSearch(e.target.value)}} />
+                          value={search} onChange={(e)=>{changeHandle(e)}} />
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
                                           dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </div>
                   <div className='flex items-center justify-center'>
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
+                                          dark:focus:ring-yellow-900" onClick={() => choiceBtn('bogo')}>행사상품</button>
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
@@ -260,7 +294,7 @@ function Productlist() {
             itemClass='page-item'
             linkClass='page-link' 
             activePage={page}           // 현재 활성화 된 페이지 번호
-            itemsCountPerPage={16}      // 페이지 당 보여줄 항목의 수
+            itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
             totalItemsCount={totalCnt}  // 전체 항목 수
             pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
             prevPageText={"prev"}
