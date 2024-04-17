@@ -192,6 +192,9 @@ function Productlist() {
                   <div className='flex items-center justify-center'>
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
+                                          dark:focus:ring-yellow-900" onClick={() => choiceBtn('bogo')}>1+1</button>
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 my-2
@@ -262,7 +265,7 @@ function Productlist() {
             itemClass='page-item'
             linkClass='page-link' 
             activePage={page}           // 현재 활성화 된 페이지 번호
-            itemsCountPerPage={16}      // 페이지 당 보여줄 항목의 수
+            itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
             totalItemsCount={totalCnt}  // 전체 항목 수
             pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
             prevPageText={"prev"}
