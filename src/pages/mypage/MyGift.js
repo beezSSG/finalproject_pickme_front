@@ -69,18 +69,22 @@ export default function MyGift() {
                   className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center"
                 >
                   <div className="mt-5">
-                    <Link to={`/mypage/giftdetail/${product.id}`}>
+                    {type === 0 ? (
+                      <Link to={`/mypage/giftdetail/${product.id}`}>
+                        <img
+                          src={product.productUrl}
+                          alt={product.productName}
+                          className="mx-auto w-[60%] cursor-pointer"
+                        />
+                      </Link>
+                    ) : (
                       <img
                         src={product.productUrl}
                         alt={product.productName}
                         className="mx-auto w-[60%]"
-                        style={
-                          type === 1
-                            ? applyGrayScaleFilter(product.productUrl)
-                            : {}
-                        }
+                        style={applyGrayScaleFilter(product.productUrl)}
                       />
-                    </Link>
+                    )}
                     <div className="mt-5">{product.productName}</div>
                     <div>
                       <span>선물한 사람 : {product.giftUserName}</span>
