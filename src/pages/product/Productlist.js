@@ -110,9 +110,10 @@ function Productlist() {
         </p>
       </div>
 
-      <div id='contents' className='flex min-w-[430px]'>
+      <div id='contents' align="center">
       
-        <div id="sort" className='w-5/12 min-h-[480px] relative top-0'>
+        <div className='flex min-w-[430px] max-w-[1600px]'>
+        <div id="sort" className='w-2/12 min-h-[480px] relative top-0'>
           <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-3 right-0'>
             <ul className='prodInfo m-4 p-2' align="center">
               <li id='sort_00' className={`${category === 0 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
@@ -180,7 +181,7 @@ function Productlist() {
             <div id='nameSearch' align="center">
               <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
-                      <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg w-2/3'
+                      <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg w-60'
                           value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
@@ -267,6 +268,7 @@ function Productlist() {
             onChange={handlePageChange} />
           </div>
 
+        </div>
         </div>
       </div>
     </div>
