@@ -57,7 +57,7 @@ export default function Pocheckmodal({ getPolist, po }) {
       <button
         type="button"
         onClick={onToggleModal}
-        className="bg-sub-yellow rounded-xl p-1 font-bold hover:bg-sub-orange"
+        className="bg-sub-yellow rounded-xl p-2 font-bold hover:bg-sub-orange"
       >
         확인하기
       </button>

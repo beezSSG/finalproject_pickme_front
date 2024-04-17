@@ -19,13 +19,13 @@ function Polist() {
   const [totalCnt, setTotalCnt] = useState(0);
 
   useEffect(function () {
-    getPolist("", "", 0);
+    getPolist("", 0);
   }, []);
 
   // polist 불러오는 함수
-  function getPolist(c, s, pn) {
+  function getPolist(s, pn) {
     axios
-      .get("ceo/polist", { params: { choice: c, search: s, pageNumber: pn } })
+      .get("ceo/polist", { params: { search: s, pageNumber: pn } })
       .then(function (resp) {
         // success:function
         console.log(resp.data.polist);
@@ -40,18 +40,13 @@ function Polist() {
 
   // 검색에 대한 부분
   function searchBtn() {
-    // choice, search 검사
-    if (choice === "") {
-      alert("카테고리를 선택해 주십시오");
-      return;
-    }
-    getPolist(choice, search, 0);
+    getPolist(search, 0);
   }
 
   // 페이지 변경함수
   function handlePageChange(page) {
     setPage(page);
-    getPolist(choice, search, page - 1);
+    getPolist(search, page - 1);
   }
   function con(po) {
     alert(po.poYn);
@@ -74,65 +69,32 @@ function Polist() {
 
   return (
     <div className="mx-auto w-[80%]">
+      <p className="text-3xl font-semibold mb-4">발주 내역</p>
       {/* <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
             <p className='font-semibold text-center'>발주목록</p>
           </div>
           <br/><br/> */}
-      <table
-        style={{
-          marginLeft: "auto",
-          marginRight: "auto",
-          marginTop: "3px",
-          marginBottom: "3px",
-        }}
-      >
-        <tbody>
-          <tr>
-            <td style={{ paddingLeft: "3px" }}>
-              <select
-                className="mr-4 shadow-xl rounded-2xl p-5 w-[125px] focus:outline-none focus:ring-2 focus:ring-yellow-400"
-                value={choice}
-                onChange={(e) => {
-                  setChoice(e.target.value);
-                }}
-              >
-                <option value="">검색</option>
-                <option value="name">상품명</option>
-                <option value="wdate">발주 일자</option>
-              </select>
-              <span class="icoArrow">
-                <img
-                  src="https://freepikpsd.com/media/2019/10/down-arrow-icon-png-7-Transparent-Images.png"
-                  alt=""
-                />
-              </span>
-            </td>
-            <td style={{ paddingLeft: "5px" }} className="align-middle">
-              <input
-                placeholder="카테고리를 선택해 주십시오"
-                size="30"
-                value={search}
-                onChange={(e) => {
-                  setSearch(e.target.value);
-                }}
-                className="rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
-              />
-            </td>
-            <td style={{ paddingLeft: "5px" }}>
-              <button
-                className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                          focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[40px] py-5 me-2 mb-2
-                          dark:focus:ring-yellow-900"
-                onClick={() => {
-                  searchBtn();
-                }}
-              >
-                검색
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <div className="text-center">
+        <input
+          placeholder="상품명을 검색하세요."
+          size="30"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          className="rounded-2xl p-5 w-[500px] shadow-xl focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        />
+        <button
+          className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+                          focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[40px] py-5 
+                          ml-3"
+          onClick={() => {
+            searchBtn();
+          }}
+        >
+          검색
+        </button>
+      </div>
 
       <br />
       <br />
@@ -155,12 +117,9 @@ function Polist() {
             {polist.map(function (po, i) {
               return (
                 // <TableRow po={po} rownum={i+1} key={i} />
-                <tr
-                  className="text-center border-b hover:bg-gray-200 cursor-pointer"
-                  key={i}
-                >
+                <tr className="text-center border-b cursor-pointer" key={i}>
                   <td>{[i + 1]}</td>
-                  <td>
+                  <td className="p-2">
                     {/* <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
                       <td className='text-left py-4'>{ po.name }</td> */}
                     <img
