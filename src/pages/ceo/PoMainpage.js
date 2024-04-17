@@ -82,7 +82,7 @@ function PoMainpage() {
           ))
         }
       </div>
-      <div className="flex w-full">
+      <div className="flex h-[45rem]">
         <CeoMainNav />
         <Routes>
           <Route path='' element={<CeoMainContent />} />
