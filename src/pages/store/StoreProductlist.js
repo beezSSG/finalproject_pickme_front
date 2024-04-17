@@ -132,10 +132,19 @@ function StoreProductlist() {
     // 장바구니
 
     const addCart = async (productId, storeId, quantity) => {
+
       await axios.post("/customer/cart/insert", null,
         { params : { "productId":productId, "storeId":storeId, "quantity":quantity }}
       )
-      .then(() => {
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.data === "YES") {
+          Toast.fire({
+            icon: 'warning',
+            title: "이미 장바구니에 추가되어 있습니다.",
+          });
+          return;
+        }
         Toast.fire({
             icon: 'success',
             title: "✔ 장바구니에 추가되었습니다!",
@@ -243,13 +252,11 @@ function StoreProductlist() {
                 생활용품
               </li>
               <hr/>
-
               <li id='sort_08' className={`${category === 8 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
                                 cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(8)}>
                 기타
               </li>
               <hr/>
-
             </ul>
           </div>
         </div>
@@ -352,9 +359,8 @@ function StoreProductlist() {
             prevPageText={"prev"}
             nextPageText={"next"}
             onChange={handlePageChange} />
+            </div>
           </div>
-
-        </div>
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Antdmodal from "./Antdmodal";
@@ -27,6 +27,10 @@ function Post() {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
+  useEffect(()=> {
+    window.localStorage.removeItem('product');
+  }, [])
+
   const handleConfirmShippingOption = (option) => {
     setSelectedOption(option);
   };
@@ -51,8 +55,6 @@ function Post() {
     let str = value.replaceAll(",", "");
     setItemPrice(str);
   };
-
-  homeAlertHandle();
 
   const Radiovalue = [
     "무게 : 350g 이하, 동일한 3,200/제주권:6,200",

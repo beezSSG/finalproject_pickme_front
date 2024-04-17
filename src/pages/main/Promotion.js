@@ -29,6 +29,7 @@ const Promotion = () => {
   }
 
   useEffect(function () {
+    window.localStorage.removeItem('product');
     eventlist();
   }, []);
 

@@ -14,7 +14,7 @@ const LoginGoogle = (props) => {
                     
                     //네이게이트 사용했을 때 바로 스토리지 값 랜더링 안되서 그냥 window.location.replace 사용
                     // navigate("/");
-                    window.location.replace('https://mypickme.pickme-ssg.com/');
+                    window.location.href = '/';
                 })
                 .catch((e) => {
                     alert("error");

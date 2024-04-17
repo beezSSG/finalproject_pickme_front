@@ -13,6 +13,7 @@ import MyCoupon from "./MyCoupon";
 import MyGift from "./MyGift";
 import MyGiftdetail from "./MyGiftdetail";
 import MyPickBox from "./MyPickBox";
+import MyMenuButton from "./MyMenuButton";
 
 export default function MyMain() {
   // useState 선언
@@ -28,6 +29,7 @@ export default function MyMain() {
       navigater("/login");
     }
     getMyInfo();
+    window.localStorage.removeItem('product');
   }, []);
 
   // Axios 호출 [이름, 등급(영문으로변경), 장바구니 수량, 포인트, 쿠폰, 찜 목록, 선물함]
@@ -71,13 +73,14 @@ export default function MyMain() {
           </div>
           <div className="flex mt-2 text-sm font-bold text-neutral-500">
             <Link to="/mypage/userinfo">회원정보수정</Link>
-            <button>메뉴창 보기</button>
           </div>
+          <div className="mb-7 w-full"><MyMenuButton/></div>
+
         </div>
-        <div className="grid grid-cols-5 sm:grid-cols-3 sm:gap-5 sm:font-thin text-[0.5rem] sm:h-5">
+        <div className="grid grid-cols-5 sm:grid-cols-3 sm:gap-5 sm:font-thin text-[0.5rem]">
           {topBar.map((topbar, i) => (
             <div
-              className="w-[90%] lg:p-5 lg:mx-5 sm:p-1 sm:mx-1 font-bold rounded-3xl shadow-xl bg-stone-100 "
+              className="w-[90%] lg:p-5 lg:mx-5 sm:p-3 sm:mx-1 font-bold rounded-3xl shadow-xl sm:h-20 bg-stone-100 "
               key={i}
             >
               <button
@@ -86,15 +89,15 @@ export default function MyMain() {
                   window.location.href = `${topbar.path}`;
                 }}
               >
-                <div className="text-left lg:text-2xl text-neutral-500">
+                <div className="text-left lg:text-2xl sm:text-lg text-neutral-500">
                   {topbar.title}
                 </div>
                 {i === 1 ? (
-                  <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">
+                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange ">
                     {topInfo[i].toLocaleString()}P
                   </div>
                 ) : (
-                  <div className="text-right lg:mt-4 lg:text-4xl text-yellow-600 ">
+                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange ">
                     {topInfo[i]}개
                   </div>
                 )}
@@ -113,7 +116,7 @@ export default function MyMain() {
           <Route path="save" element={<MySave />} />
           <Route path="userinfo" element={<MyInfo />} />
           <Route path="review" element={<MyReview />} />
-          <Route path="coupon" element={<MyCoupon />} />
+          <Route path="coupon" element={<MyCoupon point={topInfo[1]} />} />
           <Route path="gift" element={<MyGift />} />
           <Route path="giftdetail/:id" element={<MyGiftdetail />} />
         </Routes>
