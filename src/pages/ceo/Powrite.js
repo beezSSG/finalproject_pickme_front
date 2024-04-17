@@ -26,13 +26,14 @@ const SelectedProducts = ({ selectedProducts, removeProduct }) => {
                   {(product.price * product.quantity).toLocaleString()}원
                 </p>
               </div>
-              <div>
+              <div className="text-right">
                 <button
                   onClick={() => removeProduct(product)}
-                  className="bg-sub-yellow rounded-xl font-bold p-2"
+                  className="bg-sub-yellow rounded-xl font-bold py-1 px-2"
                 >
                   취소
                 </button>
+                <hr className="mt-3" />
               </div>
             </div>
           ))}
@@ -148,7 +149,7 @@ const Powrite = () => {
           placeholder="검색어를 입력하세요."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="p-2 border-2 border-gray-500 rounded-xl sm:p-1 focus:outline-none  focus:border-sub-yellow"
+          className="p-2 w-[300px] border-2 border-gray-500 rounded-xl sm:p-1 focus:outline-none  focus:border-sub-yellow"
         />
       </div>
 
@@ -180,8 +181,8 @@ const Powrite = () => {
                 <div className="flex justify-center mt-2">
                   <input
                     type="number"
-                    min="1"
-                    defaultValue="1"
+                    min="0"
+                    defaultValue="0"
                     onChange={(e) => {
                       const quantity = parseInt(e.target.value);
                       handleAddToCart(product, quantity);
