@@ -106,37 +106,34 @@ function Polist(){
             </tbody>    
           </table>
 
-          <br/>
-
-          <div className='container' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-          <p>발주목록</p>
-          </div>
           <br/><br/>
 
-
-          <table className='mx-auto' style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }} >
-          <colgroup>
-              <col width="70"/><col width="200"/><col width="300"/><col width="100"/><col width="200"/><col width="150"/><col width="150"/>
-          </colgroup>
-
-          <thead className='bg-yellow-400 p-15' style={{ marginLeft: "auto", marginRight:"auto", marginTop:"3px", marginBottom:"3px"}}>
+          <div className='mx-auto w-[80%]'>
+          <table className='w-full table-fixed border-collapse'>
+          <thead className='bg-yellow-400 p-15' >
           <tr>
-              <th>번호</th><th>대표 이미지</th><th>상품명</th><th>수량</th><th>발주 일자</th><th>승인여부</th><th>확인</th>
+            <th className="w-1/6 py-2">번호</th>
+              <th className="w-1/4 py-2">대표 이미지</th>
+              <th className="w-1/2 py-2">상품명</th>
+              <th className="w-1/4 py-2">수량</th>
+              <th className="w-1/4 py-2">발주 일자</th>
+              <th className="w-1/4 py-2">승인 여부</th>
+              <th className="w-1/4 py-2">확인</th>
           </tr>
           </thead>
 
-          <tbody style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
+          <tbody>
           {
               polist.map(function(po, i){
                 return(
                       // <TableRow po={po} rownum={i+1} key={i} />
                       <tr className="text-center border-b hover:bg-gray-200 cursor-pointer" key={i}>
-                      <td>{ po.id }</td>
+                      <td>{ [i + 1] }</td>
                       <td>
 
                       {/* <img src={po.url} alt='' style={{width:140, padding:10, margin: "auto", display: "block" }}></img></td>
                       <td className='text-left py-4'>{ po.name }</td> */}
-                          <img src={po.url} alt='' style={{width:140}}></img></td>
+                          <img src={po.url} alt='' style={{width:140}} className='text-align'></img></td>
                       <td className='text-center py-4'>{ po.name }</td>
 
                       <td className='text-center py-4'>{ po.quantity }</td> 
@@ -151,7 +148,7 @@ function Polist(){
           }
           </tbody>
           </table>
-
+          </div>
           <br/>
 
           {/* 세번째의 경우 */}     
