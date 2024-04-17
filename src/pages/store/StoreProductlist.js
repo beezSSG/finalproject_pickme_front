@@ -169,7 +169,7 @@ function StoreProductlist() {
       <div name="storeInfo" align="center" className='mb-4'>
         <div name='infoBox' className='max-w-[500px] mb-14'>
           <div className='border-b-2 border-b-gray-300 mb-4'>
-            <div className='mt-5 mb-4 p-2 inline-block rounded-md bg-yellow-100 border-2 border-stone-400'>
+            <div className='mt-5 mb-4 p-2 inline-block rounded-md bg-yellow-200 shadow-lg border-2 border-stone-400'>
               <p className='font-bold text-3xl text-gray-800'>          
                 {name}
               </p>
