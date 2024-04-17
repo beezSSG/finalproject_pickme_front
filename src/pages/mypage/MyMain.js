@@ -73,13 +73,15 @@ export default function MyMain() {
           <div className="flex mt-2 text-sm font-bold text-neutral-500">
             <Link to="/mypage/userinfo">회원정보수정</Link>
           </div>
-          <div className="mb-7 w-full"><MyMenuButton/></div>
+          <div className="mb-7 w-full">
+            <MyMenuButton/>
+          </div>
 
         </div>
         <div className="grid grid-cols-5 sm:grid-cols-3 sm:gap-5 sm:font-thin text-[0.5rem]">
           {topBar.map((topbar, i) => (
             <div
-              className="w-[90%] lg:p-5 lg:mx-5 sm:p-3 sm:mx-1 font-bold rounded-3xl shadow-xl sm:h-20 bg-stone-100 "
+              className="w-[90%] lg:p-5 lg:mx-5 sm:p-3 sm:mx-1 font-bold rounded-3xl shadow-xl sm:h-20 group bg-stone-100 hover:bg-main-orange transition duration-200"
               key={i}
             >
               <button
@@ -88,15 +90,15 @@ export default function MyMain() {
                   window.location.href = `${topbar.path}`;
                 }}
               >
-                <div className="text-left lg:text-2xl sm:text-lg text-neutral-500">
+                <div className="text-left lg:text-2xl sm:text-lg text-neutral-500 group-hover:text-white">
                   {topbar.title}
                 </div>
                 {i === 1 ? (
-                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange ">
+                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange group-hover:text-white">
                     {topInfo[i].toLocaleString()}P
                   </div>
                 ) : (
-                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange ">
+                  <div className="text-right lg:mt-4 sm:mt-1 lg:text-4xl sm:text-xl text-main-orange group-hover:text-white">
                     {topInfo[i]}개
                   </div>
                 )}
