@@ -108,16 +108,17 @@ const MyStoreProducts = () => {
     <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
         <div className="flex items-center justify-between">
-          <h2 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
+          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
             가장 가까운 pick ME 매장
-          </h2>
-          <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">더보기</button>
+          </h1>
+          <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">
+            더보기
+          </button>
         </div>
         <br />
         <div className="flex gap-5">
           {/* 매장 이미지 */}
           <div className="w-3/5">
-            {/* <img src={pickmePlogo} alt="가까운 매장 이미지" /> */}
             <img src={storeicon1} alt="가까운 매장 이미지" className="" />
           </div>
           {/* 매장 설명 */}
