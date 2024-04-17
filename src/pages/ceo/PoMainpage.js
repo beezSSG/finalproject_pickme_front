@@ -1,4 +1,4 @@
-import { useAuth } from "../../utils/AuthProvider";
+ import { useAuth } from "../../utils/AuthProvider";
 import CeoMainNav from "./CeoMainNav";
 
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
@@ -97,14 +97,15 @@ function PoMainpage() {
       <div className="flex">
         <CeoMainNav />
         <Routes>
-          <Route path="" element={<CeoMainContent />} />
-          <Route path="po" element={<Polist />} />
-          <Route path="pow" element={<Powrite />} />
-          <Route path="sales" element={<SalesChart />} />
-          <Route path="inventory" element={<Inventory />} />
-          <Route path="pickup" element={<Pickup />} />
-          <Route path="postcheck" element={<PostCheck />} />
-          <Route path="saleschart" element={<SalesChart />} />
+
+          <Route path='' element={<CeoMainContent />} />
+            <Route path='po' element={<Polist/>} />    
+            <Route path='pow' element={<Powrite />} />
+            <Route path='sales' element={<SalesChart />} />
+            <Route path='inventory' element={<Inventory />} />
+            <Route path='pickup' element={<Pickup />} />
+            <Route path='postcheck' element={<PostCheck />} />
+
         </Routes>
       </div>
     </>

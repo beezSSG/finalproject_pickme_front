@@ -6,8 +6,6 @@ import Pocheckmodal from './Pocheckmodal';
 
 // import GlobalStyle from './styles/GlobalStyle';
 
-// import "./Polist.css";
-
 function Polist(){
     const [polist, setPolist] = useState([]);
     const [deleteProduct, setDeleteProduct] = useState([]);
@@ -55,9 +53,6 @@ function Polist(){
         setPage(page);
         getPolist(choice, search, page-1);
     }
-
-    // 그동안 잠깐 프론트적으로 필요한건 있어요? 아까 모달창 대충 보여드릴까요? 넵 모달창 사용할 위치로 이동해주세요
-    // 승인확인 버튼을 누르면 발생하는 함수 -> 승인 누르고 모달 나왔으면 좋겠습니다
     function con(po) {
       alert(po.poYn);
         // #1. 화면에서 승인이 완료된 물품을 사라지게 하기ㅠㅠ
