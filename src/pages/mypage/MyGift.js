@@ -37,7 +37,7 @@ export default function MyGift() {
     <div className="w-[60%]">
       <h1>선물함입니다.</h1>
 
-      <div className="grid grid-cols-2 gap-10 sm:grid-cols-1 sm:gap-0">
+      <div className="grid grid-cols-2 gap-10 sm:gap-1">
         <button
           onClick={()=>{canCouponHandle()}}
           className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold

@@ -9,8 +9,6 @@ import { TiDelete } from "react-icons/ti";
 import { PiHandbagBold  } from "react-icons/pi";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { BsHandbag } from "react-icons/bs";
-import { GiCardPickup } from "react-icons/gi";
 
 
 export default function MyCart(prop) {
