@@ -6,6 +6,7 @@ import Polist from "./Polist";
 export default function Pocheckmodal({ getPolist, po }) {
   const [isOpen, setIsOpen] = useState(false);
   const [deleteProduct, setDeleteProduct] = useState([]);
+  const [expDate, setExpDate] = useState("");
 
   // 이함수는 모달을 껏다 켰다 하는 함수
   const onToggleModal = () => {
@@ -26,8 +27,14 @@ export default function Pocheckmodal({ getPolist, po }) {
   // 생각할점: 재고현황을 한번에 보는것과 먼저 상품으로 묶은뒤 상품을 클릭했을때 각기 주문한 수량 소비기한을 묶어서 보여주는것
   // #0. 승인완료 누를 때 실행되는 함수
   function con() {
-    // 받아야하는거 id, quantity, date(소비기한) 이렇게하면 완벽하게 끝! 이해가 안가는 부분 있을까요?
-    const params = { id: po.id, quantity: po.quantity }; // 소비기한 , 스토어아이디
+    // 받아야하는거 id, quantity, date(소비기한) 이렇게하면 완벽하게 끝! 이해가 안가는 부분 있을까요? 이게 무슨끝인가요?
+    const params = {
+      id: po.id,
+      storeId: po.storeId,
+      productId: po.productId,
+      quantity: po.quantity,
+      expDate: expDate,
+    }; // 소비기한 , 스토어아이디
     // #1. purchase_order 테이블에 값을 주입
     // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
     // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
@@ -68,7 +75,11 @@ export default function Pocheckmodal({ getPolist, po }) {
           <div className="text-center items-center">
             <br />
             <div className="text-right">
-              <input type="date" />
+              <input
+                type="date"
+                value={expDate}
+                onChange={(e) => setExpDate(e.target.value)}
+              />
               &nbsp;&nbsp;
               {/* <div id="wrap">
               <div class="container">
