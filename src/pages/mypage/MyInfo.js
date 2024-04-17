@@ -115,8 +115,8 @@ export default function MyInfo() {
         <div className="w-[20%]">
           <p className="text-3xl font-bold ">개인정보</p>
         </div>
-        <div className="w-[80%] pl-5">
-          {/* Individual Info Blocks */}
+        <div className="w-[80%] pl-5 flex flex-col">
+          {/* 개인정보 Blocks */}
           <div className="flex gap-12 mb-2">
             <span className="w-24 text-xl font-bold text-gray-600">
               아이디{" "}
@@ -193,46 +193,46 @@ export default function MyInfo() {
             <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
               {userInfo.rdate}
             </div>
+            
           </div>
-          <div className="mt-3">
-            {changeInfo ? (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => {changeMyInformation()}}
+          {/* 개인정보 변경 버튼 */}
+          {changeInfo ? (
+            <div>
+              <button
+                type="button"
+                className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
+                onClick={() => {changeMyInformation()}}
                 >
-                  확인
-                </button>
-                <button
-                  type="button"
-                  className="ml-5 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500"
-                  onClick={() => chageHandler(0)}
+                확인
+              </button>
+              <button
+                type="button"
+                className="ml-5 text-slate-900 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500 transition duration-300"
+                onClick={() => chageHandler(0)}
+              >
+                취소
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button
+                type="button"
+                className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
+                onClick={() => chageHandler(0)}
                 >
-                  취소
-                </button>
-              </div>
-            ) : (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => chageHandler(0)}
-                >
-                  변경
-                </button>
-              </div>
-            )}
-          </div>
+                변경
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Password Change Section */}
+      {/* 비밀번호 Section */}
       <div className="flex gap-40">
         <div className="w-[20%] mt-5">
           <p className="text-3xl font-bold">비밀번호 변경</p>
         </div>
-        <div className="w-[80%] mt-5 pl-5">
+        <div className="w-[80%] mt-5 pl-5 flex flex-col">
           {/* Password Change Fields */}
           <div className="flex gap-12 mb-2">
             <span className="w-48 text-xl font-bold text-gray-600">
@@ -271,7 +271,6 @@ export default function MyInfo() {
             />
           </div>
           <div>{newPw === confirmPw ? "" : <span className="text-red-500">비밀번호가 일치하지 않습니다.</span>}</div>
-          <div className="mt-3">
             {changePw ? (
               <div className="text-right">
                 <button
@@ -290,17 +289,16 @@ export default function MyInfo() {
                 </button>
               </div>
             ) : (
-              <div className="text-right">
+              <div>
                 <button
                   type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
+                  className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
                   onClick={() => {changeMyPassword()}}
                 >
                   변경
                 </button>
               </div>
             )}
-          </div>
         </div>
       </div>
       <div className="flex gap-40">
@@ -311,7 +309,7 @@ export default function MyInfo() {
           <div>
             <button
               type="button"
-              className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange "
+              className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
               onClick={() => {
                 onToggleModal();
               }}
