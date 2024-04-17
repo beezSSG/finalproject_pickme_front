@@ -9,8 +9,6 @@ import { TiDelete } from "react-icons/ti";
 import { PiHandbagBold  } from "react-icons/pi";
 
 import { TbTruckDelivery } from "react-icons/tb";
-import { BsHandbag } from "react-icons/bs";
-import { GiCardPickup } from "react-icons/gi";
 
 
 export default function MyCart(prop) {
@@ -264,7 +262,7 @@ export default function MyCart(prop) {
     <div className="flex-col mx-auto w-[60%]">
       <div className="overflow-y-auto">
         <p className="text-center font-bold text-xl text-yellow-500">장바구니</p>
-        <table className="sm:hidden">
+        <table className="sm:text-xs">
           <thead>
             <tr>
               <td colSpan="2">
@@ -330,10 +328,7 @@ export default function MyCart(prop) {
         </div>
       </div>
       {/* 총금액 및 계산하기 버튼 */}
-      <div className="mt-3 text-center text-xl font-bold">
-            <h1>결제 전 할인 및 결제사항 입력</h1>
-      </div>
-      <div className="flex justify-center gap-4 mt-3 h-24 w-[40%] mx-auto sm:w-[80%]">
+      <div className="flex justify-center gap-4 mt-5 h-24 w-[40%] mx-auto sm:w-[80%]">
         {/* 픽업 = 0 배달 = 1 */}
         <button
           className={`${
@@ -360,21 +355,26 @@ export default function MyCart(prop) {
         </button>
       </div>
 
-      <div className="mx-auto mt-5">
-        <div>Pick 포인트: {prop.point.toLocaleString()}P </div>
+      <div className="mx-auto mt-5 text-3xl">
         <div>
-          <span>포인트: <input type="text" value={point} onChange={writePoint} placeholder={`0부터 ${prop.point} 사이`} readOnly={read} /> </span>
-          <button onClick={()=>{setRead(!read)}}>{read ? '수정하기' : '사용하기'}</button>
+          <span className="text-xl font-medium mx-2 p-1 rounded-lg bg-main-yellow">Pick 포인트</span>
+          <b>{prop.point.toLocaleString()}</b>P
+        </div>
+        <div className="my-4 flex items-center">
+          <span className="text-xl font-medium mx-2 p-1 rounded-lg bg-main-yellow">사용할 포인트</span>
+          <input type="text" value={point} onChange={writePoint} placeholder={`0 ~ ${prop.point}`} readOnly={read} />
+          {/* <button onClick={()=>{setRead(!read)}}>{read ? '수정하기' : '사용하기'}</button> */}
         </div>
         <div>
-          최종 결제금액: {payPrice.toLocaleString()}원
+          <span className="text-xl font-medium mx-2 p-1 rounded-lg bg-main-yellow">최종 결제금액</span>
+          <b>{payPrice.toLocaleString()}</b>원
         </div>
-        <div><button onClick={payHandler}>결제하기</button></div>
+        <div className="float-right"><button onClick={payHandler}>결제하기 버튼처럼꾸미기</button></div>
       </div>
       
-      <div className="m-auto overflow-y-auto text-right">
+      {/* <div className="m-auto overflow-y-auto text-right">
         <button onClick={sendOrder}>결제완료 테스트용</button><br/>
-      </div>
+      </div> */}
 
     </div>
   );
