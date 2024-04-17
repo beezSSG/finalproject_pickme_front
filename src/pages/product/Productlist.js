@@ -35,27 +35,52 @@ function Productlist({
   // 화면 쪼그라들기 시작할 시점
   const mobileWidth = 900;
 
-    useEffect(function(){
-      console.log(category);
-      if (window.localStorage.getItem('product') === '확인') {
-        if (newchoice === 'select' && newcategory > 0) {
-          getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
-          setPage(newpage);
-          setSearch(newsearch);
-          setCategory(newcategory); 
-        } else if ( newchoice === 'select') {
-          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
-          setPage(newpage);
-          setSearch(newsearch);
-        } else {
-          getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
-          setSearch(newsearch);
-          setChoice(newchoice);
-          setPage(newpage);
-        }
-        
+  /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
+
+  function getProductlist(c, s, pn, switching, category) {
+    axios
+      .get("product/productlist", {
+        params: {
+          choice: c,
+          search: s,
+          pageNumber: pn,
+          switching: switching,
+          category: category,
+        },
+      })
+      .then(function (resp) {
+        // success:function
+        console.log(resp.data);
+        setProductlist(resp.data.productlist);
+        setTotalCnt(resp.data.cnt); // 글의 총수
+      })
+      .catch(function (err) {
+        // error:function
+        alert("error");
+      });
+  }
+
+  useEffect(function () {
+    console.log(category);
+    if (window.localStorage.getItem("product") === "확인") {
+      if (newchoice === "select" && newcategory > 0) {
+        getProductlist(
+          newchoice,
+          newsearch,
+          newpage - 1,
+          newswitching,
+          newcategory
+        );
+        setPage(newpage);
+        setSearch(newsearch);
+        setCategory(newcategory);
+      } else if (newchoice === "select") {
+        getProductlist("select", newsearch, newpage - 1, newswitching, 0);
+        setPage(newpage);
+        setSearch(newsearch);
       } else {
         getProductlist(newchoice, newsearch, newpage - 1, newswitching, 0);
+        setSearch(newsearch);
         setChoice(newchoice);
         setPage(newpage);
       }
@@ -123,10 +148,6 @@ function Productlist({
       sortList.style.top = `${Math.max(0, scrollTop - sortOffsetTop)}px`;
     }
   };
-
-  function handle(e) {
-    setSearch(e.target.value), searchHandle(e.target.value);
-  }
 
   return (
     <div>
@@ -287,7 +308,7 @@ function Productlist({
                       className="border border-gray-400 p-2 rounded-lg w-60"
                       value={search}
                       onChange={(e) => {
-                        handle(e);
+                        setSearch(e.target.value), searchHandle(e.target.value);
                       }}
                     />
                     <button
