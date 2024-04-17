@@ -3,11 +3,12 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import star2 from "../../assets/imgs/product/star2.png";
 
-export default function MySave() {
+export default function MySave(prop) {
 
   const [data, setData] = useState([]);
   
   useEffect(() => {
+    prop.whereHandle("찜목록");
     getMySave();
   }, []);
 
@@ -15,7 +16,7 @@ export default function MySave() {
   const getMySave = async () => {
     await axios.get("mypage/save/getSave")
     .then((resp)=>{
-      console.log(resp.data);
+      // console.log(resp.data);
       setData(resp.data);
     })
     .catch((err)=>{
@@ -23,14 +24,10 @@ export default function MySave() {
     })
   }
 
-  function comma(cost) {
-    // console.log(cost);
-  }
 
   return (
     <div className="flex-row w-[82%]">
-      <p className="text-center font-bold text-xl">찜목록</p>
-      <div className="w-[70%] mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
+      <div className="w-[70%] mx-auto grid grid-cols-4 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
       { data && data.map((product, i) => {
         return (
           <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">

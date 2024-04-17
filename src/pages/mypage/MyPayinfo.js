@@ -1,8 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Receipt from "./Receipt";
+import moment from 'moment';
+import Toast from "../public/Toast";
 
-export default function MyPayinfo() {
+export default function MyPayinfo({whereHandle}) {
   const [payInfo, setPayInfo] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPayInfo, setSelectedPayInfo] = useState(null);
@@ -19,6 +21,7 @@ export default function MyPayinfo() {
   };
 
   useEffect(() => {
+    whereHandle("결제내역");
     getMypayinfo();
   }, []);
 
@@ -31,6 +34,32 @@ export default function MyPayinfo() {
       alert(err);
     }
   };
+
+  const cancelOrder = async (date) => {
+    const today = moment();
+    const end = moment(date);
+    const duration = moment.duration(end.diff(today));
+    const days = duration.asDays();
+    if (days <= -7) {
+      Toast.fire({
+        icon: 'error',
+        title: "결제취소 요청은 \n구매 후 7일까지 가능해요",
+      });
+      return;
+    } else {
+        await axios.post("mypage/MyOrdersList", null, {params:{"date":date}})
+        .then(()=>{
+          Toast.fire({
+            icon: 'success',
+            title: "요청하신 취소건은 확인후 \n최대 3일안에 환불될 예정이예요",
+          });
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+    }
+
+  }
 
   const groupByDateTime = (data) => {
     const grouped = {};
@@ -46,8 +75,6 @@ export default function MyPayinfo() {
 
   return (
     <div className="mx-auto w-[60%]">
-      <p className="text-lg font-semibold mb-4">결제정보</p>
-
       <table className="w-full table-fixed border-collapse sm:hidden">
         <thead>
           <tr className="bg-gray-200">
@@ -78,7 +105,9 @@ export default function MyPayinfo() {
                 </button>
               </td>
               <td className="text-center py-3">
-                <button className="">
+                <button className="hover:text-red-600"
+                        onClick={()=>{cancelOrder(group[0].date)}}
+                >
                   결제취소 요청
                 </button>
               </td>
@@ -112,7 +141,9 @@ export default function MyPayinfo() {
               >
                 전자 영수증 보기
               </button>
-              <button className="block w-full mt-2 text-red-600 hover:underline focus:outline-none focus:shadow-outline">
+              <button className="block w-full mt-2 hover:text-red-600 hover:underline focus:outline-none focus:shadow-outline"
+                      onClick={()=>{cancelOrder(group[0].date)}}
+              >
                 결제취소 요청
               </button>
             </div>
