@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Button } from "antd";
+import { Modal } from "antd";
 import DaumPostcode from "react-daum-postcode";
 
 export default function MyInfoPost({ updateAddress }) {

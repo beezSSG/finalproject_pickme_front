@@ -78,7 +78,7 @@ export default function MyPayinfo() {
                 </button>
               </td>
               <td className="text-center py-3">
-                <button className="text-red-600 hover:underline">
+                <button className="">
                   결제취소 요청
                 </button>
               </td>

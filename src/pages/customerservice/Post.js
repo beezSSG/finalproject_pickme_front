@@ -52,8 +52,6 @@ function Post() {
     setItemPrice(str);
   };
 
-  homeAlertHandle();
-
   const Radiovalue = [
     "무게 : 350g 이하, 동일한 3,200/제주권:6,200",
     "무게 : 500g 이하, 동일한 3,500/제주권:6,500",
