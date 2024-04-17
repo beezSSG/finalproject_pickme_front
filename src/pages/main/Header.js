@@ -4,14 +4,12 @@ import { Link } from "react-router-dom";
 
 // 이미지 및 아이콘
 import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg"; // full 로고 이미지
-// import ShortLogoImg from "../../assets/imgs/logo/logo.svg";
 
 import { RiUser5Fill } from "react-icons/ri"; // 마이페이지 아이콘
 import { FaShoppingCart } from "react-icons/fa"; // 장바구니 메뉴 아이콘
-// import { BsCart4 } from "react-icons/bs";
 
 function Header() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobilemenuopen, setMobilemenuopen] = useState(false);
 
   const Logincom = () => {
     if (
@@ -30,21 +28,6 @@ function Header() {
           >
             로그인
           </Link>
-
-          {/* 장바구니 */}
-          {/* <Link
-            to={"mypage/cart"}
-            className="group"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            <span
-              className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
-                        text-xs group-hover:text-white font-medium rounded-xl sm:top-4 sm:right-12 md:top-6 md:right-2 lg:top-0 lg:right-2"
-            >
-              장바구니
-            </span>
-            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
-          </Link> */}
         </div>
       );
     } else {
@@ -60,21 +43,12 @@ function Header() {
           >
             로그아웃
           </button>
-          {/* <Link
-            className="relative w-fit inline-block after:block mx-1
-                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
-                        after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
-                        after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
-            to={() => logout()}
-          >
-            로그아웃
-          </Link> */}
 
           {/* 마이페이지 */}
           <Link
             to="mypage"
             className="group"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setMobilemenuopen(false)}
           >
             <span
               className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
@@ -89,7 +63,7 @@ function Header() {
           <Link
             to="/mypage/cart"
             className="group"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setMobilemenuopen(false)}
           >
             <span
               className="absolute py-1 px-1.5 w-max bg-transparent text-transparent translate duration-300 group-hover:bg-main-orange
@@ -113,13 +87,8 @@ function Header() {
     { name: "소개", to: "/about" },
     { name: "상품", to: "/productlist" },
     { name: "매장찾기", to: "/store" },
-    {
-      name: "서비스",
-      submenus: [
-        { name: "택배 예약", to: "/post" },
-        { name: "픽업 예약", to: "/productreservation" },
-      ],
-    },
+    { name: "택배 예약", to: "/post" },
+    { name: "픽업 예약", to: "/productreservation" },
     { name: "이벤트", to: "/event" },
     { name: "고객센터", to: "/customercenter" },
   ];
@@ -169,7 +138,7 @@ function Header() {
       className={`mx-auto pt-6 pb-4 sm:p-0 lg:px-8 
                 backdrop-blur-md shadow-md
                 transition duration-700 hover:bg-slate-50
-                ${mobileMenuOpen ? "bg-white" : ""}`}
+                ${mobilemenuopen ? "bg-white" : ""}`}
     >
       <nav className="relative z-10 flex px-6 sm:px-4 items-center justify-between">
         {/* 홈 로고 */}
@@ -178,19 +147,13 @@ function Header() {
             src={FullLogoImg}
             alt="pickme full logo"
             className="sm:size-24 md:size-28"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={() => setMobilemenuopen(false)}
           />
-          {/* <img
-            src={ShortLogoImg}
-            alt="pickme short logo"
-            className="sm:size-10 md:hidden lg:hidden"
-          /> */}
         </Link>
 
         {/* 메뉴 links */}
         <div className="sm:hidden lg:flex lg:gap-x-8">
-          {
-            menus.map((menu) =>
+          {menus.map((menu) =>
             menu.name !== "서비스" ? (
               // 서비스 메뉴 아니면, 일반 Link
               <Link
@@ -211,10 +174,9 @@ function Header() {
         </div>
 
         {/* 로그인 */}
-        {/* flex items-center gap-x-5 md:gap-x-8 */}
         <div
           className="float-right flex items-center"
-          mobileMenuOpen={mobileMenuOpen}
+          mobilemenuopen={mobilemenuopen.toString()}
         >
           <div className="md:block flex items-center my-1.5">
             <Logincom />
@@ -229,7 +191,7 @@ function Header() {
                 data-headlessui-state=""
                 className=" flex h-8 w-8 items-center justify-center ui-not-focus-visible:outline-none group"
                 // id="headlessui-popover-button-:Rbpnla:"
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                onClick={() => setMobilemenuopen(!mobilemenuopen)}
               >
                 <svg
                   aria-hidden="true"
@@ -254,58 +216,27 @@ function Header() {
       </nav>
 
       <div
-        className={`mt-6 z-20 h-screen w-screen transition-all duration-1000
-                    ${
-                      mobileMenuOpen ? "opacity-100" : "h-0 opacity-0"
-                    } md:hidden lg:hidden`}
+        className={`mt-6 z-20 h-screen w-screen md:hidden lg:hidden transition-all duration-1000
+                    ${mobilemenuopen ? "opacity-1" : "h-0 opacity-0"}`}
       >
         <div
           className={`-my-8 pt-3 flex flex-col items-center ${
-            mobileMenuOpen ? "visible" : "hidden"
+            mobilemenuopen ? "visible" : "hidden"
           }`}
         >
-          {menus.map((menu) =>
-            menu.name !== "서비스" ? (
-              // 서비스 메뉴가 아닐때 일반 Link
-              <div className="flex flex-col items-center">
-                <Link
-                  key={menu.name}
-                  to={menu.to}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="inline-block text-base relative w-fit peer
+          {menus.map((menu) => (
+            <div className="flex flex-col items-center" key={menu.name}>
+              <Link
+                to={menu.to}
+                onClick={() => setMobilemenuopen(false)}
+                className="inline-block text-base relative w-fit peer
                         font-semibold text-slate-500 hover:text-slate-900 transition duration-300"
-                >
-                  <p className="my-4">{menu.name}</p>
-                </Link>
-                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
-              </div>
-            ) : (
-              // 서비스 메뉴일 때 dropdown 메뉴
-              <div className="flex flex-col items-center group">
-                <p className="my-4 inline-block text-base relative w-fit
-                              font-semibold text-slate-500 hover:text-slate-900 transition duration-300">
-                  { menu.name }
-                </p>
-                <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
-                <ul className="hidden h-0 group-hover:block group-hover:h-full
-                                transition duration-500 divide-y-2 border-b-2 border-slate-200">
-                  {
-                    menu.submenus.map((submenu)=>(
-                      <li key={ submenu.name } 
-                          className="py-2 text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300">
-                        <Link to={ submenu.to } 
-                              className="font-semibold text-sm my-2 p-4 rounded-lg"
-                              onClick={() => setMobileMenuOpen(false)}
-                        >
-                          { submenu.name }
-                        </Link>
-                      </li>
-                    ))
-                  }
-                </ul>
-              </div>
-            )
-          )}
+              >
+                <p className="my-4">{menu.name}</p>
+              </Link>
+              <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+            </div>
+          ))}
         </div>
       </div>
     </div>
