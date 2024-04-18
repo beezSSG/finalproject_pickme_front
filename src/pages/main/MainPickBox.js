@@ -24,6 +24,7 @@ const MainPickBox = () => {
     await axios
       .get("mypage/MyPickBox")
       .then((response) => {
+        // console.log(response.data);
         setBoxData(response.data);
       })
       .catch((err) => {
@@ -57,7 +58,7 @@ const MainPickBox = () => {
               나의 Pick Box
             </h1>
             <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
-                  to="">
+                  to="/mypage/pickbox">
               더보기
             </Link>
           </div>
@@ -81,7 +82,7 @@ const MainPickBox = () => {
               modules={[Autoplay, Keyboard, Pagination]}
               className="mySwiper"
             >
-              {boxData &&
+              {(boxData !== undefined && boxData.length !== 0) ?
                 boxData.map((product, index) => {
                   let day = dDay(product.expDate);
                   if (dDay(product.expDate).substring(0, 1) === "-") {
@@ -149,7 +150,18 @@ const MainPickBox = () => {
                       <br />
                     </SwiperSlide>
                   );
-                })}
+                }) :
+                 (
+                  <div className="flex flex-col items-center justify-center">
+                    <p className="flex sm:flex-col items-center text-center font-medium lg:text-xl md:text-xl sm:text-lg">
+                       상품의 유통기한을 확인할 수 있는
+                        <span className="font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl">Pick Box</span>
+                       를 채워보시는 건 어떠세요?
+                    </p>
+                    <button className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200">상품을 구매하러 가기</button>
+                  </div>
+                )
+              }
             </Swiper>
           </div>
         </div>
