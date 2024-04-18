@@ -14,6 +14,7 @@ import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { Link } from 'react-router-dom';
 
 const MainPickBox = () => {
   const [boxData, setBoxData] = useState();
@@ -52,12 +53,13 @@ const MainPickBox = () => {
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between">
-            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
               나의 Pick Box
             </h1>
-            <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">
+            <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
+                  to="">
               더보기
-            </button>
+            </Link>
           </div>
           <br />
           <div className="mx-auto">

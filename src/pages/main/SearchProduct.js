@@ -42,12 +42,13 @@ const SearchProduct = () => {
       <div className="bg-white drop-shadow-2xl rounded-2xl m-auto mb-11">
         <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between mb-11">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
               상품찾기
             </h1>
-            <h2 className="text-2xl font-bold tracking-tight text-slate-500 hover:text-slate-900 transition duration-300">
-              <button>더보기</button>
-            </h2>
+            <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
+                  to="/productlist/0">
+              더보기
+            </Link>
           </div>
           <form className="flex items-center justify-center">
             <label htmlFor="voice-search" className="sr-only">
