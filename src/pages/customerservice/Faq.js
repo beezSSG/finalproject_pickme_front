@@ -14,6 +14,7 @@ function Faq() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    window.localStorage.removeItem('product');
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {

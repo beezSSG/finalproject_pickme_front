@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Antdmodal from "./Antdmodal";
 import PostModal from "./PostModal";
 import Toast from "../public/Toast";
+
+import {homeAlertHandle} from '../../utils/ServiceAlert'
 
 function Post() {
   let navigate = useNavigate();
@@ -24,6 +26,10 @@ function Post() {
   const [selectedOption, setSelectedOption] = useState("");
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+
+  useEffect(()=> {
+    window.localStorage.removeItem('product');
+  }, [])
 
   const handleConfirmShippingOption = (option) => {
     setSelectedOption(option);

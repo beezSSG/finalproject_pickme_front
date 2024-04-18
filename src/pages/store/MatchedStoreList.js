@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { TbBuildingStore } from "react-icons/tb"; //    <TbBuildingStore />
 
 const MatchedStoreList = ({ isOpen, closeModal, id }) => {
+
     const navigate = useNavigate();
 
     const goToMatchStore = (id, name) => {
@@ -13,6 +15,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
     let params = useParams();
 
     const [matchedStoreList, setMatchedStoreList] = useState([]);
+    const [searchDistance, setSearchDistance] = useState(1);
 
     async function matchedstorelist(id) {
         await axios.get("store/matchedstorelist", { params: { "id": id } })
@@ -21,7 +24,7 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                 setMatchedStoreList(resp.data)
             })
             .catch(function (err) {
-                alert('error');
+                alert('matchedstorelist error');
             })
     }
 
@@ -50,8 +53,11 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
         return dist;
     }
 
+
     useEffect(function () {
         matchedstorelist(params.id);
+        setSearchDistance(1);
+
     }, [params.id]);
 
     return (
@@ -59,49 +65,56 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black opacity-50" onClick={closeModal}></div>
-                    <div className="relative bg-white p-10 rounded-lg w-[80%] h-[60%] overflow-y-auto">
+                    <div className="relative bg-white p-10 rounded-lg min-w-[350px] max-w-[1000px] lg:max-h-[450px] sm:max-h-[70%] overflow-y-auto">
                         <div className="text-3xl font-bold mb-10">매장 목록</div>
+
+                        {/* 거리 선택 바 */}
+                        <div className="flex justify-center items-center mb-5 p-2 rounded-2xl
+                                        bg-yellow-50 lg:w-[400px] sm:w-[260px]">
+                            <label htmlFor="searchDistance" className="mr-3 font-bold">거리 선택:</label>
+                            <input type="range" name="searchDistance" min="1" max="5" step="1" defaultValue={searchDistance} 
+                                className="w-48 appearance-none bg-yellow-400 h-1 rounded-lg focus:outline-none focus:bg-yellow-400 focus:ring-2 focus:ring-yellow-200" 
+                                onChange={(e) => setSearchDistance(e.target.value)}
+                            />
+                            <span className="ml-3">{searchDistance}km 이내</span>
+                        </div>
+
                         <div className="modal-body">
                             {matchedStoreList.length > 0 ? (
-                                matchedStoreList.map(matchedstore => (
-                                    <div key={matchedstore.id} className="mb-10">
-                                        <table className="w-full border border-gray-300 rounded-xl">
-                                            <colgroup>
-                                                <col width="250px" /><col width="250px" /><col width="70px" /><col width="150px" /><col width="70px" /><col width="100px" />
-                                            </colgroup>
-                                            <thead className="bg-gray-200">
-                                                <tr>
-                                                    <th className="p-5">매장명</th>
-                                                    <th>주소</th>
-                                                    <th>거리</th>
-                                                    <th>전화번호</th>
-                                                    <th>24H</th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr className='text-center'>
-                                                    <td className='font-bold p-3'>{matchedstore.name}</td>
-                                                    <td>{matchedstore.address}</td>
-                                                    <td>{calDistance(matchedstore.lon, matchedstore.lat)}m</td>
-                                                    <td>{matchedstore.tel}</td>
-                                                    <td className='mr-7'>{matchedstore.open_ended === 0 ? 'X' : 'O'}</td>
-                                                    <td className='py-3'>
-                                                        <button className="text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-8 py-3 m-4 focus:outline-none"
-                                                            onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}
-                                                        >
-                                                            선택
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                matchedStoreList
+                                .filter(matchedstore => calDistance(matchedstore.lon, matchedstore.lat) <= searchDistance * 1000)
+                                .sort((a, b) => calDistance(a.lon, a.lat) - calDistance(b.lon, b.lat))
+                                .map((matchedstore, index) => (
+                                    <div key={matchedstore.id} >
+                                        <div className="mb-10 p-4 border border-gray-300 rounded-xl lg:w-[800px]">
+                                            
+                                            {index === 0 && <p className="text-green-600 font-bold text-lg">가장 가까운 점포!</p>}
+                                            <div name="logo" className='border-4 border-yellow-400 bg-pink-100 rounded-full w-fit mb-8'>
+                                                <p className='text-7xl text-gray-800'>
+                                                    <TbBuildingStore />
+                                                </p>
+                                            </div>
+
+                                            <div name="storeInfo" className="text-left max-w-fit">
+                                                <p><b>매장명: </b>{matchedstore.name}</p>
+                                                <p><b>주소: </b>{matchedstore.address}</p>
+                                                <p><b>거리: </b>{calDistance(matchedstore.lon, matchedstore.lat).toLocaleString()}m</p>
+                                                <p><b>전화번호: </b>{matchedstore.tel}</p>
+                                                <p><b>24H: </b>{matchedstore.open_ended === 0 ? 'O' : 'X'}</p>
+                                            </div>
+
+                                            <div name="button">
+                                                <button className="text-gray-800 bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-8 py-3 m-4 focus:outline-none min-w-[92px]"
+                                                                    onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}>
+                                                바로가기
+                                                </button>
+                                            </div>
+                                        </div>
                                     </div>
                                 ))
                             ) : (
-                                <div className="text-center">
-                                    <br/><br/><br/><br/><br/><br/>
-                                    <p className="text-xl mb-6 text-gray-400">조건을 만족하는 점포가 없습니다.</p>
+                                <div className="text-center min-h-[150px] flex justify-center items-center">
+                                    <p className="text-xl mb-6 text-gray-400">조건을 만족하는 점포가 없어요 😓</p>
                                 </div>
                             )}
                         </div>

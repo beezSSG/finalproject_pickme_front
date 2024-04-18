@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import star2 from "../../assets/imgs/product/star2.png";
 
-export default function MyMainContent() {
+export default function MyMainContent(prop) {
   let getProduct = JSON.parse(localStorage.getItem("recentlyProduct"));
   const [pdata, setPdata] = useState();
 
@@ -17,13 +17,13 @@ export default function MyMainContent() {
   };
 
   useEffect(() => {
-    if (getProduct !== null || getProduct !== undefined) {
+    prop.whereHandle("");
+    if (getProduct !== null) {
       getRecentlyProduct();
     }
     
   }, []);
 
-  //  
   const getRecentlyProduct = async () => {
     await axios.get("mypage/getRecentlyProduct", { params : { "id" : getProduct } })
     .then((response)=>{
@@ -39,11 +39,9 @@ export default function MyMainContent() {
   }
 
   return (
-    <div className="w-[60%]">
-        <div className="text-center text-2xl font-bold">최근에 구경한 상품</div>
-
-        <div className="w-[80%] mt-5 mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
-        { pdata ? pdata.map((product, i) => {
+    <div className="w-full">
+        <div className="w-[80%] mt-5 mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1">
+        { pdata && pdata.map((product, i) => {
             return (
               <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
                 <div className='mt-5'>
@@ -66,9 +64,9 @@ export default function MyMainContent() {
                 </div>
               </div>
             )
-          }) : <div>최근 본 상품이 없습니다.</div>
-        }
+          })}
         </div>
+        {pdata ? "" : <div className="mx-auto mt-44 sm:my-10 sm:text-xl lg:text-4xl text-center">최근 본 상품이 없습니다.</div>}
 
         {/* { pdata &&
           pdata.map((da, i) => {

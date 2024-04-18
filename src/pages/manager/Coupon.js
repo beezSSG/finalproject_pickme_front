@@ -2,8 +2,12 @@ import ManagerMain from "./ManagerMain";
 import { useState } from "react";
 import axios from "axios";
 import { RiCoupon3Line } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
+import Toast from "../public/Toast";
 
 function Coupon() {
+
+  let navigate = useNavigate();
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -15,13 +19,21 @@ function Coupon() {
       .get("/manager/couponcreate", {
         params: {
           content: content,
+          title: title,
           startDate: startDate,
           endDate: endDate,
-          couponNumber: couponNumber,
+          couponNumber: couponNumber
         },
       })
       .then(function (resp) {
         console.log(resp.data);
+        if(resp.data === "YES") {
+          Toast.fire({
+            icon: 'success',
+            title: "쿠폰 발행이 성공적으로 완료되었습니다.",
+          });
+        navigate("/manager/orderchart");
+        }
       })
       .catch(function () {
         console.log("Error");

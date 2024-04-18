@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
 
 import Toast from "../public/Toast";
 import star2 from "../../assets/imgs/product/star2.png";
+import Categories from "./Categories.js";
 import { BsCart4 } from "react-icons/bs"; // <BsCart4 />
 import { IoIosAdd, IoIosRemove } from "react-icons/io"; // <IoIosAdd /> <IoIosRemove />
 
@@ -15,6 +16,10 @@ function StoreProductlist() {
 
     let {id, name} = useParams();
     
+    // 매장 정보
+    const [storeInfo, setStoreInfo] = useState({});
+    const [storeStartHour, setStoreStartHour] = useState('');
+    const [storeEndHour, setStoreEndHour] = useState('');
     
     // 정렬
     const [choice, setChoice] = useState('select');
@@ -25,12 +30,30 @@ function StoreProductlist() {
     // 페이징
     const [page, setPage] = useState(1);
     const [totalCnt, setTotalCnt] = useState(0);
+    // 카테고리 스크롤 따라오기에 사용되는 변수
+    const sortListRef = useRef(null);
+    // 화면 쪼그라들기 시작할 시점
+    const mobileWidth = 900; 
     // 장바구니 수량
     const [cartQuantity, setcartQuantity] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
     
 
-    /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
     
+    // 매장 정보 불러오기
+    function getStoreInfo(id){
+        axios.get("store/storeinfo", 
+                    {params:{ "id":id }})
+             .then(function(resp){  // success:function
+              setStoreInfo(resp.data);
+              setStoreStartHour(`${resp.data.startHour.slice(0, 2)}:${resp.data.startHour.slice(2)}`);
+              setStoreEndHour(`${resp.data.endHour.slice(0, 2)}:${resp.data.endHour.slice(2)}`);
+             })
+             .catch(function(err){     // error:funcztion
+                alert('getStoreInfo error');
+             })
+    }
+    
+    // 매장 상품 목록 불러오기
     function getStoreProductlist(c, s, pn, id, switching, category){
         axios.get("store/storeproductlist", 
                     {params:{ choice:c, search:s, pageNumber:pn,"store_id":id, "switching":switching, "category":category}})
@@ -40,14 +63,23 @@ function StoreProductlist() {
                 setTotalCnt(resp.data.cnt); // 글의 총수
              })
              .catch(function(err){     // error:funcztion
-                alert('error');
+                alert('getStoreProductlist error');
              })
     }
-    
 
     // 첫 시작 시 작동
     useEffect(function(){
+        getStoreInfo(id);
         getStoreProductlist('select', search, 0, id, switching, category);
+
+        window.addEventListener('scroll', handleScroll);
+        onResize();
+        window.addEventListener('resize', onResize);
+
+        return () => {
+          window.removeEventListener('scroll', handleScroll);
+          window.removeEventListener('resize', onResize);
+        };
     }, []);
 
 
@@ -75,14 +107,44 @@ function StoreProductlist() {
         getStoreProductlist(choice, search, page-1, id, switching, category);
     }
 
+    function onResize (){
+      const zoom = Math.min(window.innerWidth / mobileWidth, 1);
+      //document.documentElement.style.zoom = `${zoom}`;
+    };
+
+    const handleScroll = () => {
+      const sortList = sortListRef.current;
+      const sortElement = document.getElementById('sort');
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const sortOffsetTop = sortElement.offsetTop;
+      const sortHeight = sortElement.offsetHeight;
+      const sortListHeight = sortList.offsetHeight;
+      const bottomOffset = scrollTop - sortOffsetTop + sortListHeight;
+
+      // sortList가 sort 요소의 아래로 넘어가면 막습니다.
+      if (bottomOffset > sortHeight) {
+        sortList.style.top = `${sortHeight - sortListHeight}px`;
+      } else {
+        sortList.style.top = `${Math.max(0, scrollTop - sortOffsetTop)}px`;
+      }
+    };
 
     // 장바구니
 
     const addCart = async (productId, storeId, quantity) => {
+
       await axios.post("/customer/cart/insert", null,
         { params : { "productId":productId, "storeId":storeId, "quantity":quantity }}
       )
-      .then(() => {
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.data === "YES") {
+          Toast.fire({
+            icon: 'warning',
+            title: "이미 장바구니에 추가되어 있습니다.",
+          });
+          return;
+        }
         Toast.fire({
             icon: 'success',
             title: "✔ 장바구니에 추가되었습니다!",
@@ -109,174 +171,198 @@ function StoreProductlist() {
       }
     }
 
+    
   return (
-    <div align="center">
-      
-      <div className='font-bold mt-5 mb-10 text-2xl'>
-        <p>"{name}" 상품 목록</p>
-      </div>
+    <div>
 
-      <div className='mb-5'>
-        <div className="flex flex-col items-center mt-7">
-            <div className='flex mb-5'>
-                <div className='flex items-center mr-3'>
-                    <input placeholder='상품명을 입력하세요' className='border border-gray-400 p-2 rounded-lg'
-                        value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
-                                        dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
-                </div>
-                <div className='flex items-center'>
-                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                        dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
-                    <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                        font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                        dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
-                </div>
+      <div name="storeInfo" align="center" className='mb-4'>
+        <div name='infoBox' className='max-w-[500px] mb-14'>
+          <div className='border-b-2 border-b-gray-300 mb-4'>
+            <div className='mt-5 mb-4 p-2 inline-block rounded-md bg-yellow-200 shadow-lg border-2 border-stone-400'>
+              <p className='font-bold text-3xl text-gray-800'>          
+                {name}
+              </p>
             </div>
+          </div>
 
-            <div className='flex items-center'>
-                <button className="focus:outline-none text-white bg-sky-950 hover:bg-sky-700
-                                    font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16
-                                    dark:focus:ring-yellow-900" onClick={()=>categoryBtn(0)}>전체 상품</button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 1 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 1 ? null : () => categoryBtn(1)}>
-                    음료
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 2 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 2 ? null : () => categoryBtn(2)}>
-                    간편식사
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 3 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 3 ? null : () => categoryBtn(3)}>
-                    즉석조리
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 4 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 4 ? null : () => categoryBtn(4)}>
-                    과자류
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 5 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 5 ? null : () => categoryBtn(5)}>
-                    아이스크림
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 6 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 6 ? null : () => categoryBtn(6)}>
-                    식품
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 7 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 7 ? null : () => categoryBtn(7)}>
-                    생활용품
-                </button>
-                <button 
-                    className={`focus:outline-none text-white ${category === 8 ? 'bg-orange-400' : 'bg-amber-600'} hover:bg-orange-400
-                                font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
-                                dark:focus:ring-yellow-900`}
-                    onClick={category === 8 ? null : () => categoryBtn(8)}>
-                    기타
-                </button>
-            </div>
+          <div className='max-w-[400px] text-left text-gray-800'>
+            <p className='my-1'><b>매장위치:</b>　{storeInfo.address}</p>
+            <p className='my-1'><b>전화번호:</b>　{storeInfo.tel}</p>
+            <p className='my-1'><b>영업시간:</b>　{storeStartHour} ~ {storeEndHour}</p>
+            <p className='mt-8 mb-2'><b>제공 서비스</b></p>
+          </div>          
+          <div className='text-left'>            
+            <Categories storeInfo={storeInfo} />
+          </div>
+
         </div>
-      </div>
       <hr/>
+      </div>
+      
+      <div id='contents' align="center">
+      
+        <div className='flex min-w-[430px] max-w-[1600px]'>
+        <div id="sort" className='w-2/12 min-h-[480px] relative top-0'>
+          <div ref={sortListRef} id="sortList" className='bg-slate-100 rounded-lg absolute top-3 right-0'>
+            <ul className='prodInfo m-4 p-2' align="center">
+              <li id='sort_00' className={`${category === 0 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(0)}>
+                전체상품
+              </li>
+              <hr/>
 
+              <li id='sort_01' className={`${category === 1 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(1)}>
+                음료
+              </li>
+              <hr/>
 
-      <div className="mt-7">
-        <table>
-          <colgroup>
-                    <col width="122"/><col width="250"/><col width="100"/><col width="100"/>
-          </colgroup>
-          <thead>
-            <tr className="bg-slate-200">
-              <th className=' h-[40px]'>제품 사진</th><th>제품명</th><th>가격</th><th>장바구니</th>
-            </tr>
-          </thead>
-          <tbody className='items-center text-center'>
-              {storeproductlist.length > 0 && (
-                // Use a for loop to create table rows
-                (() => {
-                  const rows = [];
-                  for (let i = 0; i < storeproductlist.length; i++) {
+              <li id='sort_02' className={`${category === 2 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(2)}>
+                간편식사
+              </li>
+              <hr/>
 
-                    const product = storeproductlist[i];
-                    //console.log(product);
-                    rows.push(
-                      <tr key={product.id} className="border-b border-slate-200">
-                        <td className='h-[146px]'>
-                        <Link to={`/productdetail/${product.id}`}>
-                          <img src={product.url} style={{ maxWidth: '100px', maxHeight: '100px', margin: '10px' }} />
-                        </Link>
-                        {Array.from({ length: product.productRating }, (_, index) => (
-                                <span key={index} style={{ display: 'inline-block' }}>
-                                  <img src={star2} style={{ maxWidth: '15px', maxHeight: '15px', margin: '1px' }} />
+              <li id='sort_03' className={`${category === 3 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(3)}>
+                즉석조리
+              </li>
+              <hr/>
+
+              <li id='sort_04' className={`${category === 4 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(4)}>
+                과자류
+              </li>
+              <hr/>
+
+              <li id='sort_05' className={`${category === 5 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(5)}>
+                아이스
+              </li>
+              <hr/>
+
+              <li id='sort_06' className={`${category === 6 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(6)}>
+                식품
+              </li>
+              <hr/>
+
+              <li id='sort_07' className={`${category === 7 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(7)}>
+                생활용품
+              </li>
+              <hr/>
+              <li id='sort_08' className={`${category === 8 ? 'font-bold text-yellow-500' : 'bg-slate-100'} hover:bg-slate-200
+                                cursor-pointer p-2 rounded-lg`} onClick={()=>categoryBtn(8)}>
+                기타
+              </li>
+              <hr/>
+            </ul>
+          </div>
+        </div>
+
+        <div id='productMain' className='w-10/12'>
+          <div id='productSearch' className='max-w-[1200px] flex flex-col items-center'>
+            <div id='priceSearch'></div>
+            
+            <div id='nameSearch' align="center">
+              <div className='flex mb-5'>
+                  <div className='flex items-center mr-3'>
+                      <input placeholder={`${name}의 상품을 검색하세요`} className='border border-gray-400 p-2 rounded-lg w-80'
+                          value={search} onChange={(e)=>{setSearch(e.target.value)}} />
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
+                                          dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
+                  </div>
+                  <div className='flex items-center'>
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
+                                          dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
+                      <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
+                                          font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
+                                          dark:focus:ring-yellow-900" onClick={() => choiceBtn('rate')}>평점순</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div id='storeproductlist' className='flex flex-wrap justify-center gap-4 p-4 max-w-[1200px] min-h-[480px]'>
+            {storeproductlist.length > 0 && (
+              // Use a for loop to create table rows
+              (() => {
+                const rows = [];
+                const columns = 1; // Number of columns
+                for (let i = 0; i < storeproductlist.length; i += columns) {
+                  const row = [];
+                  for (let j = i; j < i + columns && j < storeproductlist.length; j++) {
+                    const product = storeproductlist[j];
+                    row.push(
+                      <div className="items-center w-[250px] h-[375px]
+                                      mb-10 rounded-xl border border-spacing-2
+                                      overflow-hidden transition duration-500 ease-in-out transform
+                                      hover:ring-4 hover:ring-amber-400"
+                            align="center">
+                        <div className='mt-10'>
+                          {/* 제품 이미지 */}
+                          <img src={product.url} className="w-5/6 h-5/6 object-cover" />
+                          {/* 장바구니 버튼 */}
+                          <div className="absolute bottom-28 right-2 bg-yellow-200 bg-opacity-70 py-2 rounded-full
+                                            px-5 hover:scale-110 transition duration-300 hover:bg-yellow-300 cursor-pointer"
+                                            onClick={() => addCart(product.id, id, 1)}>
+                                <p className='text-2xl font-bold text-gray-800'><BsCart4 /></p>
+                          </div>
+                          {/* 1+1 스티커 */}
+                          {product.promotionType === 1 && (
+                            <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 py-2 rounded-full
+                                            px-5 select-none">
+                                <p className='text-2xl font-bold text-gray-800'>1+1</p>
+                            </div>
+                          )}
+                        <br/>
+                        <hr/>
+                          <p className='mt-5 font-semibold'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
+                          <p>{product.price.toLocaleString()}원</p>
+                          <p>
+                            {product.productRating === 0 ? (
+                              <span>　</span>
+                            ) : (
+                              Array.from({ length: product.productRating }, (_, index) => (
+                                <span key={index} style={{ display: 'inline-block', marginRight: '3px' }}>
+                                  <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px' }} />
                                 </span>
-                            ))}
-                        </td>
-                        <td>{product.name}</td>
-                        <td>{product.price.toLocaleString()}원</td>
-                        <td>
-                          <div className='flex items-center justify-center text-center hover:text-orange-500 cursor-pointer'
-                              onClick={() => {addCart(product.id, id, cartQuantity[i])}}>
-                              <BsCart4 className='w-7 h-7' />
-                          </div>
-                          <div className='flex items-center justify-center text-center ml-1 mr-1 mt-5 border border-gray-500 text-xl rounded-xl'>
-                              <div className='flex items-center justify-center text-center w-[35px] cursor-pointer border-r border-gray-500
-                                              hover:text-orange-500' onClick={() => {decreaseQuantity(i)}}>
-                                <IoIosRemove />
-                              </div>
-                              <div className='w-[30px]'>
-                                {cartQuantity[i]}
-                              </div>
-                              <div className='flex items-center justify-center text-center w-[35px] cursor-pointer border-l border-gray-500
-                                              hover:text-orange-500' onClick={() => {increaseQuantity(i)}}>
-                                <IoIosAdd />
-                              </div>
-                          </div>
-                        </td>
-                      </tr>
+                              ))
+                            )}
+                          </p>
+                        </div>
+                      </div>
                     );
                   }
-                  return rows;
-                })()
-              )}
-          </tbody>
-        </table>
+                  rows.push(
+                    <div key={i} className='flex space-x-20'> {/* 열 간의 간격을 추가 */}
+                      {row}
+                    </div>
+                  );
+                }
+                return rows;
+              })()
+            )}
+          </div>
+
+          <div id='pagination' className='max-w-[1200px] bottom-0'>
+            <Pagination className=""
+            itemClass='page-item'
+            linkClass='page-link' 
+            activePage={page}           // 현재 활성화 된 페이지 번호
+            itemsCountPerPage={16}      // 페이지 당 보여줄 항목의 수
+            totalItemsCount={totalCnt}  // 전체 항목 수
+            pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
+            prevPageText={"prev"}
+            nextPageText={"next"}
+            onChange={handlePageChange} />
+            </div>
+          </div>
+        </div>
       </div>
-
-        <br/>
-
-    <Pagination className=""
-        itemClass='page-item'
-        linkClass='page-link' 
-        activePage={page}           // 현재 활성화 된 페이지 번호
-        itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
-        totalItemsCount={totalCnt}  // 전체 항목 수
-        pageRangeDisplayed={10}     // 한 번에 보여줄 페이지 번호의 범위
-        prevPageText={"prev"}
-        nextPageText={"next"}
-        onChange={handlePageChange} />
-
     </div>
   );
 

@@ -1,228 +1,233 @@
-import { useEffect, useState, useRef } from 'react';
-import axios from 'axios';
-import React from 'react';
-import './powrite.css';
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Toast from "../public/Toast";
+import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
+
+const SelectedProducts = ({ selectedProducts, removeProduct }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <div className="fixed top-[300px] right-0">
+      <h2
+        className="text-xl font-bold mb-2 cursor-pointer bg-rose-500 text-white p-1 rounded-xl"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        선택된 상품 {isOpen ? "▲" : "▼"}
+      </h2>
+      {isOpen && (
+        <div className="absolute top-full right-0 bg-white border-2 border-gray-700 p-4 w-[300px] h-[300px] overflow-y-auto">
+          {selectedProducts.map((product, index) => (
+            <div key={index} className="mb-2">
+              <div>
+                <p className="font-bold">{product.name}</p>
+                <p className="font-bold">{product.quantity}개</p>
+                <p className="font-bold">
+                  {(product.price * product.quantity).toLocaleString()}원
+                </p>
+              </div>
+              <div className="text-right">
+                <button
+                  onClick={() => removeProduct(product)}
+                  className="bg-sub-yellow rounded-xl font-bold py-1 px-2"
+                >
+                  취소
+                </button>
+                <hr className="mt-3" />
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const Powrite = () => {
-    const [categoryList, setCategoryList] = useState([]);
+  let navigate = useNavigate();
+  const [products, setProducts] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+  const [selectedProductToAdd, setSelectedProductToAdd] = useState(null);
+  const [selectedProducts, setSelectedProducts] = useState([]);
 
-    const [checkboxList, setCheckboxList] = useState([]); // 체크박스 목록을 저장할 상태
-    const [checkboxValues, setCheckboxValues] = useState({}); // 체크박스 값들을 저장할 상태
-    
-    const [categoryName, setCategoryname] = useState([]);
-    const [productList, setProductList] = useState([]);
-    const [counters, setCounters] = useState([]); // 각 체크박스에 대한 수량을 저장할 상태
-
-    const [ckyn, setCkyn] = useState(false);
-
-    const [checkedList, setCheckedList] = useState([]);
-
-    // 검색
-    const [choice, setChoice] = useState("");
-    const [search, setSearch] = useState("");
-
-    const getPowrite = () => {
-        axios.get("powriteCn")
-            .then(function(resp){
-                console.log(resp); // 확인용
-                setCategoryList(resp.data);
-            })
-            .catch(function(err){
-                alert('error');
-            })
-    }
-
-    function searchBtn(){        
-        // choice, search 검사
-        if(choice === ''){
-            alert('카테고리를 선택해 주십시오');
-            return;
-        }
-      getPowrite(choice, search);
-    }  
-
-    useEffect(() => {
-        getPowrite();
-    }, []);
-
-    useEffect(() => {
-   
-    }, [productList]);
-
-    const onCheckedElement = (checked, item) => {
-        if (checked) {
-          setCheckedList([...checkedList, item]);
-          let b;
-          for (let i = 0; i < item.length; i++) {
-            b = item[i];
-            productList.push(b);
-            counters.push(0);
-          }
-          setProductList(productList);
-          setCounters(counters);
-          
-        } else if (!checked) {
-          setCheckedList(checkedList.filter(e => e !== item));
-          for (let i = 0; i < item.length; i++) {
-            for (let j = 0; j < productList.length; j++) {
-                if (productList[j] === item[i]) {
-                    productList.splice(j, 1);
-                    counters.splice(j, 1);
-                } 
-            }
-            console.log(productList);
-            setProductList(productList);
-            setCounters(counters);
-          }
-          // alert('여기에 도달했는지');
-          setProductList(productList);
-          setCounters(counters);
-        }
-      };
-
-    //   const onRemove = item => {
-    //     // setCheckedList(checkedList.filter(e => e !== item));
-    //     setProductList
-    //   };
-      const onRemove = i => {
-        productList.splice(i, 1);
-        counters.splice(i, 1);
-        setProductList(productList.filter(() => productList));
-        setCounters(counters.filter(() => counters));
-      };
-
-          // 체크박스를 토글하는 함수
-    const handleCheckboxChange = (id, isChecked) => {
-        setCheckboxValues({
-            ...checkboxValues,
-            [id]: isChecked
-        });
-        if (isChecked) {
-            setCounters(prevCounters => ({
-                ...prevCounters,
-                [id]: 1 // 체크된 상태에서는 수량을 1로 초기화
-            }));
+  const fetchMoreData = () => {
+    axios
+      .get("customer/reservationproductlist", {
+        params: { search: search, pageNumber: page + 1, perPage: 12 },
+      })
+      .then(function (resp) {
+        if (resp.data.length === 0) {
+          setHasMore(false);
         } else {
-            setCounters(prevCounters => ({
-                ...prevCounters,
-                [id]: 0 // 체크가 해제되면 수량을 0으로 초기화
-            }));
+          setProducts((prevProducts) => [...prevProducts, ...resp.data]);
+          setPage((prevPage) => prevPage + 1);
         }
-    };
-
-    // 카운터를 증가시키는 함수
-    // const increaseCounter = (i) => {
-    //    setCounters(prevCounters => ({
-    //        ...prevCounters,
-    //        [i]: prevCounters[i] + 1 // 해당 제품의 수량 증가
-    //    }));
-        // 숫자를 올릴때 배열에서 object로 바뀌기 때문에 이걸 고치면 된다.
-        // console.log(counters);
-        // console.log(productList);
-    //};
-    const increaseCounter = (i) => {
-        setCounters(prevCounters => {
-            const newCounters = [...prevCounters];
-            newCounters[i]++;
-            return newCounters; 
-        });
-        console.log(counters);
-    };
-
-    // 카운터를 감소시키는 함수
-    const decreaseCounter = (i) => {
-        if (counters[i] > 0) { 
-            setCounters(prevCounters => {
-                const newCounters = [...prevCounters];
-                newCounters[i]--;
-                return newCounters; 
-            });
-        }
-        // alert(counters[i]);
-    };
-
-      const categoryNames = Array.from(new Set(categoryList.map((item) => item.categoryName)));
-      console.log(categoryNames);
-
-      const categoryCN = categoryNames.map((categoryName) => {
-        const subMenus = categoryList
-          .filter((item) => item.categoryName === categoryName)
-          .map((item) => item["name"]);
-        return { categoryName, "name": subMenus };
+      })
+      .catch(function () {
+        console.log("error");
       });
+  };
 
-      function button() {
-        console.log(categoryCN);
+  useEffect(() => {
+    const perPage = 12;
+    setPage(1);
+    setHasMore(true);
+    reservationproductlist(search, 1, perPage);
+  }, [search]);
+
+  function reservationproductlist(search, page, perPage) {
+    axios
+      .get("customer/reservationproductlist", {
+        params: { search: search, pageNumber: page, perPage: perPage },
+      })
+      .then(function (resp) {
+        if (resp.data.length === 0) {
+          setHasMore(false);
+        } else {
+          setProducts(resp.data);
+          setPage(page);
+        }
+      })
+      .catch(function () {
+        console.log("error");
+      });
+  }
+
+  const handleAddToCart = (product, quantity) => {
+    setSelectedProductToAdd({ ...product, quantity });
+  };
+
+  const addToCartAfterQuantityChange = () => {
+    if (selectedProductToAdd) {
+      setSelectedProducts((prevSelectedProducts) => [
+        ...prevSelectedProducts,
+        selectedProductToAdd,
+      ]);
+      setSelectedProductToAdd(null);
+      const quantityInput = document.getElementById("quantityInput");
+      if (quantityInput) {
+        quantityInput.value = 1;
       }
+    }
+  };
 
-    return(
-        <div>
-            <div>
-                <table style={{ marginLeft:"auto", marginRight:'auto', marginTop:"3px", marginBottom:"3px" }}>
-                    <tbody>
-                        <tr>
-                            <td style={{ paddingLeft:"3px" }}>
-                                <select className='custom-select' value={choice} onChange={(e)=>{setChoice(e.target.value)}}>
-                                    <option value="name">상품명</option>
-                                </select>
-                            </td>
-                            <td style={{ paddingLeft:"5px"}} className='align-middle'>
-                                <input className='form-control' placeholder='상품명을 입력하세요' value={search} onChange={(e)=>{setSearch(e.target.value)}} />
-                            </td>
-                            <td style={{ paddingLeft:"5px" }}>
-                                <button className='btn btn-primary' onClick={searchBtn}>검색</button>
-                            </td>
-                        </tr>                
-                    </tbody>    
-                </table>
-            </div>
-            <div>
-                <div>카테고리</div>
-                <div className='grid grid-cols-2 gap-8 rounded-2xl p-2'>
-                    <div>
-                        
-                    {categoryCN.map((item, i) => {
-
-                        console.log("카테고리 리스트 : ");
-                        console.log(item);
-
-                        return (
-                        <div key={item} className='grid grid-cols-2'>
-                             <div className='bg-slate-400'>
-                             { item.categoryName }
-                                <input type="checkbox" onChange={e => { onCheckedElement(e.target.checked, item.name ); }}/>
-                                {/* <input type='checkbox' id={`checkbox-${item.id}`} checked={checkboxValues[`checkbox-${item.id}`] || false} onChange={(e) => handleCheckboxChange(`checkbox-${item.id}`, e.target.checked)}/> */}
-                            </div> 
-
-                        </div>
-                        );
-                    })}
-                    </div>
-                    <div>
-                        {checkedList.length === 0 && (
-                            <div>{'카테고리를 지정해 주세요.'}</div>
-                        )}
-                        {productList.map((item, i) => {
-                            // console.log("체크 리스트 : ");
-                            // console.log(item);
-                            console.log(item.id);
-
-                            return (
-                            <div key={i} className='bg-slate-300 grid grid-cols-2'>
-                                    <p>{productList[i]}</p>
-                                    <button onClick={() => increaseCounter(i)}>+</button>
-                                    {counters[i]}
-                                    <button onClick={() => decreaseCounter(i)}>-</button>
-                                <div className='bg-slate-500' onClick={() => onRemove(i)} >
-                                X</div>
-                            </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div>
-            <button>발주신청</button>
-        </div>
+  const removeProduct = (productToRemove) => {
+    setSelectedProducts((prevSelectedProducts) =>
+      prevSelectedProducts.filter((product) => product !== productToRemove)
     );
-}
+  };
+  function insertproduct() {
+    axios
+      .post("/ceo/powritefinal", selectedProducts)
+      .then((resp) => {
+        console.log(resp.data);
+        if (resp.data === "YES") {
+          Toast.fire({
+            icon: "success",
+            title: "성공적으로 발주가 신청되었습니다.",
+          });
+          navigate("/ceo/pomain");
+        }
+      })
+      .catch((error) => {});
+  }
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  }
+
+  return (
+    <div className="w-full h-[1000px] relative">
+      <div className="text-center sm:mt-6">
+        <input
+          type="search"
+          placeholder="검색어를 입력하세요."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          className="p-2 w-[300px] border-2 border-gray-500 rounded-xl sm:p-1 focus:outline-none  focus:border-sub-yellow"
+        />
+      </div>
+
+      <div className="justify-center p-2 rounded-b">
+        <InfiniteScroll
+          dataLength={products.length}
+          next={fetchMoreData}
+          hasMore={hasMore}
+        >
+          <div className="grid grid-cols-4 gap-4 sm:grid-cols-1 lg:grid-cols-3">
+            {products.map((product, index) => (
+              <div
+                key={index}
+                className="border border-gray-300 p-4 rounded-md"
+              >
+                <div className="flex justify-center">
+                  <img
+                    src={product.url}
+                    alt=""
+                    className="w-32 h-32 object-cover"
+                  />
+                </div>
+                <h4 className="text-center mt-2 font-bold h-11">
+                  {product.name}
+                </h4>
+                <div className="text-center mt-2 font-bold">
+                  {product.price.toLocaleString()}원
+                </div>
+                <div className="flex justify-center mt-2">
+                  <input
+                    type="number"
+                    min="0"
+                    defaultValue="0"
+                    onChange={(e) => {
+                      const quantity = parseInt(e.target.value);
+                      handleAddToCart(product, quantity);
+                    }}
+                    className="w-20 text-center border border-gray-300 rounded-md focus:outline-none"
+                    id="quantityInput" // Add id to identify the input field
+                  />
+                  <button
+                    className="ml-2 bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-2 py-2 rounded-md cursor-pointer"
+                    onClick={addToCartAfterQuantityChange}
+                  >
+                    담기
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </InfiniteScroll>
+        <div className="fixed top-[250px] right-0">
+          <button
+            className="bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-2 py-3 rounded-full cursor-pointer sm:text-xs sm:px-2"
+            type="button"
+            onClick={() => insertproduct()}
+          >
+            발주
+          </button>
+        </div>
+        <div className="fixed top-[200px] right-0">
+          <button
+            className="bg-gray-700 text-white active:bg-gray-900 font-bold text-sm px-2 py-3 rounded-full cursor-pointer sm:text-xs sm:px-2"
+            type="button"
+            onClick={scrollToTop}
+          >
+            맨위
+          </button>
+        </div>
+      </div>
+      <div className="absolute top-[250px] right-0">
+        <SelectedProducts
+          selectedProducts={selectedProducts}
+          removeProduct={removeProduct}
+        />
+      </div>
+    </div>
+  );
+};
+
 export default Powrite;

@@ -10,6 +10,9 @@ function CustomerCenter() {
   let navigate = useNavigate();
 
   useEffect(() => {
+
+    window.localStorage.removeItem('product');
+    
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {

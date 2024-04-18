@@ -15,12 +15,6 @@
           { "subname": "픽업완료 승인", "subpath": "pickup" },
           { "subname": "배달완료 승인", "subpath": "postcheck" }
         ]
-      },
-      {
-        "title": "공동구매",
-        "subtitle": [
-          { "subname": "공동구매 현황", "subpath": "/groupbuying" }
-        ]
       }
 
     ]

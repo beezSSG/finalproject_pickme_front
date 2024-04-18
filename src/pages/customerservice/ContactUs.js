@@ -12,6 +12,7 @@ function ContactUs() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
+    window.localStorage.removeItem('product');
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {
@@ -80,7 +81,7 @@ function ContactUs() {
           </Link>
         </li>
       </ul>
-      <div className="flex justify-center items-center mt-[70px]">
+      <div className="flex justify-center items-center mt-[70px] px-3">
         <div>
           <div className="flex flex-col items-center justify-center mt-10 mb-70">
             <div className="flex items-center">

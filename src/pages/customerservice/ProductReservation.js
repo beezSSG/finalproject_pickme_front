@@ -2,11 +2,18 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import StoreMap from "../store/StoreMap";
-
+import LeftMenu2 from "./LeftMenu2";
 
 function ProductReservation() {
   // 매장 찾기
-  const [storeName, setStoreName] = useState("센텀프리미어호텔점");
+  const [storeName, setStoreName] = useState("");
+  const [selectedStore, setSelectedStore] = useState(null);
+
+  const handleStoreSelect = (storeData) => {
+    setSelectedStore(storeData);
+    setStoreName(storeData.name); // 선택한 매장 이름 설정
+    setShowstoreModal(false); // 매장 모달 닫기
+  };
 
   // 예약할 상품 테이블
 
@@ -15,6 +22,29 @@ function ProductReservation() {
   const [page, setPage] = useState(1); // 페이지 번호 추가
 
   const [search, setSearch] = useState("");
+
+  function selectstorename() {
+    axios
+      .get("/customer/selectstorename", { params: { id: selectedStore } })
+      .then(function (resp) {
+        console.log(resp.data);
+        setStoreName(resp.data);
+      })
+      .catch(function () {
+        console.log("error");
+      });
+  }
+
+  useEffect(
+    function () {
+      window.localStorage.removeItem('product');
+      console.log(selectedStore);
+      if (selectedStore !== null) {
+        selectstorename();
+      }
+    },
+    [selectedStore]
+  );
 
   const fetchMoreData = () => {
     axios
@@ -171,32 +201,16 @@ function ProductReservation() {
           </div>
         </div>
         {showstoreModal && (
-          <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65">
-            <div className="w-[70%] overflow-y-auto">
+          <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65 z-50">
+            <div className="w-full h-full">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white">
                 {/* 모달 제목 */}
                 <div className="relative text-center my-5 text-3xl">
                   <p className="font-bold">매장 찾기</p>
                 </div>
                 {/* 모달 내용 */}
-                <div className="">
-                  <StoreMap />
-                </div>
-                <div className="flex justify-center p-2 rounded-b">
-                  <button
-                    className="bg-yellow-500 text-white active:bg-yellow-600 font-bold text-sm px-6 py-3 mr-1 mb-1 rounded-xl cursor-pointer"
-                    type="button"
-                    onClick={() => closestoreModal()}
-                  >
-                    확인
-                  </button>
-                  <button
-                    className="bg-gray-700 text-white active:bg-gray-900 font-bold text-sm px-6 py-3  mr-1 mb-1 rounded-xl"
-                    type="button"
-                    onClick={() => closestoreModal()}
-                  >
-                    취소
-                  </button>
+                <div className="flex justify-center ">
+                  <LeftMenu2 handleStoreSelect={handleStoreSelect} />
                 </div>
               </div>
             </div>
@@ -223,7 +237,7 @@ function ProductReservation() {
                       src={product.url}
                       className="w-32 h-32 object-cover mx-auto"
                     />
-                    <div className="text-center mt-2 font-bold h-[48px]">
+                    <div className="text-center mt-2 font-bold h-[63px]">
                       {product.name}
                     </div>
                     <div className="text-center mt-2 font-bold">
@@ -304,8 +318,8 @@ function ProductReservation() {
                             <input
                               type="number"
                               className="appearance-none w-24 bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                              min="1"
-                              defaultValue="1"
+                              min="0"
+                              defaultValue="0"
                               onChange={(event) =>
                                 handleQuantityChange(event, index)
                               }

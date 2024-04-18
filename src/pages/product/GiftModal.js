@@ -23,12 +23,8 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
     const [isUserSelected, setIsUserSelected] = useState(false);
  
 
-
-
     useEffect(function () {
-
     }, []);
-
 
 
     // 받는 사람 조회    
@@ -64,6 +60,16 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
         setReceivePhone("");
     }
 
+    // 전화번호만 가능하게 만들기
+    const parsingPhoneNumber = (num) => {
+        return (
+            num
+                .replace(/[^0-9]/g, '')
+                .replace(/^(\d{0,3})(\d{0,4})(\d{0,4})$/g, '$1-$2-$3')
+                .replace(/(-{1,2})$/g, '')
+        )
+    }
+
     // 선물 보내기 
     async function sendGift(sendCustomerId, productId, giftContent, expDay, useYn){
         if(sendCustomerId === 0){
@@ -96,7 +102,7 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
             "items": [
             {
                 "id": "item_id",
-                "name": "item_name",                             // 상품 이름
+                "name": "item_name",                                    // 상품 이름
                 "qty": 1,
                 "price": productPrice                                    //  상품 금액
             }
@@ -176,32 +182,31 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
             {isOpen && (
                 <div className="fixed inset-0 flex items-center justify-center">
                     <div className="absolute inset-0 bg-black opacity-50" onClick={closeModal}></div>
-                    <div className="relative bg-white p-10 rounded-lg w-[80%] h-[60%] overflow-y-auto">
-                        <div className="text-3xl font-bold mb-10">선물하기</div>
+                    <div className="relative bg-white p-10 rounded-lg min-w-[350px] max-w-[1100px] lg:max-h-[450px] sm:max-h-[70%] overflow-y-auto">
+                        <div className="text-3xl font-bold lg:mb-10 sm:mb-2">선물하기</div>
                         <div className="modal-body">
 
                             <div className="rounded-xl border border-spacing-2 p-3 mx-48 sm:m-5 ">
                                 <div className='flex sm:flex-wrap items-center justify-center'>
                                     <div>
-                                        <img src={productUrl} style={{ maxWidth: '250px', maxHeight: '250px', margin: '3px' }} />
+                                        <img src={productUrl} className="w-[250px] h-[250px] sm:w-[125px] sm:h-[125px]" />
                                         <p className='font-bold mt-2 mb-5 '> {productName} </p>                              
                                     </div>
 
-                                    <div className='ml-8 '>
-                                        <dl style={{ display: 'flex' }}>
-                                            <dt  className='font-bold text-xl mb-8'>받는 분 전화번호</dt>
+                                    <div className='lg:ml-8'>
+                                        <dl className='flex'>
+                                            <dt  className='font-bold text-xl mb-5'>받는 분 전화번호</dt>
                                         </dl>
 
                                         <dl style={{ display: 'flex' }}>
                                             <dd className='text-sm'>
                                                 <input
-                                                    type="text"
-                                                    id="receivePhone"
-                                                    className="rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
+                                                className="rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
+                                                    type="tel"
+                                                    placeholder="전화번호"
+                                                    maxLength={13}
                                                     value={receivePhone}
-                                                    placeholder="010-xxxx-xxxx"
-                                                    onChange={(e) => setReceivePhone(e.target.value)}
-                                                    maxLength={13} />
+                                                    onChange={(e) => setReceivePhone(parsingPhoneNumber(e.target.value))}/>
                                             </dd>
                                             <dd className='ml-2 items-center'>
                                                 <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 
@@ -223,10 +228,10 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
 
                                         <dl>
                                             <dd className='text-sm mt-5'>
-                                            <input
+                                            <textarea
                                                     type="text"
                                                     id="giftContent"
-                                                    className="w-[300px] h-[150px] rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
+                                                    className="lg:w-[300px] h-[150px] sm:w-[250px] rounded-xl border-2 border-gray-400 p-3 cursor-pointer focus:outline-none focus:border-yellow-400"
                                                     value={giftContent}
                                                     placeholder="선물과 함께 보낼 메시지를 입력해 주세요!"
                                                     onChange={(e) => setGiftContent(e.target.value)} />
