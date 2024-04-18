@@ -36,7 +36,6 @@ export default function Inventory() {
 
   return (
     <div className="mx-auto w-[80%]">
-      <p className="text-3xl font-semibold mb-4">재고 현황</p>
       <div className="text-center mb-5">
         <input
           type="search"

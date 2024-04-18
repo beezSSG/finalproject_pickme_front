@@ -33,7 +33,8 @@ export default function Pocheckmodal({ getPolist, po }) {
       productId: po.productId,
       quantity: po.quantity,
       expDate: expDate,
-    }; // 소비기한 , 스토어아이디
+    }; 
+    // 소비기한 , 스토어아이디
     // #1. purchase_order 테이블에 값을 주입
     // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
     // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
