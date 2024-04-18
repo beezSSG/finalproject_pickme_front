@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Categories from "../store/Categories";
 
 // 매장 이미지
 import storeicon1 from "../../assets/imgs/main/mystoreproduct/store1.svg";
@@ -149,6 +150,7 @@ const MyStoreProducts = () => {
                   ~
                   {nearestStore.endHour.replace("시 ", ":").replace("분", "")}
                 </p>
+                <Categories storeInfo={nearestStore} />
                 <Link to={`/storeproductlist/${nearestStore.id}/${nearestStore.name}`} 
                       className="lg:text-2xl md:text-xl sm:text-sm font-semibold text-slate-600 flex items-center hover:text-main-orange transition duration-200">
                   <FaStore className="inline lg:text-2xl md:text-xl sm:text-sm" />&nbsp;매장 재고 보러가기
