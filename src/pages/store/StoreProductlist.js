@@ -294,15 +294,15 @@ function StoreProductlist() {
                             {/* 제품 이미지 */}
                             <img src={product.url} className="w-5/6 h-5/6 object-cover" />
                             {/* 장바구니 버튼 */}
-                            <div className="absolute bottom-28 right-2 bg-yellow-200 bg-opacity-70 py-2 rounded-full
-                                              px-5 hover:scale-110 transition duration-300 hover:bg-yellow-300 cursor-pointer"
+                            <div className="absolute bottom-28 right-2 bg-main-yellow bg-opacity-70 py-2 rounded-full 
+                                              px-5 hover:scale-110 transition duration-300 hover:bg-yellow-200 cursor-pointer"
                                               onClick={() => addCart(product.sproductId, 1)}>
                                   <p className='text-2xl font-bold text-gray-800'><BsCart4 /></p>
                             </div>
                             
                             {/* 1+1 스티커 */}
                             {product.promotionType === 1 && (
-                              <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 py-2 rounded-full
+                              <div className="absolute top-5 right-5 bg-main-orange bg-opacity-70 py-2 rounded-full
                                               px-5 select-none">
                                   <p className='text-2xl font-bold text-gray-800'>1+1</p>
                               </div>
