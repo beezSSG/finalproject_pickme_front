@@ -472,7 +472,6 @@ function ProductReservation() {
           >
             결제하기
           </button>
-          <button onClick={consolee}>찾아보자</button>
         </div>
       </div>
     </>
