@@ -43,15 +43,23 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
       // console.log(category);
       if (window.localStorage.getItem('product') === '확인') {
         if (newchoice === 'select' && newcategory > 0) {
+          console.log("1");
           getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
           setPage(newpage);
           setSearch(newsearch);
           setCategory(newcategory);
+        } else if ( newchoice === 'select' && newsearch !== undefined ) {
+          console.log("2");
+          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
+          setPage(newpage);
+          setSearch(newsearch);
         } else if ( newchoice === 'select') {
+          console.log("3");
           getProductlist('select', newsearch, (newpage-1), newswitching, 0);
           setPage(newpage);
           setSearch(newsearch);
         } else {
+          console.log("4");
           getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
           setSearch(newsearch);
           setChoice(newchoice);
@@ -88,6 +96,7 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
 
     function searchBtn(){        
       setChoice('select');
+      setPage(1);
       getProductlist('select', search, 0, switching, category);
     }
     
@@ -106,8 +115,8 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
     const nowSwitching = !switching;
     setSwitching(nowSwitching);
     switchingHandle(nowSwitching);
+    setPage(1);
     getProductlist(choice, search, 0, nowSwitching, category);
-    setPage(0);
   }
 
   function searchBtn() {
@@ -119,8 +128,8 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
     setCategory(num);
     categoryHandle(num);
     choiceHandle("select");
+    setPage(1);
     getProductlist(choice, search, 0, switching, num);
-    setPage(0);
   }
 
   function handlePageChange(page) {

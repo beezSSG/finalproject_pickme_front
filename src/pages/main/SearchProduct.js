@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // 즉석조리 - 컵라면
 import InstantIcon_top from "../../assets/imgs/main/searchProduct/instant/instant_top.svg";
@@ -31,11 +31,19 @@ import Drink_af from "../../assets/imgs/main/searchProduct/drink/drink.svg";
 import Egg_behind from "../../assets/imgs/main/searchProduct/food/eggLeft.svg";
 import Egg_front from "../../assets/imgs/main/searchProduct/food/eggRight.svg";
 
-const SearchProduct = () => {
+const SearchProduct = ({newsearch, searchHandle, categoryHandle}) => {
   const [drinkHovered, setDrinkHovered] = useState(false);
   const [donutHovered, setDonutHovered] = useState(false);
 
   const [search, setSearch] = useState("");
+  const navigator = useNavigate();
+
+  function searchChange() {
+    searchHandle(search);
+    categoryHandle(0);
+    window.localStorage.setItem('product', '확인');
+    navigator("/productlist/0");
+  }
 
   return (
     <>
@@ -76,6 +84,7 @@ const SearchProduct = () => {
                       text-gray-400 focus:outline-none focus:text-gray-800
                       hover:text-gray-700 transition-colors duration-400 ease-in-out 
                        rounded-full text-center"
+                      onClick={searchChange}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

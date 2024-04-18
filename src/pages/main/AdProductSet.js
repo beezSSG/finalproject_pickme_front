@@ -8,7 +8,7 @@ import "../../styles/main/PromotionStyle.css";
 // import required modules
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -27,9 +27,10 @@ const tags = [
   },
 ];
 
-const AdProductSet = () => {
+const AdProductSet = (prop) => {
   const [selectedTag, setSelectedTag] = useState(1);
   const [products, setProducts] = useState([]);
+  const navigator = useNavigate();
 
   function getProducts(tag) {
     axios
@@ -48,6 +49,12 @@ const AdProductSet = () => {
     setSelectedTag(tagId);
   };
 
+  function handlenavi() {
+    prop.choiceHandle('bogo');
+    window.localStorage.setItem('product', '확인');
+    navigator("/productlist/0");
+  }
+
   useEffect(() => {
     // console.log(selectedTag);
     getProducts(selectedTag); // 페이지가 처음으로 로드될 때 기본 태그에 맞는 상품 가져오기
@@ -61,12 +68,12 @@ const AdProductSet = () => {
             <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
               이달의 행사 상품
             </h1>
-            <Link
+            <button 
               className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
-              to=""
+              onClick={handlenavi}
             >
               더보기
-            </Link>
+            </button>
           </div>
 
           {/* 상품 분류 태그 */}

@@ -71,7 +71,9 @@ export default function MainHome() {
       <main className="relative">
         <div className="py-4">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route 
+                path="/"
+                element={<Home newchoice={choice} choiceHandle={choiceHandle}  newsearch={search} searchHandle={searchHandle} categoryHandle={categoryHandle} />} />
             <Route path="/login" element={<Login />} />
             <Route path="/idfind" element={<IdFind />} />
             <Route path="/pwfind" element={<PwFind />} />
