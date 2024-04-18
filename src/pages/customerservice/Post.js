@@ -5,7 +5,7 @@ import Antdmodal from "./Antdmodal";
 import PostModal from "./PostModal";
 import Toast from "../public/Toast";
 
-import {homeAlertHandle} from '../../utils/ServiceAlert'
+import { homeAlertHandle } from "../../utils/ServiceAlert";
 
 function Post() {
   let navigate = useNavigate();
@@ -27,9 +27,9 @@ function Post() {
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  useEffect(()=> {
-    window.localStorage.removeItem('product');
-  }, [])
+  useEffect(() => {
+    window.localStorage.removeItem("product");
+  }, []);
 
   const handleConfirmShippingOption = (option) => {
     setSelectedOption(option);
@@ -221,7 +221,7 @@ function Post() {
                 onChange={(e) => setZonecode(e.target.value)}
                 placeholder="우편번호"
                 readOnly
-                />
+              />
               {/* 주소 찾기 모달 */}
               <Antdmodal updateAddress={OnSetAddress} height="42px" />
             </div>
