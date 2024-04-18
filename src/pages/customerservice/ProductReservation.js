@@ -37,6 +37,7 @@ function ProductReservation() {
 
   useEffect(
     function () {
+      window.localStorage.removeItem('product');
       console.log(selectedStore);
       if (selectedStore !== null) {
         selectstorename();
@@ -236,7 +237,7 @@ function ProductReservation() {
                       src={product.url}
                       className="w-32 h-32 object-cover mx-auto"
                     />
-                    <div className="text-center mt-2 font-bold h-[48px]">
+                    <div className="text-center mt-2 font-bold h-[63px]">
                       {product.name}
                     </div>
                     <div className="text-center mt-2 font-bold">
@@ -317,8 +318,8 @@ function ProductReservation() {
                             <input
                               type="number"
                               className="appearance-none w-24 bg-white border border-gray-300 hover:border-gray-500 px-4 py-2 pr-8 rounded shadow leading-tight focus:outline-none focus:shadow-outline"
-                              min="1"
-                              defaultValue="1"
+                              min="0"
+                              defaultValue="0"
                               onChange={(event) =>
                                 handleQuantityChange(event, index)
                               }

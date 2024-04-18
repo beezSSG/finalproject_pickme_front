@@ -20,6 +20,7 @@ export default function StoreMap() {
 
   useEffect(() => {
     // index.html에 script연결이 되어있는지 확인
+    window.localStorage.removeItem('product');
     if (!window.naver) {
       console.error("Naver Maps API가 로드되지 않았습니다.");
       return;
@@ -43,6 +44,7 @@ export default function StoreMap() {
         }
       );
     }
+
     // 마커 생성 및 마커 참조에 저장
     // markersRef.current = sampleData.map((store) => new window.naver.maps.Marker({
     //   map: map,

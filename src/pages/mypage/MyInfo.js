@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import MyInfoPost from "./MyInfoPost";
 import { Button, Modal } from "antd";
+import Toast from "../public/Toast";
 
 export default function MyInfo() {
   const [userInfo, setUserInfo] = useState({});
@@ -64,34 +65,58 @@ export default function MyInfo() {
 
   // 개인정보 변경
   async function changeMyInformation() {
-      await axios.post("mypage/user/updateUserInfo", null, {params : {"address":address.address, "phone":phoneNumber}} )
-      .then((response)=>{
+    await axios
+      .post("mypage/user/updateUserInfo", null, {
+        params: { address: address.address, phone: phoneNumber },
+      })
+      .then((response) => {
         // console.log(response.data);
-        window.location.href = "/mypage/userinfo";
+        Toast.fire({
+          icon: 'success',
+          title: "개인정보가 변경되었어요",
+        });
+        const redirectToPage = () => {
+          window.location.href = "/mypage/userinfo";
+        };
+        setTimeout(redirectToPage, 1200);
       })
-      .catch((err)=>{
+      .catch((err) => {
         console.log(err);
-      })
+      });
   }
 
   // 비밀번호 변경
   async function changeMyPassword() {
-    if (Number(myPw) !== Number(userInfo.pw) ) {
-      alert('현재 비밀번호가 일치하지 않습니다');
+    if (Number(myPw) !== Number(userInfo.pw)) {
+      Toast.fire({
+        icon: 'error',
+        title: "변경할 비밀번호가 일치하지 않아요",
+      });
       return;
     }
 
     if (newPw === confirmPw) {
-      await axios.post("user/changePw", null, {params : {"pw":newPw}} )
-      .then((response)=>{
-        // console.log(response.data);
-        window.location.href = "/mypage/userinfo";
-      })
-      .catch((err)=>{
-        console.log(err);
-      })
+      await axios
+        .post("user/changePw", null, { params: { pw: newPw } })
+        .then((response) => {
+          // console.log(response.data);
+          Toast.fire({
+            icon: 'success',
+            title: "개인정보가 변경되었어요",
+          });
+          const redirectToPage = () => {
+            window.location.href = "/mypage/userinfo";
+          };
+          setTimeout(redirectToPage, 1200);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } else {
-      alert('변경할 비밀번호가 일치하지 않습니다');
+      Toast.fire({
+        icon: 'error',
+        title: "변경할 비밀번호가 일치하지 않아요",
+      });
     }
   }
 
@@ -109,58 +134,54 @@ export default function MyInfo() {
   }
 
   return (
-    <div className="w-[70%] mx-auto">
-      {/* Personal Information Section */}
-      <div className="flex gap-40">
-        <div className="w-[20%]">
-          <p className="text-3xl font-bold ">개인정보</p>
+    <div className="lg:w-[70%] mx-auto sm:w-full sm:p-[5%]">
+      {/* 개인정보 Section */}
+      <div className="lg:flex lg:gap-40 sm:gap-0">
+        <div className="w-[20%] sm:w-full">
+          <p className="text-3xl font-bold">개인정보</p>
         </div>
-        <div className="w-[80%] pl-5">
-          {/* Individual Info Blocks */}
-          <div className="flex gap-12 mb-2">
-            <span className="w-24 text-xl font-bold text-gray-600">
-              아이디{" "}
-            </span>
+        <div className="pl-5 flex flex-col">
+          {/* 개인정보 Blocks */}
+          <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+            <span className="text-xl font-bold text-gray-600">아이디 </span>
             <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
               {userInfo.email}
             </div>
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-24 text-xl font-bold text-gray-600">이름 </span>
+          <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+            <span className="text-xl font-bold text-gray-600">이름 </span>
             <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
               {userInfo.name}
             </div>
           </div>
-          <div className="flex gap-12 mb-2">
-            {changeInfo && (
-              <span className="w-24 text-xl font-bold text-gray-600">
-                주소{" "}
-              </span>
-            )}
-            {changeInfo ? (
-              <div className="flex gap-3 mb-2">
+          {changeInfo ? (
+            <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+              <span className="text-xl font-bold text-gray-600">주소 </span>
+              <div id="right" className="flex justify-end">
                 <input
                   type="text"
                   placeholder="주소"
                   readOnly="true"
-                  className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60 focus:border-sub-yellow focus:outline-none"
+                  className="text-lg border-2 border-gray-500 rounded-xl mr-1 w-[51.5%] p-2 focus:border-sub-yellow focus:outline-none"
                   value={address.address}
                 />
-                <MyInfoPost updateAddress={onSetAddress} />
+                <MyInfoPost 
+                  updateAddress={onSetAddress}
+                  changeInfo={changeInfo}
+                />
               </div>
-            ) : (
-              <div className="flex gap-12 mb-2">
-                <span className="w-24 text-xl font-bold text-gray-600">
-                  주소{" "}
-                </span>
-                <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
-                  {userInfo.address}
-                </div>
+            </div>
+          ) : (
+            <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+              <span className="text-xl font-bold text-gray-600">주소 </span>
+              <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
+                {userInfo.address}
               </div>
-            )}
-          </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-24 text-xl font-bold text-gray-600">
+            </div>
+          )}
+          {/* </div> */}
+          <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+            <span className="w-auto text-xl font-bold text-gray-600">
               전화번호{" "}
             </span>
             {changeInfo ? (
@@ -180,62 +201,63 @@ export default function MyInfo() {
               </div>
             )}
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-24 text-xl font-bold text-gray-600">등급 </span>
+          <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+            <span className="w-auto text-xl font-bold text-gray-600">
+              등급{" "}
+            </span>
             <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
               {userInfo.grade}
             </div>
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-24 text-xl font-bold text-gray-600">
-              가입일{" "}
-            </span>
+          <div className="flex lg:gap-12 md:gap-10 justify-between mb-2">
+            <span className="text-xl font-bold text-gray-600">가입일 </span>
             <div className="text-lg border-2 border-gray-500 rounded-xl p-2 w-60">
               {userInfo.rdate}
             </div>
           </div>
-          <div className="mt-3">
-            {changeInfo ? (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => {changeMyInformation()}}
-                >
-                  확인
-                </button>
-                <button
-                  type="button"
-                  className="ml-5 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500"
-                  onClick={() => chageHandler(0)}
-                >
-                  취소
-                </button>
-              </div>
-            ) : (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => chageHandler(0)}
-                >
-                  변경
-                </button>
-              </div>
-            )}
-          </div>
+          {/* 개인정보 변경 버튼 */}
+          {changeInfo ? (
+            <div>
+              <button
+                type="button"
+                className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
+                onClick={() => {
+                  changeMyInformation();
+                }}
+              >
+                확인
+              </button>
+              <button
+                type="button"
+                className="ml-5 text-slate-900 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500 transition duration-300"
+                onClick={() => chageHandler(0)}
+              >
+                취소
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button
+                type="button"
+                className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
+                onClick={() => chageHandler(0)}
+              >
+                변경
+              </button>
+            </div>
+          )}
         </div>
       </div>
 
-      {/* Password Change Section */}
-      <div className="flex gap-40">
-        <div className="w-[20%] mt-5">
+      {/* 비밀번호 Section */}
+      <div className="lg:flex gap-40 sm:gap-0 my-[10%]">
+        <div className="w-[20%] mt-5 sm:w-full">
           <p className="text-3xl font-bold">비밀번호 변경</p>
         </div>
-        <div className="w-[80%] mt-5 pl-5">
+        <div className="mt-5 pl-5 flex flex-col">
           {/* Password Change Fields */}
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
               현재 비밀번호
             </span>
             <input
@@ -246,9 +268,9 @@ export default function MyInfo() {
               onChange={(e) => setMyPw(e.target.value)}
             />
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
-              변경할 비밀번호{" "}
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
+              변경할 비밀번호
             </span>
             <input
               type="password"
@@ -258,9 +280,9 @@ export default function MyInfo() {
               onChange={(e) => setNewPw(e.target.value)}
             />
           </div>
-          <div className="flex gap-12 mb-2">
-            <span className="w-48 text-xl font-bold text-gray-600">
-              비밀번호 확인{" "}
+          <div className="flex w-full lg:gap-12 sm:gap-1 mb-2">
+            <span className="w-full lg:text-xl md:text-lg sm:text-lg font-bold text-gray-600">
+              비밀번호 확인
             </span>
             <input
               type="password"
@@ -270,48 +292,59 @@ export default function MyInfo() {
               onChange={(e) => setConfirmPw(e.target.value)}
             />
           </div>
-          <div>{newPw === confirmPw ? "" : <span className="text-red-500">비밀번호가 일치하지 않습니다.</span>}</div>
-          <div className="mt-3">
-            {changePw ? (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => chageHandler(1)}
-                >
-                  확인
-                </button>
-                <button
-                  type="button"
-                  className="ml-5 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500"
-                  onClick={() => chageHandler(1)}
-                >
-                  취소
-                </button>
-              </div>
+
+          <div>
+            {newPw === confirmPw ? (
+              ""
             ) : (
-              <div className="text-right">
-                <button
-                  type="button"
-                  className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                  onClick={() => {changeMyPassword()}}
-                >
-                  변경
-                </button>
-              </div>
+              <span className="text-red-500">
+                비밀번호가 일치하지 않습니다.
+              </span>
             )}
           </div>
+          {changePw ? (
+            <div className="text-right">
+              <button
+                type="button"
+                className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
+                onClick={() => changeMyPassword()}
+              >
+                확인
+              </button>
+              <button
+                type="button"
+                className="ml-5 bg-gray-300 rounded-xl p-2 font-bold w-20 hover:bg-gray-500"
+                onClick={() => chageHandler(1)}
+              >
+                취소
+              </button>
+            </div>
+          ) : (
+            <div>
+              <button
+                type="button"
+                className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
+                onClick={() => {
+                  chageHandler(1);
+                }}
+              >
+                변경
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      <div className="flex gap-40">
-        <div className="w-[20%] mt-5">
+
+      {/* 회원탈퇴 */}
+      <div className="lg:flex gap-40 sm:gap-0">
+        <div className="w-[20%] mt-5 sm:w-full">
           <p className="text-3xl font-bold">Pick ME 탈퇴</p>
         </div>
         <div className="w-[80%] mt-5 pl-5">
           <div>
             <button
               type="button"
-              className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange "
+              className="bg-main-orange text-white rounded-xl p-2 font-medium w-20 hover:bg-[#fd1d1d] transition duration-300"
               onClick={() => {
                 onToggleModal();
               }}
