@@ -108,9 +108,12 @@ const MyStoreProducts = () => {
     <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
       <div className="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
         <div className="flex items-center justify-between">
-          <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
-            가장 가까운 pick ME 매장
-          </h1>
+          <article>
+            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
+              가까운 pick ME 매장
+            </h1>
+            <p className="lg:text-lg md:text-base sm:text-xs font-medium text-slate-500 whitespace-pre-wrap py-[2.5%]">현재 위치에서 가장 가까운 pick ME 매장을 찾아보세요!</p>
+          </article>
           <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">
             더보기
           </button>
@@ -129,20 +132,22 @@ const MyStoreProducts = () => {
                 <h1 className="font-bold lg:text-4xl md:text-3xl sm:text-xl ">
                   {nearestStore.name}
                 </h1>
-                <p className="lg:text-xl md:text-xl sm:text-base font-medium">{nearestStore.address}</p>
-                <p className="lg:text-xl md:text-xl sm:text-base font-medium">
+                <p className="lg:text-xl md:text-xl sm:text-sm font-medium text-slate-600 whitespace-pre-wrap">{nearestStore.address}</p>
+                <p className="lg:text-xl md:text-xl sm:text-sm font-medium text-slate-600">
                   <FaPhone className="inline mr-1.5" />
                   {nearestStore.tel !== "None"
                     ? formatPhoneNumber(nearestStore.tel)
                     : "전화 ✖"}
                 </p>
-                <p className="lg:text-xl md:text-xl sm:text-base font-medium">
+                <p className="lg:text-xl md:text-xl sm:text-sm font-medium text-slate-600">
                   <FaRegClock className="inline mr-2.5" />
-                  {nearestStore.startHour}~{nearestStore.endHour}
+                  {nearestStore.startHour.replace("시 ", ":").replace("분", "")}
+                  ~
+                  {nearestStore.endHour.replace("시 ", ":").replace("분", "")}
                 </p>
                 <Link to={`/storeproductlist/${nearestStore.id}/${nearestStore.name}`} 
-                      className="lg:text-2xl md:text-xl sm:text-base font-semibold flex items-center hover:text-main-orange transition duration-200">
-                  <FaStore className="inline" />&nbsp;매장 재고 보러가기
+                      className="lg:text-2xl md:text-xl sm:text-sm font-semibold text-slate-600 flex items-center hover:text-main-orange transition duration-200">
+                  <FaStore className="inline lg:text-2xl md:text-xl sm:text-sm" />&nbsp;매장 재고 보러가기
                 </Link>
               </div>
             )}
