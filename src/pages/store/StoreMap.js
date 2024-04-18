@@ -104,6 +104,10 @@ export default function StoreMap() {
         setStoresInMap(storeData);
         // console.log(storesInMap);
 
+        // 기존 마커 제거
+        markersRef.current.forEach(marker => marker.setMap(null));
+        markersRef.current = [];
+
         markersRef.current = storeData.map((store) => {
           // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임
           const marker = new window.naver.maps.Marker({
