@@ -147,7 +147,7 @@ export default function LeftMenu({ storelist }) {
 
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-3/6 overflow-y-auto">
-          { filter.length === 0
+          { (filter.length === 0 && initialStores !== undefined)
             ? initialStores.map((store, k) => (
                 <li key={k}>
                   <h5 className="font-semibold">{store.name}</h5>
