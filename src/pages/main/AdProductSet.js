@@ -1,5 +1,3 @@
-import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -8,9 +6,60 @@ import "swiper/css/pagination";
 import "../../styles/main/PromotionStyle.css";
 
 // import required modules
-import { Autoplay, Keyboard, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination, Keyboard, Autoplay } from "swiper/modules";
+import { Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import axios from "axios";
 
-const AdProductSet = () => {
+const tags = [
+  {
+    id: 1,
+    name: "1 + 1",
+  },
+  {
+    id: 2,
+    name: "2 + 1",
+  },
+  {
+    id: 3,
+    name: "신상품",
+  },
+];
+
+const AdProductSet = (prop) => {
+  const [selectedTag, setSelectedTag] = useState(1);
+  const [products, setProducts] = useState([]);
+  const navigator = useNavigate();
+
+  function getProducts(tag) {
+    axios
+      .get("/product/promotedproductlist", { params: { tag: tag } })
+      .then((resp) => {
+        // console.log(resp.data);
+        setProducts(resp.data);
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+  }
+
+  const handleSelectedTag = (tagId) => {
+    console.log(tagId);
+    setSelectedTag(tagId);
+  };
+
+  function handlenavi() {
+    prop.choiceHandle('bogo');
+    window.localStorage.setItem('product', '확인');
+    navigator("/productlist/0");
+  }
+
+  useEffect(() => {
+    // console.log(selectedTag);
+    getProducts(selectedTag); // 페이지가 처음으로 로드될 때 기본 태그에 맞는 상품 가져오기
+  }, [selectedTag]);
+
   return (
     <>
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
@@ -19,9 +68,12 @@ const AdProductSet = () => {
             <h1 className="text-2xl font-bold tracking-tight text-gray-900">
               이달의 행사 상품
             </h1>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-              <button>더보기</button>
-            </h2>
+            <button 
+              className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
+              onClick={handlenavi}
+            >
+              더보기
+            </button>
           </div>
           {/* 상품 분류 태그 */}
           <span>
@@ -148,104 +200,6 @@ const AdProductSet = () => {
             <br />
             <br />
           </Swiper>
-          {/* <div className="mt-6 grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
-            <div className="group relative ">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img
-                  src="https://www.emart24.co.kr/image/MTA1NDc1"
-                  alt="Front of men's Basic Tee in black."
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href="/">
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0"
-                      ></span>
-                      딸기타임
-                    </a>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">생과일딸기우유</p>
-                </div>
-                <p className="text-sm font-medium text-gray-900">40,000원</p>
-              </div>
-            </div>
-            <div className="group relative productItem">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img
-                  src="https://www.emart24.co.kr/image/MTA2MDUx"
-                  alt="Front of men's Basic Tee in white."
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href="/">
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0"
-                      ></span>
-                      SUGALLOLO
-                    </a>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">스파클링복숭아맛</p>
-                </div>
-                <p className="text-sm font-medium text-gray-900">30,000원</p>
-              </div>
-            </div>
-            <div className="group relative productItem">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img
-                  src="https://www.emart24.co.kr/image/MTA1NDAx"
-                  alt="Front of men's Basic Tee in dark gray."
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href="/">
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0"
-                      ></span>
-                      아침에 주스
-                    </a>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">100%생과일</p>
-                </div>
-                <p className="text-sm font-medium text-gray-900">25,000원</p>
-              </div>
-            </div>
-            <div className="group relative productItem">
-              <div className="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 lg:aspect-none group-hover:opacity-75 lg:h-80">
-                <img
-                  src="https://www.emart24.co.kr/image/MTA1ODUw"
-                  alt="Front of men's Artwork Tee in peach with white and brown dots forming an isometric cube."
-                  className="h-full w-full object-cover object-center lg:h-full lg:w-full"
-                />
-              </div>
-              <div className="mt-4 flex justify-between">
-                <div>
-                  <h3 className="text-sm text-gray-700">
-                    <a href="/">
-                      <span
-                        aria-hidden="true"
-                        className="absolute inset-0"
-                      ></span>
-                      고티카 빈티지
-                    </a>
-                  </h3>
-                  <p className="mt-1 text-sm text-gray-500">나의 생명수</p>
-                </div>
-                <p className="text-sm font-medium text-gray-900">10,000원</p>
-              </div>
-            </div>
-          </div> */}
         </div>
       </div>
     </>

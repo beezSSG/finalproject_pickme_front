@@ -7,6 +7,7 @@ import "./firebase-messaging-sw.js";
 import MainHome from './pages/main/MainHome.js';
 import Manager from './pages/manager/Manager.js';
 import Ceo from './pages/ceo/Ceo.js';
+import ScrollToTop from './ScrollToTop'; 
 
 function App() {
   
@@ -34,6 +35,7 @@ function App() {
     <>
       <AuthProvider>
         <BrowserRouter>
+        <ScrollToTop />
           <Routes>
             <Route path='/*' element={<MainHome />} />
             <Route path='/manager/*' element={<Manager/>} />
