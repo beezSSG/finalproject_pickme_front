@@ -339,7 +339,7 @@ function OrderChart() {
                 관리자 홈
               </h1>
               <button
-                className="bg-yellow-500 h-[32px] rounded-[3px] text-white flex items-center justify-center px-[30px] cursor-pointer "
+                className="bg-yellow-500 h-[32px] rounded-[3px] font-bold  flex items-center justify-center px-[30px] cursor-pointer "
                 onClick={showDropDown}
               >
                 {open ? "접기" : "펼치기"}

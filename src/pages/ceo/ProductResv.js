@@ -77,7 +77,7 @@ export default function ProductResv() {
                       className="bg-sub-yellow hover:bg-sub-orange py-2 px-4 font-bold rounded-xl"
                       onClick={() => checkrp(rp.id)}
                     >
-                      확인
+                      승인하기
                     </button>
                   </td>
                 </tr>
