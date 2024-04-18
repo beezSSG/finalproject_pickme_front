@@ -59,7 +59,7 @@ function PoMainpage() {
 
   return (
     <>
-      <div className="grid grid-cols-6 w-full mb-10 sm:flex-wrap md:grid-cols-2">
+      <div className="grid grid-cols-4 w-full mb-10 sm:flex-wrap md:grid-cols-2">
         <div className="pl-4 pt-5">
           <div>
             <span className="text-4xl font-bold text-black-500">
@@ -67,7 +67,7 @@ function PoMainpage() {
             </span>
             <br />
             <br />
-            <span className="pl-2 text-3xl font-bold text-yellow-500">
+            <span className="text-3xl font-bold text-yellow-500">
               {topInfo[1]}
             </span>
           </div>
@@ -78,7 +78,7 @@ function PoMainpage() {
 
         {topBar.map((topbar, i) => (
           <div
-            className="pl-[30px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
+            className=" pl-[40px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
             key={i}
           >
             <button
