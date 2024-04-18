@@ -2,12 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
+import GoToCartModal from './GoToCartModal';
 
 import Toast from "../public/Toast";
 import star2 from "../../assets/imgs/product/star2.png";
 import Categories from "./Categories.js";
 import { BsCart4 } from "react-icons/bs"; // <BsCart4 />
-import { IoIosAdd, IoIosRemove } from "react-icons/io"; // <IoIosAdd /> <IoIosRemove />
 
 import "./page.css";
 
@@ -37,6 +37,8 @@ function StoreProductlist() {
     // 장바구니 수량
     const [cartQuantity, setcartQuantity] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
     
+    // 모달 창 변수
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     
     // 매장 정보 불러오기
@@ -137,40 +139,22 @@ function StoreProductlist() {
         { params : { "sProductId":sProductId, "quantity":quantity }}
       )
       .then((resp) => {
-        console.log(resp.data);
+        // 이미 장바구니에 있을 때
         if (resp.data === "YES") {
           Toast.fire({
             icon: 'warning',
-            title: "이미 장바구니에 추가되어 있습니다.",
+            title: "이미 장바구니에 추가된 상품입니다.",
           });
           return;
         }
-        Toast.fire({
-            icon: 'success',
-            title: "✔ 장바구니에 추가되었습니다!",
-          });
+
+        // 장바구니에 없는 상품일 때
+        setModalIsOpen(true);
       })
       .catch((err)=>{
         alert(err);
       })
     };
-
-    function increaseQuantity(i) {
-      if (cartQuantity[i] < 50) {
-        const newCartQuantity = [...cartQuantity]; // 이전 상태 배열을 복사
-        newCartQuantity[i] = newCartQuantity[i] + 1; // 인덱스에 해당하는 항목 증가
-        setcartQuantity(newCartQuantity); // 새로운 배열로 상태 업데이트
-      }
-    }
-    
-    function decreaseQuantity(i) {
-      if (cartQuantity[i] > 1) {
-        const newCartQuantity = [...cartQuantity]; // 이전 상태 배열을 복사
-        newCartQuantity[i] = newCartQuantity[i] - 1; // 인덱스에 해당하는 항목 감소
-        setcartQuantity(newCartQuantity); // 새로운 배열로 상태 업데이트
-      }
-    }
-
     
   return (
     <div>
@@ -315,6 +299,7 @@ function StoreProductlist() {
                                               onClick={() => addCart(product.sproductId, 1)}>
                                   <p className='text-2xl font-bold text-gray-800'><BsCart4 /></p>
                             </div>
+                            
                             {/* 1+1 스티커 */}
                             {product.promotionType === 1 && (
                               <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 py-2 rounded-full
@@ -353,6 +338,7 @@ function StoreProductlist() {
               })()
             )}
           </div>
+          <GoToCartModal isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} />
 
           <div id='pagination' className='max-w-[1200px] bottom-0'>
             <Pagination className=""

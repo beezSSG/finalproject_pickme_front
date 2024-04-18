@@ -82,42 +82,47 @@ const MatchedStoreList = ({ isOpen, closeModal, id }) => {
                         <div className="modal-body">
                             {matchedStoreList.length > 0 ? (
                                 matchedStoreList
-                                .filter(matchedstore => calDistance(matchedstore.lon, matchedstore.lat) <= searchDistance * 1000)
-                                .sort((a, b) => calDistance(a.lon, a.lat) - calDistance(b.lon, b.lat))
-                                .map((matchedstore, index) => (
-                                    <div key={matchedstore.id} >
-                                        <div className="mb-10 p-4 border border-gray-300 rounded-xl lg:w-[800px]">
-                                            
-                                            {index === 0 && <p className="text-green-600 font-bold text-lg">가장 가까운 점포!</p>}
-                                            <div name="logo" className='border-4 border-yellow-400 bg-pink-100 rounded-full w-fit mb-8'>
-                                                <p className='text-7xl text-gray-800'>
-                                                    <TbBuildingStore />
-                                                </p>
-                                            </div>
-
-                                            <div name="storeInfo" className="text-left max-w-fit">
-                                                <p><b>매장명: </b>{matchedstore.name}</p>
-                                                <p><b>주소: </b>{matchedstore.address}</p>
-                                                <p><b>거리: </b>{calDistance(matchedstore.lon, matchedstore.lat).toLocaleString()}m</p>
-                                                <p><b>전화번호: </b>{matchedstore.tel}</p>
-                                                <p><b>24H: </b>{matchedstore.open_ended === 0 ? 'O' : 'X'}</p>
-                                            </div>
-
-                                            <div name="button">
-                                                <button className="text-gray-800 bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-8 py-3 m-4 focus:outline-none min-w-[92px]"
-                                                                    onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}>
-                                                바로가기
-                                                </button>
+                                    .filter(matchedstore => calDistance(matchedstore.lon, matchedstore.lat) <= searchDistance * 1000)
+                                    .sort((a, b) => calDistance(a.lon, a.lat) - calDistance(b.lon, b.lat))
+                                    .reduce((uniqueStores, matchedstore, index) => {
+                                        // Check if matchedstore.id is already added
+                                        if (!uniqueStores.some(store => store.id === matchedstore.id)) {
+                                            uniqueStores.push(matchedstore);
+                                        }
+                                        return uniqueStores;
+                                    }, [])
+                                    .map((matchedstore, index) => (
+                                        <div key={matchedstore.id} >
+                                            <div className="mb-10 p-4 border border-gray-300 rounded-xl lg:w-[800px] pt-8">
+                                                {index === 0 && <p className="text-green-600 font-bold text-lg">가장 가까운 점포!</p>}
+                                                <div name="logo" className='border-4 border-yellow-400 bg-pink-100 rounded-full w-fit mb-8'>
+                                                    <p className='text-7xl text-gray-800'>
+                                                        <TbBuildingStore />
+                                                    </p>
+                                                </div>
+                                                <div name="storeInfo" className="text-left max-w-fit">
+                                                    <p><b>매장명: </b>{matchedstore.name}</p>
+                                                    <p><b>주소: </b>{matchedstore.address}</p>
+                                                    <p><b>거리: </b>{calDistance(matchedstore.lon, matchedstore.lat).toLocaleString()}m</p>
+                                                    <p><b>전화번호: </b>{matchedstore.tel}</p>
+                                                    <p><b>24H: </b>{matchedstore.open_ended === 0 ? 'O' : 'X'}</p>
+                                                </div>
+                                                <div name="button">
+                                                    <button className="text-gray-800 bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-8 py-3 m-4 focus:outline-none min-w-[92px]"
+                                                        onClick={() => goToMatchStore(matchedstore.id, encodeURIComponent(matchedstore.name))}>
+                                                        바로가기
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                ))
+                                    ))
                             ) : (
                                 <div className="text-center min-h-[150px] flex justify-center items-center">
                                     <p className="text-xl mb-6 text-gray-400">조건을 만족하는 점포가 없어요 😓</p>
                                 </div>
                             )}
                         </div>
+
                         <span className="absolute top-0 right-[10px]  cursor-pointer text-3xl text-yellow-400" onClick={closeModal}> &times; </span>
                     </div>
                 </div>
