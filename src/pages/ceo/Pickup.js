@@ -1,29 +1,62 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import CheckModal from "./CheckModal"
+import Pagination from "react-js-pagination";
 
 
 export default function Pickup() {
   const [pickup, setPickup] = useState([]);
 
+    // 페이징
+    const [page, setPage] = useState(1);
+    const [totalCnt, setTotalCnt] = useState(0);
+
 
   useEffect(() => {
-    getPickup();
+    getPickup("",0);
   }, []);
 
-    const getPickup = async () => {
-        await axios.get("/ceo/pickup")
+    const getPickup = async (s,pn) => {
+        await axios.get("/ceo/pickup",  { params: { search: s, pageNumber: pn } })
         .then((response)=>{
-
-        console.log(response.data);
-
-          console.log(JSON.stringify(response.data.pickup));
-          setPickup(response.data);
+          // console.log(response.data);
+          // console.log(JSON.stringify(response.data.pickup));
+          const groupedPickup = groupByDateTime(response.data.pickuplist);
+          setPickup(groupedPickup);
+          // console.log(groupedPickup);
+          setTotalCnt(groupedPickup.length); // 글의 총수
         })
+
         .catch((err)=>{
            alert(err);
         })
       }
+      const groupByDateTime = (data) => {
+        const grouped = {};
+        data.forEach((item) => {
+          const groupName = item.date;
+          if (!grouped[groupName]) {
+            grouped[groupName] = [];
+          }
+          grouped[groupName].push(item);
+        });
+        return Object.values(grouped);
+      };
+
+        // 페이지 변경함수
+  function handlePageChange(page) {
+    setPage(page);
+    getPickup( page - 1);
+  }
+
+  // 버튼 클릭함수
+  function confrimHandle() {
+    //#0. Axios 호출을 통한 승인 확인 하기
+
+    //#1. check 0은 미확인 / 1은 확인 토대로 사라지게하기
+    //#2. getpickup다시 호출해서 리렌더링 시키기 -> 화면에서 확인을 눌렀을때 사라지게하는것
+
+  }
 
   return (
     <div className="mx-auto w-[80%]">
@@ -36,37 +69,50 @@ export default function Pickup() {
             <th className="w-1/6 py-2">가격</th>
             <th className="w-1/12 py-2">구매자</th>
             <th className="w-1/4 py-2">승인날짜</th>
-            <th className="w-1/6 py-2">승인여부</th>
+            <th className="w-1/6 py-2">픽업&배달</th>
             <th className="w-1/5 py-2">확인</th>
           </tr>
         </thead>
         <tbody>
-          {pickup.map((group, index) => (
+          {pickup.map((group, index) => {
+            console.log(group);
+            let price = 0 ;
+            for (let i = 0; i < group.length; i++) {
+              price = group[i].price + price;
+            }
+
+            return (
             <tr key={index} className="border-b border-gray-300">
-               <td className="text-center py-3">{group.productName}</td>
-              <td className="text-center py-3">{group.price.toLocaleString()}원</td>
-              <td className="text-center py-3">{group.customerName}</td>
-              <td className="text-center py-3">{group.date}</td>
+               <td className="text-center py-3">{group[0].productName}{" "}
+                {group.length > 1 ? `외 ${group.length - 1}개` : ""}
+               </td>
+              <td className="text-center py-3">{price.toLocaleString()}원</td>
+              <td className="text-center py-3">{group[0].customerName}</td>
+              <td className="text-center py-3">{group[0].date}</td>
+              <td className="text-center py-3">{group[0].pickDel === 0 ? "픽업" : "배달"}</td>
               <td className="text-center py-3">
-                    {group.pickDel > 0 ? (
-                      <span style={{ color: "red", fontWeight: "bold" }}>
-                        승인완료
-                      </span>
-                    ) : (
-                      "승인대기중"
-                    )}
-                  </td>
-                  <td className="text-center py-3">
-                    {group.pickDel === 1 ? (
-                      <CheckModal group={group} getPickup={getPickup} />
-                    ) : (
-                      ""
-                    )}
-                  </td>
+                <button onClick={confrimHandle}>확인하기</button>
+              </td>
             </tr>
-          ))}
+          )}
+          )}
         </tbody>
       </table>
+      <br />
+
+{/* 세번째의 경우 */}
+<Pagination
+  itemClass="page-item"
+  linkClass="page-link"
+  activePage={page}
+  itemsCountPerPage={10}
+  totalItemsCount={totalCnt}
+  pageRangeDisplayed={10}
+  prevPageText={"prev"}
+  nextPageText={"next"}
+  onChange={handlePageChange}
+/>
+<br />
      </div>
   );
 }

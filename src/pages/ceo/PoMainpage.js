@@ -13,6 +13,7 @@ import SalesChart from "./SalesChart";
 import Inventory from "./Inventory";
 import Pickup from "./Pickup";
 import PostCheck from "./PostCheck";
+import ProductResv from "./ProductResv";
 
 function PoMainpage() {
   const [open, setOpen] = useState(true);
@@ -105,6 +106,7 @@ function PoMainpage() {
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
             <Route path='postcheck' element={<PostCheck />} />
+            <Route path='productresv' element={<ProductResv />} />
 
         </Routes>
       </div>
