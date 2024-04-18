@@ -9,30 +9,30 @@ export default function MyMenuButton() {
 
   const [selected, setSelected] = useState(menu[0]);
   const [subSelected, setSubSelected] = useState([  { "subname": "없음", "subpath": "" } ]);
-  const [sName, setSName] = useState("없음");
+  const [sName, setSName] = useState("선택해주세요");
 
   useEffect(()=> {
     if (selected.val === "pickPay") {
       setSubSelected(pickPay);
-      setSName(pickPay[0].subname);
+      // setSName(pickPay[0].subname);
       // console.log('도착');
     } else if (selected.val === "myActive") {
       setSubSelected(myActive);
-      setSName(myActive[0].subname);
+      // setSName(myActive[0].subname);
     } else if (selected.val === "service") {
       setSubSelected(service);
-      setSName(service[0].subname);
+      // setSName(service[0].subname);
     } else if (selected.val === "customerCenter") {
       setSubSelected(customerCenter);
-      setSName(customerCenter[0].subname);
+      // setSName(customerCenter[0].subname);
     } else {
       setSubSelected([  { "subname": "없음", "subpath": "" } ]);
-      setSName("없음");
+      setSName("선택해주세요");
     }
   }, [selected])
 
   return (
-    <div className="w-full flex lg:invisible md:invisible">
+    <div className="w-full flex gap-3 lg:invisible md:invisible">
       <Listbox value={selected} onChange={setSelected} className="w-full">
         <div className="relative mt-1">
           <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">

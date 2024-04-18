@@ -2,12 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import axios from 'axios';
 import Pagination from 'react-js-pagination'; // npm i react-js-pagination
+import GoToCartModal from './GoToCartModal';
 
 import Toast from "../public/Toast";
 import star2 from "../../assets/imgs/product/star2.png";
 import Categories from "./Categories.js";
 import { BsCart4 } from "react-icons/bs"; // <BsCart4 />
-import { IoIosAdd, IoIosRemove } from "react-icons/io"; // <IoIosAdd /> <IoIosRemove />
 
 import "./page.css";
 
@@ -37,6 +37,8 @@ function StoreProductlist() {
     // 장바구니 수량
     const [cartQuantity, setcartQuantity] = useState([1, 1, 1, 1, 1, 1, 1, 1]);
     
+    // 모달 창 변수
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
     
     // 매장 정보 불러오기
@@ -88,7 +90,7 @@ function StoreProductlist() {
       const nowSwitching = !switching;
       setSwitching(nowSwitching);
       getStoreProductlist(choice, search, 0, id, nowSwitching, category);
-      setPage(0);
+      setPage(1);
     }
 
     function searchBtn(){        
@@ -99,7 +101,7 @@ function StoreProductlist() {
     function categoryBtn(num){
       setCategory(num);
       getStoreProductlist(choice, search, 0, id, switching, num);
-      setPage(0);
+      setPage(1);
     }
 
     function handlePageChange(page){
@@ -131,46 +133,28 @@ function StoreProductlist() {
 
     // 장바구니
 
-    const addCart = async (productId, storeId, quantity) => {
+    const addCart = async (sProductId, quantity) => {
 
       await axios.post("/customer/cart/insert", null,
-        { params : { "productId":productId, "storeId":storeId, "quantity":quantity }}
+        { params : { "sProductId":sProductId, "quantity":quantity }}
       )
       .then((resp) => {
-        console.log(resp.data);
+        // 이미 장바구니에 있을 때
         if (resp.data === "YES") {
           Toast.fire({
             icon: 'warning',
-            title: "이미 장바구니에 추가되어 있습니다.",
+            title: "이미 장바구니에 추가된 상품입니다.",
           });
           return;
         }
-        Toast.fire({
-            icon: 'success',
-            title: "✔ 장바구니에 추가되었습니다!",
-          });
+
+        // 장바구니에 없는 상품일 때
+        setModalIsOpen(true);
       })
       .catch((err)=>{
         alert(err);
       })
     };
-
-    function increaseQuantity(i) {
-      if (cartQuantity[i] < 50) {
-        const newCartQuantity = [...cartQuantity]; // 이전 상태 배열을 복사
-        newCartQuantity[i] = newCartQuantity[i] + 1; // 인덱스에 해당하는 항목 증가
-        setcartQuantity(newCartQuantity); // 새로운 배열로 상태 업데이트
-      }
-    }
-    
-    function decreaseQuantity(i) {
-      if (cartQuantity[i] > 1) {
-        const newCartQuantity = [...cartQuantity]; // 이전 상태 배열을 복사
-        newCartQuantity[i] = newCartQuantity[i] - 1; // 인덱스에 해당하는 항목 감소
-        setcartQuantity(newCartQuantity); // 새로운 배열로 상태 업데이트
-      }
-    }
-
     
   return (
     <div>
@@ -266,15 +250,15 @@ function StoreProductlist() {
             <div id='priceSearch'></div>
             
             <div id='nameSearch' align="center">
-              <div className='flex mb-5'>
+              <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
-                      <input placeholder={`${name}의 상품을 검색하세요`} className='border border-gray-400 p-2 rounded-lg w-80'
+                      <input placeholder={`${name}의 상품을 검색하세요`} className='border border-gray-400 p-2 rounded-lg lg:w-80 sm:w-60'
                           value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
                                           dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </div>
-                  <div className='flex items-center'>
+                  <div className='flex items-center justify-center'>
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
@@ -292,50 +276,57 @@ function StoreProductlist() {
               (() => {
                 const rows = [];
                 const columns = 1; // Number of columns
-                for (let i = 0; i < storeproductlist.length; i += columns) {
+                const sortedProducts = storeproductlist.sort((a, b) => new Date(a.expDate) - new Date(b.expDate)); // Sort products by expDate
+                const addedProductIds = new Set(); // Set to store added product ids
+                for (let i = 0; i < sortedProducts .length; i += columns) {
                   const row = [];
-                  for (let j = i; j < i + columns && j < storeproductlist.length; j++) {
-                    const product = storeproductlist[j];
-                    row.push(
-                      <div className="items-center w-[250px] h-[375px]
-                                      mb-10 rounded-xl border border-spacing-2
-                                      overflow-hidden transition duration-500 ease-in-out transform
-                                      hover:ring-4 hover:ring-amber-400"
-                            align="center">
-                        <div className='mt-10'>
-                          {/* 제품 이미지 */}
-                          <img src={product.url} className="w-5/6 h-5/6 object-cover" />
-                          {/* 장바구니 버튼 */}
-                          <div className="absolute bottom-28 right-2 bg-yellow-200 bg-opacity-70 py-2 rounded-full
-                                            px-5 hover:scale-110 transition duration-300 hover:bg-yellow-300 cursor-pointer"
-                                            onClick={() => addCart(product.id, id, 1)}>
-                                <p className='text-2xl font-bold text-gray-800'><BsCart4 /></p>
-                          </div>
-                          {/* 1+1 스티커 */}
-                          {product.promotionType === 1 && (
-                            <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 py-2 rounded-full
-                                            px-5 select-none">
-                                <p className='text-2xl font-bold text-gray-800'>1+1</p>
+                  for (let j = i; j < i + columns && j < sortedProducts .length; j++) {
+                    const product = sortedProducts [j];
+
+                    if(!addedProductIds.has(product.id)) {
+                      row.push(
+                        <div className="items-center w-[250px] h-[375px]
+                                        mb-10 rounded-xl border border-spacing-2
+                                        overflow-hidden transition duration-500 ease-in-out transform
+                                        hover:ring-4 hover:ring-amber-400"
+                              align="center">
+                          <div className='mt-10'>
+                            {/* 제품 이미지 */}
+                            <img src={product.url} className="w-5/6 h-5/6 object-cover" />
+                            {/* 장바구니 버튼 */}
+                            <div className="absolute bottom-28 right-2 bg-yellow-200 bg-opacity-70 py-2 rounded-full
+                                              px-5 hover:scale-110 transition duration-300 hover:bg-yellow-300 cursor-pointer"
+                                              onClick={() => addCart(product.sproductId, 1)}>
+                                  <p className='text-2xl font-bold text-gray-800'><BsCart4 /></p>
                             </div>
-                          )}
-                        <br/>
-                        <hr/>
-                          <p className='mt-5 font-semibold'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
-                          <p>{product.price.toLocaleString()}원</p>
-                          <p>
-                            {product.productRating === 0 ? (
-                              <span>　</span>
-                            ) : (
-                              Array.from({ length: product.productRating }, (_, index) => (
-                                <span key={index} style={{ display: 'inline-block', marginRight: '3px' }}>
-                                  <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px' }} />
-                                </span>
-                              ))
+                            
+                            {/* 1+1 스티커 */}
+                            {product.promotionType === 1 && (
+                              <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 py-2 rounded-full
+                                              px-5 select-none">
+                                  <p className='text-2xl font-bold text-gray-800'>1+1</p>
+                              </div>
                             )}
-                          </p>
+                          <br/>
+                          <hr/>
+                            <p className='mt-5 font-semibold'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
+                            <p>{product.price.toLocaleString()}원</p>
+                            <p>
+                              {product.productRating === 0 ? (
+                                <span>　</span>
+                              ) : (
+                                Array.from({ length: product.productRating }, (_, index) => (
+                                  <span key={index} style={{ display: 'inline-block', marginRight: '3px' }}>
+                                    <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px' }} />
+                                  </span>
+                                ))
+                              )}
+                            </p>
+                          </div>
                         </div>
-                      </div>
-                    );
+                      );
+                        addedProductIds.add(product.id); // Add product id to set
+                    }
                   }
                   rows.push(
                     <div key={i} className='flex space-x-20'> {/* 열 간의 간격을 추가 */}
@@ -347,20 +338,22 @@ function StoreProductlist() {
               })()
             )}
           </div>
+          <GoToCartModal isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} />
 
-          <div id='pagination' className='max-w-[1200px] bottom-0'>
-            <Pagination className=""
-            itemClass='page-item'
-            linkClass='page-link' 
-            activePage={page}           // 현재 활성화 된 페이지 번호
-            itemsCountPerPage={16}      // 페이지 당 보여줄 항목의 수
-            totalItemsCount={totalCnt}  // 전체 항목 수
-            pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
-            prevPageText={"prev"}
-            nextPageText={"next"}
-            onChange={handlePageChange} />
-            </div>
+          
           </div>
+        </div>
+        <div id='pagination' className='max-w-[1200px] bottom-0'>
+          <Pagination className=""
+          itemClass='page-item'
+          linkClass='page-link' 
+          activePage={page}           // 현재 활성화 된 페이지 번호
+          itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
+          totalItemsCount={totalCnt}  // 전체 항목 수
+          pageRangeDisplayed={4}     // 한 번에 보여줄 페이지 번호의 범위
+          prevPageText={"prev"}
+          nextPageText={"next"}
+          onChange={handlePageChange} />
         </div>
       </div>
     </div>

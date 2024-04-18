@@ -1,4 +1,4 @@
- import { useAuth } from "../../utils/AuthProvider";
+import { useAuth } from "../../utils/AuthProvider";
 import CeoMainNav from "./CeoMainNav";
 
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
@@ -13,6 +13,7 @@ import SalesChart from "./SalesChart";
 import Inventory from "./Inventory";
 import Pickup from "./Pickup";
 import PostCheck from "./PostCheck";
+import ProductResv from "./ProductResv";
 
 function PoMainpage() {
   const [open, setOpen] = useState(true);
@@ -24,8 +25,8 @@ function PoMainpage() {
 
   const topBar = [
     { title: "Home", path: "/ceo/pomain" },
-    { title: "발주", path: "/ceo/po" },
-    { title: "승인", path: "/ceo/coupon" },
+    { title: "발주", path: "/ceo/pomain/po" },
+    { title: "승인", path: "/ceo/pomain/po" },
   ];
 
   // 진입전 토큰 유무 확인 토큰 유효성시간을 대폭 상향
@@ -59,7 +60,7 @@ function PoMainpage() {
 
   return (
     <>
-      <div className="grid grid-cols-6 w-full mb-10 sm:flex-wrap md:grid-cols-2">
+      <div className="grid grid-cols-4 w-full mb-10 sm:flex-wrap md:grid-cols-2">
         <div className="pl-4 pt-5">
           <div>
             <span className="text-4xl font-bold text-black-500">
@@ -67,7 +68,7 @@ function PoMainpage() {
             </span>
             <br />
             <br />
-            <span className="pl-2 text-3xl font-bold text-yellow-500">
+            <span className="text-3xl font-bold text-yellow-500">
               {topInfo[1]}
             </span>
           </div>
@@ -78,7 +79,7 @@ function PoMainpage() {
 
         {topBar.map((topbar, i) => (
           <div
-            className="pl-[30px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
+            className=" pl-[40px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
             key={i}
           >
             <button
@@ -97,7 +98,6 @@ function PoMainpage() {
       <div className="flex">
         <CeoMainNav />
         <Routes>
-
           <Route path='' element={<CeoMainContent />} />
             <Route path='po' element={<Polist/>} />    
             <Route path='pow' element={<Powrite />} />
@@ -105,7 +105,7 @@ function PoMainpage() {
             <Route path='inventory' element={<Inventory />} />
             <Route path='pickup' element={<Pickup />} />
             <Route path='postcheck' element={<PostCheck />} />
-
+            <Route path='productresv' element={<ProductResv />} />
         </Routes>
       </div>
     </>

@@ -50,7 +50,7 @@ function Polist() {
   }
   function con(po) {
     alert(po.poYn);
-    // #1. 화면에서 승인이 완료된 물품을 사라지게 하기ㅠㅠ
+    // #1. 화면에서 승인이 완료된 물품을 사라지게 하기
     const params = { id: po.id };
     axios
       .post("ceo/deleteProduct", null, { params: params })
@@ -150,8 +150,6 @@ function Polist() {
                     ) : (
                       ""
                     )}
-                    {/* <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
-                        onClick={()=>{con(po)}}>승인확인</button> */}
                   </td>
                 </tr>
               );

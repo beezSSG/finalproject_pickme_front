@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
-import StoreMap from "../store/StoreMap";
 import LeftMenu2 from "./LeftMenu2";
+import {Bootpay} from "@bootpay/client-js";
+import Toast from '../public/Toast';
 
 function ProductReservation() {
   // 매장 찾기
@@ -15,8 +16,9 @@ function ProductReservation() {
     setShowstoreModal(false); // 매장 모달 닫기
   };
 
-  // 예약할 상품 테이블
+  console.log(selectedStore);
 
+  // 예약할 상품 테이블
   const [products, setProducts] = useState([]);
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1); // 페이지 번호 추가
@@ -89,9 +91,92 @@ function ProductReservation() {
       });
   }
 
+  // selectedStore [store_id] product_id + store_id + quantity
+  function sendReservation() {
+    let params = [];
+    for (let i = 0; i < reservationProduct.length; i++) {
+      params.push({"storeId":selectedStore, "productName": reservationProduct[i].name, "quantity":reservationProduct[i].quantity});
+    }
+    axios.post(("/customer/productreservationAf"), params)
+    .then((resp)=>{
+      if (resp.data === "YES") {
+        Toast.fire({
+          icon: 'success',
+          title: "상품 예약이 되었어요 \n 예약하신 날짜에 찾으러 오세요.",
+        });
+      }
+    })
+    .catch((err)=> {
+      console.log(err);
+    })
+
+    console.log(params);
+  }
+  
+  // 최종 상품 결제
+  const payHandler = async () => {
+    sendReservation();
+
+    // try {
+    //   const response = await Bootpay.requestPayment({
+    //     "application_id": "65efaac4d25985001c6e5e40",
+    //     "price": totalPrice,
+    //     "order_name": "Pick ME 상품결제",
+    //     "order_id": "TEST_ORDER_ID",
+    //     "tax_free": 0,
+    //     "user": {
+    //       "id": "회원아이디",
+    //       "username": "회원이름",
+    //       "phone": "01000000000",
+    //       "email": "test@test.com"
+    //     },
+    //     "items": [
+    //       {
+    //         "id": "item_id",
+    //         "name": "테스트아이템",
+    //         "qty": 1,
+    //         "price": totalPrice
+    //       }
+    //     ],
+    //     "extra": {
+    //       "open_type": "iframe",
+    //       "card_quota": "0,2,3",
+    //       "escrow": false
+    //     }
+    //   })
+    //   switch (response.event) {
+    //     case 'issued':
+    //       break
+    //     case 'done': // 결제 완료 처리
+    //       console.log(response)
+    //       // 금액 집어넣고 처리
+    //       sendReservation();
+    //       break
+    //     case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+    //       console.log(response.receipt_id);
+    //       const confirmedData = await Bootpay.confirm() //결제를 승인한다
+    //       if(confirmedData.event === 'done') {
+    //           //결제 성공
+    //       }
+    //     break;
+    //   }
+    // } catch (e) {
+    //   console.log(e.message)
+    //   switch (e.event) {
+    //     case 'cancel':
+    //       // 사용자가 결제창을 닫을때 호출
+    //       console.log(e.message);
+    //       break;
+    //     case 'error':
+    //       // 결제 승인 중 오류 발생시 호출
+    //       console.log(e.error_code);
+    //     break;
+    //   }
+    // }
+  }
+
   // 최종 예약 상품 목록
   const [reservationProduct, setReservationProduct] = useState([]);
-
   // 수량
   const [quantities, setQuantities] = useState(Array(products.length).fill(1));
   // 선택 상품목록
@@ -168,6 +253,7 @@ function ProductReservation() {
 
   function consolee() {
     console.log(reservationProduct);
+    console.log(selectedStore);
   }
 
   function scrollToTop() {
@@ -382,12 +468,12 @@ function ProductReservation() {
         <div className="text-right mt-3">
           <button
             className="bg-gray-700 rounded-xl p-3 text-white"
-            onClick={consolee}
+            onClick={payHandler}
           >
             결제하기
           </button>
+          <button onClick={consolee}>찾아보자</button>
         </div>
-        <div>결제하고 나면 mypage 픽박스로 가야함</div>
       </div>
     </>
   );

@@ -25,8 +25,6 @@ export default function PostCheck() {
 
   return (
     <div className="mx-auto w-[80%]">
-      <p className="text-lg font-semibold mb-4">배달 승인</p>
-
       <table className="w-full table-fixed border-collapse">
         <thead>
           <tr className='bg-yellow-400 p-15'>
@@ -47,10 +45,22 @@ export default function PostCheck() {
               <td className="text-center py-3">{group.itemWeight}</td>
               <td className="text-center py-3">{group.totalPrice.toLocaleString()}원</td>
               <td className="text-center py-3">{group.date}</td>
-              <td className='text-center py-4'>{ group.postYn > 0 ? '승인완료' : '승인대기중'}</td>
               <td className="text-center py-3">
-              <CheckModal/>
-              </td>
+                    { group.postYn > 0 ? (
+                      <span style={{ color: "red", fontWeight: "bold" }}>
+                        승인완료
+                      </span>
+                    ) : (
+                      "승인대기중"
+                    )}
+                  </td>
+                  <td className="text-center py-3">
+                    {group.postYn === 1 ? (
+                      <CheckModal group={group} getPostCheck={getPostCheck} />
+                    ) : (
+                      ""
+                    )}
+                  </td>
             </tr>
           ))}
         </tbody>

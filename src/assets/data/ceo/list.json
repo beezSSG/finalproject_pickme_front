@@ -12,8 +12,9 @@
       {
         "title": "승인",
         "subtitle": [
-          { "subname": "픽업완료 승인", "subpath": "pickup" },
-          { "subname": "배달완료 승인", "subpath": "postcheck" }
+          { "subname": "픽업/배달 승인", "subpath": "pickup" },
+          { "subname": "택배예약 확인", "subpath": "postcheck" },
+          { "subname": "상품예약 확인", "subpath": "productresv" }
         ]
       }
 

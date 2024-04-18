@@ -8,11 +8,12 @@ function ContactUs() {
 
   let adminName = localStorage.getItem("name");
 
+  const [id, setId] = useState("");
   const [ccblist, setCcblist] = useState([]);
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    window.localStorage.removeItem('product');
+    window.localStorage.removeItem("product");
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {
@@ -55,7 +56,20 @@ function ContactUs() {
 
   useEffect(() => {
     ccblistup();
+
+    if (localStorage.getItem("jwt") !== null) {
+      getid();
+    }
+
+    console.log(id);
   }, []);
+
+  function getid() {
+    axios.get("customer/getid").then(function (resp) {
+      console.log(resp.data);
+      setId(resp.data);
+    });
+  }
 
   return (
     <>
@@ -141,20 +155,32 @@ function ContactUs() {
                       )}
                     </td>
                     <td className="px-4 py-2 text-left">
-                      <Link
-                        to={`/contactusdetail/${ccb.id}`}
-                        className="text-blue-500 hover:underline visited:text-black"
-                      >
-                        {ccb.title}
-                      </Link>
+                      {id === ccb.customerId || adminName === "하기성" ? (
+                        <Link
+                          to={`/contactusdetail/${ccb.id}`}
+                          className="text-blue-500 hover:underline visited:text-black"
+                        >
+                          {ccb.title}
+                        </Link>
+                      ) : (
+                        ccb.title
+                      )}
                     </td>
-                    <td className="px-4 py-2">{ccb.customerId}</td>
+
+                    <td className="px-4 py-2">
+                      {ccb.customerName.length > 2
+                        ? ccb.customerName[0] +
+                          "*".repeat(ccb.customerName.length - 2) +
+                          ccb.customerName[ccb.customerName.length - 1]
+                        : ccb.customerName}
+                    </td>
+
                     <td className="px-4 py-2">{ccb.createAt}</td>
                     {adminName === "하기성" && (
                       <td className="px-4 py-2">
                         <button
                           onClick={() => ccbdelete(ccb.id)}
-                          className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                          className="bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                         >
                           삭제
                         </button>
@@ -168,7 +194,7 @@ function ContactUs() {
 
           <div className="text-center">
             <button
-              className="mt-[50px] bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
+              className="mt-[50px] bg-yellow-400 hover:bg-yellow-500  font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
               onClick={() => navigate("/contactuswrite")}
             >
               문의작성
