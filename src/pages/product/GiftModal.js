@@ -210,7 +210,7 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
                                             </dd>
                                             <dd className='ml-2 items-center'>
                                                 <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 
-                                                focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-1.5
+                                                focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-base px-5 py-1.5 
                                                 dark:focus:ring-yellow-900" onClick={() => findFromUser(receivePhone)}>확인</button>
                                                 <GiftFindUserModal clickYes={clickYes} clickNo={clickNo} isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} receiveName={receiveName} receivePhone={receivePhone} />
                                             </dd>
@@ -244,7 +244,7 @@ const GiftModal = ({ isOpen, closeModal, productId, productName, productPrice, p
 
                                 <div className='mt-8 mb-5'>
                                     <button className="focus:outline-none bg-yellow-400 hover:bg-yellow-500 
-                                    focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-base px-5 py-1.5
+                                    focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-base px-5 py-1.5
                                     dark:focus:ring-yellow-900"
                                     onClick={() => {
                                         // 현재 시간

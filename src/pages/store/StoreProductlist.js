@@ -250,15 +250,15 @@ function StoreProductlist() {
             <div id='priceSearch'></div>
             
             <div id='nameSearch' align="center">
-              <div className='flex mb-5'>
+              <div className='flex flex-col mb-5'>
                   <div className='flex items-center mr-3'>
-                      <input placeholder={`${name}의 상품을 검색하세요`} className='border border-gray-400 p-2 rounded-lg w-80'
+                      <input placeholder={`${name}의 상품을 검색하세요`} className='border border-gray-400 p-2 rounded-lg lg:w-80 sm:w-60'
                           value={search} onChange={(e)=>{setSearch(e.target.value)}} />
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 ml-2 mr-16 mt-2
                                           dark:focus:ring-yellow-900" onClick={()=>searchBtn()}>검색</button>
                   </div>
-                  <div className='flex items-center'>
+                  <div className='flex items-center justify-center'>
                       <button className="focus:outline-none text-gray-600 bg-yellow-400 hover:bg-yellow-500 
                                           font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-2
                                           dark:focus:ring-yellow-900" onClick={() => choiceBtn('date')}>등록순</button>
@@ -340,19 +340,20 @@ function StoreProductlist() {
           </div>
           <GoToCartModal isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} />
 
-          <div id='pagination' className='max-w-[1200px] bottom-0'>
-            <Pagination className=""
-            itemClass='page-item'
-            linkClass='page-link' 
-            activePage={page}           // 현재 활성화 된 페이지 번호
-            itemsCountPerPage={16}      // 페이지 당 보여줄 항목의 수
-            totalItemsCount={totalCnt}  // 전체 항목 수
-            pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
-            prevPageText={"prev"}
-            nextPageText={"next"}
-            onChange={handlePageChange} />
-            </div>
+          
           </div>
+        </div>
+        <div id='pagination' className='max-w-[1200px] bottom-0'>
+          <Pagination className=""
+          itemClass='page-item'
+          linkClass='page-link' 
+          activePage={page}           // 현재 활성화 된 페이지 번호
+          itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
+          totalItemsCount={totalCnt}  // 전체 항목 수
+          pageRangeDisplayed={4}     // 한 번에 보여줄 페이지 번호의 범위
+          prevPageText={"prev"}
+          nextPageText={"next"}
+          onChange={handlePageChange} />
         </div>
       </div>
     </div>

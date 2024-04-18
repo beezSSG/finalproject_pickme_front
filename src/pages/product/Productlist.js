@@ -233,7 +233,7 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
             </div>
           </div>
 
-          <div id='productList' className='flex flex-wrap justify-center gap-4 p-4 max-w-[1200px] min-h-[480px]'>
+          <div id='productList' className='flex flex-wrap justify-center gap-4 p-4 max-w-[1200px] min-h-[480px] '>
             {productlist.length > 0 && (
               // Use a for loop to create table rows
               (() => {
@@ -289,21 +289,20 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
             )}
           </div>
 
-          <div id='pagination' className='max-w-[1200px] bottom-0'>
+        </div>
+        </div>
+        <div id='pagination' className='max-w-[1200px] bottom-0'>
             <Pagination
             itemClass='page-item'
             linkClass='page-link' 
             activePage={page}           // 현재 활성화 된 페이지 번호
             itemsCountPerPage={8}      // 페이지 당 보여줄 항목의 수
             totalItemsCount={totalCnt}  // 전체 항목 수
-            pageRangeDisplayed={8}     // 한 번에 보여줄 페이지 번호의 범위
+            pageRangeDisplayed={4}     // 한 번에 보여줄 페이지 번호의 범위
             prevPageText={"prev"}
             nextPageText={"next"}
             onChange={handlePageChange} />
           </div>
-
-        </div>
-        </div>
       </div>
     </div>
   );
