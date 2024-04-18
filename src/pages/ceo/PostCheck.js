@@ -15,9 +15,9 @@ export default function PostCheck() {
     getPostCheck(0);
   }, []);
 
-  const getPostCheck = async () => {
+  const getPostCheck = async (pn) => {
     await axios
-      .get("/ceo/postcheck")
+      .get("/ceo/postcheck", { params: { pageNumber: pn } })
       .then((response) => {
         console.log(response.data);
 
@@ -31,10 +31,24 @@ export default function PostCheck() {
   };
 
   // 페이지 변경함수
-  function handlePageChange(page) {
-    setPage(page);
-    getPostCheck(page - 1);
+  function handlePageChange(pageNumber) {
+    // 서버 측에서는 0부터 페이지를 계산하므로 pageNumber - 1을 전달합니다.
+    setPage(pageNumber);
+    getPostCheck(pageNumber - 1);
   }
+
+  // 모달들
+  const [showstoreModal, setShowstoreModal] = useState(false);
+  function searchStore() {
+    setShowstoreModal(true);
+  }
+  function closestoreModal() {
+    setShowstoreModal(false);
+  }
+
+  // 매장 찾기
+  const [storeName, setStoreName] = useState("");
+  const [selectedStore, setSelectedStore] = useState(null);
 
   return (
     <div className="mx-auto w-[80%]">
