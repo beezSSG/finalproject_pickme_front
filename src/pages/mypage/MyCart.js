@@ -10,7 +10,6 @@ import { PiPlusBold } from "react-icons/pi";
 import { PiMinusBold } from "react-icons/pi";
 import Toast from "../public/Toast";
 
-
 export default function MyCart(prop) {
   const [cart, setCart] = useState([]); // 카트(아이템 목록)
 
@@ -306,7 +305,10 @@ export default function MyCart(prop) {
         }
       }
     } else {
-      alert('픽업 또는 배달을 선택해주세요!');
+      Toast.fire({
+        icon: 'warning',
+        title: "먼저 픽업 또는 배달을 선택해주세요",
+      });
     }
   }
 

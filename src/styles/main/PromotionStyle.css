@@ -37,10 +37,9 @@
 .swiper-button-next,
 .swiper-button-prev {
   background-color: #ffffff;
-  /* background-color: var(--white); */
-  padding: 6px 20px;
+  opacity: 0.8;
+  padding: 1rem 1.3rem;
   border-radius: 100%;
-  /* color: var(--gray-08); */
   color: #000000;
 }
 

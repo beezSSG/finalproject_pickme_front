@@ -90,7 +90,7 @@ function StoreProductlist() {
       const nowSwitching = !switching;
       setSwitching(nowSwitching);
       getStoreProductlist(choice, search, 0, id, nowSwitching, category);
-      setPage(0);
+      setPage(1);
     }
 
     function searchBtn(){        
@@ -101,7 +101,7 @@ function StoreProductlist() {
     function categoryBtn(num){
       setCategory(num);
       getStoreProductlist(choice, search, 0, id, switching, num);
-      setPage(0);
+      setPage(1);
     }
 
     function handlePageChange(page){
