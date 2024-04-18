@@ -56,7 +56,11 @@ function ContactUs() {
 
   useEffect(() => {
     ccblistup();
-    getid();
+
+    if (localStorage.getItem("jwt") !== null) {
+      getid();
+    }
+
     console.log(id);
   }, []);
 
