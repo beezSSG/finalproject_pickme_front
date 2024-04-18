@@ -17,7 +17,7 @@ export default function MyMainContent(prop) {
   };
 
   useEffect(() => {
-    prop.whereHandle("");
+    prop.whereHandle("최근본 상품");
     if (getProduct !== null) {
       getRecentlyProduct();
     }
