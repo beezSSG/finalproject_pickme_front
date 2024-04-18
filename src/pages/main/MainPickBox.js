@@ -14,6 +14,7 @@ import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
+import { Link } from 'react-router-dom';
 
 const MainPickBox = () => {
   const [boxData, setBoxData] = useState();
@@ -46,24 +47,25 @@ const MainPickBox = () => {
   }
 
   if (!token) {
-    return <div></div>
+    return <div></div>;
   } else {
     return (
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
-        <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between">
-            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
               나의 Pick Box
             </h1>
-            <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">
+            <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
+                  to="">
               더보기
-            </button>
+            </Link>
           </div>
           <br />
-          <div className="w-[80%] mx-auto">
+          <div className="mx-auto">
             <Swiper
               slidesPerView={3}
-              spaceBetween={20}
+              spaceBetween={0}
               loop={true}
               centeredSlides={true}
               autoplay={{
@@ -80,26 +82,74 @@ const MainPickBox = () => {
               className="mySwiper"
             >
               {boxData &&
-                boxData.map((product, index) => (
-                  <SwiperSlide key={index} className="productItem flex flex-col">
+                boxData.map((product, index) => {
+                  let day = dDay(product.expDate);
+                  if (dDay(product.expDate).substring(0, 1) === "-") {
+                    day = dDay(product.expDate).slice(1, 2);
+                    day = "+" + day;
+                  }
+                  // console.log(day);
+                  return (
+                    <SwiperSlide
+                      key={index}
+                      className="productItem flex flex-col"
+                    >
                       <div className="relative">
-                          <img src={product.purl} alt={product.pname} className="mx-auto w-[60%]" />
-                          <div className="absolute -top-2  lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 m-2 rounded-full">
-                              D-<span className="font-black text-white">{dDay(product.expDate)}</span>
-                          </div>
+                        <img
+                          src={product.purl}
+                          alt={product.pname}
+                          className="mx-auto w-[60%]"
+                        />
+                        {
+                         <>
+                            {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && 
+                              (
+                                <div className="absolute top-[0.5%] lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full animate-bounce">
+                                  <span className="font-black text-white">
+                                    D-Day
+                                  </span>
+                                </div>
+                              )
+                            }
+                            {dDay(product.expDate) >= 1 && (
+                              <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-main-orange text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
+                                  <span className="font-black text-white">
+                                    D-{dDay(product.expDate)}
+                                  </span>
+                              </div>
+                            )
+                            }
+                            {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) 
+                              && (
+                                <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-slate-400 text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
+                                  <span className="font-black text-white">
+                                    D{day}
+                                  </span>
+                                </div>
+                              )}
+                          </>
+                        }
+                        {/* 
+                          <div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
+                            {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
+                            {dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
+                            {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
+                          </div> 
+                        */}
                       </div>
-                    <div className="productItem__description p-4">
-                      <h4 className="lg:text-xl md:text-lg sm:text-xs font-medium">{product.pname}</h4>
-                      {/* <p>구매일: {product.date}</p> */}
-                      {/* <p>구매점포: {product.sname}</p> */}
-                      <p className="lg:text-xl md:text-lg sm:text-xs font-medium w-full">구매수량: 
-                        <span className="lg:text-xl md:text-lg sm:text-xs font-medium">{product.quantity}</span>
-                      </p>
-                    </div>
-                    <br />
-                    <br />
-                  </SwiperSlide>
-                ))}
+                      <div className="productItem__description p-4">
+                        <h4 className="lg:text-xl md:text-lg sm:text-xs font-medium">
+                          {product.pname}
+                        </h4>
+                        <p className="lg:text-xl md:text-lg sm:text-xs font-medium w-full text-white">
+                          {product.quantity}개
+                        </p>
+                      </div>
+                      <br />
+                      <br />
+                    </SwiperSlide>
+                  );
+                })}
             </Swiper>
           </div>
         </div>

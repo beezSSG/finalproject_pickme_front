@@ -71,9 +71,10 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
         setChoice(newchoice);
         setPage(newpage);
       }
-        window.addEventListener('scroll', handleScroll);
-        onResize();
-        window.addEventListener('resize', onResize);
+
+      window.addEventListener('scroll', handleScroll);
+      onResize();
+      window.addEventListener('resize', onResize);
 
         return () => {
           window.removeEventListener('scroll', handleScroll);
@@ -107,16 +108,6 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
       setPage(1);
       getProductlist(choice, search, 0, switching, num);
     }
-
-    window.addEventListener("scroll", handleScroll);
-    onResize();
-    window.addEventListener("resize", onResize);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
 
   function choiceBtn(choice) {
     choiceHandle(choice);
