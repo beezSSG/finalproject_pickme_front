@@ -3,6 +3,7 @@ import axios from "axios";
 
 // 매장 이미지
 import storeicon1 from "../../assets/imgs/main/mystoreproduct/store1.svg";
+import shortlogo from "../../assets/imgs/logo/logo.svg";
 
 import { FaPhone } from "react-icons/fa6";
 import { FaStore } from "react-icons/fa";
@@ -121,7 +122,8 @@ const MyStoreProducts = () => {
         <br />
         <div className="flex gap-5">
           {/* 매장 이미지 */}
-          <div className="w-3/5">
+          <div className="w-3/5 relative">
+            <img src={shortlogo} alt="short logo" className="absolute w-[10%] top-[8%] left-[45%] animate-bounce"/>
             <img src={storeicon1} alt="가까운 매장 이미지" className="" />
           </div>
           {/* 매장 설명 */}
