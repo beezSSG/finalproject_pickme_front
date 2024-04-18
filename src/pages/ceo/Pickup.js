@@ -51,6 +51,9 @@ export default function Pickup() {
       .post("ceo/deletepickup", null, { params: params })
       .then((response) => {
         if (group.checkYn === 0) {
+          // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
+          <PickCheckModal />
+            
           // 처리
         }
       })
