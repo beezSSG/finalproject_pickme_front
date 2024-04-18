@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import moment from 'moment';
 
-export default function MyPickBox() {
+export default function MyPickBox({whereHandle}) {
   const [boxData, setBoxData] = useState();
 
   const getMyPickBox = async () => {
@@ -19,6 +19,7 @@ export default function MyPickBox() {
   }
 
   useEffect(() => {
+    whereHandle("Pick Box");
     getMyPickBox();
   }, []);
 

@@ -3,15 +3,16 @@ import { useState } from "react";
 import { useEffect } from "react";
 import moment from "moment";
 
-export default function MyCoupon({ point }) {
+export default function MyCoupon(prop) {
   const [myCoupons, setMyCoupons] = useState([]);
 
-  const [myPoint, setMyPoint] = useState(point);
+  const [myPoint, setMyPoint] = useState(prop.point);
 
   const [type, setType] = useState(0);
   const today = moment();
 
   useEffect(() => {
+    prop.whereHandle("쿠폰함");
     getMyInfo();
   }, []);
 
