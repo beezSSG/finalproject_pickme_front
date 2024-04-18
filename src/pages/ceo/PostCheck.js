@@ -1,13 +1,20 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CheckModal from "./CheckModal";
+
+import Pagination from "react-js-pagination";
+import PostCheckModal from "./PostCheckModal";
 
 export default function PostCheck() {
+
   const [postcheck, setPostCheck] = useState([]);
 
-  useEffect(() => {
-    getPostCheck();
-  }, []);
+      // 페이징
+      const [page, setPage] = useState(1);
+      const [totalCnt, setTotalCnt] = useState(0);
+
+      useEffect(() => {
+        getPostCheck(0);
+      }, []);
 
     const getPostCheck = async () => {
         await axios.get("/ceo/postcheck")
@@ -15,13 +22,20 @@ export default function PostCheck() {
 
         console.log(response.data);
 
-          console.log(JSON.stringify(response.data.postcheck));
-          setPostCheck(response.data);
+          console.log(JSON.stringify(response.data.postlist));
+          setPostCheck(response.data.postlist);
+          setTotalCnt(response.data.cnt);
         })
         .catch((err)=>{
            alert(err);
         })
       }
+
+              // 페이지 변경함수
+  function handlePageChange(page) {
+    setPage(page);
+    getPostCheck( page - 1);
+  }
 
   return (
     <div className="mx-auto w-[80%]">
@@ -38,7 +52,10 @@ export default function PostCheck() {
           </tr>
         </thead>
         <tbody>
-          {postcheck.map((group, index) => (
+
+          {postcheck.map((group, index) => {
+            if (group.checkYn === 0) {
+              return(
             <tr key={index} className="border-b border-gray-300">
                <td className="text-center py-3">{group.customerName}</td>
               <td className="text-center py-3">{group.itemCategory}</td>
@@ -56,15 +73,31 @@ export default function PostCheck() {
                   </td>
                   <td className="text-center py-3">
                     {group.postYn === 1 ? (
-                      <CheckModal group={group} getPostCheck={getPostCheck} />
+                      <PostCheckModal group={group} getPostCheck={getPostCheck} />
                     ) : (
                       ""
                     )}
                   </td>
             </tr>
-          ))}
+                  );
+          } else {
+            return null;
+          }
+          })}
         </tbody>
       </table>
+      <br />
+          <Pagination
+      itemClass="page-item"
+      linkClass="page-link"
+      activePage={page}
+      itemsCountPerPage={10}
+      totalItemsCount={totalCnt}
+      pageRangeDisplayed={10}
+      prevPageText={"prev"}
+      nextPageText={"next"}
+      onChange={handlePageChange}
+    />
      </div>
   );
 }

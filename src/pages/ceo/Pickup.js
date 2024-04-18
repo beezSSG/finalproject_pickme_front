@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CheckModal from "./CheckModal"
+import PickCheckModal from "./PickCheckModal"
 import Pagination from "react-js-pagination";
 
 export default function Pickup() {
@@ -106,7 +106,7 @@ export default function Pickup() {
           <td className="text-center py-3">{group[0].pickDel === 0 ? "픽업" : "배달"}</td>
           <td className="text-center py-3">
             {group[0].checkYn === 0 ? ( 
-              <CheckModal group={group} getPickup={getPickup} />
+              <PickCheckModal group={group} getPickup={getPickup} />
             ) : (
               ""
             )}
