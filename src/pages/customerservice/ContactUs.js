@@ -155,7 +155,7 @@ function ContactUs() {
                       )}
                     </td>
                     <td className="px-4 py-2 text-left">
-                      {id === ccb.customerId ? (
+                      {id === ccb.customerId || adminName === "하기성" ? (
                         <Link
                           to={`/contactusdetail/${ccb.id}`}
                           className="text-blue-500 hover:underline visited:text-black"
@@ -180,7 +180,7 @@ function ContactUs() {
                       <td className="px-4 py-2">
                         <button
                           onClick={() => ccbdelete(ccb.id)}
-                          className="bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                          className="bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400"
                         >
                           삭제
                         </button>
@@ -194,7 +194,7 @@ function ContactUs() {
 
           <div className="text-center">
             <button
-              className="mt-[50px] bg-yellow-400 hover:bg-yellow-500 text-white font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
+              className="mt-[50px] bg-yellow-400 hover:bg-yellow-500  font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
               onClick={() => navigate("/contactuswrite")}
             >
               문의작성

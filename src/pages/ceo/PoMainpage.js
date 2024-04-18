@@ -68,7 +68,7 @@ function PoMainpage() {
             </span>
             <br />
             <br />
-            <span className="text-3xl font-bold text-yellow-500">
+            <span className="text-2xl font-bold text-white bg-main-orange rounded-lg p-1">
               {topInfo[1]}
             </span>
           </div>

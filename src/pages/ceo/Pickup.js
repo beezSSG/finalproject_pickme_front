@@ -1,8 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import CheckModal from "./CheckModal"
+import PickCheckModal from "./PickCheckModal"
 import Pagination from "react-js-pagination";
-
 
 export default function Pickup() {
   const [pickup, setPickup] = useState([]);
@@ -50,8 +49,24 @@ export default function Pickup() {
   }
 
   // 버튼 클릭함수
-  function confrimHandle() {
+  function confrimHandle(group) {
     //#0. Axios 호출을 통한 승인 확인 하기
+    const params = { id: group.id };
+    axios
+      .post("ceo/deletepickup", null, { params: params })
+      .then((response) => {
+        // 응답을 받았을 때의 처리
+        
+        if (group.checkYn === 0) {
+          // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
+          <CheckModal />
+        }
+        
+      })
+      .catch((error) => {
+        // 오류가 발생했을 때의 처리
+        console.error("error");
+      });
 
     //#1. check 0은 미확인 / 1은 확인 토대로 사라지게하기
     //#2. getpickup다시 호출해서 리렌더링 시키기 -> 화면에서 확인을 눌렀을때 사라지게하는것
@@ -60,7 +75,6 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
-      <p className="text-lg font-semibold mb-4">픽업 승인</p>
 
       <table className="w-full table-fixed border-collapse">
         <thead>
@@ -74,29 +88,36 @@ export default function Pickup() {
           </tr>
         </thead>
         <tbody>
-          {pickup.map((group, index) => {
-            console.log(group);
-            let price = 0 ;
-            for (let i = 0; i < group.length; i++) {
-              price = group[i].price + price;
-            }
-
-            return (
-            <tr key={index} className="border-b border-gray-300">
-               <td className="text-center py-3">{group[0].productName}{" "}
-                {group.length > 1 ? `외 ${group.length - 1}개` : ""}
-               </td>
-              <td className="text-center py-3">{price.toLocaleString()}원</td>
-              <td className="text-center py-3">{group[0].customerName}</td>
-              <td className="text-center py-3">{group[0].date}</td>
-              <td className="text-center py-3">{group[0].pickDel === 0 ? "픽업" : "배달"}</td>
-              <td className="text-center py-3">
-                <button onClick={confrimHandle}>확인하기</button>
-              </td>
-            </tr>
-          )}
-          )}
-        </tbody>
+  {pickup.map((group, index) => {
+    if (group[0].checkYn === 0) {
+      console.log(group);
+      let price = 0;
+      for (let i = 0; i < group.length; i++) {
+        price = group[i].price + price;
+      }
+      return (
+        <tr key={index} className="border-b border-gray-300">
+          <td className="text-center py-3">{group[0].productName}{" "}
+            {group.length > 1 ? `외 ${group.length - 1}개` : ""}
+          </td>
+          <td className="text-center py-3">{price.toLocaleString()}원</td>
+          <td className="text-center py-3">{group[0].customerName}</td>
+          <td className="text-center py-3">{group[0].date}</td>
+          <td className="text-center py-3">{group[0].pickDel === 0 ? "픽업" : "배달"}</td>
+          <td className="text-center py-3">
+            {group[0].checkYn === 0 ? ( 
+              <PickCheckModal group={group} getPickup={getPickup} />
+            ) : (
+              ""
+            )}
+          </td>
+        </tr>
+      );
+    } else {
+      return null;
+    }
+  })}
+</tbody>
       </table>
       <br />
 
