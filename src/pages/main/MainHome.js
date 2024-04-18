@@ -32,7 +32,6 @@ import Chatbot from "../customerservice/Chatbot";
 import Polist from "../ceo/Polist";
 import Powrite from "../ceo/Powrite";
 import PoMainpage from "../ceo/PoMainpage.js";
-import About from "./About";
 
 import { useState } from "react";
 
