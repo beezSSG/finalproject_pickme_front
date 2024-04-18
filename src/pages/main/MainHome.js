@@ -34,14 +34,15 @@ import Powrite from "../ceo/Powrite";
 import PoMainpage from "../ceo/PoMainpage.js";
 
 import { useState } from "react";
+import SearchProduct from "./SearchProduct.js";
 
 export default function MainHome() {
-  const [choice, setChoice] = useState('select');
+  const [choice, setChoice] = useState("select");
   const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
   const [category, setCategory] = useState(0);
-  // 검색  
+  // 검색
   const [search, setSearch] = useState("");
-  // 페이징 
+  // 페이징
   const [page, setPage] = useState(1);
 
   function choiceHandle(pa) {
@@ -61,8 +62,6 @@ export default function MainHome() {
     setCategory(pa);
   }
 
-
-
   return (
     <>
       <header className="w-full sticky top-0 z-50">
@@ -79,25 +78,44 @@ export default function MainHome() {
             <Route path="/register" element={<Register />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/ceoregister" element={<CeoRegister />} />
-              
+
             <Route path="/LoginGoogle" element={<LoginGoogle />} />
             <Route path="/LoginKakao" element={<LoginKakao />} />
             <Route path="/LoginNaver" element={<LoginNaver />} />
-            
-            <Route path="/about" element={<About />} />
-            <Route path="/productlist/:id" 
-            element={<Productlist newchoice={choice} newswitching={switching} newsearch={search} newpage={page} newcategory = {category}
-                        choiceHandle={choiceHandle} switchingHandle={switchingHandle} searchHandle={searchHandle} pageHandle={pageHandle} categoryHandle={categoryHandle} />} />
-            <Route path="/productdetail/:id" 
-            element={<Productdetail />} />
 
-            <Route path="/storeproductlist/:id/:name" element={<StoreProductlist />} />
+            <Route path="/about" element={<About />} />
+            <Route
+              path="/productlist/:id"
+              element={
+                <Productlist
+                  newchoice={choice}
+                  newswitching={switching}
+                  newsearch={search}
+                  newpage={page}
+                  newcategory={category}
+                  choiceHandle={choiceHandle}
+                  switchingHandle={switchingHandle}
+                  searchHandle={searchHandle}
+                  pageHandle={pageHandle}
+                  categoryHandle={categoryHandle}
+                />
+              }
+            />
+            <Route path="/productdetail/:id" element={<Productdetail />} />
+
+            <Route
+              path="/storeproductlist/:id/:name"
+              element={<StoreProductlist />}
+            />
             {/* <Route path='/matchedstorelist/:id' element={<MatchedStoreList />} /> */}
 
             <Route path="/store" element={<StoreMap />} />
 
             <Route path="/post" element={<Post />} />
-            <Route path="/productreservation" element={<ProductReservation />} />
+            <Route
+              path="/productreservation"
+              element={<ProductReservation />}
+            />
 
             <Route path="event" element={<Event />} />
             <Route path="eventdetail/:id" element={<EventDetail />} />
