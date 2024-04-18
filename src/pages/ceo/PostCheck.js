@@ -74,7 +74,7 @@ export default function PostCheck() {
                       )}
                     </td>
                     <td className="text-center py-3">
-                      {group.postYn === 1 ? (
+                      {group.postYn === 0 ? (
                         <PostCheckModal
                           group={group}
                           getPostCheck={getPostCheck}
