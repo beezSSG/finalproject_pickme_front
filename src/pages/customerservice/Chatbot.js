@@ -90,11 +90,14 @@ function Chatbot() {
           resp.bubbles[0].data.contentTable[0][0].data.data.action.type ===
           "link"
         ) {
-          ChatBotLink(
-            resp.bubbles[0].data.cover.data.description,
-            resp.bubbles[0].data.contentTable[0][0].data.title,
-            resp.bubbles[0].data.contentTable[0][0].data.data.action.data.url
+          const buttons = resp.bubbles[0].data.contentTable.flatMap((row) =>
+            row.map((buttonData) => ({
+              title: buttonData.data.title,
+              url: buttonData.data.data.action.data.url,
+            }))
           );
+
+          ChatBotLink(resp.bubbles[0].data.cover.data.description, buttons);
         }
       }
     }
@@ -138,7 +141,7 @@ function Chatbot() {
     rootElement.appendChild(document.createElement("br"));
   }
 
-  function ChatBotLink(str, str2, url) {
+  function ChatBotLink(str, buttons) {
     const rootElement = document.createElement("div");
     rootElement.className = "flex items-end mt-3";
 
@@ -162,13 +165,15 @@ function Chatbot() {
 
     rootElement.appendChild(innerDivElement);
 
-    const btn = document.createElement("input");
-    btn.setAttribute("type", "button");
-    btn.className =
-      "bg-main-orange hover:scale-110 transition duration-200cursor-pointer text-white font-semibold rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-sub-orange";
-    btn.value = str2;
-    btn.setAttribute("onClick", `window.open('${url}')`);
-    innerDivElement.appendChild(btn); // 버튼을 rootElement에 추가
+    buttons.forEach((button) => {
+      const btn = document.createElement("input");
+      btn.setAttribute("type", "button");
+      btn.className =
+        "bg-main-orange hover:scale-110 transition duration-200 cursor-pointer text-white font-semibold rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-sub-orange";
+      btn.value = button.title;
+      btn.setAttribute("onClick", `window.open('${button.url}')`);
+      innerDivElement.appendChild(btn); // 버튼을 rootElement에 추가
+    });
 
     const chatboxElement = document.getElementsByClassName("chatbox")[0];
     chatboxElement.appendChild(rootElement);

@@ -1,4 +1,4 @@
- import { useAuth } from "../../utils/AuthProvider";
+import { useAuth } from "../../utils/AuthProvider";
 import CeoMainNav from "./CeoMainNav";
 
 import { Link, Route, Routes, useNavigate } from "react-router-dom";
@@ -25,8 +25,8 @@ function PoMainpage() {
 
   const topBar = [
     { title: "Home", path: "/ceo/pomain" },
-    { title: "발주", path: "/ceo/po" },
-    { title: "승인", path: "/ceo/coupon" },
+    { title: "발주", path: "/ceo/pomain/po" },
+    { title: "승인", path: "/ceo/pomain/po" },
   ];
 
   // 진입전 토큰 유무 확인 토큰 유효성시간을 대폭 상향
@@ -98,7 +98,6 @@ function PoMainpage() {
       <div className="flex">
         <CeoMainNav />
         <Routes>
-
           <Route path='' element={<CeoMainContent />} />
             <Route path='po' element={<Polist/>} />    
             <Route path='pow' element={<Powrite />} />
@@ -107,7 +106,6 @@ function PoMainpage() {
             <Route path='pickup' element={<Pickup />} />
             <Route path='postcheck' element={<PostCheck />} />
             <Route path='productresv' element={<ProductResv />} />
-
         </Routes>
       </div>
     </>

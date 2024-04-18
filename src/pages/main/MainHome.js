@@ -12,6 +12,7 @@ import CeoRegister from "../login/CeoRegister";
 import LoginGoogle from "../login/LoginGoogle";
 import LoginKakao from "../login/LoginKakao";
 import LoginNaver from "../login/LoginNaver";
+import About from "../about/About";
 import Productdetail from "../product/Productdetail";
 import Productlist from "../product/Productlist";
 import StoreMap from "../store/StoreMap";
@@ -28,7 +29,10 @@ import MyMain from "../mypage/MyMain";
 import Event from "../manager/Event";
 import EventDetail from "../manager/EventDetail";
 import Chatbot from "../customerservice/Chatbot";
-import About from "./About";
+import Polist from "../ceo/Polist";
+import Powrite from "../ceo/Powrite";
+import PoMainpage from "../ceo/PoMainpage.js";
+
 import { useState } from "react";
 
 export default function MainHome() {
@@ -75,12 +79,12 @@ export default function MainHome() {
             <Route path="/register" element={<Register />} />
             <Route path="/userregister" element={<UserRegister />} />
             <Route path="/ceoregister" element={<CeoRegister />} />
-            <Route path="/logingoogle" element={<LoginGoogle />} />
-            <Route path="/loginkakao" element={<LoginKakao />} />
-            <Route path="/loginnaver" element={<LoginNaver />} />
-
-            <Route path="/about" element={<About />}/>
-
+              
+            <Route path="/LoginGoogle" element={<LoginGoogle />} />
+            <Route path="/LoginKakao" element={<LoginKakao />} />
+            <Route path="/LoginNaver" element={<LoginNaver />} />
+            
+            <Route path="/about" element={<About />} />
             <Route path="/productlist/:id" 
             element={<Productlist newchoice={choice} newswitching={switching} newsearch={search} newpage={page} newcategory = {category}
                         choiceHandle={choiceHandle} switchingHandle={switchingHandle} searchHandle={searchHandle} pageHandle={pageHandle} categoryHandle={categoryHandle} />} />
