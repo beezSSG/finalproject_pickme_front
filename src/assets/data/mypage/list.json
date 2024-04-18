@@ -13,6 +13,7 @@
     {
       "title": "내 활동",
       "subtitle": [
+        { "subname": "최근본 상품", "subpath": "" },
         { "subname": "찜목록", "subpath": "save" },
         { "subname": "나의 후기", "subpath": "review" }
       ]
