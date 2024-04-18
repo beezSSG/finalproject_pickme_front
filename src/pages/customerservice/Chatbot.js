@@ -24,7 +24,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "px-4 py-2 inline-block  bg-gray-200 text-gray-600 rounded-t-lg rounded-bl-lg";
+      "px-4 py-2 inline-block bg-slate-200 text-slate-900 rounded-t-lg rounded-bl-lg";
     spanElement.textContent = message;
     const divElement = document.createElement("div");
     divElement.appendChild(spanElement);
@@ -110,7 +110,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "bg-gray-400 text-gray-700 px-4 py-2 inline-block rounded-t-lg rounded-br-lg";
+      "bg-slate-200 text-slate-900 font-medium px-4 py-2 inline-block rounded-t-lg rounded-br-lg";
     spanElement.textContent = str;
 
     const imgElement = document.createElement("img");
@@ -153,7 +153,7 @@ function Chatbot() {
 
     const spanElement = document.createElement("span");
     spanElement.className =
-      "px-4 py-2  inline-block  bg-gray-400 text-gray-700 rounded-t-lg rounded-br-lg";
+      "px-4 py-2  inline-block  bg-slate-200 text-gray-900 font-medium whitespace-pre-line rounded-t-lg rounded-br-lg";
     spanElement.textContent = str;
 
     const divElement = document.createElement("div");
@@ -165,7 +165,7 @@ function Chatbot() {
     const btn = document.createElement("input");
     btn.setAttribute("type", "button");
     btn.className =
-      "bg-yellow-400 hover:bg-yellow-500 cursor-pointer text-white font-medium rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400";
+      "bg-main-orange hover:scale-110 transition duration-200cursor-pointer text-white font-semibold rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-sub-orange";
     btn.value = str2;
     btn.setAttribute("onClick", `window.open('${url}')`);
     innerDivElement.appendChild(btn); // 버튼을 rootElement에 추가
@@ -180,8 +180,8 @@ function Chatbot() {
     <>
       <div className="w-full h-[580px] border-2 rounded-xl bg-white z-50">
         <div className="h-full rounded-xl">
-          <div className="menu flex items-center justify-between px-4 py-2 bg-gray-800 text-white rounded-t-lg ">
-            <h3 className="welcome">Welcome Pickme</h3>
+          <div className="menu flex items-center justify-between px-4 py-2 bg-main-yellow text-white font-semibold rounded-t-lg ">
+            <h3 className="welcome">Welcome Pick ME</h3>
           </div>
           <br />
           <div
@@ -193,7 +193,7 @@ function Chatbot() {
           <br />
           <div className="flex justify-center gap-4 px-4">
             <input
-              className="p-2 border border-gray-300 rounded-md w-full focus:outline-none focus:ring-2 focus:ring-sub-yellow"
+              className="p-2 border border-gray-300 rounded-md w-full font-medium focus:outline-none focus:ring-2 focus:ring-sub-yellow"
               value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="메시지기입"

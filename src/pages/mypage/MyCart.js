@@ -1,16 +1,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useAuth } from "../../utils/AuthProvider";
 import { Bootpay } from '@bootpay/client-js';
-import { Link } from "react-router-dom";
 
-import { VscArrowCircleUp, VscArrowCircleDown } from "react-icons/vsc";
 import { TiDelete } from "react-icons/ti";
 import { PiHandbagBold  } from "react-icons/pi";
 
 import { TbTruckDelivery } from "react-icons/tb";
 import { PiPlusBold } from "react-icons/pi";
 import { PiMinusBold } from "react-icons/pi";
+import Toast from "../public/Toast";
 
 
 export default function MyCart(prop) {
@@ -27,8 +25,7 @@ export default function MyCart(prop) {
   const [buttonCol, setbuttonCol] = useState(2);
 
   // 포인트 사용
-  const [point, setPoint] = useState(0);
-  const [read, setRead] = useState(false);
+  const [point, setPoint] = useState();
 
   const [payPrice, setPayPrice] = useState(0); // 할인 까지 전부 한 총금액
   const [resultPoint, setResultPoint] = useState(0); // 기존 포인트 + 적립 포인트
@@ -37,6 +34,7 @@ export default function MyCart(prop) {
 
   // 처음실행시
   useEffect(() => {
+    prop.whereHandle("장바구니");
     getMyCart();
   }, []);
 
@@ -54,7 +52,12 @@ export default function MyCart(prop) {
       }
       setTotalPrice(money);
       setPayPrice(money);
-      setTotalPoint((money * 0.05));
+      let pointmoney = money * 0.05;
+      if (!Number.isInteger(pointmoney)) { // 포인트에 소수점 제거
+        pointmoney = Math.round(pointmoney);
+        // console.log(pointmoney);
+      }
+      setTotalPoint(pointmoney);
     }
   }, [checkPrice]);
 
@@ -119,7 +122,10 @@ export default function MyCart(prop) {
 
   const minusQuantity = async (quantity, sProductId) => {
     if (quantity === "1") {
-      alert('물건의 최소수량은 1개입니다.');
+      Toast.fire({
+        icon: 'error',
+        title: "장바구니 최소수량은 1개예요",
+      });
       return;
     }
     const newQuantity = Number(quantity) - 1;
@@ -139,6 +145,10 @@ export default function MyCart(prop) {
   const deleteItem = async (sProductId) => {
     try {
       await axios.delete(`customer/cart/delCart/${sProductId}`);
+      Toast.fire({
+        icon: 'success',
+        title: "선택한 물건을 삭제했어요",
+      });
       getMyCart();
     } catch (err) {
       alert(err);
@@ -172,81 +182,127 @@ export default function MyCart(prop) {
     let newPrice = Number(totalPrice)-Number(inputValue);
     let newPoint = Number(prop.point)-Number(inputValue)+Number(totalPoint);
     // console.log(newPoint);
-    setPoint(inputValue);    
+    setPoint(inputValue);
     setPayPrice(newPrice);
     setResultPoint(newPoint);
   };
 
+  function test() {
+    let para = {
+      array : JSON.stringify(checkItems)
+    }
+    console.log(para);
+  }
+
   // 결제후 BE 정보전송
   function sendOrder() {
-    axios.post("customer/order", checkItems)
+    let sendpoint = prop.point;
+
+    let para = {
+      "checkItems" : checkItems,
+      "pickDel" : pOrd
+    }
+    
+    axios.post("customer/order", para)
     .then((response)=>{
       // console.log(JSON.stringify(response.data));
+      if (point === undefined) {
+        axios.post("mypage/user/updatePoint", null, {params:{"point":sendpoint}})
+        .then((resp)=>{
+
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+      } else {
+        axios.post("mypage/user/updatePoint", null, {params:{"point":resultPoint}})
+        .then((resp)=>{
+          
+        })
+        .catch((err)=>{
+          console.log(err);
+        })
+      }
+      // 성공후 알림
+      if (pOrd === 1) {
+        Toast.fire({
+          icon: 'success',
+          title: "배달일정은 알림으로 알려드릴게요",
+        });
+      } else {
+        Toast.fire({
+          icon: 'success',
+          title: "결제를 완료했어요",
+        });
+      }
+
       getMyCart();
     })
     .catch((err)=>{
-      alert(err);
+      console.log(err);
     })
   }
 
   // 결제 핸들러
   const payHandler = async () => {
     if (pOrd === 0 || pOrd === 1) {
-      try {
-        const response = await Bootpay.requestPayment({
-          "application_id": "65efaac4d25985001c6e5e40",
-          "price": payPrice,
-          "order_name": "Pick ME 상품결제",
-          "order_id": "TEST_ORDER_ID",
-          "tax_free": 0,
-          "user": {
-            "id": "회원아이디",
-            "username": "회원이름",
-            "phone": "01000000000",
-            "email": "test@test.com"
-          },
-          "items": [
-            {
-              "id": "item_id",
-              "name": "테스트아이템",
-              "qty": 1,
-              "price": payPrice
+      if (payPrice === 0) { // 할인으로 인한 결제금액 0원일시
+        sendOrder();
+      } else {
+        try {
+          const response = await Bootpay.requestPayment({
+            "application_id": "65efaac4d25985001c6e5e40",
+            "price": payPrice,
+            "order_name": "Pick ME 상품결제",
+            "order_id": "TEST_ORDER_ID",
+            "tax_free": 0,
+            "user": {
+              "id": "회원아이디",
+              "username": "회원이름",
+              "phone": "01000000000",
+              "email": "test@test.com"
+            },
+            "items": [
+              {
+                "id": "item_id",
+                "name": "테스트아이템",
+                "qty": 1,
+                "price": payPrice
+              }
+            ],
+            "extra": {
+              "open_type": "iframe",
+              "card_quota": "0,2,3",
+              "escrow": false
             }
-          ],
-          "extra": {
-            "open_type": "iframe",
-            "card_quota": "0,2,3",
-            "escrow": false
-          }
-        })
-        switch (response.event) {
-          case 'issued':
-            // 가상계좌 입금 완료 처리
-            break
-          case 'done':
-            console.log(response)
-            sendOrder();
-            // 결제 완료 처리
-            break
-          case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
-            console.log(response.receipt_id);
-            const confirmedData = await Bootpay.confirm() //결제를 승인한다
-            if(confirmedData.event === 'done') {
-                //결제 성공
-            }
-          break;
-        }
-      } catch (e) {
-        console.log(e.message)
-        switch (e.event) {
-          case 'cancel':
-            // 사용자가 결제창을 닫을때 호출
-            console.log(e.message);
+          })
+          switch (response.event) {
+            case 'issued':
+              break
+            case 'done': // 결제 완료 처리
+              console.log(response)
+              sendOrder();
+              break
+            case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+              console.log(response.receipt_id);
+              const confirmedData = await Bootpay.confirm() //결제를 승인한다
+              if(confirmedData.event === 'done') {
+                  //결제 성공
+              }
             break;
-          case 'error':
-            // 결제 승인 중 오류 발생시 호출
-            console.log(e.error_code);
-          break;
+          }
+        } catch (e) {
+          console.log(e.message)
+          switch (e.event) {
+            case 'cancel':
+              // 사용자가 결제창을 닫을때 호출
+              console.log(e.message);
+              break;
+            case 'error':
+              // 결제 승인 중 오류 발생시 호출
+              console.log(e.error_code);
+            break;
+          }
         }
       }
     } else {
@@ -263,13 +319,13 @@ export default function MyCart(prop) {
   return (
     <div className="flex-col mx-auto lg:w-[60%] px-[2%]">
       <div className="overflow-y-auto">
-        <h1 className="text-center font-bold text-3xl">장바구니</h1>
         <table className="sm:text-xs">
           <thead>
             <tr>
               <td colSpan="2">
                 <input type="checkbox" onChange={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />
                 <span>&nbsp;전체선택</span>
+                <button onClick={test}>test</button>
               </td>
               <td colSpan="3"></td>
               <td colSpan="2" className="group text-right">
@@ -279,9 +335,8 @@ export default function MyCart(prop) {
                 </button>
               </td>
             </tr>
-            <br />
             <tr className="lg:text-xl md:text-xl">
-              <th className="w-[4%]">선택</th>
+              <th className="w-[4%] sm:text-[0.64rem]">선택</th>
               <th className="lg:w-[5%] md:w-[10%] sm:w-[15%]">상품 사진</th>
               <th className="w-[18%]">상품명</th>
               {/* 편의점 이름 추가 */}
@@ -390,15 +445,16 @@ export default function MyCart(prop) {
       <div className="mx-auto mt-5 text-3xl">
         <div className="my-4 flex sm:flex-col justify-center items-center">
           <span className="mb-1 text-xl font-medium mx-2 p-1 px-2.5 rounded-lg bg-main-yellow">Pick 포인트</span>
-          <p>
-            <b>{prop.point.toLocaleString()}</b>
+          {/* {prop.point.toLocaleString()} */}
+          <p className="sm:ml-28">
+            <input type="text" value={point} onChange={writePoint} placeholder={`0 ~ ${prop.point.toLocaleString()}`} className="sm:w-1/2 text-2xl my-1.5 text-center" />
             <span className="text-2xl">P</span>
           </p>
         </div>
-        <div className="my-4 flex sm:flex-col justify-center lg:items-center">
+        {/* <div className="my-4 flex sm:flex-col justify-center lg:items-center">
           <span className="mb-1 text-xl font-medium mx-2 p-1 px-2.5 rounded-lg bg-main-yellow">사용할 포인트</span>
-          <input type="text" value={point.toLocaleString()} onChange={writePoint} placeholder={`0 ~ ${prop.point}`} readOnly={read} className="sm:w-1/2 text-2xl my-1.5 text-center" />
-        </div>
+          <input type="text" value={point.toLocaleString()} onChange={writePoint} placeholder={`0 ~ ${prop.point}`} className="sm:w-1/2 text-2xl my-1.5 text-center" />
+        </div> */}
         <div className="flex items-center justify-center">
           <button onClick={payHandler} className="w-auto bg-main-orange text-white rounded-xl p-2 font-semibold hover:bg-main-orange transition duration-200">
             {payPrice.toLocaleString()}원 결제하기

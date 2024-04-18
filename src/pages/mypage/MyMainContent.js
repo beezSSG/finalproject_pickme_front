@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import star2 from "../../assets/imgs/product/star2.png";
 
-export default function MyMainContent() {
+export default function MyMainContent(prop) {
   let getProduct = JSON.parse(localStorage.getItem("recentlyProduct"));
   const [pdata, setPdata] = useState();
 
@@ -17,7 +17,8 @@ export default function MyMainContent() {
   };
 
   useEffect(() => {
-    if (getProduct !== null || getProduct !== undefined) {
+    prop.whereHandle("");
+    if (getProduct !== null) {
       getRecentlyProduct();
     }
     

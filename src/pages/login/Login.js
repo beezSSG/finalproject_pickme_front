@@ -6,6 +6,7 @@ import axios from "axios";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import { useAuth } from "../../utils/AuthProvider";
 import IdFind from "./IdFind";
+import Toast from "../public/Toast";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,15 +33,6 @@ const Login = () => {
     const token = localStorage.getItem("jwt");
     if (token) setIsLoggedIn(true);
   }, []);
-
-  // 로그아웃 함수도 최상위 레벨에 위치
-  const logout = () => {
-    localStorage.removeItem("jwt");
-    console.log("토큰 삭제 완료:", localStorage.getItem("jwt"));
-    setIsLoggedIn(false);
-    alert("로그아웃에 성공했습니다.");
-    navigate("/");
-  };
 
   const goGoogleLogin = () => {
     let base_url = process.env.REACT_APP_GOOGLE_LOGIN_API_BASE_URL;
@@ -111,7 +103,7 @@ const Login = () => {
 
   const onClickConfirmButton = () => {
     // console.log("Button clicked!");          // 1. 로그 확인
-    console.log("email:", email, "PW:", pw); // 2. 상태 값 확인
+    // console.log("email:", email, "PW:", pw); // 2. 상태 값 확인
     const endpoint = "user/login";
     let data = JSON.stringify({
       email: email,
@@ -135,14 +127,20 @@ const Login = () => {
         // console.log(JSON.stringify(response.data));
         // console.log(response.data);
         if (response.data !== undefined) {
-          alert("로그인에 성공했습니다.");
+          Toast.fire({
+            icon: 'success',
+            title: "로그인에 성공했어요",
+          });
           setToken(response.data.jwt); // 상태에 토큰 저장
           setIsLoggedIn(true);
-          if (response.data.who === "점주") {
-            window.location.href = "ceo/pomain";
-          } else {
-            window.location.href = "/";
-          }
+          const redirectToPage = () => {
+            if (response.data.who === "점주") {
+              window.location.href = "ceo/pomain";
+            } else {
+              window.location.href = "/";
+            }
+          };
+          setTimeout(redirectToPage, 1200);
         } else {
           alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
         }

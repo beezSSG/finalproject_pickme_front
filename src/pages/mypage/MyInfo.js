@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import MyInfoPost from "./MyInfoPost";
 import { Button, Modal } from "antd";
+import Toast from "../public/Toast";
 
 export default function MyInfo() {
   const [userInfo, setUserInfo] = useState({});
@@ -70,7 +71,14 @@ export default function MyInfo() {
       })
       .then((response) => {
         // console.log(response.data);
-        window.location.href = "/mypage/userinfo";
+        Toast.fire({
+          icon: 'success',
+          title: "개인정보가 변경되었어요",
+        });
+        const redirectToPage = () => {
+          window.location.href = "/mypage/userinfo";
+        };
+        setTimeout(redirectToPage, 1200);
       })
       .catch((err) => {
         console.log(err);
@@ -80,7 +88,10 @@ export default function MyInfo() {
   // 비밀번호 변경
   async function changeMyPassword() {
     if (Number(myPw) !== Number(userInfo.pw)) {
-      alert("현재 비밀번호가 일치하지 않습니다");
+      Toast.fire({
+        icon: 'error',
+        title: "변경할 비밀번호가 일치하지 않아요",
+      });
       return;
     }
 
@@ -89,13 +100,23 @@ export default function MyInfo() {
         .post("user/changePw", null, { params: { pw: newPw } })
         .then((response) => {
           // console.log(response.data);
-          window.location.href = "/mypage/userinfo";
+          Toast.fire({
+            icon: 'success',
+            title: "개인정보가 변경되었어요",
+          });
+          const redirectToPage = () => {
+            window.location.href = "/mypage/userinfo";
+          };
+          setTimeout(redirectToPage, 1200);
         })
         .catch((err) => {
           console.log(err);
         });
     } else {
-      alert("변경할 비밀번호가 일치하지 않습니다");
+      Toast.fire({
+        icon: 'error',
+        title: "변경할 비밀번호가 일치하지 않아요",
+      });
     }
   }
 
@@ -286,7 +307,7 @@ export default function MyInfo() {
               <button
                 type="button"
                 className="bg-sub-yellow rounded-xl p-2 font-bold w-20 hover:bg-sub-orange"
-                onClick={() => chageHandler(1)}
+                onClick={() => changeMyPassword()}
               >
                 확인
               </button>
@@ -304,7 +325,7 @@ export default function MyInfo() {
                 type="button"
                 className="bg-sub-yellow text-slate-900 rounded-xl p-2 font-bold w-20 hover:bg-sub-orange transition duration-300"
                 onClick={() => {
-                  changeMyPassword();
+                  chageHandler(1);
                 }}
               >
                 변경
