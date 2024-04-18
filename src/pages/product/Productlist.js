@@ -435,6 +435,7 @@ function Productlist({
                                   </p>
                                 </div>
                               )}
+<<<<<<< Updated upstream
                               <br />
                               <hr />
                               <p className="mt-5 font-semibold">
@@ -502,6 +503,8 @@ function Productlist({
                                   )
                                 )}
                               </p>
+=======
+>>>>>>> Stashed changes
                             </div>
                           </div>
                         </Link>
