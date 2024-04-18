@@ -43,33 +43,26 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
       // console.log(category);
       if (window.localStorage.getItem('product') === '확인') {
         if (newchoice === 'select' && newcategory > 0) {
-          console.log("1");
           getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
           setPage(newpage);
           setSearch(newsearch);
           setCategory(newcategory);
         } else if ( newchoice === 'select' && newsearch !== undefined ) {
-          console.log("2");
           getProductlist('select', newsearch, (newpage-1), newswitching, 0);
           setPage(newpage);
           setSearch(newsearch);
-        } else if ( newchoice === 'select') {
-          console.log("3");
-          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
+        } else if ( newchoice !== 'select' && newcategory !== 0) {
+          getProductlist(newchoice, search, (newpage-1), newswitching, newcategory);
           setPage(newpage);
           setSearch(newsearch);
         } else {
-          console.log("4");
-          getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
+          getProductlist(choice, newsearch, (newpage-1), newswitching, category);
           setSearch(newsearch);
           setChoice(newchoice);
           setPage(newpage);
         }
       } else {
-        getProductlist(newchoice, newsearch, newpage - 1, newswitching, 0);
-        setSearch(newsearch);
-        setChoice(newchoice);
-        setPage(newpage);
+        getProductlist("select", search, 0, switching, 0);
       }
 
       window.addEventListener('scroll', handleScroll);
@@ -101,36 +94,22 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
     }
 
     function categoryBtn(num){
-      setCategory(num);
-      categoryHandle(num);
-      choiceHandle('select');
-      pageHandle(1);
-      setPage(1);
-      getProductlist(choice, search, 0, switching, num);
+      if (num === 0) {
+        setCategory(num);
+        categoryHandle(num);
+        setChoice('select');
+        pageHandle(1);
+        setPage(1);
+        getProductlist('select', search, 0, switching, num);
+      } else {
+        setCategory(num);
+        categoryHandle(num);
+        pageHandle(1);
+        setPage(1);
+        getProductlist(choice, search, 0, switching, num);
+      }
+      
     }
-
-  function choiceBtn(choice) {
-    choiceHandle(choice);
-    setChoice(choice);
-    const nowSwitching = !switching;
-    setSwitching(nowSwitching);
-    switchingHandle(nowSwitching);
-    setPage(1);
-    getProductlist(choice, search, 0, nowSwitching, category);
-  }
-
-  function searchBtn() {
-    setChoice("select");
-    getProductlist("select", search, 0, switching, category);
-  }
-
-  function categoryBtn(num) {
-    setCategory(num);
-    categoryHandle(num);
-    choiceHandle("select");
-    setPage(1);
-    getProductlist(choice, search, 0, switching, num);
-  }
 
   function handlePageChange(page) {
     setPage(page);
