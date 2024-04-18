@@ -52,12 +52,12 @@ const MainPickBox = () => {
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between">
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-              내 Pick Box
+            <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-gray-900">
+              나의 Pick Box
             </h1>
-            <h2 className="text-2xl font-bold tracking-tight text-gray-900">
-              <button>더보기</button>
-            </h2>
+            <button className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300">
+              더보기
+            </button>
           </div>
           <br />
           <div className="w-[80%] mx-auto">
@@ -84,21 +84,17 @@ const MainPickBox = () => {
                   <SwiperSlide key={index} className="productItem flex flex-col">
                       <div className="relative">
                           <img src={product.purl} alt={product.pname} className="mx-auto w-[60%]" />
-                          <div className="absolute top-0 right-0 bg-red-600 text-white p-2 m-2 rounded">
-                              남은기한: {dDay(product.expDate)}일
+                          <div className="absolute -top-2  lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 m-2 rounded-full">
+                              D-<span className="font-black text-white">{dDay(product.expDate)}</span>
                           </div>
                       </div>
                     <div className="productItem__description p-4">
-                      <h4>{product.pname}</h4>
+                      <h4 className="lg:text-xl md:text-lg sm:text-xs font-medium">{product.pname}</h4>
                       {/* <p>구매일: {product.date}</p> */}
                       {/* <p>구매점포: {product.sname}</p> */}
-                      <p>구매수량: {product.quantity}</p>
-                      {/* <p>
-                        소비기한: <b>{product.expDate}</b>
-                      </p> */}
-                      {/* <p>
-                        남은기한: <b>{dDay(product.expDate)}일</b>
-                      </p> */}
+                      <p className="lg:text-xl md:text-lg sm:text-xs font-medium w-full">구매수량: 
+                        <span className="lg:text-xl md:text-lg sm:text-xs font-medium">{product.quantity}</span>
+                      </p>
                     </div>
                     <br />
                     <br />
