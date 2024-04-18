@@ -6,108 +6,133 @@ import Pagination from "react-js-pagination"; // npm i react-js-pagination
 import "./page.css";
 import star2 from "../../assets/imgs/product/star2.png";
 
-function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, choiceHandle, switchingHandle, searchHandle, pageHandle, categoryHandle} ) {     
-    let params = useParams();
-    const [productlist, setProductlist] = useState([]);
-    
-    // 정렬
-    const [choice, setChoice] = useState('select');
-    const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
-    const [category, setCategory] = useState(Number(params.id));
-    // 검색  
-    const [search, setSearch] = useState("");
-    // 페이징 
-    const [page, setPage] = useState(1);
-    const [totalCnt, setTotalCnt] = useState(0);
-    // 카테고리 스크롤 따라오기에 사용되는 변수
-    const sortListRef = useRef(null);
-    // 화면 쪼그라들기 시작할 시점
-    const mobileWidth = 900; 
+function Productlist({
+  newchoice,
+  newswitching,
+  newsearch,
+  newpage,
+  newcategory,
+  choiceHandle,
+  switchingHandle,
+  searchHandle,
+  pageHandle,
+  categoryHandle,
+}) {
+  let params = useParams();
+  const [productlist, setProductlist] = useState([]);
 
-    /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
-    
-    function getProductlist(c, s, pn, switching, category){
-        axios.get("product/productlist", 
-                    {params:{ choice:c, search:s, pageNumber:pn, "switching":switching, "category":category}})
-             .then(function(resp){  // success:function
-                console.log(resp.data);
-                setProductlist(resp.data.productlist);
-                setTotalCnt(resp.data.cnt); // 글의 총수
-             })
-             .catch(function(err){     // error:function
-                alert('error');
-             })
-    }
+  // 정렬
+  const [choice, setChoice] = useState("select");
+  const [switching, setSwitching] = useState(true); // 정렬을 반대로 스위칭하기 위한 변수
+  const [category, setCategory] = useState(Number(params.id));
+  // 검색
+  const [search, setSearch] = useState("");
+  // 페이징
+  const [page, setPage] = useState(1);
+  const [totalCnt, setTotalCnt] = useState(0);
+  // 카테고리 스크롤 따라오기에 사용되는 변수
+  const sortListRef = useRef(null);
+  // 화면 쪼그라들기 시작할 시점
+  const mobileWidth = 900;
 
-    useEffect(function(){
-      // console.log(category);
-      if (window.localStorage.getItem('product') === '확인') {
-        if (newchoice === 'select' && newcategory > 0) {
-          console.log("1");
-          getProductlist(newchoice, newsearch, (newpage-1), newswitching, newcategory);
-          setPage(newpage);
-          setSearch(newsearch);
-          setCategory(newcategory);
-        } else if ( newchoice === 'select' && newsearch !== undefined ) {
-          console.log("2");
-          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
-          setPage(newpage);
-          setSearch(newsearch);
-        } else if ( newchoice === 'select') {
-          console.log("3");
-          getProductlist('select', newsearch, (newpage-1), newswitching, 0);
-          setPage(newpage);
-          setSearch(newsearch);
-        } else {
-          console.log("4");
-          getProductlist(newchoice, newsearch, (newpage-1), newswitching, 0);
-          setSearch(newsearch);
-          setChoice(newchoice);
-          setPage(newpage);
-        }
+  /* Axios를 사용하여 서버에서 데이터를 가져오기 위한 비동기 함수, fetchData */
+
+  function getProductlist(c, s, pn, switching, category) {
+    axios
+      .get("product/productlist", {
+        params: {
+          choice: c,
+          search: s,
+          pageNumber: pn,
+          switching: switching,
+          category: category,
+        },
+      })
+      .then(function (resp) {
+        // success:function
+        console.log(resp.data);
+        setProductlist(resp.data.productlist);
+        setTotalCnt(resp.data.cnt); // 글의 총수
+      })
+      .catch(function (err) {
+        // error:function
+        alert("error");
+      });
+  }
+
+  useEffect(function () {
+    // console.log(category);
+    if (window.localStorage.getItem("product") === "확인") {
+      if (newchoice === "select" && newcategory > 0) {
+        console.log("1");
+        getProductlist(
+          newchoice,
+          newsearch,
+          newpage - 1,
+          newswitching,
+          newcategory
+        );
+        setPage(newpage);
+        setSearch(newsearch);
+        setCategory(newcategory);
+      } else if (newchoice === "select" && newsearch !== undefined) {
+        console.log("2");
+        getProductlist("select", newsearch, newpage - 1, newswitching, 0);
+        setPage(newpage);
+        setSearch(newsearch);
+      } else if (newchoice === "select") {
+        console.log("3");
+        getProductlist("select", newsearch, newpage - 1, newswitching, 0);
+        setPage(newpage);
+        setSearch(newsearch);
       } else {
+        console.log("4");
         getProductlist(newchoice, newsearch, newpage - 1, newswitching, 0);
         setSearch(newsearch);
         setChoice(newchoice);
         setPage(newpage);
       }
-
-      window.addEventListener('scroll', handleScroll);
-      onResize();
-      window.addEventListener('resize', onResize);
-
-        return () => {
-          window.removeEventListener('scroll', handleScroll);
-          window.removeEventListener('resize', onResize);
-        };
-
-    }, []);
-
-
-    function choiceBtn(choice){
-      choiceHandle(choice);
-      setChoice(choice);
-      const nowSwitching = !switching;
-      setSwitching(nowSwitching);
-      switchingHandle(nowSwitching);
-      setPage(1);
-      getProductlist(choice, search, 0, nowSwitching, category);
+    } else {
+      getProductlist(newchoice, newsearch, newpage - 1, newswitching, 0);
+      setSearch(newsearch);
+      setChoice(newchoice);
+      setPage(newpage);
     }
 
-    function searchBtn(){        
-      setChoice('select');
-      setPage(1);
-      getProductlist('select', search, 0, switching, category);
-    }
-    
-    function categoryBtn(num){
-      setCategory(num);
-      categoryHandle(num);
-      choiceHandle('select');
-      pageHandle(1);
-      setPage(1);
-      getProductlist(choice, search, 0, switching, num);
-    }
+    window.addEventListener("scroll", handleScroll);
+    onResize();
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+
+  function choiceBtn(choice) {
+    choiceHandle(choice);
+    setChoice(choice);
+    const nowSwitching = !switching;
+    setSwitching(nowSwitching);
+    switchingHandle(nowSwitching);
+    setPage(1);
+    getProductlist(choice, search, 0, nowSwitching, category);
+  }
+
+  function searchBtn() {
+    setChoice("select");
+    setPage(1);
+    getProductlist("select", search, 0, switching, category);
+  }
+
+  function categoryBtn(num) {
+    setCategory(num);
+    categoryHandle(num);
+    choiceHandle("select");
+    pageHandle(1);
+    setPage(1);
+    getProductlist(choice, search, 0, switching, num);
+  }
 
   function choiceBtn(choice) {
     choiceHandle(choice);
@@ -393,28 +418,22 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
                                         mb-10 rounded-xl border border-spacing-2
                                         overflow-hidden transition duration-500 ease-in-out transform
                                         hover:ring-4 hover:ring-amber-400"
-                              align="center">
-                          <div className='mt-10'>
-                            <img src={product.url} className="w-5/6 h-5/6 object-cover hover:scale-110 transition duration-300" />
-                            {product.promotionType === 1 && (
-                              <div className="absolute top-5 right-5 bg-main-orange bg-opacity-70 py-2 rounded-full
-                                              px-5 select-none">
-                                  <p className='text-2xl font-bold text-gray-800'>1+1</p>
-                              </div>
-                            )}
-                          <br/>
-                          <hr/>
-                            <p className='mt-5 font-semibold'>{product.name.length > 15 ? product.name.slice(0, 15) + '...' : product.name}</p>
-                            <p>{product.price.toLocaleString()}원</p>
-                            <p>
-                              {product.productRating === 0 ? (
-                                <span>　</span>
-                              ) : (
-                                Array.from({ length: product.productRating }, (_, index) => (
-                                  <span key={index} style={{ display: 'inline-block', marginRight: '3px' }}>
-                                    <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px' }} />
-                                  </span>
-                                ))
+                            align="center"
+                          >
+                            <div className="mt-10">
+                              <img
+                                src={product.url}
+                                className="w-5/6 h-5/6 object-cover hover:scale-110 transition duration-300"
+                              />
+                              {product.promotionType === 1 && (
+                                <div
+                                  className="absolute top-5 right-5 bg-main-orange bg-opacity-70 py-2 rounded-full
+                                              px-5 select-none"
+                                >
+                                  <p className="text-2xl font-bold text-gray-800">
+                                    1+1
+                                  </p>
+                                </div>
                               )}
                               <br />
                               <hr />
@@ -425,6 +444,39 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
                               </p>
                               <p>{product.price.toLocaleString()}원</p>
                               <p>
+                                {product.productRating === 0 ? (
+                                  <span>　</span>
+                                ) : (
+                                  Array.from(
+                                    { length: product.productRating },
+                                    (_, index) => (
+                                      <span
+                                        key={index}
+                                        style={{
+                                          display: "inline-block",
+                                          marginRight: "3px",
+                                        }}
+                                      >
+                                        <img
+                                          src={star2}
+                                          style={{
+                                            maxWidth: "20px",
+                                            maxHeight: "20px",
+                                          }}
+                                        />
+                                      </span>
+                                    )
+                                  )
+                                )}
+                                <br />
+                                <hr />
+                                <p className="mt-5 font-semibold">
+                                  {product.name.length > 15
+                                    ? product.name.slice(0, 15) + "..."
+                                    : product.name}
+                                </p>
+                                <p>{product.price.toLocaleString()}원</p>
+
                                 {product.productRating === 0 ? (
                                   <span>　</span>
                                 ) : (
