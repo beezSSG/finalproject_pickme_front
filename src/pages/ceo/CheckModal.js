@@ -6,7 +6,6 @@ export default function CheckModal() {
   const [isOpen, setIsOpen] = useState(false);
   const [value, onChange] = useState(new Date()); // 초기값은 현재 날짜
 
-  // 이함수는 모달을 껏다 켰다 하는 함수
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
   };

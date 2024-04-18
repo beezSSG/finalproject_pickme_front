@@ -1,7 +1,6 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Modal, Button } from "antd";
 import axios from "axios";
-import Polist from "./Polist";
 
 export default function Pocheckmodal({ getPolist, po }) {
   const [isOpen, setIsOpen] = useState(false);
