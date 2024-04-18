@@ -3,6 +3,7 @@ import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LeftMenu2 from "./LeftMenu2";
 import {Bootpay} from "@bootpay/client-js";
+import Toast from '../public/Toast';
 
 function ProductReservation() {
   // 매장 찾기
@@ -98,7 +99,12 @@ function ProductReservation() {
     }
     axios.post(("/customer/productreservationAf"), params)
     .then((resp)=>{
-
+      if (resp.data === "YES") {
+        Toast.fire({
+          icon: 'success',
+          title: "상품 예약이 되었어요 \n 예약하신 날짜에 찾으러 오세요.",
+        });
+      }
     })
     .catch((err)=> {
       console.log(err);
