@@ -1,11 +1,10 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Modal, Button } from "antd";
 import axios from "axios";
 
-export default function CheckModal({ getPickup, group }) {
+export default function PickCheckModal({ getPickup, group }) {
 
   const [isOpen, setIsOpen] = useState(false);
-  const [checkYn, setCheckYn] = useState(0);
 
   const onToggleModal = () => {
     setIsOpen((prev) => !prev);
