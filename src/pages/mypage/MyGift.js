@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import FullLogoImg from "../../assets/imgs/logo/fullLogo.svg"; // full 로고 이미지
 
 export default function MyGift(prop) {
   const [giftData, setGiftData] = useState();
@@ -67,32 +68,45 @@ export default function MyGift(prop) {
               return (
                 <div
                   key={product.id}
-                  className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center"
-                >
+                  className={`mb-10 items-center w-full text-center rounded-xl shadow-md
+                  ${type === 0 ? "transition duration-500 ease-in-out transform hover:ring-4 hover:ring-amber-400" : ""}`}>
                   <div className="mt-5">
                     {type === 0 ? (
                       <Link to={`/mypage/giftdetail/${product.id}`}>
+                        <div className=" ">
+                          <img
+                            src={product.productUrl}
+                            alt={product.productName}
+                            className="mx-auto w-[80%] cursor-pointer"
+                          />
+                          <div className="w-[80%] m-auto mb-4" align="left">
+                            <img src={FullLogoImg} className="size-20 mt-5 ml-2"/> 
+                            <p className="font-bold">{product.productName}</p>
+                            <p>보낸 사람 : {product.giftUserName}</p>
+                            <p>유효기간 : {product.expDay}</p>                    
+                          </div>
+                        </div>                        
+                        
+                      </Link>
+                    ) : (
+                      <div>
                         <img
                           src={product.productUrl}
                           alt={product.productName}
-                          className="mx-auto w-[60%] cursor-pointer"
+                          className="mx-auto w-[80%]"
+                          style={applyGrayScaleFilter(product.productUrl)}
                         />
-                      </Link>
-                    ) : (
-                      <img
-                        src={product.productUrl}
-                        alt={product.productName}
-                        className="mx-auto w-[60%]"
-                        style={applyGrayScaleFilter(product.productUrl)}
-                      />
+                        <div className="w-[80%] m-auto mb-4 " align="left">
+                          <img src={FullLogoImg} className="size-20 mt-5 ml-2 grayscale"/> 
+                          <p className="font-bold">{product.productName}</p>
+                          <p>보낸 사람 : {product.giftUserName}</p>
+                          <p>유효기간 : {product.expDay}</p>                    
+                        </div>
+                      </div>
                     )}
-                    <div className="mt-5">{product.productName}</div>
-                    <div>
-                      <span>선물한 사람 : {product.giftUserName}</span>
-                    </div>
-                    <div>
-                      <span>유효기간 : {product.expDay}</span>
-                    </div>
+
+                    
+
                   </div>
                 </div>
               );
