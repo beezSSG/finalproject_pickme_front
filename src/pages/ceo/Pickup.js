@@ -76,28 +76,7 @@ export default function Pickup() {
   return (
     <div className="mx-auto w-[80%]">
       <p className="text-3xl font-semibold mb-4">픽업/배달 승인</p>
-      <div className="grid grid-cols-2 gap-10 sm:gap-2">
-        <button
-          onClick={() => {
-            selPickup();
-          }}
-          className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold
-                  focus:ring-4 focus:ring-yellow-300 rounded-lg  py-3 
-              "
-        >
-          픽업
-        </button>
-        <button
-          onClick={() => {
-            selDelivery();
-          }}
-          className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold
-                  focus:ring-4 focus:ring-yellow-300 rounded-lg  py-3 
-              "
-        >
-          배달
-        </button>
-      </div>
+
       <br />
       <table className="w-full table-fixed border-collapse">
         <thead>
