@@ -5,37 +5,50 @@ import Pagination from "react-js-pagination";
 import PostCheckModal from "./PostCheckModal";
 
 export default function PostCheck() {
-
   const [postcheck, setPostCheck] = useState([]);
 
-      // 페이징
-      const [page, setPage] = useState(1);
-      const [totalCnt, setTotalCnt] = useState(0);
+  // 페이징
+  const [page, setPage] = useState(1);
+  const [totalCnt, setTotalCnt] = useState(0);
 
-      useEffect(() => {
-        getPostCheck(0);
-      }, []);
+  useEffect(() => {
+    getPostCheck(0);
+  }, []);
 
-    const getPostCheck = async () => {
-        await axios.get("/ceo/postcheck")
-        .then((response)=>{
-
+  const getPostCheck = async (pn) => {
+    await axios
+      .get("/ceo/postcheck", { params: { pageNumber: pn } })
+      .then((response) => {
         console.log(response.data);
 
-          console.log(JSON.stringify(response.data.postlist));
-          setPostCheck(response.data.postlist);
-          setTotalCnt(response.data.cnt);
-        })
-        .catch((err)=>{
-           alert(err);
-        })
-      }
+        console.log(JSON.stringify(response.data.postlist));
+        setPostCheck(response.data.postlist);
+        setTotalCnt(response.data.cnt);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  };
 
-              // 페이지 변경함수
-  function handlePageChange(page) {
-    setPage(page);
-    getPostCheck( page - 1);
+  // 페이지 변경함수
+  function handlePageChange(pageNumber) {
+    // 서버 측에서는 0부터 페이지를 계산하므로 pageNumber - 1을 전달합니다.
+    setPage(pageNumber);
+    getPostCheck(pageNumber - 1);
   }
+
+  // 모달들
+  const [showstoreModal, setShowstoreModal] = useState(false);
+  function searchStore() {
+    setShowstoreModal(true);
+  }
+  function closestoreModal() {
+    setShowstoreModal(false);
+  }
+
+  // 매장 찾기
+  const [storeName, setStoreName] = useState("");
+  const [selectedStore, setSelectedStore] = useState(null);
 
   return (
     <div className="mx-auto w-[80%]">
@@ -84,26 +97,27 @@ export default function PostCheck() {
                       ""
                     )}
                   </td>
-            </tr>
-                  );
-          } else {
-            return null;
-          }
-          })}
-        </tbody>
-      </table>
+                  </tr>
+                );
+              } else {
+                return null;
+              }
+            })}
+          </tbody>
+        </table>
+      </div>
       <br />
-          <Pagination
-      itemClass="page-item"
-      linkClass="page-link"
-      activePage={page}
-      itemsCountPerPage={10}
-      totalItemsCount={totalCnt}
-      pageRangeDisplayed={10}
-      prevPageText={"prev"}
-      nextPageText={"next"}
-      onChange={handlePageChange}
-    />
-     </div>
+      <Pagination
+        itemClass="page-item"
+        linkClass="page-link"
+        activePage={page}
+        itemsCountPerPage={10}
+        totalItemsCount={totalCnt}
+        pageRangeDisplayed={10}
+        prevPageText={"prev"}
+        nextPageText={"next"}
+        onChange={handlePageChange}
+      />
+    </div>
   );
 }

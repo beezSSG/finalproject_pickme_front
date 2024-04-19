@@ -62,6 +62,9 @@ export default function Pickup() {
       .post("ceo/deletepickup", null, { params: params })
       .then((response) => {
         if (group.checkYn === 0) {
+          // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
+          <PickCheckModal />
+            
           // 처리
         }
       })
@@ -72,6 +75,7 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
+
       <div className="grid grid-cols-2 gap-10 sm:gap-2">
         <button
           onClick={() => {
@@ -113,36 +117,38 @@ export default function Pickup() {
               let price = 0;
               for (let i = 0; i < group.length; i++) {
                 price = group[i].price + price;
+                return (
+                  <tr key={index} className="border-b border-gray-300">
+                    <td className="text-center py-3">
+                      {group[0].productName}{" "}
+                      {group.length > 1 ? `외 ${group.length - 1}개` : ""}
+                    </td>
+                    <td className="text-center py-3">
+                      {price.toLocaleString()}원
+                    </td>
+                    <td className="text-center py-3">
+                      {group[0].customerName}
+                    </td>
+                    <td className="text-center py-3">{group[0].date}</td>
+                    <td className="text-center py-3">
+                      {group[0].pickDel === 0 ? "픽업" : "배달"}
+                    </td>
+                    <td className="text-center py-3">
+                      {group[0].checkYn === 0 ? (
+                        <PickCheckModal group={group} getPickup={getPickup} />
+                      ) : (
+                        ""
+                      )}
+                    </td>
+                  </tr>
+                );
+              } else {
+                return null;
               }
-              return (
-                <tr key={index} className="border-b border-gray-300">
-                  <td className="text-center py-3">
-                    {group[0].productName}{" "}
-                    {group.length > 1 ? `외 ${group.length - 1}개` : ""}
-                  </td>
-                  <td className="text-center py-3">
-                    {price.toLocaleString()}원
-                  </td>
-                  <td className="text-center py-3">{group[0].customerName}</td>
-                  <td className="text-center py-3">{group[0].date}</td>
-                  <td className="text-center py-3">
-                    {group[0].pickDel === 0 ? "픽업" : "배달"}
-                  </td>
-                  <td className="text-center py-3">
-                    {group[0].checkYn === 0 ? (
-                      <PickCheckModal group={group} getPickup={getPickup} />
-                    ) : (
-                      ""
-                    )}
-                  </td>
-                </tr>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </tbody>
-      </table>
+            })}
+          </tbody>
+        </table>
+      </div>
       <br />
 
       <Pagination
