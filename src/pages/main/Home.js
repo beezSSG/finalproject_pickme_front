@@ -11,13 +11,14 @@ import MainPickBox from "./MainPickBox.js";
 const Home = ({newchoice, choiceHandle, newsearch, searchHandle, categoryHandle}) => {
   const [modal, setModal] = useState(false);
 
+  useEffect(() => {
+    window.localStorage.removeItem('product');
+  }, [])
+
   // 버튼 클릭 시 모달 상태를 토글하는 함수
   const toggleModal = () => {
     setModal(!modal);
   };
-  useEffect(() => {
-    window.localStorage.removeItem('product');
-  }, [])
 
   return (
     <div>
