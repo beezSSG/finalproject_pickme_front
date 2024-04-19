@@ -79,7 +79,7 @@ export default function MyPickBox({whereHandle}) {
                   {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && 
                     (
                       <div className="absolute top-[0.5%] lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full animate-bounce">
-                        <span className="font-black text-white">
+                        <span className="font-bold text-white">
                           D-Day
                         </span>
                       </div>
@@ -87,7 +87,7 @@ export default function MyPickBox({whereHandle}) {
                   }
                   {dDay(product.expDate) >= 1 && (
                     <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-main-orange text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
-                        <span className="font-black text-white">
+                        <span className="font-bold text-white">
                           D-{dDay(product.expDate)}
                         </span>
                     </div>
@@ -96,7 +96,7 @@ export default function MyPickBox({whereHandle}) {
                   {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) 
                     && (
                     <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-slate-400 text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
-                      <span className="font-black text-white">
+                      <span className="font-bold text-white">
                         D{day}
                       </span>
                     </div>
@@ -109,7 +109,7 @@ export default function MyPickBox({whereHandle}) {
                 <h1 className="lg:text-lg md:text-sm sm:text-xs font-medium">
                   {product.pname} 
                 </h1>
-                <p>{product.quantity}개</p>
+                <span className="font-medium bg-slate-600 text-white rounded-xl p-1.5">{product.quantity}개</span><br />
                 <p className="lg:text-lg md:text-sm sm:text-xs font-medium">{product.date.substring(0, 10)} / {product.sname}</p>
                 <p className="lg:text-lg md:text-sm sm:text-xs font-medium">소비기한 : <b>{product.expDate.substring(0, 10)}</b></p>
                 

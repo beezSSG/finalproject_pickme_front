@@ -118,7 +118,7 @@ const MainPickBox = () => {
                             {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && 
                               (
                                 <div className="absolute top-[0.5%] lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full animate-bounce">
-                                  <span className="font-black text-white">
+                                  <span className="font-bold text-white">
                                     D-Day
                                   </span>
                                 </div>
@@ -126,7 +126,7 @@ const MainPickBox = () => {
                             }
                             {dDay(product.expDate) >= 1 && (
                               <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-main-orange text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
-                                  <span className="font-black text-white">
+                                  <span className="font-bold text-white">
                                     D-{dDay(product.expDate)}
                                   </span>
                               </div>
@@ -135,7 +135,7 @@ const MainPickBox = () => {
                             {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) 
                               && (
                                 <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-slate-400 text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
-                                  <span className="font-black text-white">
+                                  <span className="font-bold text-white">
                                     D{day}
                                   </span>
                                 </div>
@@ -177,11 +177,3 @@ const MainPickBox = () => {
   }
 };
 export default MainPickBox;
-
-{/* 
-<div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
-{(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
-{dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
-{(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
-</div> 
-*/}
