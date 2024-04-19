@@ -5,23 +5,9 @@ import axios from "axios";
 
 // 함수는 첫 번째 인자로 {}안에 넣어야함 b/c props 객체 전체를 나타내지 않음
 export default function SearchStoreName({menuOpen, handleStorelist, stateData, districtData}) {
-  const [state, setState] = useState("");             // 
-  const [district, setDistrict] = useState("");       //
-  const [targetStore, setTargetStore] = useState(""); // 
+  const [targetStore, setTargetStore] = useState(""); // 검색값
 
   console.log(targetStore);
-
-  // const [storelist, setStorelist] = useState([]);
-
-  // const [selectedStore, setSelectedStore] = useState(storeList[0])
-  // const [query, setQuery] = useState('')
-
-  // const filteredPeople =
-  //   query === ''
-  //     ? people
-  //     : people.filter((person) => {
-  //         return person.toLowerCase().includes(query.toLowerCase())
-  //       })
 
   function searchStore(target) {
     axios
@@ -43,26 +29,28 @@ export default function SearchStoreName({menuOpen, handleStorelist, stateData, d
 
   return (
     <div
-      className="flex items-center rounded-lg border-slate-200 border-2 mt-6 
-                    transition duration-500 hover:border-sub-yellow focus:border-sub-yellow"
+      className="flex items-center rounded-lg border-slate-300 border-2 mt-6
+                    transition duration-500 hover:border-main-yellow focus:border-sub-yellow"
     >
       <input
         type={"search"}
         placeholder="매장명을 검색하세요"
-        className={`text-base bg-transparent w-full text-slate-600 pl-4 mr-2
+        className={`text-base bg-transparent w-full text-slate-900 pl-4 mr-2
               ${!menuOpen && "scale-0"} focus:outline-none`}
         onChange={(e) => setTargetStore(e.target.value)}
       />
       <button
-        className="group bg-slate-200 py-3 pe-1 pl-3
-                transition duration-300 hover:bg-sub-yellow"
+        className="group bg-slate-300 py-3 pe-1 pl-3 rounded-r-md
+                transition duration-300 hover:bg-main-yellow"
         onClick={() => {
           searchStore(targetStore);
         }}
       >
         <BsSearch
-          className={`text-slate-500 text-lg float-left cursor-pointer
-                transition duration-300 group-hover:scale-125
+          className={`text-slate-700 text-lg font-black float-left cursor-pointer
+                transition duration-300 group-hover:scale-125 
+                group-hover:text-black group-active:scale-125 group-active:text-black
+                group-focus:scale-125 group-focus:text-black
                 ${menuOpen && "mr-2"}`}
         />
       </button>

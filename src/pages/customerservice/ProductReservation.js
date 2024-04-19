@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import InfiniteScroll from "react-infinite-scroll-component";
 import LeftMenu2 from "./LeftMenu2";
-import {Bootpay} from "@bootpay/client-js";
-import Toast from '../public/Toast';
+import { Bootpay } from "@bootpay/client-js";
+import Toast from "../public/Toast";
 
 function ProductReservation() {
   // 매장 찾기
@@ -37,7 +37,7 @@ function ProductReservation() {
 
   useEffect(
     function () {
-      window.localStorage.removeItem('product');
+      window.localStorage.removeItem("product");
       // console.log(selectedStore);
       if (selectedStore !== null) {
         selectstorename();
@@ -93,89 +93,95 @@ function ProductReservation() {
   function sendReservation() {
     let params = [];
     for (let i = 0; i < reservationProduct.length; i++) {
-      params.push({"storeId":selectedStore, "productName": reservationProduct[i].name, "quantity":reservationProduct[i].quantity, "daete":pickDate});
+      params.push({
+        storeId: selectedStore,
+        productName: reservationProduct[i].name,
+        quantity: reservationProduct[i].quantity,
+        date: pickDate,
+      });
     }
-    axios.post(("/customer/productreservationAf"), params)
-    .then((resp)=>{
-      if (resp.data === "YES") {
-        Toast.fire({
-          icon: 'success',
-          title: `상품 예약이 되었어요 \n ${pickDate}날 ${storeName}점포에서 뵐게요.`,
-        });
-        const redirectToPage = () => {
-          window.location.href = "/";
-          }
-        setTimeout(redirectToPage, 1200);
-        };
-    })
-    .catch((err)=> {
-      // console.log(err);
-    })
+    axios
+      .post("/customer/productreservationAf", params)
+      .then((resp) => {
+        if (resp.data === "YES") {
+          Toast.fire({
+            icon: "success",
+            title: `상품 예약이 되었어요 \n ${pickDate}날 ${storeName}점포에서 뵐게요.`,
+          });
+          const redirectToPage = () => {
+            window.location.href = "/";
+          };
+          setTimeout(redirectToPage, 1200);
+        }
+      })
+      .catch((err) => {
+        // console.log(err);
+      });
 
     // console.log(params);
   }
-  
+
   // 최종 상품 결제
   const payHandler = async () => {
-    // sendReservation();
+    sendReservation();
 
-    try {
-      const response = await Bootpay.requestPayment({
-        "application_id": "65efaac4d25985001c6e5e40",
-        "price": totalPrice,
-        "order_name": "Pick ME 상품결제",
-        "order_id": "TEST_ORDER_ID",
-        "tax_free": 0,
-        "user": {
-          "id": "회원아이디",
-          "username": "회원이름",
-          "phone": "01000000000",
-          "email": "test@test.com"
-        },
-        "items": [
-          {
-            "id": "item_id",
-            "name": "테스트아이템",
-            "qty": 1,
-            "price": totalPrice
-          }
-        ],
-        "extra": {
-          "open_type": "iframe",
-          "card_quota": "0,2,3",
-          "escrow": false
-        }
-      })
-      switch (response.event) {
-        case 'issued':
-          break
-        case 'done': // 결제 완료 처리
-          // console.log(response)
-          // 금액 집어넣고 처리
-          sendReservation();
-          break
-        case 'confirm': //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
-          // console.log(response.receipt_id);
-          const confirmedData = await Bootpay.confirm() //결제를 승인한다
-          if(confirmedData.event === 'done') {
-              //결제 성공
-          }
-        break;
-      }
-    } catch (e) {
-      // console.log(e.message)
-      switch (e.event) {
-        case 'cancel':
-          // 사용자가 결제창을 닫을때 호출
-          // console.log(e.message);
-          break;
-        case 'error':
-          // 결제 승인 중 오류 발생시 호출
-          // console.log(e.error_code);
-        break;
-      }
-    }
-  }
+    // try {
+    //   const response = await Bootpay.requestPayment({
+    //     application_id: "65efaac4d25985001c6e5e40",
+    //     price: totalPrice,
+    //     order_name: "Pick ME 상품결제",
+    //     order_id: "TEST_ORDER_ID",
+    //     tax_free: 0,
+    //     user: {
+    //       id: "회원아이디",
+    //       username: "회원이름",
+    //       phone: "01000000000",
+    //       email: "test@test.com",
+    //     },
+    //     items: [
+    //       {
+    //         id: "item_id",
+    //         name: "테스트아이템",
+    //         qty: 1,
+    //         price: totalPrice,
+    //       },
+    //     ],
+    //     extra: {
+    //       open_type: "iframe",
+    //       card_quota: "0,2,3",
+    //       escrow: false,
+    //     },
+    //   });
+    //   switch (response.event) {
+    //     case "issued":
+    //       break;
+    //     case "done": // 결제 완료 처리
+    //       // console.log(response)
+    //       // 금액 집어넣고 처리
+    //       sendReservation();
+    //       break;
+    //     case "confirm": //payload.extra.separately_confirmed = true; 일 경우 승인 전 해당 이벤트가 호출됨
+    //       // console.log(response.receipt_id);
+    //       const confirmedData = await Bootpay.confirm(); //결제를 승인한다
+    //       if (confirmedData.event === "done") {
+    //         //결제 성공
+    //       }
+    //       break;
+    //   }
+    // } catch (e) {
+    //   // console.log(e.message)
+    //   switch (e.event) {
+    //     case "cancel":
+    //       // 사용자가 결제창을 닫을때 호출
+    //       // console.log(e.message);
+    //       break;
+    //     case "error":
+    //       // 결제 승인 중 오류 발생시 호출
+    //       // console.log(e.error_code);
+    //       break;
+    //   }
+    // }
+  };
 
   // 최종 예약 상품 목록
   const [reservationProduct, setReservationProduct] = useState([]);
@@ -281,7 +287,7 @@ function ProductReservation() {
           </div>
           <div className="text-center">
             <button
-              className="bg-sub-yellow rounded-xl p-2 font-bold w-[100px] h-full hover:bg-yellow-500"
+              className="bg-sub-yellow rounded-xl p-2 font-bold w-[100px] h-full hover:bg-sub-orange transition duration-300"
               onClick={searchStore}
             >
               매장 찾기
@@ -298,7 +304,10 @@ function ProductReservation() {
                 </div>
                 {/* 모달 내용 */}
                 <div className="flex justify-center ">
-                  <LeftMenu2 handleStoreSelect={handleStoreSelect} />
+                  <LeftMenu2
+                    handleStoreSelect={handleStoreSelect}
+                    handleClose={closestoreModal}
+                  />
                 </div>
               </div>
             </div>
@@ -324,6 +333,7 @@ function ProductReservation() {
                     <img
                       src={product.url}
                       className="w-32 h-32 object-cover mx-auto"
+                      alt=""
                     />
                     <div className="text-center mt-2 font-bold h-[63px]">
                       {product.name}
@@ -341,7 +351,7 @@ function ProductReservation() {
           </div>
           <br />
           <button
-            className="bg-sub-yellow hover:bg-yellow-500 rounded-xl p-2 font-bold w-[100px] h-full"
+            className="bg-sub-yellow hover:bg-sub-orange transition duration-300 rounded-xl p-2 font-bold w-[100px] h-full"
             onClick={choiceProduct}
           >
             상품 찾기
@@ -469,7 +479,7 @@ function ProductReservation() {
         </div>
         <div className="text-right mt-3">
           <button
-            className="bg-gray-700 rounded-xl p-3 text-white"
+            className="bg-gray-700 rounded-xl p-3 font-bold text-white hover:bg-black hover:scale-110 transition duration-300"
             onClick={payHandler}
           >
             결제하기

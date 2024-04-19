@@ -358,7 +358,7 @@ export default function MyInfo() {
           <div>
             <button
               type="button"
-              className="bg-main-orange text-white rounded-xl p-2 font-medium w-20 hover:bg-[#fd1d1d] transition duration-300"
+              className="bg-main-orange text-white rounded-xl p-2 font-medium w-20 text-lg hover:bg-[#fd1d1d] transition duration-300"
               onClick={() => {
                 onToggleModal();
               }}
