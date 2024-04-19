@@ -123,11 +123,11 @@ const MyStoreProducts = () => {
           </Link>
         </div>
         <br />
-        <div className="flex gap-5">
+        <div className="flex gap-5 sm:flex-col sm:items-center">
           {/* 매장 이미지 */}
           <div className="w-3/5 relative">
-            <img src={shortlogo} alt="short logo" className="absolute w-[10%] top-[8%] left-[45%] animate-bounce"/>
-            <img src={storeicon1} alt="가까운 매장 이미지" className="" />
+            <img src={shortlogo} alt="short logo" className="absolute w-[15%] top-[3%] left-[45%] animate-bounce"/>
+            <img src={storeicon1} alt="가까운 매장 이미지" className="store img" />
           </div>
           {/* 매장 설명 */}
           <div className="flex items-center justify-center">
