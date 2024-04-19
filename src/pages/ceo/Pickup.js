@@ -63,8 +63,8 @@ export default function Pickup() {
       .then((response) => {
         if (group.checkYn === 0) {
           // 화면에서 승인이 완료된 물품을 사라지게 하는 작업을 수행
-          <PickCheckModal />
-            
+          <PickCheckModal />;
+
           // 처리
         }
       })
@@ -75,7 +75,6 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
-
       <div className="grid grid-cols-2 gap-10 sm:gap-2">
         <button
           onClick={() => {
@@ -97,26 +96,27 @@ export default function Pickup() {
         >
           배달
         </button>
-        </div>
-        <br />
-      <table className="w-full table-fixed border-collapse">
-        <thead>
-          <tr className="bg-yellow-400 p-15">
-            <th className="w-1/3 py-2">상품 이름</th>
-            <th className="w-1/6 py-2">가격</th>
-            <th className="w-1/12 py-2">구매자</th>
-            <th className="w-1/4 py-2">승인날짜</th>
-            <th className="w-1/6 py-2">픽업&배달</th>
-            <th className="w-1/5 py-2">확인</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          {pickup.map((group, index) => {
-            if (group[0].checkYn === 0 ) {
-              let price = 0;
-              for (let i = 0; i < group.length; i++) {
-                price = group[i].price + price;
+      </div>
+      <br />
+      <div>
+        <table className="w-full table-fixed border-collapse">
+          <thead>
+            <tr className="bg-yellow-400 p-15">
+              <th className="w-1/3 py-2">상품 이름</th>
+              <th className="w-1/6 py-2">가격</th>
+              <th className="w-1/12 py-2">구매자</th>
+              <th className="w-1/4 py-2">승인날짜</th>
+              <th className="w-1/6 py-2">픽업&배달</th>
+              <th className="w-1/5 py-2">확인</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pickup.map((group, index) => {
+              if (group[0].checkYn === 0) {
+                let price = 0;
+                for (let i = 0; i < group.length; i++) {
+                  price = group[i].price + price;
+                }
                 return (
                   <tr key={index} className="border-b border-gray-300">
                     <td className="text-center py-3">
