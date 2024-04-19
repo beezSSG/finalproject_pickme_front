@@ -8,12 +8,11 @@ import districts from "../../../assets/data/store/districts.json"
 
 export default function LocSelect({menuOpen, handleState, handleDistrict}) {
   const [selectedState, setSelectedState] = useState(states[0]);    // 선택한 시/도
-  // states[0] = 전국, states[1] = 강원도 ...
   const [selectedDistrict, setSelectedDistrict] = useState(districts[selectedState.eng][0]);  // 선택한 구
 
-  const [districtArr, setDistrictArr] = useState(districts[selectedState.eng]);
-  const [districtsData, setDistrictsData] = useState(districts);
-  const [query, setQuery] = useState("");
+  const [districtArr, setDistrictArr] = useState(districts[selectedState.eng]); // 구 data array 불러오는 state
+  const [districtsData, setDistrictsData] = useState(districts); // 구 검색값 넣는 state
+  const [query, setQuery] = useState(""); // 검색어 state
 
   const filteredDistricts =
     query === ""
@@ -30,14 +29,14 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
 
     // 아래의 함수를 통해 화면에 보여지는 값은 i로 수정, 부모한테는 name을 통해서 값을 던져줌
     function changeState(i, name) {
-      console.log("state");
+      // console.log("state");
       setSelectedState(states[i]);
       handleState(name);
     }
 
     function changeDistrict(name) {
       // setSelectedState(states[i]);
-      console.log("district");
+      // console.log("district");
       setSelectedDistrict(name);
       handleDistrict(name);
     }
@@ -50,7 +49,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
         className={`${!menuOpen && "scale-0"}`}
       >
         <div className="w-full">
-          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md 
+          <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left shadow-md border-2 border-slate-300
                                       focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 
                                       focus-visible:ring-offset-2 focus-visible:ring-offset-main-orange-300 sm:text-sm"
           >
@@ -109,7 +108,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
       {/* 구 검색 select */}
       <Combobox value={districtsData} onChange={setDistrictsData}> 
         <div className="relative w-full">
-          <div className="shadow-md sm:text-sm rounded-lg">
+          <div className="shadow-md border-slate-300 border-2 sm:text-sm rounded-lg">
             <Combobox.Input className="w-full border-none py-2.5 pl-3 pr-10 text-base leading-5 text-gray-900 
               border-0 ring-0 focus:ring-0 focus:border-0 select-none rounded-lg"
               displayValue={(district) => district.name}
@@ -137,7 +136,7 @@ export default function LocSelect({menuOpen, handleState, handleDistrict}) {
           >
             {/* 구 이름 적힌 각각 option */}
             <Combobox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md 
-                                      bg-white py-1 text-base shadow-lg focus:outline-4 sm:text-sm"
+                                      bg-white py-1 text-base shadow-lg border-2 border-slate-300 focus:outline-4 sm:text-sm"
               // onChange={(e) => console.log(e.target.value)}
               >
               {/* 만약 검색 입력값이 없거나 검색한 값이 목록에 없을때 */}

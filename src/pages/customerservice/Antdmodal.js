@@ -30,7 +30,7 @@ export default function Antdmodal({updateAddress, height}) {
   return (
     <>
       {/* 데스크톱 / 탭 화면 버튼 */}
-      <button className="px-1.5 py-3 sm:hidden ml-8 lg:w-1/12 md:w-1/6 rounded-lg font-bold cursor-pointer bg-main-yellow hover:bg-sub-orange transition duration-300"
+      <button className="px-1.5 py-3 sm:hidden ml-8 lg:w-1/12 md:w-1/6 rounded-xl font-bold cursor-pointer bg-main-yellow hover:bg-sub-orange transition duration-300"
        onClick={onToggleModal}>
         주소찾기
       </button>
