@@ -91,9 +91,9 @@ const AdProductSet = (prop) => {
                 />
                 <label
                   htmlFor={tag.name}
-                  className="inline-flex items-center justify-between p-3 text-xl font-extrabold text-center text-slate-600 border-2
+                  className="inline-flex items-center justify-between p-3 text-xl font-extrabold text-center text-slate-800 border-2
                           border-slate-300 rounded-full cursor-pointer transition duration-300 ease-in-out 
-                          hover:bg-main-orange hover:border-sub-orange hover:text-slate-900 peer-checked:text-slate-900
+                          hover:bg-main-orange hover:border-sub-orange hover:text-white peer-checked:text-white
                           peer-checked:bg-main-orange peer-checked:border-sub-orange"
                 >
                   <div className="w-full text-xl font-extrabold text-center">
@@ -129,8 +129,31 @@ const AdProductSet = (prop) => {
               products &&
               products.map((product) => (
                 <SwiperSlide key={product.id} className="flex flex-col py-[5%]">
-                  <img src={product.url} alt={`이벤트상품 ${product.id}`} />
-                  <h1 className="py-[3%] font-bold text-center text-slate-800 lg:text-xl md:text-lg sm:text-sm">{product.name}</h1>
+                  <Link to={`/productdetail/${product.id}`} className="relative">
+                    {product.promotionType === 1 && (
+                          <p className="absolute top-[1%] right-[1%] bg-main-orange bg-opacity-70 rounded-full text-white
+                                        select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                                        lg:w-1/4 md:w-1/3 sm:w-1/3">
+                              1+1
+                          </p>
+                      )}
+                      {product.promotionType === 2 && (
+                        <p className="absolute top-[1%] right-[1%] bg-[#fd1d1d] bg-opacity-70 rounded-full text-white
+                        select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                        lg:w-1/4 md:w-1/3 sm:w-1/3">
+                          2+1
+                        </p>
+                      )}
+                      {product.promotionType === 3 && (
+                        <p className="absolute top-[1%] right-[1%] bg-[#833ab4] bg-opacity-70 rounded-full  text-white
+                                      select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                                      lg:w-1/4 md:w-[35%] sm:w-[40%]">
+                          HOT  
+                        </p>
+                      )}
+                    <img src={product.url} alt={`이벤트상품 ${product.id}`} />
+                    <h1 className="py-[3%] font-bold text-center text-slate-800 lg:text-xl md:text-lg sm:text-sm">{product.name}</h1>
+                  </Link>
                 </SwiperSlide>
               ))
             }
