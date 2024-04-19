@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Modal, Button } from "antd";
 import axios from "axios";
 
-export default function PostCheckModal({ getPostCheck, group }){
+export default function PostCheckModal({ group, getPostCheck }){
     const [isOpen, setIsOpen] = useState(false);
 
     const onToggleModal = () => {
@@ -11,13 +11,13 @@ export default function PostCheckModal({ getPostCheck, group }){
 
     function confrimHandle() {
         // const params = { "id": group[0].customerId, "date":group[0].date };
-        const params = { "id":group.id };
+
+        const params = { "id":group.id }; 
         console.log(params);
         axios
         .post("ceo/deletepost", null, { params: params })
         .then((resp) => {
-          getPostCheck("",0);
-    
+          getPostCheck(0);
           console.log(resp);    
         })
         .catch((error) => {

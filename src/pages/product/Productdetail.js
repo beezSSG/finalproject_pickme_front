@@ -28,7 +28,7 @@ function Productdetail(){
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
     const giftClick = (productId, productName, productPrice, productUrl) =>{
-        if(`${localStorage.getItem('jwt')}` === "null"){
+        if(`${sessionStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -176,7 +176,7 @@ function Productdetail(){
               return;
         }
 
-        if(`${localStorage.getItem('jwt')}` === "null"){
+        if(`${sessionStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -249,7 +249,7 @@ function Productdetail(){
         })
 
         // 이미 후기 작성했는지 체크
-        if(`${localStorage.getItem('jwt')}` !== "null"){
+        if(`${sessionStorage.getItem('jwt')}` !== "null"){
             await axios.get("review/productReviewCheck", { params:{ "id":id }})
             .then((resp)=>{
                 setReviewCheck(resp.data.cnt);
@@ -299,7 +299,7 @@ function Productdetail(){
     // 찜 체크
     async function zzimCheck(productId){
 
-        if(`${localStorage.getItem('jwt')}` === "null"){
+        if(`${sessionStorage.getItem('jwt')}` === "null"){
             return;
         }
 
@@ -320,7 +320,7 @@ function Productdetail(){
 
     // 찜 추가/해제
     async function zzimClick(productId){
-        if(`${localStorage.getItem('jwt')}` === "null"){
+        if(`${sessionStorage.getItem('jwt')}` === "null"){
             Toast.fire({
                 icon: 'warning',
                 title: "로그인 후 이용 가능합니다",
@@ -459,7 +459,7 @@ function Productdetail(){
                     <p className='ml-2 text-2xl'>({reviewCnt})</p>
                 </div>
 
-                {localStorage.getItem('jwt') !== null && reviewCheck === 0 &&(
+                {sessionStorage.getItem('jwt') !== null && reviewCheck === 0 &&(
                 <div name="prodReviewWriter" className="rounded-xl border border-spacing-2 p-3 mt-5" style={{ height: '110px' }}>
                     <div name="writerInbox">
                         <textarea placeholder='후기를 남겨보세요' rows={2} className='lg:w-[600px] sm:w-[340px]'
@@ -507,7 +507,7 @@ function Productdetail(){
                                 <div className="lg:ml-20 sm:ml-3 text-left">
                                     <p>{review.content}</p>
                                 </div>
-                                {localStorage.getItem('jwt') !== null && cd === review.customerId && (
+                                {sessionStorage.getItem('jwt') !== null && cd === review.customerId && (
                                     <div className="ml-auto">
                                         <button className="focus:outline-none text-gray-800 bg-yellow-300 font-bold hover:bg-yellow-500
                                         focus:ring-4 focus:ring-yellow-300 rounded-lg px-3 py-0.5 me-2 mb-2 dark:focus:ring-yellow-900"

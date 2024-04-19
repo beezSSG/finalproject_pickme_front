@@ -30,7 +30,7 @@ function PoMainpage() {
   ];
 
   const logout = () => {
-    localStorage.clear();
+    sessionStorage.clear();
     window.location.href = "/";
   };
 
@@ -49,8 +49,8 @@ function PoMainpage() {
     await axios
       .get("ceo/getCeoInfo")
       .then((response) => {
-        console.log(JSON.stringify(response.data));
-        console.log(Object.values(response.data));
+        // console.log(JSON.stringify(response.data));
+        // console.log(Object.values(response.data));
         setInfo(response.data);
         setTopInfo(Object.values(response.data));
       })
@@ -80,7 +80,7 @@ function PoMainpage() {
 
         </div>
 
-        {topBar.map((topbar, i) => (
+        {/* {topBar.map((topbar, i) => (
           <div
             className=" pl-[40px] pr-[10px] pt-5 pb-5 font-bold rounded-3xl shadow-xl bg-stone-100 mx-5"
             key={i}
@@ -96,7 +96,7 @@ function PoMainpage() {
               </div>
             </button>
           </div>
-        ))}
+        ))} */}
       </div>
       <div className="flex">
         <CeoMainNav />
