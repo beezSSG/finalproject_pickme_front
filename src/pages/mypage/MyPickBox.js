@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from 'moment';
 
 export default function MyPickBox({whereHandle}) {
   const [boxData, setBoxData] = useState();
+  const navi = useNavigate();
 
   const getMyPickBox = async () => {
     await axios.get("mypage/MyPickBox")
@@ -34,9 +35,27 @@ export default function MyPickBox({whereHandle}) {
     return(days.toFixed(0)); // 소수점 아래는 버림
   }
 
+  function productHandle() {
+    navi('/productlist/0');
+  }
+  console.log(boxData);
+
   return (
     <div className="w-[80%]">
+      {(boxData !== undefined && boxData.length === 0) &&
+        <div className="flex flex-col items-center justify-center mt-32">
+        <p className="flex sm:flex-col items-center text-center font-medium lg:text-xl md:text-xl sm:text-lg">
+           상품의 소비기한을 확인할 수 있는
+            <span className="font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl">Pick Box</span>
+           를 채워보시는 건 어떠세요?
+        </p>
+        <button 
+                className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200"
+                onClick={productHandle} >상품을 구매하러 가기</button>
+        </div>
+      }
       <div className="w-[70%] mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
+      
       { boxData && boxData.map((product, i) => {
         let endday = dDay(product.expDate);
         return (
