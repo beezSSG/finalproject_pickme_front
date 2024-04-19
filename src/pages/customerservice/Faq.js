@@ -165,7 +165,7 @@ function Faq() {
                 </h2>
                 <h3>{faq.title} </h3>
               </label>
-              <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto">
+              <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto whitespace-pre">
                 <p>{faq.content}</p>
               </div>
             </div>

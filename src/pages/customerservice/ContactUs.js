@@ -193,12 +193,14 @@ function ContactUs() {
           </table>
 
           <div className="text-center">
-            <button
-              className="mt-[50px] bg-yellow-400 hover:bg-yellow-500  font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
-              onClick={() => navigate("/contactuswrite")}
-            >
-              문의작성
-            </button>
+            {id && (
+              <button
+                className="mt-[50px] bg-yellow-400 hover:bg-yellow-500  font-medium rounded-lg py-3 px-4 focus:outline-none focus:ring-2 focus:ring-yellow-400 w-[200px]"
+                onClick={() => navigate("/contactuswrite")}
+              >
+                문의작성
+              </button>
+            )}
           </div>
         </div>
       </div>
