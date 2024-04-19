@@ -29,8 +29,13 @@ export default function LeftMenu({ storelist }) {
 
   const [filter, setFilter] = useState([]);
 
+  console.log()
+
+
   function setStorelist(data) {
     // console.log("부모에게 도달!");
+    console.log("22222222222222222222222222222222222222");
+    console.log(data);
     setStores(data);
   }
 
@@ -53,7 +58,7 @@ export default function LeftMenu({ storelist }) {
   }
 
   useEffect(() => {
-    setStores(storelist); // 보여져야 할 부분
+    // setStores(storelist); // 보여져야 할 부분
     setInitialStores(storelist);
 
     if (initialStores !== undefined) {
@@ -73,6 +78,9 @@ export default function LeftMenu({ storelist }) {
       });
       console.log(filteredStores);
       setStorelist(filteredStores);
+
+      console.log("storelist11111111111111111111");
+      console.log(storelist);
     }
   }, [storelist, filter]);
 
@@ -123,6 +131,7 @@ export default function LeftMenu({ storelist }) {
               stateData={state}
               districtData={district}
             />
+            
           </section>
 
           {/* 편의점 제공 서비스 카테고리 선택 */}
@@ -145,9 +154,12 @@ export default function LeftMenu({ storelist }) {
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
 
+        <button onClick={()=>console.log(stores)}>stores</button>
+
         {/* 매장 목록; 사용자 위치 연동 */}
         <ul className="pt-2 h-3/6 overflow-y-auto">
-          { (filter.length === 0 && initialStores !== undefined)
+          {/* { (filter.length === 0 && initialStores !== undefined && stores !== undefined) */}
+          {(filter.length === 0 && initialStores !== undefined && stores === undefined)
             ? initialStores.map((store, k) => (
                 <li key={k}>
                   <h5 className="font-semibold">{store.name}</h5>

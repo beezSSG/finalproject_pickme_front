@@ -50,7 +50,7 @@ function Event() {
     <>
       <div className="flex gap-3">
         {location.pathname === "/manager/event" && (
-          <ManagerMain height={"h-[1200px]"} />
+          <ManagerMain height={"h-[1300px]"} />
         )}
         <div className="max-w-[1300px] mx-auto px-3 mt-6">
           <div className="flex">

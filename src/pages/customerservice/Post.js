@@ -4,6 +4,7 @@ import axios from "axios";
 import Antdmodal from "./Antdmodal";
 import PostModal from "./PostModal";
 import Toast from "../public/Toast";
+import LeftMenu2 from "./LeftMenu2";
 
 import { homeAlertHandle } from "../../utils/ServiceAlert";
 
@@ -84,6 +85,7 @@ function Post() {
         .post("customer/postreservation", null, {
           params: {
             toUser: toUser,
+            storeId: selectedStore,
             toPhone: toPhone,
             toAddress: toAddress,
             reservationName: reservationName,
@@ -167,6 +169,43 @@ function Post() {
     setTotalPrice(fee + deliveryPrice);
   }
 
+  // 모달들
+  const [showstoreModal, setShowstoreModal] = useState(false);
+  function searchStore() {
+    setShowstoreModal(true);
+  }
+  function closestoreModal() {
+    setShowstoreModal(false);
+  }
+
+  // 매장 찾기
+  const [storeName, setStoreName] = useState("");
+  const [selectedStore, setSelectedStore] = useState(null);
+
+  const handleStoreSelect = (storeData) => {
+    setSelectedStore(storeData);
+    setStoreName(storeData.name); // 선택한 매장 이름 설정
+    setShowstoreModal(false); // 매장 모달 닫기
+  };
+
+  function selectstorename() {
+    axios
+      .get("/customer/selectstorename", { params: { id: selectedStore } })
+      .then(function (resp) {
+        console.log(resp.data);
+        setStoreName(resp.data);
+      })
+      .catch(function () {
+        console.log("error");
+      });
+  }
+
+  useEffect(() => {
+    if (selectedStore !== null) {
+      selectstorename();
+    }
+  }, [selectedStore]);
+
   return (
     <>
       <div className="mx-auto px-20 sm:px-3">
@@ -179,6 +218,37 @@ function Post() {
         <br />
         <br />
         <div>
+          <label className="font-bold text-2xl ">매장 명</label>
+          <div className="flex space-x-3 mt-2">
+            <div className="border-2 border-gray-400 w-1/2 sm:w-[50%] text-center p-2 rounded-xl">
+              {storeName}
+            </div>
+            <div className="text-center">
+              <button
+                className="bg-sub-yellow rounded-xl p-3 font-bold w-[100px] h-full hover:bg-yellow-500"
+                onClick={searchStore}
+              >
+                매장 찾기
+              </button>
+            </div>
+          </div>
+          {showstoreModal && (
+            <div className="fixed inset-0 flex items-center justify-center bg-gray-400 bg-opacity-65 z-50">
+              <div className="w-full h-full">
+                <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full h-full bg-white">
+                  {/* 모달 제목 */}
+                  <div className="relative text-center my-5 text-3xl">
+                    <p className="font-bold">매장 찾기</p>
+                  </div>
+                  {/* 모달 내용 */}
+                  <div className="flex justify-center ">
+                    <LeftMenu2 handleStoreSelect={handleStoreSelect} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          <br />
           <div className="grid grid-cols-2 sm:grid-cols-1 gap-8">
             <div>
               <label htmlFor="toUser" className="font-bold text-2xl">
