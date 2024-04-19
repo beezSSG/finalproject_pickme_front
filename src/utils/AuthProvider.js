@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [token, setToken] = useState(() => {
         // console.log('초기 토큰:', localStorage.getItem('jwt'));
         //로컬에 저장
-        return localStorage.getItem('jwt');
+        return sessionStorage.getItem('jwt');
     });
     
     const [isLoggedIn, setIsLoggedIn] = useState(!!token); // 로그인 상태를 관리합니다.
@@ -16,11 +16,11 @@ export const AuthProvider = ({ children }) => {
         // console.log('토큰 변경됨:', token);
         if (token) {
           console.log('jwt저장');
-          localStorage.setItem('jwt', token);
+          sessionStorage.setItem('jwt', token);
           setIsLoggedIn(true);
         } else {
           // console.log('jwt저장실패');
-          localStorage.removeItem('jwt');
+          sessionStorage.removeItem('jwt');
           setIsLoggedIn(false);
         }
     }, [token]);

@@ -25,7 +25,9 @@ const MainPickBox = () => {
   const navi = useNavigate();
 
   useEffect(() => {
-    getMyPickBox();
+    if (sessionStorage.getItem("jwt") !== null) {
+      getMyPickBox();
+    }
   }, []);
 
   function dDay(expDay) {
@@ -47,7 +49,7 @@ const MainPickBox = () => {
         setBoxData(response.data);
 
         homeAlertHandle(response.data);
-        console.log('#1. 얼럿 도착완료');
+        // console.log('#1. 얼럿 도착완료');
         sessionStorage.setItem('isLoggedIn', 'true');
       })
       .catch((err) => {
@@ -60,7 +62,7 @@ const MainPickBox = () => {
   }
 
   if (!token) {
-    return <div></div>;
+    return <></>;
   } else {
     return (
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
@@ -175,5 +177,5 @@ const MainPickBox = () => {
       </div>
     );
   }
-};
+}
 export default MainPickBox;
