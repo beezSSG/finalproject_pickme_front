@@ -51,7 +51,7 @@ export default function MyMainContent(prop) {
               <div key={product.id} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
                 <div className='mt-5'>
                   <Link to={`/productdetail/${product.id}`}>
-                    <img src={product.url} className="mx-auto w-[60%]" />
+                    <img src={product.url} className="mx-auto w-[60%]" alt=""/>
                   </Link>
                   <div className='mt-5'>{product.name}</div>
                   <div>{product.price.toLocaleString()}원</div>
@@ -59,7 +59,7 @@ export default function MyMainContent(prop) {
                   <div>
                     {Array.from({ length : product.productRating }, (_, index) => (
                       <span key={index} className="align-middle" style={{ display: 'inline-block' }}>
-                        <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} />
+                        <img src={star2} style={{ maxWidth: '20px', maxHeight: '20px', margin: '3px' }} alt=""/>
                       </span>
                     ))}
                   </div>
@@ -74,11 +74,11 @@ export default function MyMainContent(prop) {
         {!pdata &&
           <div className="flex flex-col items-center justify-center mt-32">
           <p className="flex sm:flex-col items-center text-center font-medium lg:text-xl md:text-xl sm:text-lg">
-            <span className="font-black text-4xl my-2">최근에 구경한 상품이 없어요</span>
+            <span className="font-black lg:text-4xl md:text-4xl sm:text-3xl my-2">최근에 구경한 상품이 없어요</span>
               {/* <span className="font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl"></span> */}
           </p>
           <button 
-                  className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200"
+                  className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200 sm:mb-40"
                   onClick={productHandle} >상품을 구매하러 가기</button>
           </div>
         }
