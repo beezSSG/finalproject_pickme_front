@@ -75,6 +75,7 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
+      <p className="text-3xl font-semibold mb-4">픽업/배달 승인</p>
       <div className="grid grid-cols-2 gap-10 sm:gap-2">
         <button
           onClick={() => {

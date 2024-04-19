@@ -52,6 +52,7 @@ export default function PostCheck() {
 
   return (
     <div className="mx-auto w-[80%]">
+      <p className="text-3xl font-semibold mb-4">택배예약 확인</p>
       <table className="w-full table-fixed border-collapse">
         <thead>
           <tr className='bg-yellow-400 p-15'>
