@@ -38,7 +38,7 @@ export default function MyPickBox({whereHandle}) {
   function productHandle() {
     navi('/productlist/0');
   }
-  console.log(boxData);
+  // console.log(boxData);
 
   return (
     <div className="w-[80%]">
@@ -54,22 +54,66 @@ export default function MyPickBox({whereHandle}) {
                 onClick={productHandle} >상품을 구매하러 가기</button>
         </div>
       }
-      <div className="w-[70%] mx-auto grid grid-cols-3 gap-11 md:grid-cols-2 sm:grid-cols-1 ">
+      <div className="mx-auto w-[85%] grid grid-cols-3 gap-7 md:grid-cols-2 sm:grid-cols-1 ">
       
       { boxData && boxData.map((product, i) => {
         let endday = dDay(product.expDate);
+        let day = dDay(product.expDate);
+                  if (dDay(product.expDate).substring(0, 1) === "-") {
+                    day = dDay(product.expDate).slice(1, 2);
+                    day = "+" + day;
+                  }
         return (
           <div key={i} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
             <div className='mt-5'>
-              <Link to={`/productdetail/${product.id}`}>
-                <img src={product.purl} className="mx-auto w-[60%]" />
-              </Link>
-              <p className='mt-5'>{product.pname}</p>
-              <p>구매일: {product.date}</p>
-              <p>구매점포: {product.sname}</p>
-              <p>구매수량: {product.quantity}</p>
-              <p>소비기한 : <b>{product.expDate}</b></p>
-              <p>남은기한 : <b>{endday}일</b></p>
+              <div className="relative">
+                <Link to={`/productdetail/${product.pid}`}>
+                  <img
+                    src={product.purl}
+                    alt={product.pname}
+                    className="mx-auto w-[60%]"
+                  />
+                </Link>                        
+                {
+                <>
+                  {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && 
+                    (
+                      <div className="absolute top-[0.5%] lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full animate-bounce">
+                        <span className="font-black text-white">
+                          D-Day
+                        </span>
+                      </div>
+                    )
+                  }
+                  {dDay(product.expDate) >= 1 && (
+                    <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-main-orange text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
+                        <span className="font-black text-white">
+                          D-{dDay(product.expDate)}
+                        </span>
+                    </div>
+                  )
+                  }
+                  {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) 
+                    && (
+                    <div className="absolute top-[1%] lg:right-0 md:right-0 sm:-right-1 bg-slate-400 text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full">
+                      <span className="font-black text-white">
+                        D{day}
+                      </span>
+                    </div>
+                  )}
+                </>
+                }
+              </div>
+
+              <div className="productItem__description p-4">
+                <h1 className="lg:text-lg md:text-sm sm:text-xs font-medium">
+                  {product.pname} 
+                </h1>
+                <p>{product.quantity}개</p>
+                <p className="lg:text-lg md:text-sm sm:text-xs font-medium">{product.date.substring(0, 10)} / {product.sname}</p>
+                <p className="lg:text-lg md:text-sm sm:text-xs font-medium">소비기한 : <b>{product.expDate.substring(0, 10)}</b></p>
+                
+              </div>
             </div>
           </div>
         )

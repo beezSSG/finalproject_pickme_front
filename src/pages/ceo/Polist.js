@@ -99,7 +99,7 @@ function Polist() {
       <br />
       <br />
 
-      <div className="mx-auto w-[80%]">
+      
         <table className="w-full table-fixed border-collapse">
           <thead className="bg-yellow-400 p-15">
             <tr>
@@ -160,7 +160,7 @@ function Polist() {
             })}
           </tbody>
         </table>
-      </div>
+      
       <br />
 
       {/* 세번째의 경우 */}

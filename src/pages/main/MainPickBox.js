@@ -20,6 +20,7 @@ import {homeAlertHandle} from '../../utils/ServiceAlert.js'
 const MainPickBox = () => {
   const [boxData, setBoxData] = useState();
   const { token } = useAuth();
+  const NAME = sessionStorage.getItem("name");
 
   const navi = useNavigate();
 
@@ -35,7 +36,7 @@ const MainPickBox = () => {
     const days = duration.asDays();
 
     // 남은 일수를 상태에 설정
-    return days.toFixed(0); // 소수점 아래는 버림
+    return days.toFixed(0); // 소수점 아래는 버림 
   }
 
   const getMyPickBox = async () => {
@@ -66,7 +67,7 @@ const MainPickBox = () => {
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between">
             <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
-              나의 Pick Box
+              {NAME}님의 Pick Box
             </h1>
             <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
                   to="/mypage/pickbox">
@@ -141,13 +142,6 @@ const MainPickBox = () => {
                               )}
                           </>
                         }
-                        {/* 
-                          <div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
-                            {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
-                            {dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
-                            {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
-                          </div> 
-                        */}
                       </div>
                       <div className="productItem__description p-4">
                         <h4 className="lg:text-xl md:text-lg sm:text-xs font-medium">
@@ -183,3 +177,11 @@ const MainPickBox = () => {
   }
 };
 export default MainPickBox;
+
+{/* 
+<div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
+{(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
+{dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
+{(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
+</div> 
+*/}

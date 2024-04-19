@@ -47,9 +47,14 @@ export default function PickCheckModal({ getPickup, group }) {
           onCancel={onToggleModal}
         >
           {/* 여기에 모달내부에 보여줄 디자인을 작성 */}
-          <Button key="submit" onClick={confrimHandle}>
-             <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
+          
+          <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
+          <br/><br/>
+          <div className="text-right">
+          <Button className="bg-sub-yellow rounded-xl p-2 font-bold size-10 hover:bg-sub-orange" key="submit" onClick={confrimHandle}>
+             OK
           </Button>
+          </div>
         </Modal>
       }
     </>

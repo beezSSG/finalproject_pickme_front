@@ -42,7 +42,7 @@ function IdFind({ onClose }) {
     <>
       <div className="fixed inset-0 flex items-center justify-center z-50">
         <div className="fixed inset-0 bg-black opacity-50"></div>
-        <div className="bg-white p-8 rounded-lg z-50 relative w-[30%] h-[50%] xl:w-[50%] xl:h-[75%]">
+        <div className="bg-white p-8 rounded-lg z-50 relative w-[40%] h-[50%] xl:w-[50%] xl:h-[75%] sm:w-full">
           <span
             className="absolute top-0 right-2 -mt-4 -mr-4 p-4 cursor-pointer text-3xl text-sub-yellow font-bold"
             onClick={onClose}

@@ -137,7 +137,7 @@ function ContactUs() {
                 return (
                   <tr
                     key={ccb.id}
-                    className="text-center border-b hover:bg-gray-200 cursor-pointer"
+                    className="text-center border-b hover:bg-gray-200"
                   >
                     <td className="px-4 py-5">{index + 1}</td>
                     <td className="px-4 py-2">{ccb.category}</td>
@@ -154,16 +154,16 @@ function ContactUs() {
                         </span>
                       )}
                     </td>
-                    <td className="px-4 py-2 text-left">
+                    <td className="px-4 py-2 text-left text-lg">
                       {id === ccb.customerId || adminName === "하기성" ? (
                         <Link
                           to={`/contactusdetail/${ccb.id}`}
-                          className="text-blue-500 hover:underline visited:text-black"
+                          className="p-1 text-blue-500 font-bold hover:font-black hover:text-black"
                         >
                           {ccb.title}
                         </Link>
                       ) : (
-                        ccb.title
+                        <span className="p-1">{ccb.title}</span>
                       )}
                     </td>
 
