@@ -34,8 +34,7 @@ export default function LeftMenu({ storelist }) {
 
   function setStorelist(data) {
     // console.log("부모에게 도달!");
-    console.log("22222222222222222222222222222222222222");
-    console.log(data);
+    // console.log(data);
     setStores(data);
   }
 
@@ -76,11 +75,10 @@ export default function LeftMenu({ storelist }) {
           (item) => item.hasOwnProperty(f) && item[f] === 1
         );
       });
-      console.log(filteredStores);
+      // console.log(filteredStores);
       setStorelist(filteredStores);
 
-      console.log("storelist11111111111111111111");
-      console.log(storelist);
+      // console.log(storelist);
     }
   }, [storelist, filter]);
 
@@ -95,16 +93,15 @@ export default function LeftMenu({ storelist }) {
       <div
         className={`bg-slate-50 h-svh z-10 p-5 pt-8 absolute ${
           menuOpen ? "w-1/4 sm:w-3/4" : "w-14 sm:w-3"
-        } opacity-100 transition-all duration-400 ease-in-out`}
+        } opacity-100 transition-all duration-400 ease-in-out shadow-2xl`}
       >
         {/* 화살표(펼치기) 버튼 */}
         <BsArrowLeftShort
-          className={`z-10 bg-white text-slate-400 text-6xl rounded-full absolute -right-8 top-1/3 border-4 border-slate-200 cursor-pointer 
-          transition-all duration-500 hover:text-slate-600 
+          className={`z-10 bg-white text-slate-400 text-6xl rounded-full absolute -right-8 top-1/3 border-4 border-slate-300 cursor-pointer 
+          transition-all duration-300 hover:text-slate-800 hover:border-slate-400
           ${!menuOpen && "rotate-180"}`}
           onClick={() => setMenuOpen(!menuOpen)}
         />
-
         <div
           className={`${
             !menuOpen && "opacity-0 transition-all duration-400 ease-in-out"
@@ -144,20 +141,18 @@ export default function LeftMenu({ storelist }) {
         {/* 검색필터 접기 버튼 */}
         <button
           className={`w-full my-1 py-1 flex justify-center items-center font-semibold text-base
-         border-slate-300 border-2 border-opacity-50 rounded-full ${
+         border-slate-400 border-2 border-opacity-50 rounded-full ${
            !menuOpen && "scale-0"
          }
-           transition duration-300 hover:bg-sub-yellow hover:border-main-yellow`}
+           transition duration-400 hover:bg-sub-yellow hover:border-main-yellow`}
           onClick={() => setFilterOpen(!filterOpen)}
         >
           검색필터 접기 &nbsp;&nbsp;&nbsp;
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
 
-        <button onClick={()=>console.log(stores)}>stores</button>
-
         {/* 매장 목록; 사용자 위치 연동 */}
-        <ul className="pt-2 h-3/6 overflow-y-auto">
+        <ul className="pt-2 h-[40%] overflow-y-auto">
           {/* { (filter.length === 0 && initialStores !== undefined && stores !== undefined) */}
           {(filter.length === 0 && initialStores !== undefined && stores === undefined)
             ? initialStores.map((store, k) => (
@@ -179,7 +174,7 @@ export default function LeftMenu({ storelist }) {
                     &nbsp;매장 재고 보러가기
                   </Link>
                   <br />
-                  <hr />
+                  <hr className="border border-slate-400 border-opacity-100"/>
                   <br />
                 </li>
               ))
@@ -202,7 +197,7 @@ export default function LeftMenu({ storelist }) {
                     &nbsp;매장 재고 보러가기
                   </Link>
                   <br />
-                  <hr />
+                  <hr className="border border-slate-400 border-opacity-100"/>
                   <br />
                 </li>
               ))}
