@@ -146,9 +146,9 @@ const MyStoreProducts = () => {
                 </p>
                 <p className="lg:text-xl md:text-xl sm:text-sm font-medium text-slate-600 flex items-center">
                   <FaRegClock className="inline mr-2.5" />
-                  {nearestStore.startHour.replace("시 ", ":").replace("분", "")}
+                  {nearestStore.startHour}
                   ~
-                  {nearestStore.endHour.replace("시 ", ":").replace("분", "")}
+                  {nearestStore.endHour}
                 </p>
                 <Categories storeInfo={nearestStore} />
                 <Link to={`/storeproductlist/${nearestStore.id}/${nearestStore.name}`} 

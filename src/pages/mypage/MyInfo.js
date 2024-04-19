@@ -136,6 +136,7 @@ export default function MyInfo() {
         const redirectToPage = () => {
           window.location.href = "/";
           localStorage.clear();
+          sessionStorage.clear();
         };
         setTimeout(redirectToPage, 1000);
       })
