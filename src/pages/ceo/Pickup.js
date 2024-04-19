@@ -7,6 +7,7 @@ export default function Pickup() {
   const [pickup, setPickup] = useState([]);
   const [page, setPage] = useState(1);
   const [totalCnt, setTotalCnt] = useState(0);
+  const [type, setType] = useState(0);
 
   useEffect(() => {
     getPickup("", 0);
@@ -45,6 +46,16 @@ export default function Pickup() {
     getPickup("", pageNumber - 1);
   }
 
+  // 픽업
+  const selPickup = () => {
+    setType(0);
+  };
+
+  // 배달
+  const selDelivery = () => {
+    setType(1);
+  };
+
   function confirmHandle(group) {
     const params = { id: group.id };
     axios
@@ -61,6 +72,29 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
+      <div className="grid grid-cols-2 gap-10 sm:gap-2">
+        <button
+          onClick={() => {
+            selPickup();
+          }}
+          className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold
+                  focus:ring-4 focus:ring-yellow-300 rounded-lg  py-3 
+              "
+        >
+          픽업
+        </button>
+        <button
+          onClick={() => {
+            selDelivery();
+          }}
+          className="focus:outline-none text-gray-800 bg-main-yellow hover:bg-sub-orange font-bold
+                  focus:ring-4 focus:ring-yellow-300 rounded-lg  py-3 
+              "
+        >
+          배달
+        </button>
+        </div>
+        <br />
       <table className="w-full table-fixed border-collapse">
         <thead>
           <tr className="bg-yellow-400 p-15">
@@ -73,8 +107,9 @@ export default function Pickup() {
           </tr>
         </thead>
         <tbody>
+
           {pickup.map((group, index) => {
-            if (group[0].checkYn === 0) {
+            if (group[0].checkYn === 0 ) {
               let price = 0;
               for (let i = 0; i < group.length; i++) {
                 price = group[i].price + price;
