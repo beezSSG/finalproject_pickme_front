@@ -36,6 +36,7 @@ export default function Inventory() {
 
   return (
     <div className="mx-auto w-[80%]">
+      <p className="text-3xl font-semibold mb-4">재고 현황</p>
       <div className="text-center mb-5">
         <input
           type="search"
@@ -57,7 +58,7 @@ export default function Inventory() {
         <thead>
           <tr className="bg-yellow-400 p-20">
             <th className="w-1/6 py-2">번호</th>
-            <th className="w-1/2 py-2">점포 이름</th>
+            <th className="w-1/6 py-1">카테고리</th>
             <th className="w-1/2 py-1">상품 이름</th>
             <th className="w-1/5 py-2">가격</th>
             <th className="w-1/4 py-2">수량</th>
@@ -71,7 +72,7 @@ export default function Inventory() {
               className="border-b border-gray-300 hover:bg-gray-200"
             >
               <td className="text-center py-3">{[index + 1]}</td>
-              <td className="text-center py-3">{group.storeName}</td>
+              <td className="text-center py-3">{group.productCategory}</td>
               <td className="text-center py-3">{group.productName}</td>
               <td className="text-center py-3">
                 {group.price.toLocaleString()}원

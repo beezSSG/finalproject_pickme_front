@@ -14,23 +14,15 @@ import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {homeAlertHandle} from '../../utils/ServiceAlert.js'
 
 const MainPickBox = () => {
   const [boxData, setBoxData] = useState();
   const { token } = useAuth();
+  const NAME = sessionStorage.getItem("name");
 
-  const getMyPickBox = async () => {
-    await axios
-      .get("mypage/MyPickBox")
-      .then((response) => {
-        // console.log(response.data);
-        setBoxData(response.data);
-      })
-      .catch((err) => {
-        // alert(err);
-      });
-  };
+  const navi = useNavigate();
 
   useEffect(() => {
     getMyPickBox();
@@ -44,7 +36,27 @@ const MainPickBox = () => {
     const days = duration.asDays();
 
     // 남은 일수를 상태에 설정
-    return days.toFixed(0); // 소수점 아래는 버림
+    return days.toFixed(0); // 소수점 아래는 버림 
+  }
+
+  const getMyPickBox = async () => {
+    await axios
+      .get("mypage/MyPickBox")
+      .then((response) => {
+        // console.log(response.data);
+        setBoxData(response.data);
+
+        homeAlertHandle(response.data);
+        console.log('#1. 얼럿 도착완료');
+        sessionStorage.setItem('isLoggedIn', 'true');
+      })
+      .catch((err) => {
+        // alert(err);
+      });
+  };
+
+  function productHandle() {
+    navi('/productlist/0');
   }
 
   if (!token) {
@@ -55,7 +67,7 @@ const MainPickBox = () => {
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
           <div className="flex justify-between">
             <h1 className="lg:text-4xl md:text-3xl sm:text-2xl font-bold tracking-tight text-slate-900">
-              나의 Pick Box
+              {NAME}님의 Pick Box
             </h1>
             <Link className="text-slate-500 lg:text-xl md:text-lg sm:text-lg font-bold tracking-tight hover:text-slate-800 transition duration-300"
                   to="/mypage/pickbox">
@@ -130,13 +142,6 @@ const MainPickBox = () => {
                               )}
                           </>
                         }
-                        {/* 
-                          <div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
-                            {(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
-                            {dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
-                            {(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
-                          </div> 
-                        */}
                       </div>
                       <div className="productItem__description p-4">
                         <h4 className="lg:text-xl md:text-lg sm:text-xs font-medium">
@@ -154,11 +159,13 @@ const MainPickBox = () => {
                  (
                   <div className="flex flex-col items-center justify-center">
                     <p className="flex sm:flex-col items-center text-center font-medium lg:text-xl md:text-xl sm:text-lg">
-                       상품의 유통기한을 확인할 수 있는
+                       상품의 소비기한을 확인할 수 있는
                         <span className="font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl">Pick Box</span>
                        를 채워보시는 건 어떠세요?
                     </p>
-                    <button className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200">상품을 구매하러 가기</button>
+                    <button 
+                            className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200"
+                            onClick={productHandle} >상품을 구매하러 가기</button>
                   </div>
                 )
               }
@@ -170,3 +177,11 @@ const MainPickBox = () => {
   }
 };
 export default MainPickBox;
+
+{/* 
+<div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
+{(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
+{dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
+{(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
+</div> 
+*/}

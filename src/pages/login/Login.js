@@ -137,17 +137,24 @@ const Login = () => {
             if (response.data.who === "점주") {
               window.location.href = "ceo/pomain";
             } else {
+              sessionStorage.setItem('name', response.data.name);
               window.location.href = "/";
             }
           };
           setTimeout(redirectToPage, 600);
         } else {
-          alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
+          Toast.fire({
+            icon: 'error',
+            title: "로그인 실패했습니다. \n아이디나 비밀번호를 확인해주세요.",
+          });
         }
       })
       .catch((error) => {
         // console.log(error);
-        alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
+        Toast.fire({
+          icon: 'error',
+          title: "로그인 실패했습니다. \n아이디나 비밀번호를 확인해주세요.",
+        });
       });
   };
 

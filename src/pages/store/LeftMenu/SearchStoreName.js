@@ -8,6 +8,9 @@ export default function SearchStoreName({menuOpen, handleStorelist, stateData, d
   const [state, setState] = useState("");             // 
   const [district, setDistrict] = useState("");       //
   const [targetStore, setTargetStore] = useState(""); // 
+
+  console.log(targetStore);
+
   // const [storelist, setStorelist] = useState([]);
 
   // const [selectedStore, setSelectedStore] = useState(storeList[0])

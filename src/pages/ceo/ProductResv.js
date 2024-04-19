@@ -46,7 +46,6 @@ export default function ProductResv() {
   return (
     <div className="mx-auto w-[80%]">
       <p className="text-3xl font-semibold mb-4">상품예약 확인</p>
-      <div className="mx-auto w-[80%]">
         <table className="w-full table-fixed border-collapse">
           <thead className="bg-yellow-400 p-15">
             <tr>
@@ -98,7 +97,7 @@ export default function ProductResv() {
             onChange={handlePageChange}
           />
         </div>
-      </div>
+      
     </div>
   );
 }
