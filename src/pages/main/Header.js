@@ -14,9 +14,9 @@ function Header() {
   const Logincom = () => {
     if (
       localStorage.getItem("name") === null &&
-      localStorage.getItem("jwt") === null
+      sessionStorage.getItem("jwt") === null
     ) {
-      console.log(localStorage.getItem("jwt"));
+      console.log(sessionStorage.getItem("jwt"));
       return (
         <div className="flex">
           <Link

@@ -30,7 +30,7 @@ const Login = () => {
   // localStorge에 토큰이 있는 경우 로그인 상태로 간주, 최상위 레벨에서 호출되어야 한다.
   useEffect(() => {
     window.localStorage.removeItem('product');
-    const token = localStorage.getItem("jwt");
+    const token = sessionStorage.getItem("jwt");
     if (token) setIsLoggedIn(true);
   }, []);
 

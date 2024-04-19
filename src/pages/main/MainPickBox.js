@@ -25,7 +25,9 @@ const MainPickBox = () => {
   const navi = useNavigate();
 
   useEffect(() => {
-    getMyPickBox();
+    if (sessionStorage.getItem("jwt") !== null) {
+      getMyPickBox();
+    }
   }, []);
 
   function dDay(expDay) {
@@ -47,7 +49,7 @@ const MainPickBox = () => {
         setBoxData(response.data);
 
         homeAlertHandle(response.data);
-        console.log('#1. 얼럿 도착완료');
+        // console.log('#1. 얼럿 도착완료');
         sessionStorage.setItem('isLoggedIn', 'true');
       })
       .catch((err) => {
@@ -59,6 +61,9 @@ const MainPickBox = () => {
     navi('/productlist/0');
   }
 
+  if (!token) {
+    return <></>;
+  } else {
     return (
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
@@ -172,12 +177,6 @@ const MainPickBox = () => {
       </div>
     );
   }
+}
 export default MainPickBox;
 
-{/* 
-<div className="absolute -top-2 lg:right-0 md:right-0 sm:-right-1 bg-[#EB3349] text-white font-bold lg:text-lg md:text-base sm:text-[8px] p-1 lg:px-2 md:px-2 sm:px-1.5 m-2 rounded-full group">
-{(dDay(product.expDate) === "-0" || dDay(product.expDate) === "0") && <span className="font-black text-white">D-Day</span>}
-{dDay(product.expDate) >= 1 && <span className="font-black text-white animate-bounce">D-{dDay(product.expDate)}</span>}
-{(dDay(product.expDate).substring(0, 1) === "-" && dDay(product.expDate).substring(1) >= 1) && <span className="font-black text-white animate-bounce">D{day}</span>}
-</div> 
-*/}
