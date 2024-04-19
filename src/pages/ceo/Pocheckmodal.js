@@ -33,7 +33,8 @@ export default function Pocheckmodal({ getPolist, po }) {
       productId: po.productId,
       quantity: po.quantity,
       expDate: expDate,
-    }; // 소비기한 , 스토어아이디
+    }; 
+    // 소비기한 , 스토어아이디
     // #1. purchase_order 테이블에 값을 주입
     // #2. store_product(재고) 테이블에 승인된 물건의 값을 주입
     // 백에서 하나의 axios문으로 두개의 행동을 할것이기 때문에
@@ -69,6 +70,7 @@ export default function Pocheckmodal({ getPolist, po }) {
           onCancel={onToggleModal}
         >
           {/* 여기에 모달내부에 보여줄 디자인을 작성 */}
+          
           <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
           {/* 이부분은 유통기한이 입력되는 부분 */}
           <div className="text-center items-center">

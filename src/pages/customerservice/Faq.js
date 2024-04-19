@@ -14,7 +14,7 @@ function Faq() {
   const [visible, setVisible] = useState(true);
 
   useEffect(() => {
-    window.localStorage.removeItem('product');
+    window.localStorage.removeItem("product");
     let prevScrollPos = window.scrollY;
 
     const handleScroll = () => {
@@ -116,8 +116,8 @@ function Faq() {
         />
         &nbsp;&nbsp;&nbsp;
         <button
-          className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-lg px-[80px] py-5 me-2 mb-2
+          className="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 
+                                focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-lg px-[80px] py-5 me-2 mb-2
                                 dark:focus:ring-yellow-900"
           onClick={() => handleCategoryClick(category)}
         >
@@ -130,8 +130,8 @@ function Faq() {
           (category, index) => (
             <button
               key={index}
-              className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
-                                                focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2
+              className="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 
+                                                focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2
                                                 dark:focus:ring-yellow-900"
               onClick={() => handleCategoryClick(category)}
             >
@@ -165,7 +165,7 @@ function Faq() {
                 </h2>
                 <h3>{faq.title} </h3>
               </label>
-              <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto">
+              <div className="answer content mt-5 h-0 overflow-hidden transition-height ease-in-out duration-300 peer-checked:h-auto whitespace-pre">
                 <p>{faq.content}</p>
               </div>
             </div>
@@ -175,7 +175,7 @@ function Faq() {
         {adminName === "하기성" && (
           <div className="text-center mt-6">
             <button
-              className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+              className="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
               onClick={faqcreate}
             >
               글 생성하기

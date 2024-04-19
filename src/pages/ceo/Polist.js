@@ -135,11 +135,15 @@ function Polist() {
                   <td className="text-center py-4">{po.wdate}</td>
                   <td className="text-center py-4">
                     {po.poYn > 0 ? (
-                      <span style={{ color: "red", fontWeight: "bold" }}>
+                     <span className="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                      <span className="w-2 h-2 me-1 bg-green-500 rounded-full"></span>  
                         승인완료
                       </span>
                     ) : (
-                      "승인대기중"
+                    <span className="inline-flex items-center bg-gray-300 text-black text-xs font-medium px-2.5 py-0.5 rounded-full">
+                      <span className="w-2 h-2 me-1 bg-gray-500 rounded-full"></span>
+                      승인대기중
+                    </span>
                     )}
                   </td>
                   <td>
@@ -150,8 +154,6 @@ function Polist() {
                     ) : (
                       ""
                     )}
-                    {/* <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900" 
-                        onClick={()=>{con(po)}}>승인확인</button> */}
                   </td>
                 </tr>
               );

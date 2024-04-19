@@ -138,7 +138,7 @@ function ContactUsWrite() {
         <div className="text-center my-[70px]">
           <button
             onClick={addCcbList}
-            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 
+            className="focus:outline-none  bg-yellow-400 hover:bg-yellow-500 
                     focus:ring-4 focus:ring-yellow-300 font-medium text-lg px-[15px] py-3 me-2 mb-2 w-[300px]
                     dark:focus:ring-yellow-900"
           >

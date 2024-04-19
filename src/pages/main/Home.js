@@ -8,7 +8,7 @@ import cutechatbot from "../../assets/imgs/chatbot/bee.gif";
 import { ImCancelCircle } from "react-icons/im";
 import MainPickBox from "./MainPickBox.js";
 
-const Home = () => {
+const Home = ({newchoice, choiceHandle, newsearch, searchHandle, categoryHandle}) => {
   const [modal, setModal] = useState(false);
 
   // 버튼 클릭 시 모달 상태를 토글하는 함수
@@ -30,13 +30,13 @@ const Home = () => {
             <Promotion />
           </section>
           <section className="container mx-auto w-screen mb-4">
-            <AdProductSet />
+            <AdProductSet newchoice={newchoice} choiceHandle={choiceHandle} />
           </section>
           <section className="container mx-auto w-screen mb-4">
             <MyStoreProducts />
           </section>
           <section className="container mx-auto w-screen mb-4">
-            <SearchProduct />
+            <SearchProduct newsearch={newsearch} searchHandle={searchHandle} categoryHandle={categoryHandle} />
           </section>
           {modal ? (
             <div className="fixed bottom-9 right-4">

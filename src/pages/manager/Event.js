@@ -17,7 +17,7 @@ function Event() {
   // 컴포넌트가 마운트되었을 때 이벤트 목록을 가져오는 함수 호출
   useEffect(() => {
     eventlistup();
-    window.localStorage.removeItem('product');
+    window.localStorage.removeItem("product");
   }, []);
 
   // 이벤트 목록을 서버에서 가져오는 함수
@@ -50,7 +50,7 @@ function Event() {
     <>
       <div className="flex gap-3">
         {location.pathname === "/manager/event" && (
-          <ManagerMain height={"h-[1200px]"} />
+          <ManagerMain height={"h-[1300px]"} />
         )}
         <div className="max-w-[1300px] mx-auto px-3 mt-6">
           <div className="flex">
@@ -116,7 +116,7 @@ function Event() {
           {adminName === "하기성" && (
             <div className="text-center">
               <button
-                className="focus:outline-none text-white bg-main-yellow hover:bg-sub-orange focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
+                className="focus:outline-none  bg-main-yellow hover:bg-sub-orange focus:ring-4 focus:ring-yellow-300 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
                 onClick={EventCreate}
               >
                 이벤트 생성
