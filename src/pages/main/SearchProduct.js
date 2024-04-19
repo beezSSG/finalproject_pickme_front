@@ -139,7 +139,7 @@ const SearchProduct = ({newsearch, searchHandle, categoryHandle}) => {
                   className="absolute sm:p-1.5 sm:top-[50%] sm:left-[27%] sm:text-sm md:p-2.5 md:top-[55%] md:left-[35%] md:text-xl 
                               lg:p-3 lg:top-[56%] lg:left-[28%] lg:text-5xl
                               text-center font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:bg-[#f8a100] group-hover:text-white transition duration-300"
+                            group-hover:bg-[#FF8008] group-hover:text-white transition duration-300"
                 >
                   간편식사
                 </p>
@@ -211,7 +211,7 @@ const SearchProduct = ({newsearch, searchHandle, categoryHandle}) => {
                 <p
                   className="absolute z-10 sm:p-0 sm:text-xs md:text-xl sm:left-[24%] top-[48%] md:left-[27%] lg:left-[25%] lg:text-4xl
                               text-center font-semibold bg-transparent text-transparent rounded-full 
-                            group-hover:text-[#E091BB] transition duration-300"
+                            group-hover:text-[#B06AB3] transition duration-300"
                 >
                   아이스크림
                 </p>
@@ -240,7 +240,7 @@ const SearchProduct = ({newsearch, searchHandle, categoryHandle}) => {
                       className="absolute sm:p-[0.2rem] sm:text-xs sm:top-[10%] sm:left-[19%] md:p-1.5 md:top-[16%] md:left-[23%]
                                   lg:p-2 lg:top-[15%] lg:left-[23%]
                                   text-center lg:text-3xl font-semibold bg-transparent text-transparent rounded-full 
-                                 group-hover:bg-[#FDC830] group-hover:text-white transition duration-300"
+                                 group-hover:bg-[#f5af19] group-hover:text-white transition duration-300"
                     >
                       식품
                     </p>
@@ -264,7 +264,7 @@ const SearchProduct = ({newsearch, searchHandle, categoryHandle}) => {
               {/* 생활용품 */}
               <div className="group relative">
                 <p
-                  className="sm:text-xs md:text-xl lg:text-3xl top-[60%] right-[35%]
+                  className="sm:text-xs md:text-xl lg:text-4xl top-[60%] right-[35%]
                               absolute z-10 text-center font-semibold bg-transparent text-transparent rounded-full 
                             group-hover:text-white transition duration-300"
                 >
