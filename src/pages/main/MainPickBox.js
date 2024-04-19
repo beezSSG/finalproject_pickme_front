@@ -59,9 +59,6 @@ const MainPickBox = () => {
     navi('/productlist/0');
   }
 
-  if (!token) {
-    return <div></div>;
-  } else {
     return (
       <div className="bg-white rounded-2xl m-auto mb-11 drop-shadow-2xl">
         <div className="mx-auto max-w-2xl px-4 py-10 sm:px-6 sm:py-20 lg:max-w-7xl lg:px-8">
@@ -175,7 +172,6 @@ const MainPickBox = () => {
       </div>
     );
   }
-};
 export default MainPickBox;
 
 {/* 
