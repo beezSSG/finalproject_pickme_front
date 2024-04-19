@@ -62,7 +62,7 @@ function Productlist({newchoice, newswitching, newsearch, newpage, newcategory, 
           setPage(newpage);
         }
       } else {
-        getProductlist("select", search, 0, switching, 0);
+        getProductlist("select", search, 0, switching, category);
       }
 
       window.addEventListener('scroll', handleScroll);

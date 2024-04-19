@@ -12,6 +12,7 @@ function EventCreate() {
   const [startTime, setStartTime] = useState("");
   const [endDate, setEndDate] = useState("");
   const [endTime, setEndTime] = useState("");
+  const [title, setTitle] = useState("");
   const [file1, setFile1] = useState(null);
   const [file2, setFile2] = useState(null);
   const [uploadedFile1Name, setUploadedFile1Name] = useState("");
@@ -92,13 +93,25 @@ function EventCreate() {
             <PiConfettiBold className="mr-2" />
             &nbsp;&nbsp;이벤트 생성
           </div>
-          <div className="h-[500px]">
+          <div className="h-[500px] mt-20">
             <div className="h-[500px]">
               <form
                 name="frm"
                 onSubmit={onSubmit}
                 encType="multipart/form-data"
               >
+                <div className="mb-6">
+                  <label className="block mb-2 text-xl font-bold">
+                    이벤트 제목:
+                  </label>
+
+                  <input
+                    type="text"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="p-3 border border-gray-300 rounded-xl w-full focus:outline-none focus:ring-2 focus:ring-yellow-400"
+                  />
+                </div>
                 <div className="mb-6">
                   <label className="block mb-2 text-xl font-bold">
                     시작일자:
