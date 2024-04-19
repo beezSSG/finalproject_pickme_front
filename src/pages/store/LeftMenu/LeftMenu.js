@@ -147,12 +147,12 @@ export default function LeftMenu({ storelist }) {
            transition duration-400 hover:bg-sub-yellow hover:border-main-yellow`}
           onClick={() => setFilterOpen(!filterOpen)}
         >
-          검색필터 접기 &nbsp;&nbsp;&nbsp;
+          검색필터 {filterOpen ? "펼치기" : "접기"}&nbsp;&nbsp;&nbsp;
           {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
         </button>
 
         {/* 매장 목록; 사용자 위치 연동 */}
-        <ul className="pt-2 h-[40%] overflow-y-auto">
+        <ul className={`pt-2 overflow-y-auto ${filterOpen ? "h-[90%]" : "h-[42%]"}`}>
           {/* { (filter.length === 0 && initialStores !== undefined && stores !== undefined) */}
           {(filter.length === 0 && initialStores !== undefined && stores === undefined)
             ? initialStores.map((store, k) => (
