@@ -8,7 +8,6 @@ import Toast from "../public/Toast";
 
 import star2 from "../../assets/imgs/product/star2.png";
 import { CgProfile } from "react-icons/cg";
-
 // 화면 쪼그라들기 시작할 시점
 const mobileWidth = 680; 
 
@@ -132,7 +131,7 @@ function Productdetail(){
                 setLoading(true);
             })
             .catch(function(err){
-                alert('getProduct error');
+                // alert('getProduct error');
             })
     };
 
@@ -198,7 +197,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('reviewInsert error');
+                // alert('reviewInsert error');
             })
     };
 
@@ -217,7 +216,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('reviewDelete error');
+                // alert('reviewDelete error');
             })
     };
 
@@ -234,7 +233,7 @@ function Productdetail(){
         setReviewCnt(resp.data);
         })
         .catch(()=>{
-        alert('productRatingAvg error');
+        // alert('productRatingAvg error');
         })
     };
 
@@ -246,7 +245,7 @@ function Productdetail(){
             setReviewList(resp.data);
         })
         .catch(()=>{
-        alert('productReviewList error');
+        // alert('productReviewList error');
         })
 
         // 이미 후기 작성했는지 체크
@@ -259,7 +258,7 @@ function Productdetail(){
                 }
             })
             .catch(()=>{
-            alert('productReviewCheck error');
+            // alert('productReviewCheck error');
             })
         }
         
@@ -315,7 +314,7 @@ function Productdetail(){
             }
         })
         .catch(() => {
-            alert('zzimCheck error');
+            // alert('zzimCheck error');
         });
     };
 
@@ -339,7 +338,7 @@ function Productdetail(){
                   });
             })
             .catch(()=>{
-            alert('insertZZIM error');
+            // alert('insertZZIM error');
             })
         }
         else{
@@ -351,13 +350,12 @@ function Productdetail(){
                   });
             })
             .catch(()=>{
-            alert('deleteZZIM error');
+            // alert('deleteZZIM error');
             })
         }
 
         zzimCheck(productId);
     };
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -373,6 +371,18 @@ function Productdetail(){
                                         px-5 select-none">
                             <p className='text-3xl font-bold text-gray-800'>1+1</p>
                         </div>
+                    )}
+                    {product.promotionType === 2 && (
+                      <div className="absolute top-5 right-5 bg-[#833ab4] bg-opacity-90 py-2 rounded-full
+                                      px-5 select-none">
+                          <p className='text-2xl font-bold text-white'>2+1</p>
+                      </div>
+                    )}
+                    {product.promotionType === 3 && (
+                      <div className="absolute top-5 right-5 bg-[#fd1d1d] bg-opacity-90 py-2 rounded-full
+                                      px-5 select-none">
+                          <p className='text-2xl font-bold text-white'>HOT</p>
+                      </div>
                     )}
                 </div>
 
@@ -401,29 +411,29 @@ function Productdetail(){
                             <div className='flex' align="center">
                                 {zzim === false ?
                                 (
-                                    <button className="bg-yellow-400 hover:bg-yellow-500 font-medium rounded-lg text-2xl p-1.5 m-1"
+                                    <button className="bg-main-yellow hover:bg-main-orange transition duration-200 font-medium rounded-lg text-2xl p-1.5 px-2 m-1"
                                     onClick={() => zzimClick(product.id)}>
                                         🤍
                                     </button>
                                 ) :
                                 (
-                                    <button className="bg-red-400 hover:bg-yellow-500font-medium rounded-lg text-2xl p-1.5 m-1"
+                                    <button className="bg-red-400 hover:bg-main-yellow transition duration-200 font-medium rounded-lg text-2xl p-1.5 px-2 m-1"
                                     onClick={() => zzimClick(product.id)}>
                                         ❤
                                     </button>
                                 )}
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
-                                                    dark:focus:ring-yellow-900" onClick={()=>(giftClick())}>선물하기🎁</button>
+                                <button className="focus:outline-none text-red-600 bg-main-yellow font-bold hover:bg-main-orange transition duration-200
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 px-3 m-1 text-2xl
+                                                    dark:focus:ring-yellow-900" onClick={()=>(giftClick())}>🎁</button>
                                 <GiftModal isOpen={giftModalIsOpen} closeModal={() => setGiftModalIsOpen(false)}
                                     productId={product.id} productName={product.name} productPrice={product.price} productUrl={product.url} />
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
-                                                    dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기 🔍</button>
+                                <button className="focus:outline-none text-gray-800 bg-main-yellow font-bold hover:bg-main-orange transition duration-200
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 px-3 m-1
+                                                    dark:focus:ring-yellow-900" onClick={()=>(searchMatchStore(product.id))}>상품이 있는 점포 찾기</button>
                                 <MatchedStoreList isOpen={modalIsOpen} closeModal={() => setModalIsOpen(false)} id={product.id} />
 
-                                <button className="focus:outline-none text-gray-800 bg-yellow-400 font-bold hover:bg-yellow-500
-                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 m-1
+                                <button className="focus:outline-none text-gray-800 bg-main-yellow font-bold hover:bg-main-orange transition duration-200
+                                                    focus:ring-4 focus:ring-yellow-300 rounded-lg p-2.5 px-3 m-1
                                                     dark:focus:ring-yellow-900" onClick={()=>backBtn()}>목록</button>
                             </div>
                         </div>

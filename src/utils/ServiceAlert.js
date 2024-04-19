@@ -29,23 +29,23 @@ export function homeAlertHandle(data) {
       daylist.push(dDays);
     }
   }
-  // console.log('#1. 여기에 도착');
 
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('./firebase-messaging-sw.js').then(function(registration) {
       // 서비스 워커 등록 성공
       console.log('ServiceWorker registration successful with scope: ', registration.scope);
       
-      // 알림 표시
-      let title = 'Pickbox 소비기한 알림';
-      let options = {
-        body: `소비기한이 7일이하로 남아있는 물품이 ${daylist.length}개 있습니다.`,
-        vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500],
-        sound: '/demos/notification-examples/audio/notification-sound.mp3',
-        icon: '../assets/imgs/logo/logo.svg'
-      };
-      registration.showNotification(title, options);
-      // console.log('#2. 여기에 도착');
+      // 알림 표시 7일 이하의 물건이 하나도 없는경우 나타나지 않게하기
+      if (daylist.length === 0) {
+        let title = 'Pickbox 소비기한 알림';
+        let options = {
+          body: `소비기한이 7일이하로 남아있는 물품이 ${daylist.length}개 있습니다.`,
+          vibrate: [500,110,500,110,450,110,200,110,170,40,450,110,200,110,170,40,500],
+          sound: '/demos/notification-examples/audio/notification-sound.mp3',
+          icon: '../assets/imgs/logo/logo.svg'
+        };
+        registration.showNotification(title, options);
+      }
     }).catch(function(err) {
       // 등록 실패
       console.log('ServiceWorker registration failed: ', err);
