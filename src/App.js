@@ -12,14 +12,14 @@ import ScrollToTop from './ScrollToTop';
 function App() {
   
   // 기본 axios url 설정
-  // axios.defaults.baseURL = 'http://localhost:8080/api/v1';
-  axios.defaults.baseURL = 'https://backend.pickme-ssg.com/api/v1/';
+  axios.defaults.baseURL = 'http://localhost:8080/api/v1';
+  // axios.defaults.baseURL = 'https://backend.pickme-ssg.com/api/v1/';
 
   // 토큰값을 인터셉터를 통해 모든 axios에 자동으로 넘겨주기
   axios.interceptors.request.use(
     config => {
       // 저장된 토큰을 가져옵니다.
-      const token = localStorage.getItem('jwt');
+      const token = sessionStorage.getItem('jwt');
       if (token) {
         // 요청 헤더에 토큰을 추가합니다.
         config.headers['Authorization'] = `Bearer ${token}`;
