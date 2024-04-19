@@ -75,7 +75,6 @@ export default function Pickup() {
 
   return (
     <div className="mx-auto w-[80%]">
-
       <div className="grid grid-cols-2 gap-10 sm:gap-2">
         <button
           onClick={() => {
@@ -97,8 +96,8 @@ export default function Pickup() {
         >
           배달
         </button>
-        </div>
-        <br />
+      </div>
+      <br />
       <table className="w-full table-fixed border-collapse">
         <thead>
           <tr className="bg-yellow-400 p-15">
@@ -111,46 +110,44 @@ export default function Pickup() {
           </tr>
         </thead>
         <tbody>
-
           {pickup.map((group, index) => {
-            if (group[0].checkYn === 0 ) {
+            if (group[0].checkYn === 0) {
               let price = 0;
               for (let i = 0; i < group.length; i++) {
                 price = group[i].price + price;
-                return (
-                  <tr key={index} className="border-b border-gray-300">
-                    <td className="text-center py-3">
-                      {group[0].productName}{" "}
-                      {group.length > 1 ? `외 ${group.length - 1}개` : ""}
-                    </td>
-                    <td className="text-center py-3">
-                      {price.toLocaleString()}원
-                    </td>
-                    <td className="text-center py-3">
-                      {group[0].customerName}
-                    </td>
-                    <td className="text-center py-3">{group[0].date}</td>
-                    <td className="text-center py-3">
-                      {group[0].pickDel === 0 ? "픽업" : "배달"}
-                    </td>
-                    <td className="text-center py-3">
-                      {group[0].checkYn === 0 ? (
-                        <PickCheckModal group={group} getPickup={getPickup} />
-                      ) : (
-                        ""
-                      )}
-                    </td>
-                  </tr>
-                );
-              } else {
-                return null;
               }
-            })}
-          </tbody>
-        </table>
-      </div>
+              return (
+                <tr key={index} className="border-b border-gray-300">
+                  <td className="text-center py-3">
+                    {group[0].productName}{" "}
+                    {group.length > 1 ? `외 ${group.length - 1}개` : ""}
+                  </td>
+                  <td className="text-center py-3">
+                    {price.toLocaleString()}원
+                  </td>
+                  <td className="text-center py-3">
+                    {group[0].customerName}
+                  </td>
+                  <td className="text-center py-3">{group[0].date}</td>
+                  <td className="text-center py-3">
+                    {group[0].pickDel === 0 ? "픽업" : "배달"}
+                  </td>
+                  <td className="text-center py-3">
+                    {group[0].checkYn === 0 ? (
+                      <PickCheckModal group={group} getPickup={getPickup} />
+                    ) : (
+                      ""
+                    )}
+                  </td>
+                </tr>
+              );
+            } else {
+              return null;
+            }
+          })}
+        </tbody>
+      </table>
       <br />
-
       <Pagination
         itemClass="page-item"
         linkClass="page-link"
@@ -165,4 +162,5 @@ export default function Pickup() {
       <br />
     </div>
   );
+  
 }
