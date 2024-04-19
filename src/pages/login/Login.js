@@ -140,7 +140,7 @@ const Login = () => {
               window.location.href = "/";
             }
           };
-          setTimeout(redirectToPage, 1200);
+          setTimeout(redirectToPage, 600);
         } else {
           alert("로그인 실패했습니다. 아이디나 비밀번호를 확인해주세요");
         }

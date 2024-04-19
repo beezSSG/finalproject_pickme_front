@@ -127,7 +127,21 @@ export default function MyInfo() {
 
   async function existUser() {
     try {
-      await axios.delete("user/deleteCustomer");
+      await axios.delete("user/deleteCustomer")
+      .then((resp) => {
+        Toast.fire({
+          icon: 'success',
+          title: "그동안 감사했습니다\n다음에 뵙길 기원합니다.",
+        });
+        const redirectToPage = () => {
+          window.location.href = "/";
+          localStorage.clear();
+        };
+        setTimeout(redirectToPage, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
     } catch (err) {
       // alert(err);
     }
