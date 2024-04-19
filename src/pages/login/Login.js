@@ -161,14 +161,13 @@ const Login = () => {
   return (
     <div className="relative flex min-h-full shrink-0 justify-center md:px-12 lg:px-0">
       <main className="mx-auto w-full max-w-md sm:px-4 md:w-96 md:max-w-sm md:px-0">
-        <h2 className="mt-20 text-2xl font-semibold text-gray-900">로그인</h2>
-        <p className="mt-2 text-sm text-gray-700">
-          계정이 없으신가요?
+        <h2 className="mt-20 text-4xl font-black">로그인</h2>
+        <p className="mt-2 text-base font-medium text-slate-900">
+          계정이 없으신가요?&nbsp;
           <Link
-            className="font-medium text-blue-600 hover:underline"
+            className="font-bold text-blue-600 hover:underline transition duration-300"
             to="/register"
           >
-            {" "}
             회원가입
           </Link>
           을 진행해주세요.
@@ -177,7 +176,7 @@ const Login = () => {
           <div>
             <label
               htmlFor=":S1:"
-              className="mb-3 block text-sm font-medium text-gray-700"
+              className="mb-3 block font-medium text-slate-900 text-xl"
             >
               이메일
             </label>
@@ -185,7 +184,8 @@ const Login = () => {
               id=":S1:"
               autoComplete="email"
               required=""
-              className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border border-slate-400 border-2 bg-gray-50 px-3 py-2 text-slate-900
+                          placeholder-slate-700 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500 sm:text-sm"
               type="email"
               name="email"
               value={email}
@@ -195,7 +195,7 @@ const Login = () => {
           <div>
             <label
               htmlFor=":S2:"
-              className="mb-3 block text-sm font-medium text-gray-700"
+              className="mb-3 block text-xl font-medium text-slate-900"
             >
               비밀번호
             </label>
@@ -203,7 +203,8 @@ const Login = () => {
               id=":S2:"
               autoComplete="current-password"
               required=""
-              className="block w-full appearance-none rounded-md border border-gray-200 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500 sm:text-sm"
+              className="block w-full appearance-none rounded-md border-2 border-slate-400 bg-gray-50 px-3 py-2 text-gray-900 placeholder-gray-400 
+                          focus:border-blue-500 focus:bg-white focus:outline-none focus:ring-blue-500 sm:text-sm"
               type="password"
               name="password"
               value={pw}
@@ -211,22 +212,23 @@ const Login = () => {
             />
           </div>
           <div className="flex justify-end gap-3">
-            <button onClick={openModal}>아이디 찾기</button>
+            <button onClick={openModal} className="hover:text-blue-600 font-medium transition duration-300">아이디 찾기</button>
             {modalOpen && <IdFind onClose={closeModal} />}
-            <Link to="/pwfind" className="hover:text-blue-600">
+            <Link to="/pwfind" className="hover:text-blue-600 font-medium transition duration-300">
               비밀번호 찾기
             </Link>
           </div>
           <div>
             <button
-              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600 w-full mb-10"
+              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 
+                        bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-700 active:bg-blue-700 active:text-blue-100 focus-visible:outline-blue-600 w-full mb-10 transition duration-200"
               type="button"
               onClick={onClickConfirmButton}
               variant="solid"
               color="blue"
             >
               <span>
-                로그인 <span aria-hidden="true">→</span>
+                로그인
               </span>
             </button>
           </div>
@@ -235,39 +237,42 @@ const Login = () => {
           <div>
             <button
               onClick={() => goGoogleLogin()}
-              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-gray-600 text-white hover:text-slate-100 hover:bg-gray-500 active:bg-gray-800 active:text-gray-100 focus-visible:outline-gray-600 w-full"
+              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 transition duration-200
+                      bg-slate-600 text-white hover:text-slate-100 hover:bg-gray-800 active:bg-gray-800 active:text-gray-100 focus-visible:outline-gray-600 w-full"
               type="submit"
               variant="solid"
               color="gray"
             >
               <span>
-                Google <span aria-hidden="true">→</span>
+                Google
               </span>
             </button>
           </div>
           <div>
             <button
               onClick={() => goKakaoLogin()}
-              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-yellow-600 text-white hover:text-slate-100 hover:bg-yellow-500 active:bg-yellow-800 active:text-yellow-100 focus-visible:outline-yellow-600 w-full"
+              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-[#f5af19] text-white transition duration-200
+                      hover:text-slate-100 hover:bg-[#FF8C00] active:bg-[#FF8C00] active:text-yellow-100 focus-visible:outline-yellow-600 w-full"
               type="submit"
               variant="solid"
               color="yellow"
             >
               <span>
-                KaKao <span aria-hidden="true">→</span>
+                KaKao
               </span>
             </button>
           </div>
           <div>
             <button
               onClick={() => goNaverLogin()}
-              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white hover:text-slate-100 hover:bg-green-500 active:bg-green-800 active:text-green-100 focus-visible:outline-green-600 w-full"
+              className="group inline-flex items-center justify-center rounded-full py-2 px-4 text-lx font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 bg-green-600 text-white transition duration-200
+              hover:text-slate-100 hover:bg-green-800 active:bg-green-800 active:text-green-100 focus-visible:outline-green-600 w-full"
               type="submit"
               variant="solid"
               color="green"
             >
               <span>
-                Naver <span aria-hidden="true">→</span>
+                Naver
               </span>
             </button>
           </div>

@@ -287,7 +287,7 @@ function ProductReservation() {
           </div>
           <div className="text-center">
             <button
-              className="bg-sub-yellow rounded-xl p-2 font-bold w-[100px] h-full hover:bg-yellow-500"
+              className="bg-sub-yellow rounded-xl p-2 font-bold w-[100px] h-full hover:bg-sub-orange transition duration-300"
               onClick={searchStore}
             >
               매장 찾기
@@ -333,6 +333,7 @@ function ProductReservation() {
                     <img
                       src={product.url}
                       className="w-32 h-32 object-cover mx-auto"
+                      alt=""
                     />
                     <div className="text-center mt-2 font-bold h-[63px]">
                       {product.name}
@@ -350,7 +351,7 @@ function ProductReservation() {
           </div>
           <br />
           <button
-            className="bg-sub-yellow hover:bg-yellow-500 rounded-xl p-2 font-bold w-[100px] h-full"
+            className="bg-sub-yellow hover:bg-sub-orange transition duration-300 rounded-xl p-2 font-bold w-[100px] h-full"
             onClick={choiceProduct}
           >
             상품 찾기
@@ -478,7 +479,7 @@ function ProductReservation() {
         </div>
         <div className="text-right mt-3">
           <button
-            className="bg-gray-700 rounded-xl p-3 text-white"
+            className="bg-gray-700 rounded-xl p-3 font-bold text-white hover:bg-black hover:scale-110 transition duration-300"
             onClick={payHandler}
           >
             결제하기

@@ -224,7 +224,7 @@ function Post() {
             </div>
             <div className="text-center">
               <button
-                className="bg-sub-yellow rounded-xl p-3 font-bold w-[100px] h-full hover:bg-yellow-500"
+                className="bg-sub-yellow rounded-xl p-3 font-bold w-[100px] h-full hover:bg-sub-orange transition duration-300"
                 onClick={searchStore}
               >
                 매장 찾기
@@ -419,7 +419,7 @@ function Post() {
             </span>
 
             <button
-              className="bg-gray-700 rounded-xl p-2 font-bold text-white hover:bg-slate-200 transition duration-300"
+              className="bg-slate-700 rounded-xl p-3 font-bold text-white hover:bg-black hover:scale-110 transition duration-300"
               onClick={() => calculateTotalPrice(selectedOption)}
             >
               결제금액 계산
