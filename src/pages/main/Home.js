@@ -24,9 +24,9 @@ const Home = ({newchoice, choiceHandle, newsearch, searchHandle, categoryHandle}
     <div>
       <main className="relative">
         <div className="py-4">
-          <section className="container mx-auto w-screen mb-4">
+          {/* <section className="container mx-auto w-screen mb-4">
             <MainPickBox />
-          </section>
+          </section> */}
           <section className="container mx-auto w-screen mb-4">
             <Promotion />
           </section>
