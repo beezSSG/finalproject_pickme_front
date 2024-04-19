@@ -131,7 +131,7 @@ function Productdetail(){
                 setLoading(true);
             })
             .catch(function(err){
-                alert('getProduct error');
+                // alert('getProduct error');
             })
     };
 
@@ -197,7 +197,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('reviewInsert error');
+                // alert('reviewInsert error');
             })
     };
 
@@ -216,7 +216,7 @@ function Productdetail(){
                 productReviewList(id);
             })
             .catch(()=>{
-                alert('reviewDelete error');
+                // alert('reviewDelete error');
             })
     };
 
@@ -233,7 +233,7 @@ function Productdetail(){
         setReviewCnt(resp.data);
         })
         .catch(()=>{
-        alert('productRatingAvg error');
+        // alert('productRatingAvg error');
         })
     };
 
@@ -245,7 +245,7 @@ function Productdetail(){
             setReviewList(resp.data);
         })
         .catch(()=>{
-        alert('productReviewList error');
+        // alert('productReviewList error');
         })
 
         // 이미 후기 작성했는지 체크
@@ -258,7 +258,7 @@ function Productdetail(){
                 }
             })
             .catch(()=>{
-            alert('productReviewCheck error');
+            // alert('productReviewCheck error');
             })
         }
         
@@ -314,7 +314,7 @@ function Productdetail(){
             }
         })
         .catch(() => {
-            alert('zzimCheck error');
+            // alert('zzimCheck error');
         });
     };
 
@@ -338,7 +338,7 @@ function Productdetail(){
                   });
             })
             .catch(()=>{
-            alert('insertZZIM error');
+            // alert('insertZZIM error');
             })
         }
         else{
@@ -350,13 +350,12 @@ function Productdetail(){
                   });
             })
             .catch(()=>{
-            alert('deleteZZIM error');
+            // alert('deleteZZIM error');
             })
         }
 
         zzimCheck(productId);
     };
-
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////

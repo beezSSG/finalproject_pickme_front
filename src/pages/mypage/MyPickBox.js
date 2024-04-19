@@ -67,7 +67,7 @@ export default function MyPickBox({whereHandle}) {
           <div key={i} className="mb-10 items-center rounded-xl border border-spacing-2 w-full text-center">
             <div className='mt-5'>
               <div className="relative">
-                <Link to={`/productdetail/${product.id}`}>
+                <Link to={`/productdetail/${product.pid}`}>
                   <img
                     src={product.purl}
                     alt={product.pname}
@@ -107,8 +107,9 @@ export default function MyPickBox({whereHandle}) {
 
               <div className="productItem__description p-4">
                 <h1 className="lg:text-lg md:text-sm sm:text-xs font-medium">
-                  {product.pname} {product.quantity}개
+                  {product.pname} 
                 </h1>
+                <p>{product.quantity}개</p>
                 <p className="lg:text-lg md:text-sm sm:text-xs font-medium">{product.date.substring(0, 10)} / {product.sname}</p>
                 <p className="lg:text-lg md:text-sm sm:text-xs font-medium">소비기한 : <b>{product.expDate.substring(0, 10)}</b></p>
                 
