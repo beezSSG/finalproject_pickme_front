@@ -233,7 +233,7 @@ function CeoRegister() {
                     <button className="w-full rounded-xl bg-sub-yellow hover:bg-sub-orange my-3 p-3 font-bold" onClick={regi}>회원가입</button>                 
                 </div>
                 <div className="mt-2 text-center text-xs font-bold">
-                  <Link to="/login" className="">이미회원이신경우 이곳을 클릭해주세요</Link>
+                  <Link to="/login" className="text-slate-700 hover:text-black transition duration-200">이미 회원이신경우 이곳을 클릭해주세요</Link>
                 </div>
             </div>
         </>
