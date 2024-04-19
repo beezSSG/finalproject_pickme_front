@@ -26,8 +26,13 @@ function PoMainpage() {
   const topBar = [
     { title: "Home", path: "/ceo/pomain" },
     { title: "발주", path: "/ceo/pomain/po" },
-    { title: "승인", path: "/ceo/pomain/po" },
+    { title: "승인", path: "/ceo/pomain/pickup" },
   ];
+
+  const logout = () => {
+    localStorage.clear();
+    window.location.href = "/";
+  };
 
   // 진입전 토큰 유무 확인 토큰 유효성시간을 대폭 상향
   useEffect(() => {
@@ -62,19 +67,17 @@ function PoMainpage() {
     <>
       <div className="grid grid-cols-4 w-full mb-10 sm:flex-wrap md:grid-cols-2">
         <div className="pl-4 pt-5">
-          <div>
+          <div>    
             <span className="text-4xl font-bold text-black-500">
-              {topInfo[0]}
-            </span>
+              {topInfo[0]} <span className="mt-2 text-sm font-bold text-neutral-500"><button onClick={logout}>로그아웃</button></span>
+            </span>  
             <br />
             <br />
             <span className="text-2xl font-bold text-white bg-main-orange rounded-lg p-1">
               {topInfo[1]}
             </span>
           </div>
-          <div className="mt-2 text-sm font-bold text-neutral-500">
-            <Link to="/mypage/userinfo">회원정보수정</Link>
-          </div>
+
         </div>
 
         {topBar.map((topbar, i) => (

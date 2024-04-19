@@ -142,7 +142,7 @@ const Powrite = () => {
   }
 
   return (
-    <div className="w-full h-[1000px] relative">
+    <div className="mx-auto w-[80%]">
       <p className="text-3xl font-semibold mb-4">발주 신청</p>
       <div className="text-center sm:mt-6">
         <input
