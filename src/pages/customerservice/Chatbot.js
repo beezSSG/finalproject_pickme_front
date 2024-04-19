@@ -185,8 +185,8 @@ function Chatbot() {
     <>
       <div className="w-full h-[580px] border-2 rounded-xl bg-white z-50">
         <div className="h-full rounded-xl">
-          <div className="menu flex items-center justify-between px-4 py-2 bg-main-yellow text-white font-semibold rounded-t-lg ">
-            <h3 className="welcome">Welcome Pick ME</h3>
+          <div className="menu flex items-center justify-between px-4 py-2 bg-black text-white font-semibold rounded-t-lg ">
+            <h3 className="font-black text-main-yellow">Welcome Pick ME</h3>
           </div>
           <br />
           <div
