@@ -21,7 +21,7 @@ function Header() {
         <div className="flex">
           <Link
             className="relative w-fit inline-block after:block mx-2
-                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        font-semibold text-slate-700 hover:text-black transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                         after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
             to="/login"
@@ -36,7 +36,7 @@ function Header() {
           {/* 로그아웃 */}
           <button
             className="relative w-fit inline-block after:block mx-1
-                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                        font-semibold text-slate-700 hover:text-black transition duration-300
                         after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full
                         after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
             onClick={logout}
@@ -56,7 +56,7 @@ function Header() {
             >
               마이페이지
             </span>
-            <RiUser5Fill className="size-6 mx-1 text-slate-500 rounded-2xl hover:text-main-orange" />
+            <RiUser5Fill className="size-6 mx-1 text-slate-700 rounded-2xl hover:text-main-orange" />
           </Link>
 
           {/* 장바구니 */}
@@ -71,7 +71,7 @@ function Header() {
             >
               장바구니
             </span>
-            <FaShoppingCart className="size-6 ml-1.5 text-slate-500 hover:text-main-orange" />
+            <FaShoppingCart className="size-6 ml-1.5 text-slate-700 hover:text-main-orange" />
           </Link>
         </div>
       );
@@ -104,7 +104,7 @@ function Header() {
             <div className="relative flex-cols items-center">
               <span
                 className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
-                          font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                          font-semibold text-slate-700 hover:text-black transition duration-300
                           after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                           after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center
               "
@@ -114,11 +114,11 @@ function Header() {
             </div>
 
             <div className="mt-3 opacity-0 h-0 group-hover:opacity-100 group-hover:h-full transition duration-500">
-              <ul className="absolute flex-col justify-center rounded-lg border-2 border-slate-200 bg-white">
+              <ul className="absolute flex-col justify-center rounded-lg border-2 border-slate-300 bg-white">
                 {service.submenus.map((submenu) => (
                   <li
                     key={submenu.name}
-                    className="py-2 font-semibold text-slate-500 hover:text-slate-900 hover:bg-slate-200 transition duration-300"
+                    className="py-2 font-semibold text-slate-700 hover:text-black hover:bg-slate-300 transition duration-300"
                   >
                     <Link to={submenu.to} className="px-3">
                       {submenu.name}
@@ -159,7 +159,7 @@ function Header() {
               <Link
                 key={menu.name}
                 className="relative text-xl md:text-lg w-fit inline-block after:block mx-3
-                            font-semibold text-slate-500 hover:text-slate-900 transition duration-300
+                            font-semibold text-slate-700 hover:text-black transition duration-300
                             after:content-[''] after:absolute after:h-[3px] after:bg-main-yellow after:w-full 
                             after:scale-x-0 after:hover:scale-x-100 after:transition after:duration-300 after:origin-center"
                 to={menu.to}
@@ -230,11 +230,11 @@ function Header() {
                 to={menu.to}
                 onClick={() => setMobilemenuopen(false)}
                 className="inline-block text-base relative w-fit peer
-                        font-semibold text-slate-500 hover:text-slate-900 transition duration-300"
+                        font-semibold text-slate-700 hover:text-black transition duration-300"
               >
                 <p className="my-4">{menu.name}</p>
               </Link>
-              <hr className="w-28 border-2 border-slate-200 transition duration-300 peer-hover:border-main-yellow" />
+              <hr className="w-28 border-2 border-slate-300 transition duration-300 peer-hover:border-main-yellow" />
             </div>
           ))}
         </div>
