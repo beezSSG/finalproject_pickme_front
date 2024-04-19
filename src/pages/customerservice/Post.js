@@ -174,10 +174,9 @@ function Post() {
   function searchStore() {
     setShowstoreModal(true);
   }
-  function closestoreModal() {
+  const closeStoreModal = () => {
     setShowstoreModal(false);
-  }
-
+  };
   // 매장 찾기
   const [storeName, setStoreName] = useState("");
   const [selectedStore, setSelectedStore] = useState(null);
@@ -242,7 +241,10 @@ function Post() {
                   </div>
                   {/* 모달 내용 */}
                   <div className="flex justify-center ">
-                    <LeftMenu2 handleStoreSelect={handleStoreSelect} />
+                    <LeftMenu2
+                      handleStoreSelect={handleStoreSelect}
+                      handleClose={closeStoreModal}
+                    />
                   </div>
                 </div>
               </div>

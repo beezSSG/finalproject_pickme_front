@@ -133,29 +133,28 @@ export default function LeftMenu2(props) {
   return (
     <>
       <div className="bg-slate-50 h-svh z-10 p-5 pt-8 absolute opacity-100 transition-all duration-400 ease-in-out">
-        <div
-          className={`${
-            !menuOpen && "opacity-0 transition-all duration-400 ease-in-out"
-          } ${
-            filterOpen
-              ? "hidden opacity-0 transition-all duration-400 ease-in-out"
-              : "visible"
-          }`}
+        <button
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+          onClick={() => props.handleClose()}
         >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+        <div>
           {/* 지역선택  */}
           <section>
-            {/* <FaDiceD6
-            className={`bg-amber-300 text-4xl rounded cursor-pointer block float-left mr-2 duration-500 ${
-              menuOpen && "rotate-[360deg]"
-            }`}
-          /> */}
-            {/* <h1
-            className={`text-slate-600 origin-left font-medium text-2xl duration-300 ${
-              !menuOpen && "scale-0"
-            }`}
-          >
-            Manager
-          </h1> */}
             <h1 className="font-bold text-lg">지역선택</h1>
             {/* 지역-군/구 선택 */}
             <LocSelect
@@ -180,18 +179,6 @@ export default function LeftMenu2(props) {
           </section>
         </div>
 
-        {/* 검색필터 접기 버튼 */}
-        <button
-          className={`w-full my-1 py-1 flex justify-center items-center font-semibold text-base
-         border-slate-300 border-2 border-opacity-50 rounded-full ${
-           !menuOpen && "scale-0"
-         }
-           transition duration-300 hover:bg-sub-yellow hover:border-main-yellow`}
-          onClick={() => setFilterOpen(!filterOpen)}
-        >
-          검색필터 접기 &nbsp;&nbsp;&nbsp;
-          {filterOpen ? <FaChevronDown /> : <FaChevronUp />}
-        </button>
         {/* <button onClick={()=>{console.log(state); console.log(district); console.log(district)}}>도/시 구 state, 검색어 확인용</button> */}
 
         {/* 매장 목록; 사용자 위치 연동 */}
