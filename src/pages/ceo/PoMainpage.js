@@ -70,17 +70,14 @@ function PoMainpage() {
           <div>    
             <span className="text-4xl font-bold text-black-500">
               {topInfo[0]} <span className="mt-2 text-sm font-bold text-neutral-500"><button onClick={logout}>로그아웃</button></span>
-              <div >        
-          </div>
             </span>  
+            <br />
             <br />
             <span className="text-2xl font-bold text-white bg-main-orange rounded-lg p-1">
               {topInfo[1]}
             </span>
           </div>
-          <div className="mt-2 text-sm font-bold text-neutral-500">
-            회원정보수정
-          </div>
+
         </div>
 
         {topBar.map((topbar, i) => (

@@ -76,8 +76,6 @@ export default function Pickup() {
   return (
     <div className="mx-auto w-[80%]">
       <p className="text-3xl font-semibold mb-4">픽업/배달 승인</p>
-
-      <br />
       <table className="w-full table-fixed border-collapse">
         <thead>
           <tr className="bg-yellow-400 p-15">
