@@ -129,24 +129,27 @@ const AdProductSet = (prop) => {
               products &&
               products.map((product) => (
                 <SwiperSlide key={product.id} className="flex flex-col py-[5%]">
-                  <Link to={`/productdetail/${product.id}`}>
+                  <Link to={`/productdetail/${product.id}`} className="relative">
                     {product.promotionType === 1 && (
-                          <div className="absolute top-5 right-5 bg-orange-500 bg-opacity-70 p-2 rounded-full
-                                          px-5 select-none">
-                              <p className='text-3xl font-bold text-gray-800'>1+1</p>
-                          </div>
+                          <p className="absolute top-[1%] right-[1%] bg-main-orange bg-opacity-70 rounded-full text-white
+                                        select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                                        lg:w-1/4 md:w-1/3 sm:w-1/3">
+                              1+1
+                          </p>
                       )}
                       {product.promotionType === 2 && (
-                        <div className="absolute top-5 right-5 bg-[#833ab4] bg-opacity-90 py-2 rounded-full
-                                        px-5 select-none">
-                            <p className='text-2xl font-bold text-white'>2+1</p>
-                        </div>
+                        <p className="absolute top-[1%] right-[1%] bg-[#fd1d1d] bg-opacity-70 rounded-full text-white
+                        select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                        lg:w-1/4 md:w-1/3 sm:w-1/3">
+                          2+1
+                        </p>
                       )}
                       {product.promotionType === 3 && (
-                        <div className="absolute top-5 right-5 bg-[#fd1d1d] bg-opacity-90 py-2 rounded-full
-                                        px-5 select-none">
-                            <p className='text-2xl font-bold text-white'>HOT</p>
-                        </div>
+                        <p className="absolute top-[1%] right-[1%] bg-[#833ab4] bg-opacity-70 rounded-full  text-white
+                                      select-none text-3xl font-bold lg:text-2xl md:text-xl sm:text-sm
+                                      lg:w-1/4 md:w-[35%] sm:w-[40%]">
+                          HOT  
+                        </p>
                       )}
                     <img src={product.url} alt={`이벤트상품 ${product.id}`} />
                     <h1 className="py-[3%] font-bold text-center text-slate-800 lg:text-xl md:text-lg sm:text-sm">{product.name}</h1>
