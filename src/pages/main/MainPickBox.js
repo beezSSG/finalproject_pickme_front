@@ -59,26 +59,6 @@ const MainPickBox = () => {
     navi('/productlist/0');
   }
 
-  const getMyPickBox = async () => {
-    await axios
-      .get("mypage/MyPickBox")
-      .then((response) => {
-        // console.log(response.data);
-        setBoxData(response.data);
-
-        homeAlertHandle(response.data);
-        console.log('#1. 얼럿 도착완료');
-        sessionStorage.setItem('isLoggedIn', 'true');
-      })
-      .catch((err) => {
-        // alert(err);
-      });
-  };
-
-  function productHandle() {
-    navi('/productlist/0');
-  }
-
   if (!token) {
     return <div></div>;
   } else {
