@@ -17,6 +17,16 @@ import MyPickBox from "./MyPickBox";
 import MyMenuButton from "./MyMenuButton";
 import Toast from "../public/Toast";
 
+// icons
+// import { GiSilverBullet } from "react-icons/gi";
+import { GiGoldNuggets } from "react-icons/gi";
+import { GiGoldBar } from "react-icons/gi";
+import { GiCheckeredDiamond } from "react-icons/gi";
+import { FaUserAstronaut } from "react-icons/fa6";
+
+// simple
+import { TbDiamondFilled } from "react-icons/tb";
+
 export default function MyMain() {
   // useState 선언
   const navigater = useNavigate();
@@ -66,6 +76,47 @@ export default function MyMain() {
     setWhere(p);
   }
 
+  // 회원등급에 따라 등급색, 아이콘 꾸며주는 함수
+  function decorateUserGrade(grade) {
+    if (grade === "SILVER") {
+      return (
+        <>
+          <span className="pl-2 text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#616161] via-[#bdc3c7] to-[#616161] mx-1 lg:text-3xl md:text-3xl sm:text-2xl group">
+            {grade}&nbsp;
+            <GiGoldNuggets className="inline group-hover:animate-bounce transition duration-100 text-[#616161]" />
+          </span>
+        </>
+      )
+    } else if (grade === "GOLD") {
+      return (
+        <>
+          <span className="pl-2 text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#f8b500] via-[#ED8F03] to-[#f8b500] mx-1 lg:text-3xl md:text-3xl sm:text-2xl group">
+            {grade}&nbsp;
+            <GiGoldBar className="inline group-hover:animate-bounce transition duration-100 text-[#ED8F03]" />
+          </span>
+        </>
+      )
+    } else if (grade === "DIA") {
+      return (
+        <>
+          <span className="pl-2 text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#40E0D0] via-[#FF8C00] to-[#FF0080] mx-1 lg:text-3xl md:text-3xl sm:text-2xl group">
+            {grade}&nbsp;
+          <GiCheckeredDiamond className="inline group-hover:animate-bounce transition duration-100 text-[#FF0080] pb-1" />
+          </span>
+        </>
+      )
+    } else {
+      return (
+        <>
+          <span className="pl-2 text-3xl font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl group">
+            {grade}&nbsp;
+            <FaUserAstronaut className="inline group-hover:animate-bounce transition duration-100 text-[main-orange]" />
+          </span>
+        </>
+      )
+    }
+  }
+
   if (info === undefined || info === null) {
     return <div>loding...</div>;
   }
@@ -77,9 +128,7 @@ export default function MyMain() {
           <div>
             <span className="text-4xl font-bold  text-black-500">
               {info.name}
-            </span>
-            <span className="pl-2 text-3xl font-bold text-yellow-500">
-              {info.grade}
+              {decorateUserGrade(info.grade)}
             </span>
           </div>
           <div className="flex mt-2 text-sm font-bold text-neutral-500">
