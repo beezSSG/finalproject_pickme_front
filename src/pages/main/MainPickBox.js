@@ -14,23 +14,14 @@ import { useAuth } from "../../utils/AuthProvider";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import moment from "moment";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import {homeAlertHandle} from '../../utils/ServiceAlert.js'
 
 const MainPickBox = () => {
   const [boxData, setBoxData] = useState();
   const { token } = useAuth();
 
-  const getMyPickBox = async () => {
-    await axios
-      .get("mypage/MyPickBox")
-      .then((response) => {
-        // console.log(response.data);
-        setBoxData(response.data);
-      })
-      .catch((err) => {
-        // alert(err);
-      });
-  };
+  const navi = useNavigate();
 
   useEffect(() => {
     getMyPickBox();
@@ -45,6 +36,26 @@ const MainPickBox = () => {
 
     // 남은 일수를 상태에 설정
     return days.toFixed(0); // 소수점 아래는 버림
+  }
+
+  const getMyPickBox = async () => {
+    await axios
+      .get("mypage/MyPickBox")
+      .then((response) => {
+        // console.log(response.data);
+        setBoxData(response.data);
+
+        homeAlertHandle(response.data);
+        console.log('#1. 얼럿 도착완료');
+        sessionStorage.setItem('isLoggedIn', 'true');
+      })
+      .catch((err) => {
+        // alert(err);
+      });
+  };
+
+  function productHandle() {
+    navi('/productlist/0');
   }
 
   if (!token) {
@@ -154,11 +165,13 @@ const MainPickBox = () => {
                  (
                   <div className="flex flex-col items-center justify-center">
                     <p className="flex sm:flex-col items-center text-center font-medium lg:text-xl md:text-xl sm:text-lg">
-                       상품의 유통기한을 확인할 수 있는
+                       상품의 소비기한을 확인할 수 있는
                         <span className="font-black bg-clip-text text-transparent bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange mx-1 lg:text-3xl md:text-3xl sm:text-2xl">Pick Box</span>
                        를 채워보시는 건 어떠세요?
                     </p>
-                    <button className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200">상품을 구매하러 가기</button>
+                    <button 
+                            className="my-3 font-bold text-white bg-gradient-to-r from-[#a044ff] via-[#FF0080] to-main-orange p-2.5 rounded-full hover:scale-110 transition duration-200"
+                            onClick={productHandle} >상품을 구매하러 가기</button>
                   </div>
                 )
               }

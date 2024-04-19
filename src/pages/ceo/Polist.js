@@ -99,7 +99,7 @@ function Polist() {
       <br />
       <br />
 
-      <div className="mx-auto w-[80%]">
+      
         <table className="w-full table-fixed border-collapse">
           <thead className="bg-yellow-400 p-15">
             <tr>
@@ -135,11 +135,15 @@ function Polist() {
                   <td className="text-center py-4">{po.wdate}</td>
                   <td className="text-center py-4">
                     {po.poYn > 0 ? (
-                      <span style={{ color: "red", fontWeight: "bold" }}>
+                     <span className="inline-flex items-center bg-green-100 text-green-800 text-xs font-medium px-2.5 py-0.5 rounded-full dark:bg-green-900 dark:text-green-300">
+                      <span className="w-2 h-2 me-1 bg-green-500 rounded-full"></span>  
                         승인완료
                       </span>
                     ) : (
-                      "승인대기중"
+                    <span className="inline-flex items-center bg-gray-300 text-black text-xs font-medium px-2.5 py-0.5 rounded-full">
+                      <span className="w-2 h-2 me-1 bg-gray-500 rounded-full"></span>
+                      승인대기중
+                    </span>
                     )}
                   </td>
                   <td>
@@ -156,7 +160,7 @@ function Polist() {
             })}
           </tbody>
         </table>
-      </div>
+      
       <br />
 
       {/* 세번째의 경우 */}

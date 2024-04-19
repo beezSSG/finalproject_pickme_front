@@ -42,9 +42,13 @@ export default function PostCheckModal({ getPostCheck, group }){
           footer={null}
           onCancel={onToggleModal}
         >
-          <Button key="submit" onClick={confrimHandle}>
-             <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
+      <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
+          <br/><br/>
+          <div className="text-right">
+          <Button className="bg-sub-yellow rounded-xl p-2 font-bold size-10 hover:bg-sub-orange" key="submit" onClick={confrimHandle}>
+             OK
           </Button>
+          </div>
         </Modal>
       }
         </>
