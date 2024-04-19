@@ -33,9 +33,9 @@ const Home = ({newchoice, choiceHandle, newsearch, searchHandle, categoryHandle}
           <section className="container mx-auto w-screen mb-4">
             <AdProductSet newchoice={newchoice} choiceHandle={choiceHandle} />
           </section>
-          <section className="container mx-auto w-screen mb-4">
+          {/* <section className="container mx-auto w-screen mb-4">
             <MyStoreProducts />
-          </section>
+          </section> */}
           <section className="container mx-auto w-screen mb-4">
             <SearchProduct newsearch={newsearch} searchHandle={searchHandle} categoryHandle={categoryHandle} />
           </section>
