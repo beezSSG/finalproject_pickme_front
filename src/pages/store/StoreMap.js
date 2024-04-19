@@ -20,7 +20,7 @@ export default function StoreMap() {
 
   useEffect(() => {
     // index.html에 script연결이 되어있는지 확인
-    window.localStorage.removeItem('product');
+    window.localStorage.removeItem("product");
     if (!window.naver) {
       console.error("Naver Maps API가 로드되지 않았습니다.");
       return;
@@ -47,7 +47,7 @@ export default function StoreMap() {
   }, []);
 
   useEffect(() => {
-    // 맵 생성조건 - 위치, 줌, 등등 
+    // 맵 생성조건 - 위치, 줌, 등등
     if (
       myLocation !== undefined ||
       myLocation !== null ||
@@ -71,8 +71,29 @@ export default function StoreMap() {
       window.naver.maps.Event.addListener(map, "bounds_changed", () => {
         getBoundsCorners(map);
       });
+
+      // 지도 영역 변경 시 마커 표시 업데이트 및 이벤트 딜레이주기
+      const debouncedUpdateVisibleMarkers = debounce(
+        () => (map, markersRef.current),
+        1000
+      ); // 1초 지연
+      window.naver.maps.Event.addListener(
+        map,
+        "bounds_changed",
+        () => debouncedUpdateVisibleMarkers
+      );
     }
   }, [myLocation]);
+
+  // 이벤트 발생에 딜레이를 걸어서 발동하게하는 함수
+  function debounce(func, wait) {
+    let timeout;
+    return function (...args) {
+      const context = this;
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(context, args), wait);
+    };
+  }
 
   // 영역의 꼭지점 구하고 화면 이동시 점포 위치 구하는것
   function getBoundsCorners(map) {
@@ -104,9 +125,9 @@ export default function StoreMap() {
         setStoresInMap(storeData);
         // console.log(storesInMap);
 
-        // 기존 마커 제거
-        markersRef.current.forEach(marker => marker.setMap(null));
-        markersRef.current = [];
+        // // 기존 마커 제거
+        // markersRef.current.forEach((marker) => marker.setMap(null));
+        // markersRef.current = [];
 
         markersRef.current = storeData.map((store) => {
           // 기본 생성되는 마커 여기가 for문 -> 자동으로 배열에 계속 추가가 될거임

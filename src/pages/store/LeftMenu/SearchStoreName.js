@@ -5,8 +5,8 @@ import axios from "axios";
 
 // 함수는 첫 번째 인자로 {}안에 넣어야함 b/c props 객체 전체를 나타내지 않음
 export default function SearchStoreName({menuOpen, handleStorelist, stateData, districtData}) {
-  const [state, setState] = useState("");             // 
-  const [district, setDistrict] = useState("");       //
+  // const [state, setState] = useState("");             
+  // const [district, setDistrict] = useState("");      
   const [targetStore, setTargetStore] = useState(""); // 
 
   console.log(targetStore);

@@ -29,12 +29,9 @@ export default function LeftMenu({ storelist }) {
 
   const [filter, setFilter] = useState([]);
 
-  console.log()
-
 
   function setStorelist(data) {
     // console.log("부모에게 도달!");
-    console.log("22222222222222222222222222222222222222");
     console.log(data);
     setStores(data);
   }
@@ -67,7 +64,8 @@ export default function LeftMenu({ storelist }) {
       console.log(stores);
     }
 
-    if (filter !== undefined || filter.length !== 0) {
+    // 선택된 카테고리와 검색한 매장값이 있는지 확인 -> 카테고리 필터링
+    if ((filter !== undefined || filter.length !== 0) && stores !== undefined) {
       let filteredStores = initialStores; // 필터링한 매장 목록 변수 선언
       filter.map((f) => {
         // console.log(f);
@@ -79,10 +77,22 @@ export default function LeftMenu({ storelist }) {
       console.log(filteredStores);
       setStorelist(filteredStores);
 
-      console.log("storelist11111111111111111111");
+      console.log(storelist);
+    } else {
+      let filteredStores = stores; // 필터링한 매장 목록 변수 선언
+      filter.map((f) => {
+        // console.log(f);
+        // key 이름이 겹침 -> 키에 대한 정확한 위치를 파악 && 거기에 각각 1이 맞는지 확인 작업
+        filteredStores = filteredStores.filter(
+          (item) => item.hasOwnProperty(f) && item[f] === 1
+        );
+      });
+      console.log(filteredStores);
+      setStorelist(filteredStores);
+
       console.log(storelist);
     }
-  }, [storelist, filter]);
+  }, [initialStores, storelist, filter, stores]);
 
   function formatPhoneNumber(phoneNumber) {
     const cleaned = ("" + phoneNumber).replace(/\D/g, "");
