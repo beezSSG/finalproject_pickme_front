@@ -71,7 +71,7 @@ export default function Categories({storeInfo}) {
                             {/* <input type="checkbox" className="hidden peer" id={`category-${idx}`} /> */}
                             <label 
                                 // htmlFor={`category-${idx}`}
-                                className="inline-flex items-center justify-between p-1 text-gray-500 border-2 
+                                className="inline-flex items-center justify-between p-1 text-black border-2 
                                     rounded-xl transition duration-300 ease-in-out bg-sub-yellow border-main-yellow"
                             > 
                                 <category.icon className="size-8 ml-1 mr-0.5"/>                          
@@ -83,8 +83,8 @@ export default function Categories({storeInfo}) {
                             {/* <input type="checkbox" className="hidden peer" id={`category-${idx}`} /> */}
                             <label 
                                 // htmlFor={`category-${idx}`}
-                                className="inline-flex items-center justify-between p-1 text-gray-500 border-2 
-                                    border-gray-200 rounded-xl transition duration-300 ease-in-out"
+                                className="inline-flex items-center justify-between p-1 text-slate-600 border-2 
+                                    border-slate-300 rounded-xl transition duration-300 ease-in-out"
                             > 
                                 <category.icon className="size-8 ml-1 mr-0.5"/>                          
                                 <div className="w-full text-sm font-bold text-center">{ category.name }</div>
