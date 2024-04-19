@@ -31,6 +31,7 @@ function SalesChart() {
     axios
       .get("ceo/getCeoInfo")
       .then((response) => {
+       
         console.log(response.data);
         setInfo(response.data);
         setTopInfo(Object.values(response.data));
@@ -39,6 +40,7 @@ function SalesChart() {
         return axios.get("/ceo/saleschart", {
           params: { id: response.data.id, date: selectedDate },
         });
+        console.log(JSON.stringify(response.data));
       })
       .then(function (resp) {
         console.log(resp.data);
