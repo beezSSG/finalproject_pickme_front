@@ -70,6 +70,7 @@ export default function Pocheckmodal({ getPolist, po }) {
           onCancel={onToggleModal}
         >
           {/* 여기에 모달내부에 보여줄 디자인을 작성 */}
+          
           <h1 className="text-lg font-bold">승인 확인되었습니다</h1>
           {/* 이부분은 유통기한이 입력되는 부분 */}
           <div className="text-center items-center">
