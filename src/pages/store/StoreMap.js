@@ -68,8 +68,15 @@ export default function StoreMap() {
       getBoundsCorners(map);
 
       // 지도의 바운드가 변경될 때마다 꼭지점의 위치 업데이트
+      // window.naver.maps.Event.addListener(map, "bounds_changed", () => {
+      //   getBoundsCorners(map);
+      // });
+      let timer; // 타이머 변수
       window.naver.maps.Event.addListener(map, "bounds_changed", () => {
-        getBoundsCorners(map);
+        clearTimeout(timer);
+        timer = setTimeout(() => {
+          getBoundsCorners(map);
+        }, 500);
       });
     }
   }, [myLocation]);
