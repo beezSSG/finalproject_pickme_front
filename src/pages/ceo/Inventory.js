@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Pagination from "react-js-pagination";
+import { FaArrowDown91 } from "react-icons/fa6";
 
 export default function Inventory() {
   const [inventory, setInventory] = useState([]);
@@ -72,7 +73,7 @@ export default function Inventory() {
             <th className="w-1/2 py-1">상품 이름</th>
             <th className="w-1/5 py-2">가격</th>
             <th className="w-1/4 py-2">수량</th>
-            <th className="w-1/4 py-2">소비기한<button onClick={expBtn}>정렬</button></th>
+            <th className="w-1/4 py-2">소비기한 &nbsp;<button onClick={expBtn}><FaArrowDown91 /></button></th>
           </tr>
         </thead>
         <tbody>
