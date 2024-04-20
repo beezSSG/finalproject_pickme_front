@@ -33,32 +33,37 @@ export default function LeftMenu({ storelist }) {
 
 
   function setStorelist(data) {
-    // console.log("부모에게 도달!");
-    // console.log(data);
+    console.log("부모에게 도달!");
+    console.log(data);
     setStores(data);
+    setInitialStores(data);
   }
 
   function setOneState(data) {
     // console.log("부모에게 도달!");
-    setState(data);
     // console.log(state);
+    setState(data);
   }
 
   function setOneDistrict(data) {
     // console.log("부모에게 도달!");
-    setDistrict(data);
     // console.log(district);
+    setDistrict(data);
   }
 
   function setChosenCategories(data) {
-    console.log("부모에게 도달!");
-    setFilter(data);
+    // console.log("부모에게 도달!");
     // console.log("filter: " + filter);
+    setFilter(data);
   }
 
   useEffect(() => {
     // setStores(storelist); // 보여져야 할 부분
-    setInitialStores(storelist);
+    if (filter === undefined || filter.length === 0) {
+      setInitialStores(storelist);
+    }
+    console.log(initialStores);
+    console.log(storelist);
 
     if (initialStores !== undefined) {
       setLoading(true);
@@ -76,9 +81,7 @@ export default function LeftMenu({ storelist }) {
         );
       });
       // console.log(filteredStores);
-      setStorelist(filteredStores);
-
-      // console.log(storelist);
+      setStores(filteredStores);
     }
   }, [storelist, filter]);
 

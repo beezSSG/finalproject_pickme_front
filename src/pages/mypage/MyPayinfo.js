@@ -47,7 +47,7 @@ export default function MyPayinfo({whereHandle}) {
       });
       return;
     } else {
-        await axios.post("mypage/MyOrdersList", null, {params:{"date":date}})
+        await axios.post("mypage/cancelMyOrder", null, {params:{"date":date}})
         .then(()=>{
           Toast.fire({
             icon: 'success',

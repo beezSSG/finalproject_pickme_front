@@ -327,7 +327,7 @@ export default function MyCart(prop) {
               <td colSpan="2">
                 <input type="checkbox" onChange={(e) => allCheckHandler(e.target.checked)} checked={checkItems.length === cart.length ? true : false } />
                 <span>&nbsp;전체선택</span>
-                <button onClick={test}>test</button>
+                {/* <button onClick={test}>test</button> */}
               </td>
               <td colSpan="3"></td>
               <td colSpan="2" className="group text-right">

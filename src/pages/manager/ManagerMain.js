@@ -37,9 +37,9 @@ function ManagerMain({ height }) {
     { title: "발주 목록", path: "/manager/managerpurchaseorder" },
     { title: "신제품", path: "/manager/newproductinsert" },
     { title: "쿠폰생성", path: "/manager/coupon" },
+    { title: "사업자 등록", path: "/manager/ocrlist" },
     { title: "자주묻는질문", path: "/manager/faq" },
     { title: "1:1 문의", path: "/manager/contactus" },
-    { title: "사업자 등록", path: "/manager/ocrlist" },
   ];
 
   const iconComponents = [
