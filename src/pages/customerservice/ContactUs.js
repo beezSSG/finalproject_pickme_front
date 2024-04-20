@@ -5,7 +5,6 @@ import { RiCustomerService2Fill } from "react-icons/ri";
 
 function ContactUs() {
   let navigate = useNavigate();
-
   let adminName = localStorage.getItem("name");
 
   const [id, setId] = useState("");
