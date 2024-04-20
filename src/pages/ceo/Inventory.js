@@ -5,6 +5,8 @@ import Pagination from "react-js-pagination";
 export default function Inventory() {
   const [inventory, setInventory] = useState([]);
   const [search, setSearch] = useState("");
+  const [switching, setSwitching] = useState(true);
+  const [exp, setExp] = useState("");
 
   // 페이징
   const [page, setPage] = useState(1);
@@ -14,9 +16,9 @@ export default function Inventory() {
     getInventory("", 0);
   }, []);
 
-  const getInventory = async (s, pn) => {
+  const getInventory = async (s, pn, sw, expday) => {
     await axios
-      .get("/ceo/inventory", { params: { search: s, pageNumber: pn } })
+      .get("/ceo/inventory", { params: { search: s, pageNumber: pn, switching:sw, exp:expday } })
       .then((response) => {
         console.log(response.data);
         setInventory(response.data.invenlist);
@@ -28,10 +30,18 @@ export default function Inventory() {
   };
   function handlePageChange(page) {
     setPage(page);
-    getInventory(search, page - 1);
+    console.log(switching);
+    getInventory(search, page - 1, switching, exp);
   }
   function searchBtn() {
-    getInventory(search, 0);
+    console.log(switching);
+    getInventory(search, 0, switching, exp);
+  }
+
+  function expBtn() {
+    setSwitching(!switching);
+    setExp(1);
+    getInventory(search, 0, !switching, 1);
   }
 
   return (
@@ -62,7 +72,7 @@ export default function Inventory() {
             <th className="w-1/2 py-1">상품 이름</th>
             <th className="w-1/5 py-2">가격</th>
             <th className="w-1/4 py-2">수량</th>
-            <th className="w-1/4 py-2">소비기한</th>
+            <th className="w-1/4 py-2">소비기한<button onClick={expBtn}>정렬</button></th>
           </tr>
         </thead>
         <tbody>

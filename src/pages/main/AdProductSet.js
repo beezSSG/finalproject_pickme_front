@@ -23,7 +23,7 @@ const tags = [
   },
   {
     id: 3,
-    name: "신상품",
+    name: "HOT",
   },
 ];
 
