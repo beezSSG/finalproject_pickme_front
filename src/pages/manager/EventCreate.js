@@ -49,6 +49,7 @@ function EventCreate() {
 
     // 짐을 싼다
     let formData = new FormData();
+    formData.append("title", title);
     formData.append("startDate", startDateTime);
     formData.append("endDate", endDateTime);
     formData.append("uploadfile1", file1);
