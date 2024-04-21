@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Modal, Button } from "antd";
 import axios from "axios";
+import Toast from "../public/Toast";
+
 
 export default function Pocheckmodal({ getPolist, po }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -41,7 +43,11 @@ export default function Pocheckmodal({ getPolist, po }) {
     axios
       .post("ceo/deleteProduct", null, { params: params })
       .then((resp) => {
-        getPolist("", "", 0);
+        Toast.fire({
+          icon: 'success',
+          title: "발주한 내역을 최종 확인하였습니다.",
+        });
+        getPolist("", 0);
       })
       .catch((err) => {
         // 오류가 발생했을 때의 처리
