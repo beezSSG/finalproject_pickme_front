@@ -55,7 +55,7 @@ function NewproductInsert() {
       .post("product/newproductinsert", formData)
       .then((res) => {
         console.log(res.data);
-        navigate("/productlist");
+        navigate("/productlist/0");
       })
       .catch((err) => {
         console.log(err);
