@@ -56,7 +56,7 @@ function ContactUs() {
   useEffect(() => {
     ccblistup();
 
-    if (localStorage.getItem("jwt") !== null) {
+    if (sessionStorage.getItem("jwt") !== null) {
       getid();
     }
 
