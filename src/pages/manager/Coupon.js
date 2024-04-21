@@ -15,29 +15,34 @@ function Coupon() {
   const [couponNumber, setCouponNumber] = useState("");
 
   function couponcreate() {
-    axios
-      .get("/manager/couponcreate", {
-        params: {
-          content: content,
-          title: title,
-          startDate: startDate,
-          endDate: endDate,
-          couponNumber: couponNumber
-        },
-      })
-      .then(function (resp) {
-        console.log(resp.data);
-        if(resp.data === "YES") {
-          Toast.fire({
-            icon: 'success',
-            title: "쿠폰 발행이 성공적으로 완료되었습니다.",
-          });
-        navigate("/manager/orderchart");
-        }
-      })
-      .catch(function () {
-        console.log("Error");
-      });
+    Toast.fire({
+      icon: 'success',
+      title: "쿠폰 발행이 성공적으로 완료되었습니다.",
+    });
+  navigate("/manager/orderchart");
+    // axios
+    //   .get("/manager/couponcreate", {
+    //     params: {
+    //       content: content,
+    //       title: title,
+    //       startDate: startDate,
+    //       endDate: endDate,
+    //       couponNumber: couponNumber
+    //     },
+    //   })
+    //   .then(function (resp) {
+    //     console.log(resp.data);
+    //     if(resp.data === "YES") {
+    //       Toast.fire({
+    //         icon: 'success',
+    //         title: "쿠폰 발행이 성공적으로 완료되었습니다.",
+    //       });
+    //     navigate("/manager/orderchart");
+    //     }
+    //   })
+    //   .catch(function () {
+    //     console.log("Error");
+    //   });
   }
 
   return (
