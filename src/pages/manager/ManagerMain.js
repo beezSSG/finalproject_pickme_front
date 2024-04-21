@@ -45,7 +45,6 @@ function ManagerMain({ height }) {
     <RiDashboardFill />,
     <FaGift />,
     <IoReceiptSharp />,
-    <MdProductionQuantityLimits />,
     <RiCoupon3Fill />,
     <FaQuestion />,
     <RiCustomerService2Fill />,
