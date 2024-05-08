@@ -20,12 +20,9 @@
 ---
 
 ## Git Convention
+[PR convention 확인하러가기](.github/pull_request_template.md) 
 
-
-## Code Convention 
-
-
-# API NEEDS
+[Commit convention 확인하러가기](.github/ISSUE_TEMPLATE/custom.md)
 
 ---
 
