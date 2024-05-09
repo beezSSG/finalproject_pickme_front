@@ -40,7 +40,10 @@
 
 ✅ 메서드, 훅, 변수는 camelCase/ path, asset 파일명은 모두 __소문자__ 로만
 
+---
 
+## 🖲️ API & LIB Needs
+[사용한 API & LIB 보러가기 👆](install.md)
 
 ---
 
