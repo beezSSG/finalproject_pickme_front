@@ -46,6 +46,8 @@ function App() {
 }
 ```
 
+## LIB
+
 ```bash
 
 # 사용하지 않는 모듈 삭제
@@ -53,6 +55,9 @@ npm uninstall react-material-ui-carousel
 npm uninstall tw-elements
 npm uninstall slider
 npm uninstall flowbite flowbite-react
+
+# Axios
+npm i axios
 
 # 지도 이벤트에 필요
 npm install react-hook-geolocation
@@ -66,7 +71,7 @@ npm install swiper
 # 페이지네이션
 npm install react-js-pagination
 
-# 리엑트 아이콘
+# 리액트 아이콘
 npm install react-icons --save
 
 # pretendard 폰트 (기본 폰트로 사용할 것임)
@@ -75,16 +80,16 @@ npm install pretendard
 # tailwind ui lib
 npm install @headlessui/react
 
-# 리엑트 무한 스크롤
+# 리액트 무한 스크롤
 npm install --save react-infinite-scroll-component
 
 # 리액트 js바코드
 npm install Jsbarcode
 
-# 파이어베이스
+# 파이어베이스 (pwa)
 npm install firebase
 
-# 부트페이
+# 부트페이 (결제 시스템)
 npm install bootpay
 
 # 날짜계산
