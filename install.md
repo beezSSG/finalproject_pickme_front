@@ -84,7 +84,7 @@ npm install @headlessui/react
 npm install --save react-infinite-scroll-component
 
 # 리액트 js바코드
-npm install Jsbarcode
+npm install JsBarcode
 
 # 파이어베이스 (pwa)
 npm install firebase
