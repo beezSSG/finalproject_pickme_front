@@ -56,8 +56,11 @@ npm uninstall tw-elements
 npm uninstall slider
 npm uninstall flowbite flowbite-react
 
+# React router
+npm install react-router-dom
+
 # Axios
-npm i axios
+npm install axios
 
 # 지도 이벤트에 필요
 npm install react-hook-geolocation
@@ -84,7 +87,7 @@ npm install @headlessui/react
 npm install --save react-infinite-scroll-component
 
 # 리액트 js바코드
-npm install JsBarcode
+npm install jsbarcode --save
 
 # 파이어베이스 (pwa)
 npm install firebase
@@ -94,5 +97,17 @@ npm install bootpay
 
 # 날짜계산
 npm install moment
+
+# antd
+npm install antd
+
+# 차트.js
+npm install react-chartjs-2 chart.js
+
+# 헤드리스ui
+npm install @headlessui/react
+
+# sweetalert2
+npm install sweetalert2
 
 ```
